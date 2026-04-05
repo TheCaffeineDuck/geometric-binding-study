@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ## Reproducing Results
 
-Run all paper results in sequence (~24 hours on 4 P-cores):
+Run all paper results in sequence (~26 hours on 4 P-cores):
 ```bash
 bash studies/reproduce_all.sh
 ```
@@ -31,7 +31,8 @@ Individual tables:
 | Paper Section | Script | Est. Time |
 |---|---|---|
 | Sec 2.3 — Isolated baseline | `studies/01_single_reference.py` | 5 min |
-| Table 1 — Pairwise cosine | `studies/10_continuous_phase.py` | 30 min |
+| Table 1a — Pairwise cosine | `studies/10_continuous_phase.py` | 30 min |
+| Table 1b — Distance dependence | `studies/distance_sweep.py` | 1 hr |
 | Table 2 — Cube binding | `studies/02a_cube_phase2.py`, `02c_*`, `cube_polarized_T1_CE12.py` | 45 min |
 | Table 2 — Icosahedron | `studies/02b_icosahedron_phase2.py` | 60 min |
 | Table 2 — Tet + Oct | `studies/04_new_geometries.py` | 30 min |
@@ -40,6 +41,7 @@ Individual tables:
 | Table 4 — Variance rule | `studies/07b_ico_ce15_variants.py` | 45 min |
 | Sec 8.1 — N=128 resolution | `studies/08_convergence_N128.py`, `09_selection_rule_N128.py` | 4 hrs |
 | Sec 8.2–8.3 — Spacing + T=2000 | `studies/phase7bc_edge_length_and_extended.py` | 3 hrs |
+| Sec 8.3 — Centroid tracking | `studies/centroid_tracking.py` | 1 hr |
 | Table 5 — Self-organization | `studies/phase12_self_organization.py` | 14 hrs |
 
 ## Parameter Sets
