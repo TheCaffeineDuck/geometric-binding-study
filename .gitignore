@@ -1,6 +1,6 @@
 # =============================================================
 # Geometric Selection Rules for Multi-Oscillon Cluster Stability
-# Tracks ONLY files supporting paper_draft_v9.md
+# Tracks code, data, and paper PDF
 # =============================================================
 
 # --- System / environment ---
@@ -50,15 +50,19 @@ outputs/*
 !outputs/centroid_tracking/**
 !outputs/distance_sweep/
 !outputs/distance_sweep/**
+!outputs/boundary_test/
+!outputs/boundary_test/**
+!outputs/dissipation_test/
+!outputs/dissipation_test/**
+!outputs/threshold_robustness/
+!outputs/threshold_robustness/**
 
 # --- Obsolete paper versions ---
-paper/paper_draft_v8.md
+paper_draft_*.md
+paper/paper_draft_*.md
 
 # --- Obsolete files at repo root ---
 README_2026-03-15.md
-paper_draft_v5.md
-paper_draft_v6.md
-paper_draft_v7.md
 session_results_*.md
 
 # --- Documentation originals (copies live in docs/) ---

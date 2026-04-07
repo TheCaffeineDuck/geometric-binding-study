@@ -1,0 +1,29 @@
+{
+  "test": "boundary_condition",
+  "description": "L=100 vs L=50, same dx=0.78125",
+  "parameters": {
+    "N_grid": 128,
+    "L": 100.0,
+    "L_standard": 50.0,
+    "dx": 0.78125,
+    "T_end": 500.0
+  },
+  "results": {
+    "cube_checkerboard": {
+      "E_bind_L50": -51.53,
+      "E_bind_L100": -51.52698647157551,
+      "pct_change": 0.005848104840848456,
+      "verdict": "PASS"
+    },
+    "ico_ce20": {
+      "E_bind_L50": -50.11,
+      "E_bind_L100": -50.108163364523506,
+      "pct_change": 0.0036652074964949066,
+      "verdict": "PASS"
+    }
+  },
+  "overall_verdict": "PASS",
+  "wall_time_total": 9123.062904082937,
+  "wall_time_baseline": 4920.742170582991,
+  "wall_time_clusters": 4202.320567709045
+}

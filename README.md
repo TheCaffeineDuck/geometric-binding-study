@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ## Reproducing Results
 
-Run all paper results in sequence (~26 hours on 4 P-cores):
+Run all paper results in sequence (~28 hours on 4 P-cores):
 ```bash
 bash studies/reproduce_all.sh
 ```
@@ -43,6 +43,9 @@ Individual tables:
 | Sec 8.2–8.3 — Spacing + T=2000 | `studies/phase7bc_edge_length_and_extended.py` | 3 hrs |
 | Sec 8.3 — Centroid tracking | `studies/centroid_tracking.py` | 1 hr |
 | Table 5 — Self-organization | `studies/phase12_self_organization.py` | 14 hrs |
+| Sec 8.6 — Boundary test | `studies/boundary_test.py` | 30 min |
+| Sec 8.7 — Dissipation test | `studies/dissipation_test.py` | 1 hr |
+| Sec 8.6–8.7 — Threshold robustness | `studies/threshold_robustness.py` | 30 min |
 
 ## Parameter Sets
 
@@ -66,6 +69,14 @@ outputs/         — Simulation results (JSON)
 paper/           — Paper draft
 docs/            — Compute guidelines, literature review
 ```
+
+## Robustness Tests
+
+Three additional tests (Sections 8.6–8.7) confirm the selection rule is not an artifact of simulation parameters:
+
+- **Boundary condition test** (`boundary_test.py`): Re-ran 6 configurations (including near-threshold cases) on an L=100, N=128 grid (vs. standard L=50, N=64). Binding energy change: 0.0% across all configs. Periodic boundary conditions do not influence the results.
+- **Dissipation test** (`dissipation_test.py`): Compared sigma=0 (no Kreiss-Oliger dissipation) vs. sigma=0.01 (standard) over 10 seeds. Self-organization is 8x stronger without dissipation. Dissipation damps but does not drive anti-phase drift.
+- **Threshold robustness test** (`threshold_robustness.py`): Tested 4 marginal configurations under both large-box and no-dissipation conditions. All 8/8 binding-energy signs preserved, maximum change < 0.3%.
 
 ## Hardware
 
