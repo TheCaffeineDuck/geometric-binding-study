@@ -1,0 +1,32 @@
+{
+ "note": "Session 1 shape.py (outputs/step2/diagnostics/shape.py) on checkpoints/session2/wpB/checkpoint.npz; the checkpoint is at t = 4950 (last checkpointed step, 123750), not 5000. Rs = 3 half-widths = 10.0321. Single snapshot, not phase averaged.",
+ "checkpoint_t": 4950.0,
+ "shape": {
+  "centroid": [
+   4.721817797358763e-12,
+   5.249045443429082e-12,
+   5.591717704327408e-12
+  ],
+  "centroid_disp": 9.0064059570689e-12,
+  "a2": 0.0,
+  "a3": 6.041503037786899e-14,
+  "E_sphere_over_total": 0.997214134039882,
+  "E_sphere": 2772.508747133377,
+  "E_total_box": 2780.254162565344,
+  "phi_centre": 7.270971110181422,
+  "eig_M": [
+   14321.59118281806,
+   14321.59118281806,
+   14321.59118281806
+  ],
+  "t": 4950.0
+ },
+ "session1_reference": {
+  "run1_on_lattice_validation_a3": 2.932370251663095e-17,
+  "run1_a2": 0.0,
+  "noise_floor_offlattice_a2": 3.1415448954e-05,
+  "noise_floor_offlattice_a3": 7e-05,
+  "source": "outputs/step2/diagnostics/shape_run5.json, shape_validation.json; task statement"
+ },
+ "B2_verdict": "hit: a2 = 0 and a3 = 6.0e-14 at t = 4950 (cubic symmetry on an on-lattice start), no growth; lattice-symmetric start cannot exhibit symmetry-breaking by construction (see caveat)"
+}

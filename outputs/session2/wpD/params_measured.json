@@ -1,0 +1,14 @@
+{
+ "source": "params_default.json with kappa = 0.41721 and A = sqrt(21136.56/(2 pi)) from the WP-C pair batch (outputs/session2/wpC/analysis/criteria.json row C3, kappa_measure_i: kappa 0.41721, C 21136.56). E, N, hw, omega, domega_dN unchanged from the default: the batch fits only the pair-law shape (kappa, C), and does not measure these better than the single-lump family does.",
+ "A": 57.99989658575635,
+ "kappa": 0.41721,
+ "E": 2801.6838149373493,
+ "N": 2865.545211117668,
+ "hw": 3.344038183621855,
+ "omega": 0.909149280617113,
+ "domega_dN": -2.22827996225046e-05,
+ "beta": 1.3333333333333333,
+ "m": 1.0,
+ "g4": 0.3,
+ "g6": 0.12
+}

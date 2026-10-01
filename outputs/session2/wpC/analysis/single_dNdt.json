@@ -1,0 +1,147 @@
+{
+ "window": [
+  15.0,
+  60.0
+ ],
+ "singles": {
+  "single_x12_t00.0": {
+   "dNdt": 0.022262699341253904,
+   "dNdt_on_pair_grid": 0.022211031725982256,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2891.656141725365,
+   "N_last": 2892.3208059575695
+  },
+  "single_x12_t22.5": {
+   "dNdt": 0.09671111149218539,
+   "dNdt_on_pair_grid": 0.0864261696010219,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2900.5660675420054,
+   "N_last": 2905.406050317906
+  },
+  "single_x12_t45.0": {
+   "dNdt": 0.08527306992810198,
+   "dNdt_on_pair_grid": 0.12067629657116564,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2925.467467571906,
+   "N_last": 2927.101815379553
+  },
+  "single_x12_t67.5": {
+   "dNdt": -0.024918575504937934,
+   "dNdt_on_pair_grid": 0.0005400223301429111,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2781.517461008835,
+   "N_last": 2779.808602967514
+  },
+  "single_x12_tm22.5": {
+   "dNdt": -0.04413362870988035,
+   "dNdt_on_pair_grid": -0.04412633389079379,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2914.391330630902,
+   "N_last": 2910.680777814637
+  },
+  "single_x12_tm45.0": {
+   "dNdt": -0.03618888853721513,
+   "dNdt_on_pair_grid": -0.04394572924123843,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2934.7537483234346,
+   "N_last": 2930.933580062506
+  },
+  "single_x12_tm67.5": {
+   "dNdt": -0.06478352182149093,
+   "dNdt_on_pair_grid": -0.06013822220770977,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2783.761175289109,
+   "N_last": 2780.300187672787
+  }
+ },
+ "pairs_d24_lumps": {
+  "pair_d24_p000_lump0": {
+   "dNdt": 0.022017953851853747,
+   "dNdt_on_pair_grid": 0.021979875728517256,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2892.2459149290453,
+   "N_last": 2892.774993353992
+  },
+  "pair_d24_p000_lump1": {
+   "dNdt": 0.022017953851847197,
+   "dNdt_on_pair_grid": 0.021979875728517256,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2892.2459149290453,
+   "N_last": 2892.774993353992
+  },
+  "pair_d24_p045_lump0": {
+   "dNdt": -0.02115434682403222,
+   "dNdt_on_pair_grid": -0.02115434682403222,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2915.1663646185966,
+   "N_last": 2912.665684417752
+  },
+  "pair_d24_p045_lump1": {
+   "dNdt": 0.06331849239937619,
+   "dNdt_on_pair_grid": 0.05265569608229859,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2900.5571966954844,
+   "N_last": 2904.102838528873
+  },
+  "pair_d24_p090_lump0": {
+   "dNdt": 0.0021915131813974227,
+   "dNdt_on_pair_grid": -0.005475299095618066,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2935.427046740979,
+   "N_last": 2933.3489937527906
+  },
+  "pair_d24_p090_lump1": {
+   "dNdt": 0.04077342940314103,
+   "dNdt_on_pair_grid": 0.07666885183369193,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2925.114375990642,
+   "N_last": 2924.8513425612837
+  },
+  "pair_d24_p135_lump0": {
+   "dNdt": -0.036421626201510314,
+   "dNdt_on_pair_grid": -0.031620184063983536,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2783.979613968132,
+   "N_last": 2781.6328002182872
+  },
+  "pair_d24_p135_lump1": {
+   "dNdt": -0.05380424729195632,
+   "dNdt_on_pair_grid": -0.028071102030955433,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2780.5508893324027,
+   "N_last": 2777.750443519401
+  },
+  "pair_d24_p180_lump0": {
+   "dNdt": 0.018738071611528347,
+   "dNdt_on_pair_grid": 0.018517028868848172,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2891.117218696745,
+   "N_last": 2891.898056869303
+  },
+  "pair_d24_p180_lump1": {
+   "dNdt": 0.018738071611482495,
+   "dNdt_on_pair_grid": 0.01851702886878342,
+   "n_samples_window": 13,
+   "n_samples_pair_grid": 13,
+   "N_first": 2891.117218696745,
+   "N_last": 2891.898056869303
+  }
+ },
+ "grid_note": "dNdt_on_pair_grid: single N interpolated onto the N-sample times of pair_d24_p045 lump 0 (as postprocess.nflow_singles does), slope over the window"
+}

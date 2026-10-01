@@ -42,6 +42,9 @@
   "single_x12_t22.5",
   "single_x12_t45.0",
   "single_x12_t67.5",
+  "single_x12_tm22.5",
+  "single_x12_tm45.0",
+  "single_x12_tm67.5",
   "twin_d16_p000",
   "twin_d20_p000",
   "twin_d24_p000"
@@ -126,7 +129,12 @@
    "rate_over_record": 0.8804429561826959,
    "pred_with_measured_inputs": 0.038175991348422256,
    "reported_not_judged_singles_subtracted": {
-    "note": "single-lump run missing for phase(s) [-45.0] deg"
+    "antisymmetric_rate": 0.041242813872826245,
+    "singles": [
+     "single_x12_tm45.0",
+     "single_x12_t45.0"
+    ],
+    "pred": 0.038175991348422256
    },
    "hit": false
   },
@@ -677,7 +685,12 @@
      "rate_over_record": 0.9756627635223898,
      "pred_with_measured_inputs": 1.6056673538868294,
      "reported_not_judged_singles_subtracted": {
-      "note": "single-lump run missing for phase(s) [-45.0] deg"
+      "antisymmetric_rate": 1.6452689982217366,
+      "singles": [
+       "single_x12_tm45.0",
+       "single_x12_t45.0"
+      ],
+      "pred": 1.6056673538868294
      },
      "hit": true
     },
@@ -693,7 +706,12 @@
      "rate_over_record": 0.7232570679216767,
      "pred_with_measured_inputs": 0.24327832623135753,
      "reported_not_judged_singles_subtracted": {
-      "note": "single-lump run missing for phase(s) [-45.0] deg"
+      "antisymmetric_rate": 0.25113144957643224,
+      "singles": [
+       "single_x12_tm45.0",
+       "single_x12_t45.0"
+      ],
+      "pred": 0.24327832623135753
      },
      "hit": true
     },
@@ -709,7 +727,12 @@
      "rate_over_record": 0.8804429561826959,
      "pred_with_measured_inputs": 0.038175991348422256,
      "reported_not_judged_singles_subtracted": {
-      "note": "single-lump run missing for phase(s) [-45.0] deg"
+      "antisymmetric_rate": 0.041242813872826245,
+      "singles": [
+       "single_x12_tm45.0",
+       "single_x12_t45.0"
+      ],
+      "pred": 0.038175991348422256
      },
      "hit": false
     }
@@ -727,7 +750,12 @@
      "rate_over_record": 0.8804429561826959,
      "pred_with_measured_inputs": 0.038175991348422256,
      "reported_not_judged_singles_subtracted": {
-      "note": "single-lump run missing for phase(s) [-45.0] deg"
+      "antisymmetric_rate": 0.041242813872826245,
+      "singles": [
+       "single_x12_tm45.0",
+       "single_x12_t45.0"
+      ],
+      "pred": 0.038175991348422256
      },
      "hit": false
     }
