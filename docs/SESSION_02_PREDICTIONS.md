@@ -37,7 +37,7 @@ Initial data for phase theta: phi = Phi(r) cos(theta), phi_t = -omega Phi(r) sin
 | C0a | theta = 180 equals theta = 0 to rounding | phi -> -phi is an exact symmetry | — |
 | C0b | theta = 45, 90, 135 pass, with differences of order 1e-3 or less | early shedding at beta = 4/3 is 0.03% (F-002 D3), so the start phase changes little | A phi_t = 0 single-frequency start is not the quasi-breather (van Dissel 2023, `READ`). Pair runs in the literature use phase-shifted copies (Amin & Mou 2020, Xue 2025, `READ`). No source for phase dependence of the settling |
 
-## Block 1b. WP-A supplement. Written 2026-10-02 00:20 (+07), before the supplement runs
+## Block 1b. WP-A supplement. Written 2026-10-02 00:12 (+07), before the supplement runs
 
 What I know when writing this: the first sweep (18 long runs to T = 30,000, `outputs/session2/wpA/lifetime_table.json`). Above beta = 4/3 every best start is alive at the cap, so the sweep cannot rank those beta values by measurement. The supplement extends the best starts at beta = 4/3, 1.6, 2.0, 3.0 and 5.0 to T = 300,000 (a deviation from the plan's cap, to answer its question "is there a beta where a lone lump is effectively permanent"), and adds the reviewer's safeguard starts and matched-size starts.
 
