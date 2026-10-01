@@ -2,7 +2,7 @@
 
 Resume file. Updated by the orchestrator after each package. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`.
 
-Last update: 2026-10-02 00:15 (+07). WP0, WP-S done. WP-A sweep done, supplement running. WP-B running (T about 2000 of 5000). WP-C: gate runs on AWS, analysis script being revised. Reviews of both builds done. Ledger at F-009.
+Last update: 2026-10-02 00:35 (+07). WP0, WP-S done. WP-A supplement running. WP-B running. WP-C gate passed, pair runs on AWS, analysis script v2 merged (6952af4). WP-D maths and WP-E tooling builds running. Ledger at F-009; A3 misses still to enter.
 
 **Stop-condition note (plan section 4).** The phase control missed at theta = 90 only. The plan's control is over the phases used, and the redesigned batch uses none that fails, so I read the stop as not triggered; the 3D gate (G1, G2 in the predictions file) must pass before pair runs start. WP-D and WP-E go ahead only if the gate passes and the measured force agrees with the derivation in sign. This reading is flagged to Aaron and goes in the report as a deviation.
 
@@ -18,8 +18,8 @@ WP-A sweep command (resumes if rerun), from the repo root:
 | WP-A lifetime map | numerics build, then runner | **first sweep done and committed** (7 rate maps, 18 long runs, `lifetime_table.json`); supplement running (extension of the best starts to T = 300,000, matched-size starts, grid-edge and dip-midpoint starts; log `logs/session2/wpa_supp.log`; output `lifetime_table_v2.json`). Results so far: lifetime rises with beta with no fall to beta = 5; T_death 868 / 3327 / 8868 at beta 0.75 / 0.85 / 1.0; 28,052 at 1.15; every best start at beta >= 4/3 is alive at T = 30,000 (frac 0.997 at 4/3 from omega 0.9065, 0.9945, 0.990, 0.967 to 0.997, 0.969 to 0.999 at 1.6, 2, 3, 5). A1 MISSED (F-007). A2 hit to the cap. A2-CD miss. A3 misses at beta 0.75 (868 against 350 to 600) and 1.15 (T_90 27,231 against 3,000 to 15,000). A4 hit for the lowest-rate pick; the path-integral pick fails at 1.6 and 2.0 (0.79). A5 untested. Doubled box at beta = 5 to T = 30,000: 6.6e-6. Review done; F-007, F-008 written | `outputs/session2/wpA/`, `docs/WPA_BUILD_NOTES.md` |
 | WP-B 3D primary to T = 5000 | runner | **running detached**, started 22:28, expected finish about 02:40. Collection and the isotropy check (B2) still to do | `outputs/session2/wpB/` |
 | WP-C two-body law | numerics build, then runner or cloud | **build done and merged** (a41254e). Derivation confirms U = -2 pi A^2 cos(dphi) exp(-kappa d)/d; exact force has an extra 1/d^2 term. Radial phase control: passes at 0, +-22.5, +-45, +-67.5, 135, 180; MISSES at 90 (dfrac 2.46e-2 at T = 1000 against 0.01; a lighter lump, cause diagnosed). Pair design changed to symmetric phases so no 90-degree start is used. Predictions Block 2 committed (d17e208). Batch of 24 runs handed to cloud, gate runs first; review of the diff in progress | `outputs/session2/wpC/`, `docs/WPC_DERIVATION.md`, `docs/WPC_BUILD_NOTES.md` |
-| WP-D arrangement maths | numerics | waits for WP-C | `outputs/session2/wpD/` |
-| WP-E arrangement 3D tests | runner or cloud | waits for WP-C, WP-D | `outputs/session2/wpE/` |
+| WP-D arrangement maths | numerics | **build running** (point-lump model with positions, phases and N; new package `swirl/arrange/`). Uses the derived law now; the scan is to be rerun with the measured law when the pair batch is back | `outputs/session2/wpD/`, `docs/WPD_NOTES.md` |
+| WP-E arrangement 3D tests | numerics tooling, then cloud | **tooling build running** (snapshot starts so that lumps at any phase are identical, K-lump diagnostics, angular-momentum fix, configs and post-processing). No arrangement run until Block 3 of the predictions is written and C1 (force sign) is confirmed by the pair batch | `outputs/session2/wpE/`, `docs/WPE_BUILD_NOTES.md` |
 | WP-F review and report | reviewer, scholar, orchestrator | waits | `docs/SESSION_02_REPORT.md` |
 
 ## Running now
@@ -41,7 +41,7 @@ WP-A sweep command (resumes if rerun), from the repo root:
 - Cleanup if abandoned: terminate the instance; empty and delete the bucket; remove the role from the profile, delete the profile, detach AmazonSSMManagedInstanceCore, delete inline policy `s3bucket`, delete the role; delete the security group. Then add the ledger row.
 - Cost so far about 0.7 USD (c8g 0.9 h, plus a 9-minute c7i benchmark instance, already terminated). Ledger row not yet written; ledger file still says 2.80.
 - Benchmark at N = 160: c8g.4xlarge 33.5 steps/s total with 8 jobs x 2 threads; c7i.4xlarge 15.5. Engine tests on the c8g: 41 passed, 1 xfailed.
-- Gate evaluation: `.venv/bin/python outputs/session2/wpC/gate_eval.py --results <dir>` writes `gate.json` (criteria G1, G2 in the predictions file). No pair run starts unless it passes.
+- **Gate PASSED (00:25 +07, 3D single-lump runs at x = 12).** G1 centroid drift 2.9e-5 against 0.01. G2 worst frac difference 5.35e-3 (67.5 degrees, T = 500) against 0.01; worst omega difference 0.00275 against 0.005; no death. Pair runs may start.
 - Plan after a pass: second c8g.4xlarge, 17 remaining configs split over the two, about 90 minutes, about 2.5 USD in total.
 
 ## Notes for a resuming session
