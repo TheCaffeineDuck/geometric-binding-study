@@ -2,7 +2,7 @@
 
 Resume file. Updated by the orchestrator after each package. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`.
 
-Last update: 2026-10-02 01:20 (+07). WP0, WP-S done. WP-A supplement running. WP-B running. WP-C pair runs on AWS (gate passed; 8 of 24 results back). WP-D merged, under review. WP-E tooling build running. Ledger at F-009; A3 misses still to enter.
+Last update: 2026-10-02 01:30 (+07). AWS SIGN-IN EXPIRED: pair results are in the S3 bucket but cannot be fetched until Aaron runs `aws login --profile swirl`. WP0, WP-S done. WP-A supplement running. WP-B running. WP-D merged, under review. WP-E tooling build running.
 
 **Stop-condition note (plan section 4).** The phase control missed at theta = 90 only. The plan's control is over the phases used, and the redesigned batch uses none that fails, so I read the stop as not triggered; the 3D gate (G1, G2 in the predictions file) must pass before pair runs start. WP-D and WP-E go ahead only if the gate passes and the measured force agrees with the derivation in sign. This reading is flagged to Aaron and goes in the report as a deviation.
 
@@ -34,15 +34,15 @@ WP-A sweep command (resumes if rerun), from the repo root:
 
 ## Rented compute
 
-**LIVE as of 2026-10-01 23:55 (+07). Check and clean up if the session is resumed cold.** us-east-2, profile `swirl`, everything tagged project=swirl.
-- Instance i-0eb9855e4546429f2 (c8g.4xlarge, 0.6358 USD/h, launched 16:23Z, terminate-on-shutdown, dead-man `shutdown -h` at 18:34:48Z = 01:34 +07). Running the WP-C gate runs and three twins since 16:34:48Z; expected done about 17:20Z (00:20 +07).
-- S3 bucket swirl-wpc-156084119557-71737 (code tarball; results, logs, checkpoints synced every 5 min under `A/`).
-- IAM role swirl-wpc-role, instance profile swirl-wpc-profile, security group sg-0fd9e12ecf65ba23b. No key pairs.
-- Cleanup if abandoned: terminate the instance; empty and delete the bucket; remove the role from the profile, delete the profile, detach AmazonSSMManagedInstanceCore, delete inline policy `s3bucket`, delete the role; delete the security group. Then add the ledger row.
-- Cost so far about 0.7 USD (c8g 0.9 h, plus a 9-minute c7i benchmark instance, already terminated). Ledger row not yet written; ledger file still says 2.80.
-- Benchmark at N = 160: c8g.4xlarge 33.5 steps/s total with 8 jobs x 2 threads; c7i.4xlarge 15.5. Engine tests on the c8g: 41 passed, 1 xfailed.
-- **Gate PASSED (00:25 +07, 3D single-lump runs at x = 12).** G1 centroid drift 2.9e-5 against 0.01. G2 worst frac difference 5.35e-3 (67.5 degrees, T = 500) against 0.01; worst omega difference 0.00275 against 0.005; no death. Pair runs may start.
-- Plan after a pass: second c8g.4xlarge, 17 remaining configs split over the two, about 90 minutes, about 2.5 USD in total.
+**BLOCKED since 18:24Z (01:24 +07) on 2026-10-02: the AWS sign-in for profile `swirl` has expired.** Both the CLI and the AWS MCP tool fail. Aaron must run `aws login --profile swirl`. Nobody in the session can check or clean up AWS until then.
+
+Still on AWS (us-east-2, account 156084119557, tagged project=swirl):
+- Instance A i-0eb9855e4546429f2 and instance B i-069c4011d363790e3 (both c8g.4xlarge, 0.6358 USD/h; launched 16:23Z and 17:25Z). **Dead-man timers terminate them at 19:54:50Z and 19:55:20Z (02:55 +07) without any sign-in.** Root volumes delete on termination.
+- S3 bucket swirl-wpc-156084119557-71737: each instance syncs results, logs and checkpoints every 5 minutes to `A/` and `B/`. It survives termination. Role swirl-wpc-role, profile swirl-wpc-profile, security group sg-0fd9e12ecf65ba23b also remain until deleted.
+- State at the last contact (18:15Z): gate passed (G1 2.9e-5; G2 worst 5.35e-3 and 0.00275); 7 runs back on the Mac (4 gate runs, 3 twins); four d = 16 pairs finished on B but not copied; the other pairs at t = 450 of 500; `pair_d16_p180` at 150 of 300; `check_box` at 2500 of 7500 steps and `check_res` at 3750 of 7500. Everything was expected to finish by about 19:00Z, before the timers.
+- Cost so far about 2.0 USD; projected 2.9 to 3.3 USD for the batch (cap 12). Ledger row not yet written; ledger file still says 2.80.
+
+After sign-in (hand to the `cloud` worker): pull `A/results`, `A/logs`, `B/results`, `B/logs` from the bucket into `outputs/session2/wpC/results/` and `logs/`; check all 24 JSONs have `completed: true` (a run cut off by the timer is resumable from its checkpoint in the bucket); run `.venv/bin/python outputs/session2/wpC/postprocess.py`; confirm both instances are terminated; delete the bucket (after the results are verified locally), the role (detach AmazonSSMManagedInstanceCore, delete inline policy `s3bucket`), the instance profile and the security group; verify nothing remains; write the ledger row.
 
 ## Notes for a resuming session
 
