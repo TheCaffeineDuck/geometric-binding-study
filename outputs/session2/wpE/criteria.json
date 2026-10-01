@@ -1,0 +1,13 @@
+{
+ "_note": "Bonded criteria fixed by the orchestrator in SESSION_02_PREDICTIONS.md Block 3 before any arrangement run.",
+ "min_lump_count": "K",
+ "count_key": "count_distinct",
+ "distance_source": "peaks",
+ "nn_distance_min": 0.5,
+ "nn_distance_max": 1.5,
+ "pair_distance_max": null,
+ "relative_to_initial": true,
+ "eval_from": 50.0,
+ "hold_fraction": 0.95,
+ "require_completed": true
+}

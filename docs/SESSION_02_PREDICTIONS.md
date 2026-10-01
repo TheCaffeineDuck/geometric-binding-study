@@ -119,6 +119,44 @@ Source: the independent review of the WP-C code. It ran a single lump at x = +12
 
 Stop rule from the plan, section 4: if the measured pair law contradicts the derivation in sign (C1), stop after WP-C.
 
-## Block 3. WP-E arrangement runs
+## Block 3. WP-E arrangement runs. Written 2026-10-02 02:35 (+07), before any arrangement run
 
-To be written after WP-D and before any arrangement run.
+**What I know when writing this.** The point-lump scan (`docs/WPD_NOTES.md` with its review corrections; `outputs/session2/wpD/predictions_point_model.json`), built on the derived pair law, not yet on the measured one: the rented pair results cannot be fetched (AWS sign-in expired), and a local copy of the d = 16 pair runs is still running. From its logs I have seen only that the in-phase pair has absorbed 811 of its energy by t = 250 and the anti-phase pair 10.6. I have also seen one coarse smoke run from the tooling build (a 3-lump ring with 120 degree steps expanded from spacing 10.4 to 15.5 by t = 60). No arrangement run starts until the local pair runs confirm the sign of the force (C1).
+
+**Starts.** Lumps are copies of one settled lump taken at different times (`swirl/engine/snapshot.py`), so lumps at every phase are the same lump: equal to about 4e-6 in N and 3e-6 in E in the tooling tests, against up to 9.5% for the single-frequency start (F-009). Grid dx = 0.55, dt = 0.04, default sponge, box from the generator's guard.
+
+**Outcome criteria, fixed here** (parameters of `outputs/session2/wpE/criteria.json`). Samples from t = 50 to the end of the run.
+- **Bonded:** the number of distinct lumps found from coordinates equals K, and every lump's nearest-neighbour distance stays between 0.5 and 1.5 times its initial value, in at least 95% of the samples and in the last sample; the run completed.
+- **Merged:** the distinct-lump count is below K at the end.
+- **Flew apart:** the count is K at the end and some nearest-neighbour distance is above 1.5 times its initial value.
+- **Not distinct at the start:** fewer than K distinct lumps in the first count window. Such a start cannot be called bonded whatever follows; what it becomes is described.
+- Anything else is reported as "bounded at T, not bonded" with the trend of the distances.
+- A bonded outcome is not a result until a second run at finer resolution and longer time confirms it (plan, WP-E).
+
+**Runs, in priority order, with the point-model outcome (Model A unless stated) and my prediction.** a is the nearest-neighbour spacing; hw = 3.344. "Contact" is the first time the count drops below K or a pair comes within 2 hw.
+
+| # | Run | T | Point model | Prediction | Tolerance |
+|---|---|---|---|---|---|
+| E1 | 5-ring, 72 degree steps, a = 16 (4.8 hw) | 600 | merger at 276 (B: 286) | merged; contact later than its in-phase control E2 by a factor 1.85; per-lump N equal to 2% and steps within 10 degrees of 72 until t = 100 | contact 190 to 420; factor 1.3 to 2.5 |
+| E2 | 5-ring, all in phase, a = 16 | 400 | merger at 149 | merged | contact 105 to 200 |
+| E3 | 5-ring, 72 degree steps, a = 8.11 (2.43 hw; Model B balance) | 500 | B: merger at 135 | merged by T = 300; not bonded | — |
+| E4 | 5-ring, 72 degree steps, a = 3.02 (0.90 hw; CD's balance, kappa R = 1.07) | 400 | collapse at 12 | fewer than 5 distinct lumps at the start or by t = 50; one object or dispersal; not bonded | — |
+| E5 | 4-ring, alternating 0/180 (mirror control, N15), a = 16 | 500 | flies apart at 230 | flew apart: nearest-neighbour distance passes 1.5 times its start; no merger; per-lump N stay equal | passes 1.5 at 160 to 320 |
+| E6 | 4-ring, 90 degree steps, a = 12 | 600 | flies apart at 318 (B: 292) | flew apart | passes 1.5 at 200 to 450 |
+| E7 | 6-ring, 60 degree steps, a = 7.32 (2.19 hw; Model B balance) | 400 | B: merger at 174 | merged by T = 300; not bonded | — |
+| E8 | octahedron around an anti-phase centre, centre-to-shell 3.82 (1.14 hw; CD's balance, kappa R = 1.59) | 300 | collapse at 17 to 24 | fewer than 7 distinct lumps at the start or by t = 50; not bonded | — |
+| E9 | cube around an anti-phase centre, centre-to-corner 8.51 (2.54 hw; Model A balance) | 400 | merger at 86 | not bonded: merged or flew apart by T = 250 | — |
+| E10 | 8-ring, 90 degree steps (two turns), a = 12 | 500 | merger at 248 | merged | contact 170 to 370 |
+| E11 | 6-ring around an anti-phase centre, R = 15.77 (4.71 hw; Model B balance resting on second-order terms; a probe, not a candidate) | 700 | B: merger at 463 | merged; low confidence | contact 320 to 650 |
+| E12 | 5-ring, phases 0, 0, 180, 180, 0 (rounded control), a = 16 | 400 | merger at 117 | merged (the in-phase neighbours first) | contact 80 to 160 |
+| E13 | 5-ring, 144 degree steps (step above 90, control), a = 16 | 500 | not in the scan; neighbours repel at first order | no merger; expanding: nearest-neighbour distance above 1.2 times its start at T = 500 | — |
+| E14 | 5-ring, 72 degree steps, a = 30 (far-apart control) | 500 | nothing resolves | nothing happens: count 5, distances within 1%, per-lump N equal to 1e-3 | — |
+| E15 | linear twin of E1 (T = 300); resolution check of E3 (dx 0.393); box check of E3 (1.5 times the box) | — | — | twin: no lumps left, group energy below 0.1 by T = 100. Checks: same outcome class as E3, contact time within 15% | — |
+
+| # | Overall prediction | Literature |
+|---|---|---|
+| E-all | **No arrangement is bonded.** Stepped rings below 90 degrees per step end in a delayed merger; rings with steps of 90 degrees or more and patterns with a phase-exchanging mirror plane expand; arrangements at the point-model balances (all in the overlap region) merge or collapse | Optical and 3D cubic-quintic clusters with stepped phases are metastable for a few revolutions and need a complex field (Desyatnikov & Kivshar 2002, Crasovan 2003, `READ`); necklace beams expand (Soljacic 1998, `READ`); no radiation-free bound state with a phase-exchanging mirror plane (N15, derived; Cunha 2022 for complex fields); any pair-law balance with attractive single-lump energy is unstable (N16, derived). No source for real-field oscillon arrangements (S4, searches 41 to 82) |
+| E-rot | Stepped rings carry angular momentum from the start (4 to 13% of N per lump at 4.8 hw by the overlap formula) and it is conserved to the level of the absorbed radiation. I do not predict whether the ring rotates | Optical rings rotate with angular velocity J/I to 2% (Desyatnikov & Kivshar 2002) |
+| E-CD | CD's two numbers: the 5-ring at kappa R = 1.07 and the octahedral shell at kappa R = 1.59 do not hold in 3D (E4, E8) | reproduced in the point model by the scholar and by WP-D; both in the overlap region |
+
+Runs are on the Mac until rented compute is available again; anything not run is listed as pending in the report.
