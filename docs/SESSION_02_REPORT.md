@@ -1,6 +1,6 @@
 # Session 2 report
 
-**DRAFT, 2026-10-02 03:15 (+07). Sections marked PENDING are waiting for runs that are still going or for results held on AWS. `docs/SESSION_02_STATUS.md` says what is running and how to resume.**
+**DRAFT, updated 2026-10-02 05:40 (+07). Sections marked PENDING are waiting for runs that are still going or for results held on AWS. `docs/SESSION_02_STATUS.md` says what is running and how to resume.**
 
 Plan: `docs/SESSION_02_PLAN.md`, WP0 to WP-F. Predictions were written before the runs they refer to, in `docs/SESSION_02_PREDICTIONS.md` (Blocks 1, 1b, 1c, 2, 2a, 2b, 3, 3a; each commit precedes its runs). The failure ledger is `docs/FAILURES.md` (F-007 to F-012 are this session). All work is on `main`; nothing has been pushed.
 
@@ -8,11 +8,11 @@ Units are Set-B-like (m = 1, g4 = 0.30, g6 = 0.09 beta). "frac" is the energy in
 
 ## Verdict
 
-PENDING (needs the pair batch and the arrangement batch). What is already settled:
+PENDING for the arrangement batch. What is already settled:
 
 - **A lone lump can be made to last far longer than Session 1 found, at the same beta.** At beta = 4/3, a start at omega = 0.9065 keeps 0.9946 of its energy to T = 300,000, about 43,000 oscillations. The Session 1 primary (omega = 0.9091) fell below 0.90 at 10,630. Radial runs; the 3D confirmation is running.
 - **Lifetime rises with beta and does not fall anywhere up to beta = 5.** Below 4/3 every lump dies. From 1.15 up the best starts are alive at T = 30,000; at 4/3 and above the best are alive at T = 300,000. No lump is shown to be permanent: at 4/3 and 1.6 the loss rate is still rising; at beta = 5 it is zero within the measurement error.
-- **The pair force is the derived tail law, in sign and size, at the one separation analysed so far (d = 16, local runs).** In phase attracts and merges; anti-phase repels.
+- **The pair force is the derived tail law** in sign, decay constant (0.416 to 0.417 measured against 0.4165), cosine dependence, N flow and phase drift, for separations of 3.6 hw and more, with one unexplained excess (the 45-degree pair at d = 16). In phase attracts and merges; anti-phase repels; anything in between has its phase run toward 180 and ends up repelling. **No pair is bonded.**
 - **In the point-lump model built on that law, no arrangement holds.** Neighbours attract only when their relative phase is unstable, and their relative phase is stable only when they repel.
 - PENDING: whether any arrangement holds in full 3D (WP-E).
 
@@ -67,7 +67,22 @@ Radial solver; 100 long runs to death or T = 30,000 and seven to T = 300,000 (`o
 
 ## 4. 3D primary to T = 5000 (WP-B)
 
-PENDING: the run is at T about 3800 of 5000 (slowed by the load on the Mac). To T = 1000 the 3D and radial curves differ by at most 7.26e-5. The resume from the Session 1 checkpoint was verified bit-identical over T = 950 to 1000.
+The Session 1 primary (beta = 4/3, omega = 0.9091, N = 192, L = 70) was continued from its checkpoint to T = 5000 on the Mac. The resume was verified bit-identical over T = 950 to 1000. `outputs/session2/wpB/compare_radial.json`.
+
+| | 3D | Radial |
+|---|---|---|
+| frac at T = 1000 | 0.994125 | 0.994146 |
+| 2000 | 0.989793 | 0.989803 |
+| 3000 | 0.985703 | 0.985711 |
+| 4000 | 0.981305 | 0.981327 |
+| 5000 | 0.975498 | 0.975532 |
+| omega at T = 5000 | 0.910964 | 0.910964 |
+
+- **B1: hit.** The largest difference over 5001 matched times is 7.26e-5 (at t = 255), against the 1e-3 target. No departure from the radial curve, so no sign of a non-spherical instability in this run. E + absorbed holds to 1.4e-5.
+- **A wrong number inside B1 (F-016).** I wrote that frac(5000) would be about 0.956. It is 0.9755 in both solvers. The 0.956 was an untraced Session 1 number of mine that I reused without checking.
+- **B2: hit, but it could not have failed.** At t = 4950 the shape measures are a2 = 0 and a3 = 6e-14. The run keeps exact cubic symmetry, so anisotropy is zero by construction; only a mode growing from rounding noise would show. Run 5 of Session 1 remains the only test of generic perturbations.
+
+**3D confirmation of the long-lived start (A9): hit.** The beta = 4/3 start at omega = 0.906505, on the N = 128, L = 70 grid to T = 3000, tracks its radial curve to 7.0e-5 (target 1e-3): frac 0.997268 / 0.997275 / 0.996686 at T = 1000 / 2000 / 3000 against 0.997256 / 0.997283 / 0.996683; omega 0.906886 in both; the linear twin is at 0.019 by T = 100; t = 0 energy against the profile quadrature 8.2e-7 (`outputs/session2/wpA/confirm3d/a9_comparison.json`). A 3D confirmation at beta = 5 was not run: no beta beats 4/3 by a wide margin in retained energy at T = 300,000, and the run needs a box of about N = 256 to 288. It is listed as pending in section 12.
 
 ## 5. The two-body law (WP-C)
 
@@ -89,19 +104,50 @@ Done independently of the brief, then compared; re-derived by the reviewer.
 
 ### Pair runs
 
-PENDING for the full table. The 24-run batch ran on AWS; 17 of its results are in the S3 bucket and cannot be fetched until the AWS sign-in is renewed. Local copies of the five d = 16 runs were made on the Mac for the force-sign check.
+15 pairs (d = 16, 20, 24, that is 4.8, 6.0, 7.2 hw; relative phase 0, 45, 90, 135, 180), four single-lump controls, three linear twins, a resolution check and a box check, on AWS; grid N = 160, L = 88, dx = 0.55. Analysis: `outputs/session2/wpC/analysis/criteria.json`. Every number below was recomputed by the reviewer from the result files with its own code (`docs/WPC_BUILD_NOTES.md` section 9). Regime: omega/m 0.908 to 0.913 per lump; nonlinear share 0.35 at its instantaneous maximum; E + absorbed to 1.9e-6.
 
-From the two local runs analysed so far (d = 16, 0 and 180 degrees):
+**What each pair did.**
 
-| Criterion | Measured | Outcome |
-|---|---|---|
-| C1 sign | in phase attracts, anti-phase repels | hit (2 of 15 runs) |
-| C2 early half-space force over prediction, in phase | 0.9999 | hit |
-| C2 centroid track over the point model, in phase | 1.026 | hit |
-| C2 sliding force at t >= 100, in phase | 0.15 | miss, flagged in advance: the only such windows are near contact |
-| C7 contact, in phase | inside the predicted window | hit |
-| C8 anti-phase separates, N equal | yes | hit |
-| C10 no bonded pair | none | hit so far |
+| d | 0 | 45 | 90 | 135 | 180 |
+|---|---|---|---|---|---|
+| 16 | merged, contact at 126.8 | attracted to d = 11.7, then separated (26.2 at the end); phase 48 to 380 | separated (21.5); phase 93 to 215 | separated (25.6) | separated (27.0) |
+| 20 | merged, contact at 347.8 | turned at d = 15.4, 16.8 at T = 500; phase 48 to 189 | separated (22.0); phase 93 to 160 | separated (25.3) | separated (26.3) |
+| 24 | approaching (22.3 at T = 500) | approaching (22.9) | about stationary (24.14); phase 93 to 106.5 | separating (25.1) | separating (25.4) |
+
+**Against the predictions (Block 2 with 2a).**
+
+| # | Prediction | Measured | Outcome |
+|---|---|---|---|
+| C1 | 0 and 45 attract, 135 and 180 repel, at every d | 12 of 12 | hit |
+| C2 | force over prediction = 1 (15% at 0 and 180, 25% at 45 and 135) on both measures | centroid measure 0.90 to 1.06 in all 12; sliding force 1.00 to 1.08 in 9, but worst window 0.148 (d16_0), 0.124 (d20_0), 3.71 (d16_45) | **miss** (F-013) |
+| C3 | kappa = 0.416 +- 0.03 | 0.4172 (reviewer 0.4163); amplitude 2.7 to 4.6% above 2 pi A^2 | hit |
+| C4 | cosine law: slope 1 +- 0.15, intercept 0 +- 0.1 | d = 20: 1.003 / -0.022; d = 24: 1.035 / -0.004; d = 16: 1.206 / 0.152 | **miss at d = 16** (F-013) |
+| C5a | at 90 degrees the force is F0 cos(measured phase) to 0.15 F0 | residual 0.055, 0.040, 0.028 F0 | hit |
+| C5b | at 90 degrees N flows leader to lagger at 1.61, 0.244, 0.038 (direction; rate 30%, early window) | 1.571; 0.176; -0.033 (wrong direction) | **miss at d = 24** (F-014) |
+| C5c | phase runs toward 180: beyond 180, 160, 102 at the end | 215, 160, 107 | hit |
+| C5d | the 90-degree pair ends repelling: shift -2.8, -0.89 | -2.73, -1.00 (and -0.07 at d = 24) | hit |
+| C5-CD | "the leading force vanishes and N flows from one lump to the other" | holds after t = 60; scored a miss with C5b | miss as scored |
+| C6 | 45 degrees: attracts, then reverses; d = 16 separating, d = 20 turning near 17, d = 24 shift 0.59 | separating; 16.8; 0.53 | hit on outcome; the d = 16 shift is 38% short of the point model |
+| C7 | in phase: contact near 126 and 346; d = 24 shift 0.90; merged lump keeps 0.6 to 0.9 | 126.8, 347.8; 0.87; 0.76 | hit |
+| C8 | anti-phase: separated; shifts -5.7, -3.2, -0.71; N equal | -5.45, -3.14, -0.69; equal to 1e-14 | hit |
+| C9 | 135: separated; shifts -4.9, -2.6, -0.52 | -4.75, -2.66, -0.55 | hit |
+| C10 | no pair is bonded | none | hit |
+| C11 | twins: ball energy below 0.05 by T = 100; no centroid attraction | 0.022 to 0.045; centroids close by 1.10 | **miss** on the second half (F-015) |
+| C12 | resolution check within 0.1 in d(t); box check within 0.02 | 1.6e-6; 4.8e-4 (T = 300, box 1.5 times) | hit |
+| C13 | angular momentum zero to noise | 1e-12 after the lever fix (1e-5 before it, an artefact) | hit |
+
+**What the misses are.**
+- **Close range (C2 for the two in-phase pairs, part of C4).** The deciding windows have the lumps 6.8 to 8.4 apart, where the tail law overpredicts by construction; against the full superposition integral the force is 1.00 to 1.04 down to d = 10. I flagged d16_0 before the batch and missed d20_0 and C4.
+- **A real excess in the 45-degree pair at d = 16.** Where its force is largest (t = 135 to 195) it is 1.3 to 1.5 times the law and changes sign at 85 degrees, not 90. By then one lump holds 28% more of the pair's N than the other, beyond the 15% for which the derivation is valid. Cause not identified. I had filed this under "mechanical" before the batch, which was wrong.
+- **N flow at d = 24.** The two lumps of a +45 / -45 pair settle in opposite directions (+0.085 and -0.036 per unit time alone), as large as the 0.038 signal. Single-lump runs at the negative phases were made after the miss: with them subtracted the rate is +0.041 against 0.038 predicted, in the predicted direction. The criterion as written stays a miss.
+- **Linear twins.** They disperse as they should. The "no centroid attraction" clause cannot be measured with ball centroids of a dispersing field (the anti-phase twin closes by the same amount). A clean test that linear lumps do not interact is still missing, so standard 5 is met for dispersal only.
+
+**Three things the pair runs establish beyond the predictions.**
+- **The merged pair is one lump, not yet a settled one.** Its ball energy is 0.76 of the two lumps' and still falling by 0.07% per unit time at the end; omega about 0.885.
+- **No pair turns around twice.** The 45-degree pairs approach, their phase runs past 90, and they are pushed apart: one minimum of d, no maximum. This is the phase instability the derivation predicts, measured.
+- **The pairs carry momentum from the start** when the phases are not 0 or 180: P_x = -omega I(d) sin(dtheta), from the N current between them; the stored values match this to 4 digits.
+
+The scan of WP-D was rerun with the measured law (kappa = 0.41721, amplitude 21,137; `outputs/session2/wpD_measured/`): the same 5 and 23 balances, Model A balances at the same kappa R, times 1 to 3% shorter, and 4 of 288 outcome classes changed, none of them among the runs chosen for 3D.
 
 ## 6. Arrangement search: the maths (WP-D)
 
