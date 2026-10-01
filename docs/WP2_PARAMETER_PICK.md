@@ -55,3 +55,18 @@ Status: subject to the reviewer's independent re-run of the WP1A radial result. 
 - The radial Gamma = 3.0e-6 sits at the E_loc fit's noise floor (about 1e-6 to 3e-6); read it as an upper bound. The match to Ibe 2019 is the dip position (log10 Q = 2.156 vs 2.14), not its depth.
 - Primary Phi(0) in Set-B-like units is 6.8905 (rescaled 3.7741). An orchestrator instruction to the runner wrongly quoted 12.56 (a double unit conversion); the runner caught it, and the configs use the solved table.
 - F2 is recorded as F-002 in `docs/FAILURES.md`, reframed after the review: the stable-branch lumps die by energetic death at E ≈ E_min; the dN/domega criterion is not what failed, the lifetime is.
+
+## Addendum: run 5, generic non-spherical perturbation (added after the WP3 review, before running)
+
+Why: the WP3 reviewer found that runs 1 and 1b keep exact cubic symmetry (energy second-moment tensor isotropic to 6e-17 at t = 950) and run 3 seeds only an axisymmetric l = 2, m = 0 stretch. Modes with l = 1, l = 3 and m != 0 were never seeded, so the Step 2 question ("non-spherical perturbations allowed") was answered only in two symmetry sectors.
+
+Run 5: primary profile (beta = 4/3, omega = 0.9091), N = 128, L = 70 (dx = 0.547; this grid agreed with N = 192 to 1.3e-3 at T = 300), dt = 0.04, T = 1000, default sponge. Lump centred off-lattice at (0.137, -0.071, 0.213). Four perturbing Gaussians, R = 1.0, amplitude +/-0.138 (2% of Phi(0)), phase 0, at (2.5, 0.8, -1.1) +, (-1.2, 2.9, 0.6) +, (0.4, -1.7, 2.6) -, (-2.0, -1.5, -1.9) -: no symmetry left. Reference run 5r: the same without the Gaussians.
+
+Shape diagnostics every 100 time units, from checkpoints (energy density e within r < 3 half-widths of the centroid): centroid displacement; quadrupole anisotropy a2 = (lambda_max - lambda_min)/trace of the second-moment tensor; normalised third-moment norm a3.
+
+Predictions:
+- frac(3 hw, T = 1000) of run 5 within 0.01 of run 5r, and run 5r within 2e-3 of run 1 (0.9941).
+- a2 and a3 of run 5 decay or stay at or below their t = 0 values; no growth trend over T = 1000.
+- Centroid of run 5 moves less than 0.5 over T = 1000 (the perturbation carries no momentum: phi_t = 0).
+- Failure would look like: a2 or a3 growing over time, a centroid drifting by more than a half-width, or frac below 0.90.
+Literature: nodeless states did not fragment in 3D in sine-Gordon (van Dissel et al. 2023); Cyncynates & Giurgica-Tiron 2021 find higher l generally more stable. No source for the sextic family in 3D.
