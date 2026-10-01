@@ -9,7 +9,7 @@ Last update: 2026-10-01 21:45 (+07), WP0 done; S, A build, B, C build running.
 | Package | Worker | State | Outputs |
 |---|---|---|---|
 | WP0 housekeeping | runner | **done**. Effort values "5" and "30": the Claude Code docs list only named levels (low, medium, high, xhigh, max) and give no numeric scale, and no documented way for the parent session to confirm a subagent's effort after the fact. So the mapping stays unconfirmed. The WP0 runner reported model `claude-sonnet-5-5`, effort not visible | Errata in `LESSONS_2026-10-01.md`; pointer line in `SWIRL_PLAN_2026-10-01.md`; reporting rule in `.claude/agents/numerics.md`; `AWS_REPORT.md` re-check: quota now 64 vCPU, request closed, 120 USD credits, nothing left in us-east-2 |
-| WP-S prior-art brief | scholar | started | `docs/PRIOR_ART.md`, "Session 2 brief" |
+| WP-S prior-art brief | scholar | **done**; orchestrator has read S0, S6, S7, S8 | `docs/PRIOR_ART.md` lines 468 to 813, "Session 2 brief" (S0 to S10, notes N12 to N18, searches 41 to 82) |
 | WP-A lifetime map | numerics build, then runner | build started | `outputs/session2/wpA/` |
 | WP-B 3D primary to T = 5000 | runner | **running detached**, started 22:28, expected finish about 02:40. Collection and the isotropy check (B2) still to do | `outputs/session2/wpB/` |
 | WP-C two-body law | numerics build, then runner or cloud | build started | `outputs/session2/wpC/`, `docs/WPC_DERIVATION.md` |
@@ -32,6 +32,14 @@ Last update: 2026-10-01 21:45 (+07), WP0 done; S, A build, B, C build running.
 None launched this session. Ledger total 2.80 USD.
 
 ## Notes for a resuming session
+
+From the WP-S brief, to carry into the predictions and into WP-D and WP-E:
+- The tail law is published for the non-relativistic limit (Malomed 1998) and matches the Session 1 form. The N-transfer rate has the same prefactor with sin(dphi) (N14, derived).
+- At 90 degrees expect repulsion with a large N split, not zero force (Burlak & Malomed 2018, 3D cubic-quintic NLS). Expect 45 degrees to merge.
+- Patterns with a phase-exchanging mirror plane (0/180 pairs, alternating rings, chains) have no radiation-free bound state (N15). Use them as controls.
+- Any static point-model balance with net attractive single-lump energy is unstable in some direction (N16). CD's 5-ring and octahedron numbers reproduce but sit at 0.90 and 1.6 half-widths.
+- Literature candidates for WP-E: stepped rings with N = 5 or 6 (step 72 or 60 degrees) and N = 8 with two turns; controls: all in phase, 0/180 ring, step above 90 degrees, lumps far apart. Published clusters are complex fields, rotate, and last a few revolutions.
+- WP-A: record omega_dip and omega_death against beta; a "longevity cliff" may sit near beta 1.6 to 2.1 (N17, low confidence).
 
 - Predictions Block 1 (WP-A, WP-B, WP-C phase control) is written. Block 2 must be written before any pair run, Block 3 before any arrangement run.
 - numerics workers commit on their worktree branches. The orchestrator merges to `main`.
