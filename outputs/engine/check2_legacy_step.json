@@ -1,0 +1,10 @@
+{
+ "legacy_sigma": 0.01,
+ "dt": 0.05,
+ "E0_legacy": 13.461782355144003,
+ "E_legacy_mean_t5_10": 13.463691029931544,
+ "step": 0.001908674787541642,
+ "max_E_legacy_t_le_10": 13.465264428403001,
+ "max_dev_E_plus_stiffness": 1.297672991285026e-06,
+ "note": "legacy energy omits sigma dx^4 |lap phi|^2/2; with it included, energy is conserved"
+}

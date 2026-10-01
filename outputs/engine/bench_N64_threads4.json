@@ -1,0 +1,1 @@
+{"N": 64, "L": 50.0, "dt": 0.09765625, "threads": 4, "n_steps": 400, "raw_steps_per_second": 212.10253523996684, "run_steps_per_second_with_diagnostics": 201.78442588664157, "peak_rss_MB": 197.375, "projected_hours_T1000_dt_dx8": 0.014096451854229801}
