@@ -1000,3 +1000,47 @@ No claim of novelty is made. For F-011: no source found for a measured Gamma bel
 - The Mukaida toy-model Fig. 3 is a Gaussian-profile perturbative calculation with its own attractor at log10 Q = 2.24, not at the exact dips (2.14 and 2.58); I did not use it as a measurement. Its Q is taken to have the same normalisation as Ibe's, because both give Q_cr of 10^1.9; Ibe's footnote 5 says the normalisations of psi_0 and Q_0 differ from those of Fig. 1 of the earlier work by a factor 2, which I did not resolve.
 - Gleiser & Krackow 2019 beyond the abstract; Gleiser & Sicilia 2008 and Andersen et al. 2012 (found, not opened).
 - No source for what a lump below a dip does after crossing it beyond Zhang 2020b sec. 2.1.
+
+---
+
+## Addendum E (2026-10-02, Session 2): force and N flow of real-field pairs when the lumps become unequal (for F-013 and F-014)
+
+Scope: the literature check for F-013 (C2, C4 and the 45-degree pair at d = 16) and F-014 (C5b) in `FAILURES.md`. Model claude-sonnet-5-5; a "reasoning_effort" value of 30 is visible in my context. Sources were re-read from PDFs saved by the fetch tool and converted locally (PDFKit); `READ` was checked against that text. Search numbers continue from D5 (102 to 104). Derived notes continue as N29 and N30. No git commands, no simulations; the arithmetic uses `outputs/session2/wpC/analysis/summary.json`, `results/pair_d16_p045.json` and `outputs/family/family_beta1.3333.json`.
+
+### E1. What the sources say (only the points that bear on F-013 and F-014)
+
+| Source | System | What it says | Tag |
+|---|---|---|---|
+| [Zhou 2024](https://arxiv.org/abs/2411.16604), the section on Q-ball scattering | review of Q-balls and oscillons | Forces between well-separated Q-balls in 1+1 dimensions come from the tail interaction method (the time derivative of the momentum in an interval, reduced to its end points); "for this method to work, there should be no net flow of momentum from the interval", which is guaranteed when the two Q-balls have the same internal frequency; it explains in-phase attraction and out-of-phase repulsion. General trends: in phase attracts, pi out of phase repels; intermediate phases give charge transfer and more complicated outcomes | READ |
+| [Bowcock, Foster, Sutcliffe 2008](https://arxiv.org/abs/0809.3895) (`PRIOR_ART.md` section 4.1) | Q-balls, 1+1 | momentum-flux force F = -4 cos(theta) A_omega^2 omega'^2 exp(-2 a omega'); valid only for equal frequencies, exactly in or out of phase | READ (Session 1) |
+| [Malomed 1998](https://arxiv.org/abs/patt-sol/9809009) (S6.1) | 2D and 3D solitons | interaction potential for identical solitons, lowest order in 1/R, tails many decay lengths apart | READ |
+| [Battye & Sutcliffe 2000](https://arxiv.org/abs/hep-th/0003252), sec. 3 (F-009 (b)) | complex Q-balls | a mechanical model with fixed profile and fixed positions, leading order in the separation; it breaks down as the frequencies approach the limits of the allowed band, and drift of the positions cuts off the phase dynamics; no force is reported | READ |
+| [Burlak & Malomed 2018](https://arxiv.org/abs/1805.09173), sec. B (S6.2) | 3D cubic-quintic NLS | the lowest-order potential is zero at phi = pi/2, the simulation shows repulsion with symmetry breaking, Delta = abs(E_1 - E_2)/(E_1 + E_2) up to about 0.76 at kappa d = 2.5; explained by a mismatch between the "amplitude centre" (r = 0) and the "phase centre" (r_0 = -phi v/v^2), which appears when the interaction gives the solitons opposite velocities; no force against a tail law | READ |
+| [Al Khawaja 2010](https://arxiv.org/abs/1004.3000), introduction and sec. II | 1D nonautonomous GP equation, exact two-soliton solution | Gordon's force formula is limited to large separation and small differences in speed and intensity; the generalisation (Eq. 20) has "essentially no restriction" on the difference of amplitudes and speeds; 1D only | READ (partial) |
+| [Xue et al. 2025](https://arxiv.org/abs/2510.01597) | real oscillons, 3+1 | outcomes of collisions (merge or bounce) depend on phase; no force measured | READ |
+
+### E2. The questions put for F-013
+
+1. **Is a force excess, or a shifted force zero, reported for soliton or Q-ball pairs once the charge asymmetry is large?** No source found. The published statements are limits of validity (equal frequencies, identical solitons, lowest order, fixed profile) and one 1D result with an amplitude-dependent force (Al Khawaja). The 3D soliton work with large asymmetry (Burlak & Malomed) reports symmetry breaking and an explanation in terms of velocity-induced phase and amplitude centres, with no force comparison.
+2. **Is the d16_45 excess a velocity effect of that kind?** Not at the time of the peak: the separation is stationary near t = 141 to 158 (d = 11.9 to 12.1, `summary.json`), where the excess is largest; the lumps accelerate apart afterwards. I do not exclude it for the later windows.
+
+### E3. Derived notes
+
+`DERIVED` note N29 (unequal tails in the 45-degree pair at d = 16). A(omega) and kappa(omega) = sqrt(1 - omega^2) from the single-frequency family at beta = 4/3 (`outputs/family/family_beta1.3333.json`, linear interpolation of A; A(0.909149) = 56.77 against the profile's 56.70), the lumps' own omega from `results/pair_d16_p045.json` at the window centres, d from the sliding windows. Ratio R = [A_0 A_1 e^(-(kappa_0 + kappa_1) d/2) (kappa_bar/d + 1/d^2)] / [A(omega_bar)^2 e^(-kappa(omega_bar) d) (kappa(omega_bar)/d + 1/d^2)] with omega_bar the mean of the two lump frequencies. t = 134: omega 0.9006 and 0.9200, d 12.33, R = 1.027. t = 151.4: 0.8999 and 0.9270, 11.88, 1.049. t = 165.4: 0.8985 and 0.9312, 12.09, 1.077. t = 179.4: 0.8963 and 0.9317, 12.90, 1.091. t = 193.5: 0.8946 and 0.9301, 14.24, 1.093. The sliding window's own omega at t = 165 is 0.9141, against a lump mean of 0.9148. Limits: the product-of-tails form assumes each lump keeps its single-frequency profile at its own omega (the lumps are exchanging N and are not stationary), and the mid-plane is at x = 0.
+
+`DERIVED` note N30 (the 45-degree pair at d = 16, sliding windows, `summary.json`; N asymmetry from `results/pair_d16_p045.json`). Delta_N = abs(N_0 - N_1)/(N_0 + N_1): 0.031 (t = 61), 0.068 (99), 0.109 (120), 0.150 (134), 0.216 (151), 0.260 (165), 0.277 (179, the maximum), 0.272 (193.5), 0.262 (211), 0.253 (271); N_0/N_start reaches 1.276 and N_1/N_start 0.723; the d = 16 pairs at 90 and 135 degrees reach Delta_N 0.082 and 0.037, the in-phase pair 0 (each lump's N changes by 22% in the merger). Measured force over law: 0.998 (t = 102.7), 0.995 (106.1), 1.344 (137.5), 1.424 (151.4), 1.468 (165.4), 1.383 (179.4), 1.175 (193.5), 0.678 (211). First force zero at dtheta = 86.4 degrees (the law on the same windows: 87.4); second at 254 degrees (law: 283.5). Late windows: measured force +0.127 at t = 235.6 (law -0.004, F0 = 0.18), +0.109 at 246.1 (law +0.029, F0 = 0.096), +0.063 at 263.7 (law +0.025, F0 = 0.034); the half-total-momentum term changes these by under 0.01. The lump frequencies at t = 165 are 0.8985 and 0.9312 (a difference of 0.033) and at t = 239 0.8949 and 0.9277.
+
+### E4. Search log (numbering continues from D5)
+
+| # | Search | Result |
+|---|---|---|
+| 102 | force between two Q-balls or solitons, unequal charges or frequencies, correction to the cosine law, charge transfer at large asymmetry | Zhou 2024 review (arXiv:2411.16604, read: tail interaction method, equal frequencies), Bowcock et al. (Session 1), Battye & Sutcliffe (read), Copeland, Saffin, Zhou (read); arXiv:2405.06591, 1901.00272, 2404.04323, 2302.06627 (titles only) |
+| 103 | oscillon-oscillon force measured in simulation, relative phase, real scalar field, 3+1, tail force | Xue et al. 2025 (read; outcomes only, no force); nothing else relevant |
+| 104 | Bowcock, Foster, Sutcliffe Q-balls interaction force, momentum flux, equal frequencies, validity | confirms J. Phys. A 42, 085403 (arXiv:0809.3895); JHEP papers on charge-swapping Q-balls (titles) |
+
+No claim of novelty is made. For F-013: no source found that reports a measured force excess or a shifted force zero for soliton, Q-ball or oscillon pairs at large N asymmetry, and none for a measured 3D pair force between real oscillons against separation and phase (Session 1 searches 47, 59 to 63; here 102 to 103).
+
+### E5. Not read, open
+
+- Bowcock et al. 2008 beyond the Session 1 record; Karpman & Solov'ev (1981) and Gordon (1983); Zhou's review outside the section on Q-ball scattering; the Hamiltonian treatment cited by Al Khawaja ([18, 19] there).
+- Whether Burlak & Malomed's phase-centre mechanism has a Klein-Gordon analogue for lumps moving at v of about 0.05 to 0.1 was not worked out; E2 item 2 is a timing argument only.
