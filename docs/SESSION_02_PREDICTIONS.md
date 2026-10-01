@@ -103,6 +103,12 @@ Source: the independent review of the WP-C code. It ran a single lump at x = +12
 - **Per-lump N and energy at "start"** are read from the first window centred at t >= 15; the first whole-period window is a start-up artefact.
 - **Known limits, stated before the runs:** the box check is 1.5 times the box (L = 132 against 88), not the 2 times of standard 4; only in-phase linear twins are in the rented batch (one anti-phase twin at d = 16 is added on the Mac); lumps started at +theta and -theta settle 8e-5 to 1.2e-4 apart in omega, a static phase drift of about 8e-5 rad per unit time, about a tenth of the predicted pendulum drift at d = 24.
 
+### Block 2b. Notes added 2026-10-02 00:25 (+07). No criterion or predicted value is changed
+
+- **Sign slip in the "Derivation on record" line above.** F there is positive for attraction, so F = +dU/dd; the force along increasing separation is -dU/dd = -F. The predicted values and signs in the table are unaffected.
+- **What I know now that I did not when Block 2 was written.** While testing the revised analysis script the numerics worker ran 19 coarse test pairs (N = 96, dx = 0.92, T = 150, scratch, not committed) and reported their criteria table to me. Block 2 and 2a were committed before I saw it. From here on no criterion is amended.
+- **Criteria expected to miss for mechanical reasons, flagged by the worker before the batch finished** (they stay as written and will be judged as written, with the mechanical cause analysed in the report): C2 at d = 16 in phase (the only windows at t >= 100 are near contact, where the tail formula overpredicts); C2 at 45 and 135 degrees (ratios amplified where the predicted force passes near zero); C5b at d = 24 (the +theta and -theta lumps settle at different rates, larger than the interaction rate of 0.038; needs single-lump runs at -theta to subtract); C11 "no centroid attraction" (ball centroids of a dispersing linear twin are not lump positions).
+
 Stop rule from the plan, section 4: if the measured pair law contradicts the derivation in sign (C1), stop after WP-C.
 
 ## Block 3. WP-E arrangement runs
