@@ -119,7 +119,7 @@ Done independently of the brief, then compared; re-derived by the reviewer.
 | # | Prediction | Measured | Outcome |
 |---|---|---|---|
 | C1 | 0 and 45 attract, 135 and 180 repel, at every d | 12 of 12 | hit |
-| C2 | force over prediction = 1 (15% at 0 and 180, 25% at 45 and 135) on both measures | centroid measure 0.90 to 1.06 in all 12; sliding force 1.00 to 1.08 in 9, but worst window 0.148 (d16_0), 0.124 (d20_0), 3.71 (d16_45) | **miss** (F-013) |
+| C2 | force over prediction = 1 (15% at 0 and 180, 25% at 45 and 135) on both measures | centroid measure 0.90 to 1.06 in all 12; sliding-force worst window 0.93 to 1.13 in 9 runs (medians 1.02 to 1.06), but 0.148 (d16_0), 0.124 (d20_0; median 1.01) and 3.71 (d16_45; median 1.38) | **miss** (F-013) |
 | C3 | kappa = 0.416 +- 0.03 | 0.4172 (reviewer 0.4163); amplitude 2.7 to 4.6% above 2 pi A^2 | hit |
 | C4 | cosine law: slope 1 +- 0.15, intercept 0 +- 0.1 | d = 20: 1.003 / -0.022; d = 24: 1.035 / -0.004; d = 16: 1.206 / 0.152 | **miss at d = 16** (F-013) |
 | C5a | at 90 degrees the force is F0 cos(measured phase) to 0.15 F0 | residual 0.055, 0.040, 0.028 F0 | hit |
