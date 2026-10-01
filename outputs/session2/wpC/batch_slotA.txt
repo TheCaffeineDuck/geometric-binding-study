@@ -1,0 +1,11 @@
+# WP-C slot A (2 threads). Gate runs first: off-centre sponge control and 3D phase controls.
+single_x12_t00.0
+single_x12_t45.0
+pair_d24_p000
+pair_d24_p180
+pair_d24_p090
+pair_d24_p045
+pair_d24_p135
+twin_d24_p000
+twin_d16_p000
+check_box_d24_p000_L132

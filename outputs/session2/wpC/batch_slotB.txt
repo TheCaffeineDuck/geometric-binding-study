@@ -1,0 +1,15 @@
+# WP-C slot B (2 threads).
+single_x12_t22.5
+single_x12_t67.5
+pair_d20_p000
+pair_d20_p180
+pair_d20_p090
+pair_d20_p045
+pair_d20_p135
+twin_d20_p000
+pair_d16_p000
+pair_d16_p180
+pair_d16_p090
+pair_d16_p045
+pair_d16_p135
+check_res_d20_p000_N224
