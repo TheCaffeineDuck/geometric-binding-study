@@ -2,7 +2,9 @@
 
 Resume file. Updated by the orchestrator after each package. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`.
 
-Last update: 2026-10-01 23:20 (+07). WP0 and WP-S done; WP-A build merged, sweep starting; WP-B running; WP-C build running.
+Last update: 2026-10-01 23:25 (+07). WP0 and WP-S done; WP-A build merged, sweep running; WP-B running; WP-C build merged, pair batch going to AWS.
+
+**Stop-condition note (plan section 4).** The phase control missed at theta = 90 only. The plan's control is over the phases used, and the redesigned batch uses none that fails, so I read the stop as not triggered; the 3D gate (G1, G2 in the predictions file) must pass before pair runs start. WP-D and WP-E go ahead only if the gate passes and the measured force agrees with the derivation in sign. This reading is flagged to Aaron and goes in the report as a deviation.
 
 WP-A sweep command (resumes if rerun), from the repo root:
 `PY=.venv/bin/python; nohup caffeinate -i sh -c "$PY -m swirl.family.wpa families --workers 2 && $PY -m swirl.family.wpa maps --workers 2 && $PY -m swirl.family.wpa rank && $PY -m swirl.family.wpa long --workers 2" > logs/session2/wpa_sweep.log 2>&1 &`
@@ -15,7 +17,7 @@ WP-A sweep command (resumes if rerun), from the repo root:
 | WP-S prior-art brief | scholar | **done**; orchestrator has read S0, S6, S7, S8 | `docs/PRIOR_ART.md` lines 468 to 813, "Session 2 brief" (S0 to S10, notes N12 to N18, searches 41 to 82) |
 | WP-A lifetime map | numerics build, then runner | **build done and merged** (061fc83); sweep handed to runner; review and ledger entry in progress. Prediction A1 MISSED: path integral gives T_death 11,540 against 1145.5 (beta 0.85) and T_90 33,006 against 10,630 (beta 4/3). Cause found by diagnostics: gaps in the map's energy coverage; with the run's own Gamma(E) the integral gives 10,673 (+0.4%). Consequence: rankings are provisional, so the long stage runs two picks per beta (path-integral best, and lowest measured rate). Also missed: box doubling at beta 0.75, 3.29e-4 against 1e-4, after the lump has died | `outputs/session2/wpA/`, `docs/WPA_BUILD_NOTES.md` |
 | WP-B 3D primary to T = 5000 | runner | **running detached**, started 22:28, expected finish about 02:40. Collection and the isotropy check (B2) still to do | `outputs/session2/wpB/` |
-| WP-C two-body law | numerics build, then runner or cloud | build started | `outputs/session2/wpC/`, `docs/WPC_DERIVATION.md` |
+| WP-C two-body law | numerics build, then runner or cloud | **build done and merged** (a41254e). Derivation confirms U = -2 pi A^2 cos(dphi) exp(-kappa d)/d; exact force has an extra 1/d^2 term. Radial phase control: passes at 0, +-22.5, +-45, +-67.5, 135, 180; MISSES at 90 (dfrac 2.46e-2 at T = 1000 against 0.01; a lighter lump, cause diagnosed). Pair design changed to symmetric phases so no 90-degree start is used. Predictions Block 2 committed (d17e208). Batch of 24 runs handed to cloud, gate runs first; review of the diff in progress | `outputs/session2/wpC/`, `docs/WPC_DERIVATION.md`, `docs/WPC_BUILD_NOTES.md` |
 | WP-D arrangement maths | numerics | waits for WP-C | `outputs/session2/wpD/` |
 | WP-E arrangement 3D tests | runner or cloud | waits for WP-C, WP-D | `outputs/session2/wpE/` |
 | WP-F review and report | reviewer, scholar, orchestrator | waits | `docs/SESSION_02_REPORT.md` |

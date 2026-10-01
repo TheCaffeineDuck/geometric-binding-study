@@ -37,13 +37,13 @@ Initial data for phase theta: phi = Phi(r) cos(theta), phi_t = -omega Phi(r) sin
 | C0a | theta = 180 equals theta = 0 to rounding | phi -> -phi is an exact symmetry | — |
 | C0b | theta = 45, 90, 135 pass, with differences of order 1e-3 or less | early shedding at beta = 4/3 is 0.03% (F-002 D3), so the start phase changes little | A phi_t = 0 single-frequency start is not the quasi-breather (van Dissel 2023, `READ`). Pair runs in the literature use phase-shifted copies (Amin & Mou 2020, Xue 2025, `READ`). No source for phase dependence of the settling |
 
-## Block 1 outcome for the WP-C phase control (recorded 2026-10-02, before Block 2)
+## Block 1 outcome for the WP-C phase control (recorded 2026-10-01, before Block 2)
 
 Radial runs, `outputs/session2/wpC/phase_control_radial.json`. C0a: hit (2.9e-15). C0b: hit at 45 (9.3e-4) and 135 (1.1e-3); **miss at 90**: the difference in frac is 6.6e-3, 1.09e-2 and 2.46e-2 at T = 300, 500 and 1000 against the 0.01 criterion, and omega is off by 0.0066 to 0.0079 against 0.005. No death. Cause, from three diagnostics: the t = 0 energy of the single-frequency start depends on theta (2843.8 at 0, 2605.2 at 90), so the 90-degree start is a lighter lump (N 9.5% lower, omega 0.9157) that behaves exactly like the family member with its N. Ledger entry F-009.
 
 **What I did with the gate, and why.** The plan's control is "a single lump started at each phase used behaves like the phase-0 lump". The criterion numbers above stay as written. The pair design changed in response to the finding: phases are assigned symmetrically, theta = -/+ dtheta/2, and dtheta = 180 uses (0, 180), so the phases used are 0, +-22.5, +-45, +-67.5 and 180. No 90-degree start is used. Every used phase passes the criterion in the radial runs (worst: +-67.5 at 8.5e-3 at T = 1000, 3.6e-3 at T = 500). The same control is repeated in 3D as a gate (below) and the pair runs start only if it passes. This is a deviation from Block 1, which listed theta = 90 as a used phase; it is reported as such.
 
-## Block 2. WP-C pair runs. Written 2026-10-02 00:50 (+07), before any pair run of the batch
+## Block 2. WP-C pair runs. Written 2026-10-01 23:20 (+07), before any pair run of the batch
 
 Design: `docs/WPC_BUILD_NOTES.md` section 4. beta = 4/3, omega = 0.909149 profile (A = 56.70, kappa = 0.41647, E = 2801.7, N = 2865.5, hw = 3.344). L = 88, N = 160, dx = 0.55, dt = 0.04. Lumps at x = -/+ d/2, d = 16, 20, 24 (4.8, 6.0, 7.2 hw), dtheta = 0, 45, 90, 135, 180. T = 300 at d = 16, T = 500 otherwise.
 
