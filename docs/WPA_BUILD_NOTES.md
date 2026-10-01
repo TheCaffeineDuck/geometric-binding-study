@@ -200,3 +200,15 @@ The validation maps actually ran at 2.5e-3 core-s per unit T, because deaths sto
 6. **Deviation: two long runs per beta.** This is caused by issue 1. The added cost is about 0.13 h on 2 cores.
 7. **Deviation: the superseded first validation.** Kept on record (section 2).
 8. The families stage was run here, as task item 1. Only the maps for the validation betas (0.85, 4/3) were run; the sweep itself was not.
+
+## Review corrections (orchestrator, 2026-10-01, from the independent review of merge 061fc83)
+
+The reviewer recomputed both validation predictions with its own code and got the same values (11,539.85 and 33,006.12). It reran both Session 1 cases with the new driver (death 1145.5, frac within 4e-9; T_90 10,630.5, frac within 7.8e-8). Its verdict on the sweep: measured numbers are sound; the path-integral predictions and the choice of long-run starts are not reliable. Corrections to the text above:
+
+- **Section 3, cause 1, "Only the validation start passes through it" is false.** The saved series of the dying starts at omega0 = 0.784 to 0.809 cover E = 3750 to 1400. Re-windowing them at 50 time units, with no new run, gives T_death 934 (interpolated start energy) or 1773 (true start energy) against 1145.5. So for validation c the window design (W = 300 starting at t_s, which discards fast-dying starts) is a primary cause, not the second. A gap from E = 3635 to 4256 remains, where the validation lump spends about 750 of its 1145 time units.
+- **Validation d has a second cause beside coverage.** The log-linear chord across the floored node at the rate null (E = 2953) lies below the true curve. Interpolating sqrt(Gamma) linearly in ln E on the same map gives 10,769 (+1.3%). The exclusion rule (+-0.002 in omega) removed three starts and made the 4.3% gap; dropping only the near-duplicate start gives 12,340 (+16%). These are diagnostics. The A1 miss stands as recorded.
+- **Own-Gamma integral for c** is 1496 (+31%) with W = 300 and 1160 (+1.3%) with W = 60.
+- **The segment split for d**, recomputed: 2718 to 2566: measured 3132, predicted 3143 (+0.3%); 2838 to 2718: measured 7193, predicted 29,650. The notes' "about 3330" and "about 7100" have no file behind them.
+- **The predictions are biased upward.** All 38 dying starts in `ranking.json` are predicted at or above their measured death. The ranking values 5.26e5 (beta = 4/3) and 1.26e6 (beta = 1.6) are chord artefacts.
+- **The two-pick selection can miss the longest-lived start**: the ranking ignores measured deaths, the grid cap truncates the search at beta = 0.75, 0.85 and 1.0, two-point dips are not refined (beta = 1.15, 1.6, 2.0), and at beta >= 2 the by-rate pick is arbitrary among floored starts. A supplement of long runs covers this (see `SESSION_02_STATUS.md`).
+- **More than three diagnostics were used** for the misses (five analyses). The box miss at beta = 0.75 got one sentence. The synthetic pipeline test could not have caught the failure that occurred (it never has sparse nodes or a true null).
