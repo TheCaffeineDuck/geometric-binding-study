@@ -1,0 +1,92 @@
+{
+ "source": "docs/PRIOR_ART.md sections 2.4 and 3 (commit 7b6e71b on main)",
+ "units_beta43": "m=1, g4=6, g6=48 (beta=4/3); N in these units (rescaled N = 6 x)",
+ "note_minima": "expected g4*N_min and omega_min = sqrt(1-0.0788/beta) are DERIVED in the brief from a universal-curve argument (accuracy 2-3% stated), not published for these betas",
+ "solver_tol": 1e-08,
+ "beta43_rows": [
+  {
+   "quantity": "N_min",
+   "omega_lit": 0.97,
+   "omega_measured": 0.969149280617113,
+   "literature": 80.3,
+   "measured": 81.67856203079133,
+   "rel_diff": 0.017167646709730127,
+   "E_over_mN_measured": 1.0143880526924662,
+   "source": "Li et al. 2025 (lambda I_death = 20.07); omega_death ~ 0.97"
+  },
+  {
+   "quantity": "N",
+   "omega": 0.94,
+   "literature": 96.2,
+   "measured": 96.46315348814868,
+   "rel_diff": 0.0027354832447887144,
+   "E_over_mN_measured": 1.004551692833553,
+   "source": "Li et al. 2025, Fig. 1 legend"
+  },
+  {
+   "quantity": "N",
+   "omega": 0.85,
+   "literature": 525.0,
+   "measured": 526.4944734185572,
+   "rel_diff": 0.0028466160353469777,
+   "E_over_mN_measured": 0.8995516991886123,
+   "source": "Li et al. 2025, Fig. 1 legend"
+  }
+ ],
+ "per_beta_minima": [
+  {
+   "beta": 0.6111111111111112,
+   "g4N_min_expected": 314.0,
+   "g4N_min_measured": 318.2699877079308,
+   "rel_diff": 0.013598686967932469,
+   "omega_expected": 0.933303029811082,
+   "omega_measured": 0.9253597566698876,
+   "omega_diff": -0.007943273141194473
+  },
+  {
+   "beta": 0.625,
+   "g4N_min_expected": 318.0,
+   "g4N_min_measured": 322.46469742405407,
+   "rel_diff": 0.014039929006459326,
+   "omega_expected": 0.9348368841675001,
+   "omega_measured": 0.927368895519255,
+   "omega_diff": -0.00746798864824505
+  },
+  {
+   "beta": 0.7,
+   "g4N_min_expected": 339.0,
+   "g4N_min_measured": 344.19818080428774,
+   "rel_diff": 0.01533386667931488,
+   "omega_expected": 0.9420342729585647,
+   "omega_measured": 0.9365571360217849,
+   "omega_diff": -0.0054771369367797584
+  },
+  {
+   "beta": 0.85,
+   "g4N_min_expected": 378.0,
+   "g4N_min_measured": 383.8849332646023,
+   "rel_diff": 0.015568606520111893,
+   "omega_expected": 0.952519877822536,
+   "omega_measured": 0.9493064609301196,
+   "omega_diff": -0.0032134168924163875
+  },
+  {
+   "beta": 1.0,
+   "g4N_min_expected": 413.0,
+   "g4N_min_measured": 419.7628422228984,
+   "rel_diff": 0.016374920636557936,
+   "omega_expected": 0.9597916440561461,
+   "omega_measured": 0.9577577357056603,
+   "omega_diff": -0.0020339083504858912
+  },
+  {
+   "beta": 1.3333333333333333,
+   "g4N_min_expected": 482.0,
+   "g4N_min_measured": 490.07137218474793,
+   "rel_diff": 0.016745585445535123,
+   "omega_expected": 0.97,
+   "omega_measured": 0.969149280617113,
+   "omega_diff": -0.0008507193828869442
+  }
+ ]
+}
