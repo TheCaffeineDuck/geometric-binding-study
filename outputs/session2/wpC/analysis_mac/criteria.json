@@ -1,0 +1,1017 @@
+{
+ "source": "SESSION_02_PREDICTIONS.md Block 2 rows C1-C13 with Block 2a",
+ "results_dir": "outputs/session2/wpC/results_mac",
+ "test_mode_record_end_as_T": false,
+ "evaluator_choices": [
+  "start values from the first window centred at t >= 15 (Block 2a)",
+  "measure (i): SLIDE = 40 time units; valid windows centred at t >= 100 with two distinct lumps (count_distinct = 2 in every count window up to the window end) and d > 2 hw; ratio = slope / window-mean F_pred, undefined (excluded, count reported) where |F_pred| < 0.25 F0",
+  "C2 per run: hit needs measure (i) worst-window ratio and measure (ii) ratio both inside the tolerance; at d = 16 the early half-space ratio is a third item (tolerance 20%)",
+  "C1 sign 'at first': sign of d(min(100, T_v)) - d_start (measure ii); measure (i) first valid window and the d = 16 early half-space sign reported",
+  "C3: kappa and a free amplitude fitted to |F_w| / |cos dtheta_w| = C e^(-kappa d)(kappa/d + 1/d^2) over all valid windows of the dtheta = 0 and 180 runs (log least squares, kappa scanned 0.05..1.5, no kappa_0 used); needs valid windows at >= 2 separations",
+  "C4: least-squares line of F_w/F0_w against cos(dtheta_w) over valid windows of all runs at one d; needs >= 2 runs",
+  "C5b: the flow between the lumps is the antisymmetric rate (dN_0/dt - dN_1/dt)/2 over t_center in [15, 60]; per-lump rates reported; compared with the on-record rate at that d",
+  "C5c at d = 16: the stated prediction 'beyond 180' is checked (no tolerance given)",
+  "C5d at d = 24 and C6/C7/C8/C9 shifts use T_end = the design T (300 at d = 16, 500 otherwise); a record shorter than that is 'not evaluable'",
+  "C6 d = 16 'not merged, separating': not merged and dd/dt over the last 100 > 0; d = 20 'turning': outcome label 'bounded'",
+  "C7 contact time: first window centre with d <= 2 hw (the point model's contact); the first count window with one distinct lump is reported; retained energy = (E_0 + E_1) at the end over the start values, only where the last count window has one distinct lump",
+  "C8 N symmetry: max over the record of |N_0 - N_1| / mean N <= 1e-9",
+  "C10 interior extremum: scipy find_peaks on d(t) after the start with prominence >= 0.05 (first version 1e-3 flagged start-up wiggles of 1.1e-3 on test data as a bond); the largest prominence of any extremum is reported for every run",
+  "C11: ball energy (raw sample nearest t = 100) / its t = 0 value < 0.05 for each lump; attraction if d(100) - d(0) < -0.05 (raw centroids)",
+  "C12: max |d_check(t) - d_partner(t)| over the common span of window centres (from the start)",
+  "C13: max |L| over the raw record / (E_lump d0) <= 1e-8"
+ ],
+ "runs_present": [
+  "pair_d16_p000",
+  "pair_d16_p045",
+  "pair_d16_p090",
+  "pair_d16_p135",
+  "pair_d16_p180",
+  "single_x12_t00.0",
+  "single_x12_t22.5",
+  "single_x12_t45.0",
+  "single_x12_t67.5",
+  "twin_d16_p000",
+  "twin_d16_p180",
+  "twin_d20_p000",
+  "twin_d24_p000"
+ ],
+ "summary": {
+  "C1": "not evaluable (evaluated items hit; missing: d20_0, d20_45, d20_135, d20_180, d24_0, d24_45, d24_135, d24_180)",
+  "C2": "miss",
+  "C3": "not evaluable",
+  "C4": "miss",
+  "C5a": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C5b": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C5c": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C5d": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C5-CD": "not evaluable",
+  "C6": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C7": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C8": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C9": "not evaluable (evaluated items hit; missing: d20, d24)",
+  "C10": "hit",
+  "C11": "miss",
+  "C12": "not evaluable",
+  "C13": "hit"
+ },
+ "all_misses": [
+  {
+   "row": "C2",
+   "what": "d16_0",
+   "tol": 0.15,
+   "measure_i_worst_ratio": 0.14761616535822814,
+   "measure_i_median_ratio": 0.24130806302418537,
+   "measure_i_n_valid": 2,
+   "measure_i_n_excluded_small_pred": 0,
+   "measure_ii_ratio": 1.0256365432547172,
+   "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": null,
+   "early_halfspace_ratio": 0.9998991924459738,
+   "hit": false
+  },
+  {
+   "row": "C2",
+   "what": "d16_45",
+   "tol": 0.25,
+   "measure_i_worst_ratio": 3.7123787575227944,
+   "measure_i_median_ratio": 1.3799195305753913,
+   "measure_i_n_valid": 48,
+   "measure_i_n_excluded_small_pred": 14,
+   "measure_ii_ratio": 0.8991196879966572,
+   "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": 3.7123787575227944,
+   "early_halfspace_ratio": 1.0395062193104627,
+   "hit": false
+  },
+  {
+   "row": "C4",
+   "what": "d16",
+   "slope": 1.205685875897566,
+   "intercept": 0.1519393038649071,
+   "n_windows": 196,
+   "n_runs": 5,
+   "hit": false
+  },
+  {
+   "row": "C11",
+   "what": "twin_d16_p000",
+   "E_ball_ratio_at_100": [
+    0.04519363021698817,
+    0.04519363021698815
+   ],
+   "d_change_0_to_100": -1.1015412206328783,
+   "hit": false
+  }
+ ],
+ "rows": [
+  {
+   "id": "C1",
+   "prediction": "dtheta = 0, 45 attract at first; 135, 180 repel; all d",
+   "tolerance": "sign",
+   "verdict": "not evaluable (evaluated items hit; missing: d20_0, d20_45, d20_135, d20_180, d24_0, d24_45, d24_135, d24_180)",
+   "items": [
+    {
+     "what": "d16_0",
+     "measured_delta_d_to_t": [
+      -3.8343736154982633,
+      100.0
+     ],
+     "sign": "attract",
+     "want": "attract",
+     "hit": true,
+     "measure_i_first_valid_F": 8.310862815478716,
+     "early_halfspace_F_d16": 0.9861610126661748
+    },
+    {
+     "what": "d16_45",
+     "measured_delta_d_to_t": [
+      -2.005146338614356,
+      100.0
+     ],
+     "sign": "attract",
+     "want": "attract",
+     "hit": true,
+     "measure_i_first_valid_F": 0.7414703378554098,
+     "early_halfspace_F_d16": 0.605058425388957
+    },
+    {
+     "what": "d16_135",
+     "measured_delta_d_to_t": [
+      1.7343463984167968,
+      100.0
+     ],
+     "sign": "repel",
+     "want": "repel",
+     "hit": true,
+     "measure_i_first_valid_F": -0.26624560711068684,
+     "early_halfspace_F_d16": -0.48727097370017364
+    },
+    {
+     "what": "d16_180",
+     "measured_delta_d_to_t": [
+      2.2482060293067185,
+      100.0
+     ],
+     "sign": "repel",
+     "want": "repel",
+     "hit": true,
+     "measure_i_first_valid_F": -0.24884944302674958,
+     "early_halfspace_F_d16": -0.6513262832248492
+    },
+    {
+     "what": "d20_0",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d20_45",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d20_135",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d20_180",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_0",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_45",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_135",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_180",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C2",
+   "prediction": "measured force over predicted = 1 (measures i and ii; early half-space at d = 16)",
+   "tolerance": "15% at 0/180; 25% at 45/135; early half-space 20% (d = 16 only)",
+   "verdict": "miss",
+   "items": [
+    {
+     "what": "d16_0",
+     "tol": 0.15,
+     "measure_i_worst_ratio": 0.14761616535822814,
+     "measure_i_median_ratio": 0.24130806302418537,
+     "measure_i_n_valid": 2,
+     "measure_i_n_excluded_small_pred": 0,
+     "measure_ii_ratio": 1.0256365432547172,
+     "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": null,
+     "early_halfspace_ratio": 0.9998991924459738,
+     "hit": false
+    },
+    {
+     "what": "d16_180",
+     "tol": 0.15,
+     "measure_i_worst_ratio": 0.9311404047231311,
+     "measure_i_median_ratio": 1.0178675107006097,
+     "measure_i_n_valid": 49,
+     "measure_i_n_excluded_small_pred": 0,
+     "measure_ii_ratio": 1.0095574193577384,
+     "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": 0.9311404047231311,
+     "early_halfspace_ratio": 1.036149075410803,
+     "hit": true
+    },
+    {
+     "what": "d16_45",
+     "tol": 0.25,
+     "measure_i_worst_ratio": 3.7123787575227944,
+     "measure_i_median_ratio": 1.3799195305753913,
+     "measure_i_n_valid": 48,
+     "measure_i_n_excluded_small_pred": 14,
+     "measure_ii_ratio": 0.8991196879966572,
+     "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": 3.7123787575227944,
+     "early_halfspace_ratio": 1.0395062193104627,
+     "hit": false
+    },
+    {
+     "what": "d16_135",
+     "tol": 0.25,
+     "measure_i_worst_ratio": 1.039930167667905,
+     "measure_i_median_ratio": 1.0232219533427265,
+     "measure_i_n_valid": 49,
+     "measure_i_n_excluded_small_pred": 0,
+     "measure_ii_ratio": 1.0287742146575003,
+     "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": 1.039930167667905,
+     "early_halfspace_ratio": 1.0361967451104603,
+     "hit": true
+    },
+    {
+     "what": "d20_0",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d20_180",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d20_45",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d20_135",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_0",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_180",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_45",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24_135",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [
+    {
+     "what": "d16_0",
+     "tol": 0.15,
+     "measure_i_worst_ratio": 0.14761616535822814,
+     "measure_i_median_ratio": 0.24130806302418537,
+     "measure_i_n_valid": 2,
+     "measure_i_n_excluded_small_pred": 0,
+     "measure_ii_ratio": 1.0256365432547172,
+     "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": null,
+     "early_halfspace_ratio": 0.9998991924459738,
+     "hit": false
+    },
+    {
+     "what": "d16_45",
+     "tol": 0.25,
+     "measure_i_worst_ratio": 3.7123787575227944,
+     "measure_i_median_ratio": 1.3799195305753913,
+     "measure_i_n_valid": 48,
+     "measure_i_n_excluded_small_pred": 14,
+     "measure_ii_ratio": 0.8991196879966572,
+     "reported_not_judged_measure_i_worst_ratio_windows_d_ge_12": 3.7123787575227944,
+     "early_halfspace_ratio": 1.0395062193104627,
+     "hit": false
+    }
+   ],
+   "notes": [
+    {
+     "measure_iii_d24": {}
+    }
+   ]
+  },
+  {
+   "id": "C3",
+   "prediction": "kappa = 0.416 from dtheta = 0 and 180 across d = 16, 20, 24 (exact 1/d^2 form)",
+   "tolerance": "0.03",
+   "verdict": "not evaluable",
+   "items": [
+    {
+     "what": "kappa_measure_i",
+     "hit": null,
+     "why": "valid t >= 100 windows at fewer than 2 separations: {16.0: 51}"
+    }
+   ],
+   "misses": [],
+   "notes": [
+    {
+     "kappa_from_measure_ii_indicative": null
+    }
+   ]
+  },
+  {
+   "id": "C4",
+   "prediction": "F/F0 against cos(measured dtheta): slope 1, intercept 0",
+   "tolerance": "slope 0.15; intercept 0.1",
+   "verdict": "miss",
+   "items": [
+    {
+     "what": "d16",
+     "slope": 1.205685875897566,
+     "intercept": 0.1519393038649071,
+     "n_windows": 196,
+     "n_runs": 5,
+     "hit": false
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "valid windows from fewer than 2 runs"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "valid windows from fewer than 2 runs"
+    }
+   ],
+   "misses": [
+    {
+     "what": "d16",
+     "slope": 1.205685875897566,
+     "intercept": 0.1519393038649071,
+     "n_windows": 196,
+     "n_runs": 5,
+     "hit": false
+    }
+   ],
+   "notes": []
+  },
+  {
+   "id": "C5a",
+   "prediction": "dtheta = 90: force on t >= 100 windows equals F0 cos(measured dtheta)",
+   "tolerance": "0.15 F0(d)",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16",
+     "worst_abs_F_minus_F0cos_over_F0": 0.05470273751091336,
+     "n_valid": 48,
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "worst_abs_F_minus_F0cos_over_F0": null,
+     "n_valid": null,
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24",
+     "worst_abs_F_minus_F0cos_over_F0": null,
+     "n_valid": null,
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C5b",
+   "prediction": "dtheta = 90: N flows leader -> lagger at 1.61, 0.244, 0.038",
+   "tolerance": "direction; rate 30% (early window)",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16",
+     "antisymmetric_rate": 1.5708170492710605,
+     "dN0_dt": 1.5981806186047536,
+     "dN1_dt": -1.5434534799373674,
+     "leader": "lump1",
+     "flow": "lump1->lump0",
+     "leader_to_lagger": true,
+     "on_record_rate": 1.61,
+     "rate_over_record": 0.9756627635223978,
+     "pred_with_measured_inputs": 1.6056673538868227,
+     "reported_not_judged_singles_subtracted": {
+      "note": "single-lump run missing for phase(s) [-45.0] deg"
+     },
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "run missing or no early N window"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "run missing or no early N window"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C5c",
+   "prediction": "dtheta = 90 runs toward 180: 160 (d 20), 102 (d 24), beyond 180 (d 16)",
+   "tolerance": "30 deg at d = 20, 24",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16",
+     "dtheta_end_deg": 215.42921334022893,
+     "prediction": "> 180",
+     "own_model_end": 212.0189363451578,
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C5d",
+   "prediction": "dtheta = 90 ends repelling: shift -2.8, -0.89, -0.03",
+   "tolerance": "sign at d 16, 20; 50% at d 20",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16",
+     "shift_end": -2.73281815123584,
+     "prediction": -2.8,
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C5-CD",
+   "prediction": "plan: leading force vanishes at 90 and N flows",
+   "tolerance": "as C5a and C5b",
+   "verdict": "not evaluable",
+   "items": [
+    {
+     "C5a": "not evaluable (evaluated items hit; missing: d20, d24)",
+     "C5b": "not evaluable (evaluated items hit; missing: d20, d24)"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C6",
+   "prediction": "dtheta = 45: d16 not merged and separating; d20 turning (bounded); d24 shift 0.59",
+   "tolerance": "outcome at d 16, 20; 30% at d 24",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16",
+     "label": "separated",
+     "dd_dt_last100": 0.12754989425878832,
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C7",
+   "prediction": "dtheta = 0: merged at d 16 (contact ~126), d 20 (~346); d 24 shift 0.90; retained 0.6-0.9",
+   "tolerance": "contact 25%; shift 25%",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16_contact",
+     "contact_t": 126.75379233278122,
+     "first_count_distinct_1": 135.36659013179005,
+     "label": "merged",
+     "prediction": 126.0,
+     "hit": true
+    },
+    {
+     "what": "d16_retained",
+     "retained": 0.7599120525629399,
+     "range": [
+      0.6,
+      0.9
+     ],
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C8",
+   "prediction": "dtheta = 180: separated, shifts -5.7/-3.2/-0.71, N equal",
+   "tolerance": "shift 25%; N difference at rounding",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16",
+     "label": "separated",
+     "shift_end": -5.452957031411639,
+     "prediction": -5.7,
+     "N_sym_max_rel": 9.824043464054788e-15,
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C9",
+   "prediction": "dtheta = 135: separated, phase toward 180, shifts -4.9/-2.6/-0.52",
+   "tolerance": "shift 30%",
+   "verdict": "not evaluable (evaluated items hit; missing: d20, d24)",
+   "items": [
+    {
+     "what": "d16",
+     "label": "separated",
+     "shift_end": -4.748185341255198,
+     "prediction": -4.9,
+     "dtheta_start_deg": 135.89461447434883,
+     "dtheta_end_deg": 198.56927454164804,
+     "hit": true
+    },
+    {
+     "what": "d20",
+     "hit": null,
+     "why": "run missing"
+    },
+    {
+     "what": "d24",
+     "hit": null,
+     "why": "run missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C10",
+   "prediction": "no pair is bonded",
+   "tolerance": "\u2014",
+   "verdict": "hit",
+   "items": [
+    {
+     "what": "pair_d16_p000",
+     "bonded": false,
+     "label": "merged",
+     "n_interior_min": 4,
+     "n_interior_max": 3,
+     "within_2hw_d0p1": false,
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p045",
+     "bonded": false,
+     "label": "separated",
+     "n_interior_min": 1,
+     "n_interior_max": 0,
+     "within_2hw_d0p1": false,
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p090",
+     "bonded": false,
+     "label": "separated",
+     "n_interior_min": 0,
+     "n_interior_max": 0,
+     "within_2hw_d0p1": false,
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p135",
+     "bonded": false,
+     "label": "separated",
+     "n_interior_min": 0,
+     "n_interior_max": 0,
+     "within_2hw_d0p1": false,
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p180",
+     "bonded": false,
+     "label": "separated",
+     "n_interior_min": 0,
+     "n_interior_max": 0,
+     "within_2hw_d0p1": false,
+     "hit": true
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C11",
+   "prediction": "linear twins: ball energy < 0.05 of start by T = 100; no centroid attraction",
+   "tolerance": "\u2014",
+   "verdict": "miss",
+   "items": [
+    {
+     "what": "twin_d16_p000",
+     "E_ball_ratio_at_100": [
+      0.04519363021698817,
+      0.04519363021698815
+     ],
+     "d_change_0_to_100": -1.1015412206328783,
+     "hit": false
+    },
+    {
+     "what": "twin_d16_p180",
+     "E_ball_ratio_at_100": [
+      0.03668038932377942,
+      0.03668038932377942
+     ],
+     "d_change_0_to_100": 18.641159704445762,
+     "hit": true
+    },
+    {
+     "what": "twin_d20_p000",
+     "E_ball_ratio_at_100": [
+      0.021983862166599786,
+      0.021983862166599775
+     ],
+     "d_change_0_to_100": 37.19757564089946,
+     "hit": true
+    },
+    {
+     "what": "twin_d24_p000",
+     "E_ball_ratio_at_100": [
+      0.024575554111977534,
+      0.02457555411197753
+     ],
+     "d_change_0_to_100": 25.100523602914038,
+     "hit": true
+    }
+   ],
+   "misses": [
+    {
+     "what": "twin_d16_p000",
+     "E_ball_ratio_at_100": [
+      0.04519363021698817,
+      0.04519363021698815
+     ],
+     "d_change_0_to_100": -1.1015412206328783,
+     "hit": false
+    }
+   ],
+   "notes": []
+  },
+  {
+   "id": "C12",
+   "prediction": "resolution: d(t) within 0.1; box: within 0.02",
+   "tolerance": "targets",
+   "verdict": "not evaluable",
+   "items": [
+    {
+     "what": "check_res_d20_p000_N224",
+     "hit": null,
+     "why": "check or partner missing"
+    },
+    {
+     "what": "check_box_d24_p000_L132",
+     "hit": null,
+     "why": "check or partner missing"
+    }
+   ],
+   "misses": [],
+   "notes": []
+  },
+  {
+   "id": "C13",
+   "prediction": "angular momentum about z and x stays zero to noise",
+   "tolerance": "evaluator: |L|/(E d0) <= 1e-8",
+   "verdict": "hit",
+   "items": [
+    {
+     "what": "pair_d16_p000",
+     "L_maxabs": [
+      8.848040771886318e-13,
+      3.1147188539634874e-14
+     ],
+     "axes": [
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        1,
+        0,
+        0
+       ]
+      }
+     ],
+     "L_over_E_d0": [
+      1.9738221183080256e-17,
+      6.948318983563501e-19
+     ],
+     "momentum_extremes": {
+      "P_x_min": -1.6644889910821809e-12,
+      "P_x_max": 1.0166623098939457e-13,
+      "P_y_maxabs": 6.174381703328587e-13,
+      "P_z_maxabs": 2.4199440908465126e-13,
+      "P_x_t0": 0.0
+     },
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p045",
+     "L_maxabs": [
+      1.409629075608479e-12,
+      3.2246934140363016e-14
+     ],
+     "axes": [
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        1,
+        0,
+        0
+       ]
+      }
+     ],
+     "L_over_E_d0": [
+      3.1446024264340496e-17,
+      7.193650379201541e-19
+     ],
+     "momentum_extremes": {
+      "P_x_min": -14.229203928068435,
+      "P_x_max": -12.61956959623424,
+      "P_y_maxabs": 8.495010907982801e-13,
+      "P_z_maxabs": 5.693545594299041e-13,
+      "P_x_t0": -13.396485427589473
+     },
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p090",
+     "L_maxabs": [
+      2.1827259710401285e-12,
+      2.879727427098291e-14
+     ],
+     "axes": [
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        1,
+        0,
+        0
+       ]
+      }
+     ],
+     "L_over_E_d0": [
+      4.8692280143346095e-17,
+      6.42409979434699e-19
+     ],
+     "momentum_extremes": {
+      "P_x_min": -19.42443224068812,
+      "P_x_max": -18.944418692486483,
+      "P_y_maxabs": 8.906216341002527e-13,
+      "P_z_maxabs": 2.1584182666415434e-13,
+      "P_x_t0": -18.94549137983057
+     },
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p135",
+     "L_maxabs": [
+      1.5818974149303038e-12,
+      2.8267821074549416e-14
+     ],
+     "axes": [
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        1,
+        0,
+        0
+       ]
+      }
+     ],
+     "L_over_E_d0": [
+      3.5288988681028184e-17,
+      6.30598930450275e-19
+     ],
+     "momentum_extremes": {
+      "P_x_min": -13.603840997486474,
+      "P_x_max": -13.370891668045392,
+      "P_y_maxabs": 6.386547203757523e-13,
+      "P_z_maxabs": 1.998831587004589e-13,
+      "P_x_t0": -13.396485427589473
+     },
+     "hit": true
+    },
+    {
+     "what": "pair_d16_p180",
+     "L_maxabs": [
+      1.9579806385248595e-12,
+      2.7293971058908912e-14
+     ],
+     "axes": [
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "origin": [
+        0,
+        0,
+        0
+       ],
+       "dir": [
+        1,
+        0,
+        0
+       ]
+      }
+     ],
+     "L_over_E_d0": [
+      4.367865826092164e-17,
+      6.088742712817339e-19
+     ],
+     "momentum_extremes": {
+      "P_x_min": -2.7615385533863453e-12,
+      "P_x_max": 2.5416557747348642e-14,
+      "P_y_maxabs": 9.099133990025479e-13,
+      "P_z_maxabs": 4.358420128915244e-13,
+      "P_x_t0": -2.320153537658332e-15
+     },
+     "hit": true
+    }
+   ],
+   "misses": [],
+   "notes": []
+  }
+ ],
+ "gate_from_gate_eval": {
+  "G1": {
+   "drift_norm": 2.9071869887437415e-05,
+   "drift_x": 2.907186988743149e-05,
+   "threshold": 0.01,
+   "t_out_last": 500.0,
+   "pass": true
+  },
+  "G2_pass": true,
+  "gate_pass": true
+ }
+}

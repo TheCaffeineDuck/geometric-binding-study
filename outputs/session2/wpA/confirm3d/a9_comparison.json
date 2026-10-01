@@ -1,0 +1,51 @@
+{
+ "match": "exact common sample times (multiples of 5), no interpolation",
+ "primary": {
+  "T_reached": 3000.0,
+  "completed": true,
+  "n_matched": 601,
+  "max_abs_diff": 7.027939711912179e-05,
+  "t_of_max": 250.0,
+  "diff_at_t0": 1.689765925005915e-05,
+  "E0_3D": 2955.9321818968547,
+  "E0_profile_quadrature_t0": 2955.9297678959438,
+  "E0_radial": 2955.871848805179,
+  "frac_3D": {
+   "100": 0.9968475346582095,
+   "300": 0.9974306092996034,
+   "1000": 0.9972678186677799,
+   "2000": 0.9972753820051972,
+   "3000": 0.996685950091615
+  },
+  "frac_radial": {
+   "100": 0.9968249094605411,
+   "300": 0.997391610688134,
+   "1000": 0.9972562626704945,
+   "2000": 0.9972830205753863,
+   "3000": 0.9966833689112127
+  },
+  "omega_end_3D": 0.9068855912192956,
+  "omega_3D_last5_windows": 0.9068858442478867,
+  "omega_radial_last_window_leq_T": 0.9068856389659342,
+  "omega_radial_settled": 0.906881754877578,
+  "E_end": 2952.56866581377,
+  "absorbed_end": 3.3382084791731232,
+  "E_plus_absorbed_max_rel_dev": 8.561856401102482e-06,
+  "nonlinear_share_t0": 0.35805888747659315,
+  "nonlinear_share_mean": 0.15183756927443004,
+  "nonlinear_share_radial_t0_abs": 0.35806243469027516,
+  "nonlinear_share_radial_t0_signed": -0.32260818113946305,
+  "steps_per_second": 15.364346309814442,
+  "wall_seconds": 4881.431236165998,
+  "A9_tracks_1e-3": true,
+  "A9_omega_within_0.0005_of_0.9069": true
+ },
+ "twin": {
+  "completed": true,
+  "T": 300.0,
+  "frac_T100": 0.01889949449878704,
+  "frac_T300": 0.03526742172937636,
+  "E0": 3909.520622855758,
+  "A9_twin_below_0.10": true
+ }
+}
