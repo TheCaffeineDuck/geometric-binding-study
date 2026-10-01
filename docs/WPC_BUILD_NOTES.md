@@ -266,3 +266,30 @@ These were used to validate the pipeline. They are not the batch and not committ
 - Quasi-breather pair initial data (section 3).
 - A next-order (polarization) calculation of the force for 12 < d < 16.
 - The phase-pendulum prediction is new to this project. Before anything is called new, scholar should check the Q-ball charge-transfer literature (Battye & Sutcliffe 2000, Axenides et al. 2000) for the same dynamics.
+
+## 9. Independent recomputation of the pair-law verdict (reviewer, 2026-10-02; recorded by the orchestrator)
+
+The reviewer read the 24 result JSONs with its own code (postprocess.py not imported). Its verdict: the measured pair law agrees with the derived one in sign, decay constant, cosine dependence, N flow and phase drift, **with stated exceptions**. It agrees with every hit and every miss of `analysis/criteria.json` as written, and adds the following.
+
+**Numbers recomputed.**
+- Sign (C1): 12 of 12.
+- Early-acceleration ratio (quadratic fit of d(t) over [20, 90] at d = 16 and [20, 150] at d = 20, 24, against the derived force at the measured d, dtheta, omega): 0.972 to 1.069 over the 12 runs with a non-zero predicted force; residual at 90 degrees -0.004 to -0.008 F0.
+- kappa: 0.4163 (scatter about 0.003; sub-selections 0.4156 to 0.4199), amplitude 20,744 against 2 pi A^2 = 20,200 (+2.7%). The script's 0.4172 agrees.
+- 90-degree pairs: N flows leader to lagger at all three separations; rate over prediction 1.02 to 1.09 (d = 16), 1.04 to 1.12 (d = 20), 0.99 to 1.08 (d = 24) on windows from t = 60. Phase at the end 215.4, 159.6, 106.5 against the pendulum on the measured d(t): 196, 152.3, 103.5.
+- Contact: 126.8 and 347.8 (d <= 2 hw); first window with one distinct lump at 135 and 360.
+- Total momentum of the +-theta pairs is physical: P_x(0) = -omega I(d) sin(dtheta) with I the overlap integral of the true profile, ratio 1.0000 to the stored value in all nine runs (for example -18.9455 at d = 16, 90 degrees).
+- Resolution check: genuinely different runs (N = 224 against 160; ball energy differs by 3e-3, max|phi| by 3.5e-2); d(t) agrees to 1.62e-6. Box check 4.8e-4, to T = 300 only.
+- Cross-machine (Mac against AWS, five d = 16 pairs, identical code): d(t) to 2.2e-8 in the merging run and 7e-14 otherwise; per-lump N to 1.5e-4 in the merger burst and 4.6e-11 otherwise.
+
+**The exceptions.**
+1. **Close range.** Below d of about 12 the tail law overpredicts, as the superposition integral says. C2's misses for d16_0 and d20_0 are judged on two windows (d_min 7.2 and 8.4) and one window (d_min 6.8). Against the full superposition force the measured force is 1.00 to 1.04 for windows with d_min >= 10. Block 2b flagged d16_0 before the batch; d20_0 and C4 were not flagged.
+2. **A real excess in the 45-degree pair at d = 16.** For t = 135 to 195, where the force is largest, the measured force is 1.3 to 1.5 times the law, and the force changes sign at dtheta = 85 degrees, not 90. The N asymmetry reaches 28% of N there (the derivation's validity limit is 15%) and d_min = 11.7. Unequal tails explain 5 to 8%; the cause is unidentified (non-stationary lumps is the leading guess, untested). The C6 outcome hit hides a 38% shortfall of the point model's shift for this run (-5.13 measured against -8.3).
+3. **C4 at d = 16** is mostly the windows: the pooled slope 1.206 / intercept 0.152 comes from two near-contact in-phase windows and from the d16_45 run. The cosine law holds inside runs (the 90-degree run alone: slope 1.04, intercept -0.003 over cos from -0.39 to -1; d = 20 and 24 pass). With the centroid-based force the same fit gives 0.93 / -0.07.
+4. **C5b at d = 24** is mechanical: the early window [15, 60] holds 1.7 units of N exchange against about 1.6 of settling difference between the +45 and -45 lumps. With the +45 single-lump run subtracted, lump 1 loses N at the predicted rate (-1.57 against -1.53 at t = 60; -17.1 against -16.0 at t = 450). The -45 single-lump run was not yet available to the reviewer.
+5. **A +2 to 6% systematic excess** in force and N flow at d = 20 and 24.
+
+**Other points.**
+- The merged pair is one lump but not a settled one: its ball energy is still falling by about 0.07% per unit time at the end (0.858 at t = 159, 0.762 at t = 280 for d = 16), omega wobbles by 0.003 around 0.885. "Retained 0.76" is energy in the ball around the merged lump over its start value, read once while still falling; box energy over E0 is 0.84 to 0.85.
+- C11: the ball-energy half hits (0.022 to 0.045 at T = 100 against 0.05); the "no centroid attraction" half cannot be measured by ball centroids of a dispersing field (the anti-phase twin closes by the same amount as the in-phase one). A clean no-interaction test is still missing.
+- C13: L_z of 1e-5 to 5e-5 in the AWS +-theta runs is the lever-arm artefact; the Mac runs made after the fix give 1e-12. Three Mac runs (p045, p090, p135) used the fixed engine.
+- Loose or marginal hits: C5b at d = 20 (27.7% against 30%); C7 retained energy (wide band, read while falling); C12 (tolerances 1e4 to 1e5 times the observed difference); C10 is definitional and the runs are short; the restated C5a tests the cosine law at the measured phase, not that the force vanishes at exactly 90.
