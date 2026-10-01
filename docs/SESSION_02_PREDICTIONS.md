@@ -168,3 +168,14 @@ From the independent review of the tooling:
 - **The window must be (26, 30)** in every run's config; the example file still carried (14, 18), with which lumps differ by up to 4.3e-4 in N.
 - **The post-processing did not yet implement the bonded rule as written** (it lacked the last-sample condition, the "not distinct at the start" label, and it used "at least K" for "equals K"). It is being corrected to the rule above; the rule is not being changed to fit the code. With samples every 25 time units from t = 50, a T = 500 run has 18 samples, so 95% means no sample may fail there; T = 600 and 700 runs tolerate one.
 - Per-lump tracked series (N, phase, energy of each lump) are not meaningful once the distinct-lump count is below K and will not be read there.
+
+### Block 3b. Second run for the one outcome the criterion labels bonded. Written 2026-10-02 06:00 (+07), before the run
+
+**What I know.** The batch is in. E11 (6-ring around an anti-phase centre, R = 15.77) is labelled "bonded" by the rule above: 7 distinct lumps in all 26 samples to T = 700, nearest-neighbour ratios 0.66 to 0.85 at the end. Its plot shows the ring contracting at a growing rate (tracked minimum ratio 0.59 at the last window), so the label looks like a run that stopped before contact. The plan requires a second run at finer resolution and longer time before a bonded outcome is reported. E14, the far-apart control, is also labelled "bonded" because nothing happens in it; that is a flaw in my criterion (it does not ask the outcome to differ from the control), noted in the report.
+
+| # | Run | Prediction | Tolerance |
+|---|---|---|---|
+| E11-long | E11 rerun to T = 1200 at the same resolution (dx = 0.55) | merged; contact (count below 7 or a pair within 2 hw) between t = 700 and 800; not bonded | contact 700 to 850 |
+| E11-fine | E11 at dx = 0.393 to T = 1000 (source lump resampled) | same outcome; d(t) of the ring agrees with E11-long to 0.1 up to t = 600; contact within 10% | — |
+
+Literature: none specific; the point model gives merger at 440 to 463 for this start, so the 3D run is already 1.5 times slower than the model.
