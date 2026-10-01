@@ -34,7 +34,15 @@ WP-A sweep command (resumes if rerun), from the repo root:
 
 ## Rented compute
 
-None launched this session. Ledger total 2.80 USD.
+**LIVE as of 2026-10-01 23:55 (+07). Check and clean up if the session is resumed cold.** us-east-2, profile `swirl`, everything tagged project=swirl.
+- Instance i-0eb9855e4546429f2 (c8g.4xlarge, 0.6358 USD/h, launched 16:23Z, terminate-on-shutdown, dead-man `shutdown -h` at 18:34:48Z = 01:34 +07). Running the WP-C gate runs and three twins since 16:34:48Z; expected done about 17:20Z (00:20 +07).
+- S3 bucket swirl-wpc-156084119557-71737 (code tarball; results, logs, checkpoints synced every 5 min under `A/`).
+- IAM role swirl-wpc-role, instance profile swirl-wpc-profile, security group sg-0fd9e12ecf65ba23b. No key pairs.
+- Cleanup if abandoned: terminate the instance; empty and delete the bucket; remove the role from the profile, delete the profile, detach AmazonSSMManagedInstanceCore, delete inline policy `s3bucket`, delete the role; delete the security group. Then add the ledger row.
+- Cost so far about 0.7 USD (c8g 0.9 h, plus a 9-minute c7i benchmark instance, already terminated). Ledger row not yet written; ledger file still says 2.80.
+- Benchmark at N = 160: c8g.4xlarge 33.5 steps/s total with 8 jobs x 2 threads; c7i.4xlarge 15.5. Engine tests on the c8g: 41 passed, 1 xfailed.
+- Gate evaluation: `.venv/bin/python outputs/session2/wpC/gate_eval.py --results <dir>` writes `gate.json` (criteria G1, G2 in the predictions file). No pair run starts unless it passes.
+- Plan after a pass: second c8g.4xlarge, 17 remaining configs split over the two, about 90 minutes, about 2.5 USD in total.
 
 ## Notes for a resuming session
 
