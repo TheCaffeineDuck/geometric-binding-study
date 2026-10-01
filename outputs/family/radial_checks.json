@@ -1,0 +1,76 @@
+{
+ "profile_omega": 0.8853597793082626,
+ "beta": 0.6111111111111112,
+ "conservation_T100": {
+  "target": 1e-05,
+  "max_rel_drift_discrete": 9.848528516408141e-09,
+  "discrete_verdict": "pass",
+  "discrete_note": "E_h, the exactly conserved semi-discrete energy (4th-order D2 form)",
+  "max_rel_drift_physical_density": 0.0001260403490106555,
+  "physical_density_verdict": "miss",
+  "physical_density_note": "energy from the physical density (np.gradient phi_r, trapezoid in r^2 dr), the quadrature used for E_loc; its variation is O(dr^2) quadrature error of this diagnostic as the field moves on the grid, not non-conservation of the dynamics. It bounds the accuracy of E_loc fractions (~1e-4)."
+ },
+ "conservation_T500": {
+  "target": 1e-05,
+  "max_rel_drift_discrete": 6.343260179704962e-08,
+  "discrete_verdict": "pass",
+  "discrete_note": "E_h, the exactly conserved semi-discrete energy (4th-order D2 form)",
+  "max_rel_drift_physical_density": 0.0002051723993296564,
+  "physical_density_verdict": "miss",
+  "physical_density_note": "energy from the physical density (np.gradient phi_r, trapezoid in r^2 dr), the quadrature used for E_loc; its variation is O(dr^2) quadrature error of this diagnostic as the field moves on the grid, not non-conservation of the dynamics. It bounds the accuracy of E_loc fractions (~1e-4)."
+ },
+ "box_doubling_oscillon": {
+  "max_abs_diff_frac": 2.371643708721019e-08,
+  "max_abs_diff_phi_center_over_max": 8.183302392192327e-07,
+  "frac_T500": [
+   0.0003885487499558711,
+   0.0003885250335187839
+  ]
+ },
+ "box_doubling_oscillon_linear": {
+  "max_abs_diff_frac": 5.054703746178902e-07,
+  "max_abs_diff_phi_center_over_max": 3.341700223258139e-05,
+  "frac_T500": [
+   1.4970963411041445e-05,
+   1.5389281335220753e-05
+  ]
+ },
+ "box_doubling_gaussian": {
+  "max_abs_diff_frac": 6.281905462168815e-07,
+  "max_abs_diff_phi_center_over_max": 6.216022010403401e-05,
+  "frac_T500": [
+   3.163940562871969e-05,
+   3.226296659392798e-05
+  ]
+ },
+ "box_doubling_gaussian_linear": {
+  "max_abs_diff_frac": 6.241843403820426e-07,
+  "max_abs_diff_phi_center_over_max": 6.2067623268187e-05,
+  "frac_T500": [
+   3.1296027760948745e-05,
+   3.1915410316831234e-05
+  ]
+ },
+ "resolution_half_dr": {
+  "max_abs_diff_frac": 3.8108583915841265e-05,
+  "omega_late": [
+   1.0003436509437336,
+   1.0003436522471851
+  ],
+  "frac_T500": [
+   0.0003885487499558711,
+   0.00038852100136552777
+  ]
+ },
+ "settings": {
+  "dr": 0.05,
+  "dt": 0.0125,
+  "R_sponge": 100.0,
+  "R_box": 200.0,
+  "sigma_max": 1.0,
+  "doubled": {
+   "R_sponge": 200.0,
+   "R_box": 400.0
+  }
+ }
+}
