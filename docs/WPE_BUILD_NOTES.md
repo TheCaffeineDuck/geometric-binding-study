@@ -287,3 +287,40 @@ Memory at a = 16: 0.51 to 1.06 GB per run (2.5 GB at N = 256), plus 0.7 GB durin
 - Every benchmark here ran with WP-B, the WP-A sweep and the WP-D worker on the Mac.
 
 **Parking lot:** a C∞ window taper (the cos² taper has a second-derivative jump, which feeds the Nyquist content behind 2b); a radiation-free source (a later t_s, or a source box with a far sponge) to cut the crop loss, which is mostly radiation.
+
+## Independent recomputation of the arrangement outcomes (reviewer, 2026-10-02; recorded by the orchestrator)
+
+The reviewer recomputed all 18 runs from the result JSONs with its own code. Every label of `analysis/criteria_E.json` reproduces under Block 3 as written. E_total + absorbed is conserved to 4.5e-6 or better in every run. The physical picture differs from the labels in four ways.
+
+**1. "Group energy retained" is a residence measure, not a survival measure.** The group sphere has radius R_ext + 3 hw + 2 around the energy-weighted mean of the tracked centroids. In 11 of 18 runs the energy "lost from the group" is lumps leaving the sphere, mostly alive, until the sponge absorbs them. `E_retained_end` must not be quoted as energy left. What actually happened:
+
+| Run | Label | What happened |
+|---|---|---|
+| E01 5-ring, 72 degree steps, a = 16 | merged | pair within 2 hw at 294; count 5 to 3 to 2; two lumps of 0.36 E0 each (omega about 0.87) leave back to back at v = 0.13 and reach the sponge at about 500 |
+| E02 5-ring in phase, a = 16 | merged | contact at 150; one compressed lump at 160; then two lumps of 0.38 E0 (v = 0.10, omega 0.867) leave along +-z, perpendicular to the ring; lumps hold 0.75 E0 at T = 400 |
+| E03 5-ring, 72 steps, a = 8.11 | flew apart | contact at 22.7 (point model 135); one blob at 35; two lumps of 0.41 E0 back to back by 160, absorbed by about 400. The "5 distinct lumps" at the end are debris (peak energy density 0.08 against 17) |
+| E04 5-ring at a = 3.02 (CD's balance) | not distinct at the start | 2 distinct lumps in the first window; then 3, then 2 lumps recoiling at 0.2 to 0.25; 0.98 absorbed |
+| E05 4-ring alternating, a = 16 | flew apart | four intact lumps (0.248 E0 each, omega 0.911), radius 11.3 to 25.7 at v = 0.034; N spread 1.2e-4 |
+| E06 4-ring, 90 degree steps, a = 12 | flew apart | ratio 1.67 at T, no merger; N flows between lumps (energies 0.30, 0.30, 0.20, 0.20 E0 by t = 300) and the phase steps leave their set values (37 degrees off at t = 200) |
+| E07 6-ring, 60 steps, a = 7.32 | not distinct at the start | one blob at t = 10; two lumps of 0.45 E0 (v = 0.225) by 160; 0.96 absorbed |
+| E08 octahedron + anti-phase centre, R = 3.82 (CD's balance) | merged | one lump at the origin from t of about 25; 0.47 E0 at T = 300, omega 0.83, still losing 0.23% of itself per unit time; its N falls from 24,100 to 18,300 |
+| E09 cube + anti-phase centre, R = 8.51 | merged | nine distinct lumps to t = 85; one lump from 110 with 0.43 to 0.46 E0, omega 0.848 after t = 240, losing 3e-4 E0 per unit time |
+| E10 8-ring, 90 steps (two turns), a = 12 | merged | pair contact at 190; 8 lumps become 4 by 210 (0.24 E0 each, omega 0.88), which then recede radially at 0.065; N spread 53% at t = 150 |
+| E11 6-ring + anti-phase centre, R = 15.77 | bonded (by the rule) | contracting hexagon; see below |
+| E12 5-ring 0,0,180,180,0, a = 16 | merged | the in-phase pair closes first (115.6); two unequal lumps (0.40 and 0.29 E0) separating at 0.05 and speeding up |
+| E13 5-ring, 144 steps, a = 16 | flew apart | five intact lumps, radius 13.6 to 26 at v = 0.03; N spread below 2e-3, steps within 0.6 degrees to t = 300 |
+| E14 5-ring far apart (a = 30) | bonded (no content) | nothing moves: ratio within 5.3e-4, N spread 1.8e-4, phase steps within 0.05 degrees. This is the noise floor |
+| E15 twin of E01 | bounded at T | free dispersal; ball energy 0.058 at t = 100; group sphere 0.236 at 100 and 0.098 at 150 |
+| E15 res and box checks of E03 | merged | identical to E03 before contact (pair distance to 1e-7, contact 22.69 in all three; counts identical to t = 385; group energy to 1.4e-3 to t = 220). After about 235 the recoiling lumps meet the sponge at different radii (27.6, 30.4, 47.4) and the runs diverge: ball energy at T = 500 is 0.017, 0.031, 0.159. The resolution check also changed the box (84.86 against 79.2), so it is not a check at fixed box |
+
+**2. E11 is not bonded in any meaningful sense.** Ring radius 15.770, 15.66, 15.36, 14.94, 14.48, 13.84, 13.13 at t = 10, 200, 300, 400, 500, 600, 690; inward velocity growing from 0.0004 to 0.0092; no turning point after t = 85. The centre-to-ring phase librates about 180 degrees (+17, -17, +14, -13, +8 degrees; period about 350) and N swings by about 9% between centre and ring with the same period: the first-order cancellation of forces needs exactly 180, and the libration leaves a net inward force of the measured size (1.7e-5 against 1.6e-5 in acceleration). From t of about 500 the hexagon breaks symmetry (two pairs of neighbours close up; e-fold about 30, seeded at round-off level). Extrapolated first pair contact (2 hw) at 699 to 709; count drop expected at 720 to 770. The symmetric ring alone would reach contact only at 1100 to 1270. The point model's 440 to 463 depends on its seed and is not a quantitative target.
+
+**3. The stepped rings.** Initial angular momentum matches the true-profile overlap formula to +0.5 to +3.4% in all seven (E01: -1030 against -997; 7.2% of N per lump at 4.8 hw). No ring rotates at J/I before contact (E01: 0.7 degrees by t = 100, opposite in sign to J). In E01 the phase steps and equal N hold to t of about 150 to 200, not to contact at 294 (N spread 1.1% at 200, 8% at 250). In E06 and E10 (90 degree steps) N flows early (36% and 53% spread), which contradicts the point model's statement that a uniform stepped ring is a fixed point of the N flow with a neutral phase sector at 90 degrees.
+
+**4. The criterion.** E14 and E11 are "bonded" for the same reason: the rule cannot tell a bond from slow or no motion. The band 0.5 to 1.5 allows 50% contraction; there is no trend test, no link between T and the interaction time, and no comparison with the far-apart control. A sound rule would need count = K in every sample, ratios within about 10% with a last-third trend below a few times the control's 5e-4, T of at least five interaction times (the in-phase control's contact time), N and phase steps held, a response distinguishable from the far-apart control, and ideally a displacement test.
+
+**Verdicts on the Block 3 rows, where the reviewer differs from the script.** E3 and E7: the "merged by T = 300" items are hits on the stored counts at t = 285 and 310 (the script read the end of the run). E15 class items: at T = 300 all three runs are "merged"; the script's miss comes from reading T = 500. E15 twin: 0.236 against 0.1 is within the 3-times rule (pass with note); by the ball measure it is 0.058. E11: a miss on both the outcome and the timing window (contact about 701 against 320 to 650). E12's "in-phase neighbours first" is evaluable and a hit. E-all: supported, with E11 pending and one clause wrong as I wrote it ("steps of 90 degrees or more expand": E10 merges, as its own row predicted). E-rot: angular momentum conserved to 0.2 to 1.5% until merger or ejection; absorbed angular momentum is not recorded, so the second half cannot be tested. The "contact within 15%" check items cannot fail (the runs are identical before contact).
+
+**Point-model timing against 3D (not scored in Block 3).** Good at 4.8 hw: E1 +7%, E2 +1%, E5 0 to +2%, E12 -1%. Off elsewhere: E6 +31 to +49%, E10 -23%, E11 a factor 1.5, and E3 and E7 by a factor of 6 or more inside 2.5 hw.
+
+**Pair batch, N flow at d = 24.** The three early rates on file (0.0691, 0.0408, 0.0767) are the same slope on three time grids across a start-up transient; `dNdt_on_pair_grid` in `single_dNdt.json` uses the grid of a different run than its label says. With both singles subtracted on their own grids the rate is 0.038 +- 0.007 against 0.038 predicted, leader to lagger.
