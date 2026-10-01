@@ -1,0 +1,29 @@
+{
+ "params": {
+  "N": 64,
+  "L": 50.0,
+  "m": 1.0,
+  "g4": 0.0,
+  "g6": 0.0,
+  "absorber": {
+   "gamma": 2.0,
+   "width": 12.0,
+   "power": 3
+  },
+  "dt": 0.09765625,
+  "T": 70.0,
+  "k0": 2.4,
+  "envelope_sigma": 3.0,
+  "start": [
+   0,
+   0,
+   0
+  ],
+  "direction": "+x, positive-frequency projection",
+  "interior": "r < 13",
+  "t_exit": 28.833333333333336
+ },
+ "max_state_norm_in_interior_after_exit_over_initial": 0.001015828969521936,
+ "max_energy_in_interior_after_exit_over_E0": 1.0263056024548313e-06,
+ "energy_absorbed_fraction": 0.9990961024996863
+}

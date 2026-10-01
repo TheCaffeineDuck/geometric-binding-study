@@ -1,0 +1,40 @@
+{
+ "params": {
+  "N": 32,
+  "L": 25.0,
+  "m": 1.0,
+  "g4": 0.3,
+  "g6": 0.055,
+  "kfilter": {
+   "nu": 1.0,
+   "power": 4
+  },
+  "dt": 0.05,
+  "T": 15.0,
+  "init": {
+   "gaussians": [
+    {
+     "center": [
+      0,
+      0,
+      0
+     ],
+     "amp": 2.0,
+     "R": 2.0
+    }
+   ],
+   "noise": {
+    "seed": 1,
+    "amp": 0.05,
+    "band": "|k| < 0.6 pi/dx",
+    "fields": [
+     "phi",
+     "phi_t"
+    ]
+   }
+  }
+ },
+ "removed_fraction": 0.010958133602950062,
+ "max_step_dE_over_E0": -1.0654852069421456e-05,
+ "max_rel_dev_E_plus_removed": 9.412102858082676e-07
+}

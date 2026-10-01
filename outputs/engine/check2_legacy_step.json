@@ -1,0 +1,34 @@
+{
+ "params": {
+  "code": "legacy/engine/evolver.py SexticEvolver (read-only import)",
+  "N": 64,
+  "L": 50.0,
+  "m": 1.0,
+  "g4": 0.3,
+  "g6": 0.055,
+  "dissipation_sigma": 0.01,
+  "dt": 0.05,
+  "T": 10.0,
+  "init": {
+   "gaussians": [
+    {
+     "center": [
+      0,
+      0,
+      0
+     ],
+     "amp": 0.5,
+     "R": 2.5
+    }
+   ]
+  },
+  "phi_t0": 0.0,
+  "energy_sample_every": 0.5
+ },
+ "E0_legacy": 13.461782355144003,
+ "E_legacy_mean_t5_10": 13.463691029931544,
+ "step": 0.001908674787541642,
+ "max_E_legacy_t_le_10": 13.465264428403001,
+ "max_dev_E_plus_stiffness": 1.297672991285026e-06,
+ "note": "legacy energy omits sigma dx^4 |lap phi|^2/2; with it included, energy is conserved"
+}
