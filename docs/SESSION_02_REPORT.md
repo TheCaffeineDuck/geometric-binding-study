@@ -345,4 +345,36 @@ These are proposals for Aaron and Claude Desktop, not decisions.
 
 ## 14. Tests on main
 
-PENDING.
+`.venv/bin/python -m pytest` on `main` at commit 4025c22, after every code merge (the commits after it change only `docs/`, result files and configs). The two E11 second runs and other work shared the Mac during the run.
+
+```
+collected 134 items
+
+tests/arrange/test_angular_momentum.py .                                 [  0%]
+tests/arrange/test_claude_desktop.py .                                   [  1%]
+tests/arrange/test_counting.py ...                                       [  3%]
+tests/arrange/test_dynamics.py ...                                       [  5%]
+tests/arrange/test_forces.py ...                                         [  8%]
+tests/arrange/test_two_lump.py ...                                       [ 10%]
+tests/engine/test_check1_linear_exact.py ..                              [ 11%]
+tests/engine/test_check2_energy.py ...                                   [ 14%]
+tests/engine/test_check3_ebind.py ......                                 [ 18%]
+tests/engine/test_check4_absorber.py .x....                              [ 23%]
+tests/engine/test_checkpoint_resume.py ...                               [ 25%]
+tests/engine/test_diagnostics.py .........                               [ 32%]
+tests/engine/test_lumps.py .............                                 [ 41%]
+tests/engine/test_lumps_k.py .............                               [ 51%]
+tests/engine/test_snapshot.py ..x.x.......                               [ 60%]
+tests/engine/test_wpe_postprocess.py .........                           [ 67%]
+tests/family/test_profile.py .......................                     [ 84%]
+tests/family/test_radial.py ......                                       [ 88%]
+tests/family/test_wpa_pathintegral.py .......                            [ 94%]
+tests/family/test_wpa_run.py ......x                                     [ 99%]
+tests/test_import.py .                                                   [100%]
+
+================= 130 passed, 4 xfailed in 1587.92s (0:26:27) ==================
+```
+
+The four expected failures are strict records of misses: the Session 1 absorber check at L = 50 (F-001), the box-doubling check at beta = 0.75 (F-008), and two WP-E tooling targets (a cropped copy against its source with the first window; the off-lattice shift at 1e-8). If any of them ever passes, the suite fails.
+
+The suite rewrites its own small check records. One (`outputs/session2/wpC/checks/pair_t0_quadrature.json`) changed in the last digit and was restored from git; apart from files of runs still in progress, `git status` was clean afterwards.
