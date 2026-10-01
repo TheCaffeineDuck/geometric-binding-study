@@ -1,0 +1,23 @@
+{
+ "d": 16.0,
+ "N": 96,
+ "L": 78.0,
+ "T": 30.0,
+ "fit_window_t_center": [
+  5.217669801677842,
+  19.017286023153346
+ ],
+ "F_measured": 0.8385107858347545,
+ "F_pair_only_no_control": 0.7578256334543626,
+ "rel_pair_only_vs_F_asym": -0.01834178619410709,
+ "note": "F_measured subtracts twice the single-lump plane momentum (incoherent radiation). The two lumps radiate coherently and, for the mirror-symmetric pair, d_x phi = 0 on the plane, so the radiation flux there is not the sum of the singles; the radiation share of the early-time slope lies between 0 and 2x the single value (here 0 to 0.08).",
+ "F_asym": 0.7719852213289894,
+ "F_sup": 0.7633204092630125,
+ "rel_vs_F_asym": 0.08617466069005819,
+ "rel_vs_F_sup": 0.09850434451810153,
+ "max_abs_dtheta": 3.0585827025209423e-16,
+ "lump_counts": [
+  2
+ ],
+ "target_rel": 0.1
+}

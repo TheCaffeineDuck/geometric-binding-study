@@ -1,0 +1,19 @@
+{
+ "m": 1.113,
+ "A": 0.1,
+ "N": 24,
+ "L": 30.0,
+ "dx": 1.25,
+ "lump_every_steps": 5,
+ "dt": 0.05,
+ "W_grid_at_start_centre": 1453.2487997653282,
+ "W_continuum": 1453.4182200370772,
+ "rel_W_grid_vs_continuum": -0.00011656677301363771,
+ "max_rel_dev_N_vs_A2mW/2": 1.6570424579365195e-05,
+ "max_rel_dev_E_vs_A2m2W/2": 1.609337316033077e-05,
+ "max_rel_dev_N_m_over_E": 1.7908544827083261e-06,
+ "n_values": 53,
+ "ball_centre_wander": 0.09174498474248902,
+ "target_N_m_over_E": 0.0001,
+ "note": "dN and dE are equal: the ball follows the centroid, which wanders in a uniform field, and the grid sum of the ball weight depends on the ball position at this dx (1.25). The ratio N m / E removes the volume."
+}

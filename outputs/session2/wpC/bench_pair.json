@@ -1,0 +1,174 @@
+[
+ {
+  "config": "pair_d24_p000",
+  "N": 160,
+  "L": 88.0,
+  "threads": 2,
+  "steps": 250,
+  "numba_threads_env": "2",
+  "machine_before": {
+   "loadavg": [
+    3.89453125,
+    5.4521484375,
+    5.208984375
+   ],
+   "processes_over_20pct_cpu": [
+    "200.7 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "96.6 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_pa"
+   ]
+  },
+  "with_lumps_every5": {
+   "wall_s": 42.86357624999073,
+   "steps_per_s_run_call": 5.885177832352681,
+   "steps_per_s_incl_setup_and_postproc": 5.832457808511815
+  },
+  "without_lumps": {
+   "wall_s": 34.49764145800145,
+   "steps_per_s_run_call": 7.273850002424339,
+   "steps_per_s_incl_setup_and_postproc": 7.2468722334063935
+  },
+  "machine_after": {
+   "loadavg": [
+    5.734375,
+    5.66357421875,
+    5.30810546875
+   ],
+   "processes_over_20pct_cpu": [
+    "184.3 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "94.8 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_pa"
+   ]
+  },
+  "overhead_lumps": 0.2359609530297775
+ },
+ {
+  "config": "pair_d24_p000",
+  "N": 160,
+  "L": 88.0,
+  "threads": 2,
+  "steps": 250,
+  "numba_threads_env": "2",
+  "lump_every_steps": 10,
+  "machine_before": {
+   "loadavg": [
+    6.7197265625,
+    5.9296875,
+    5.4267578125
+   ],
+   "processes_over_20pct_cpu": [
+    "166.2 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "99.1 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -c from multiprocessing.sp",
+    "99.1 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -c from multiprocessing.sp",
+    "99.5 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_pa"
+   ]
+  },
+  "with_lumps": {
+   "wall_s": 35.61498812500213,
+   "steps_per_s_run_call": 7.095508703400428,
+   "steps_per_s_incl_setup_and_postproc": 7.019516590109352
+  },
+  "without_lumps": {
+   "wall_s": 29.74489904199436,
+   "steps_per_s_run_call": 8.441947096568873,
+   "steps_per_s_incl_setup_and_postproc": 8.404802438463339
+  },
+  "machine_after": {
+   "loadavg": [
+    5.87548828125,
+    5.8466796875,
+    5.4296875
+   ],
+   "processes_over_20pct_cpu": [
+    "188.8 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "95.4 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_pa",
+    "98.9 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -m swirl.family.wpa cost"
+   ]
+  },
+  "overhead_lumps": 0.18975924763832386
+ },
+ {
+  "config": "check_res_d20_p000_N224",
+  "N": 224,
+  "L": 88.0,
+  "threads": 2,
+  "steps": 60,
+  "numba_threads_env": "2",
+  "lump_every_steps": 10,
+  "machine_before": {
+   "loadavg": [
+    4.9228515625,
+    6.453125,
+    6.24609375
+   ],
+   "processes_over_20pct_cpu": [
+    "197.6 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "96.9 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_pa"
+   ]
+  },
+  "with_lumps": {
+   "wall_s": 23.182456999988062,
+   "steps_per_s_run_call": 2.6609820058397675,
+   "steps_per_s_incl_setup_and_postproc": 2.5881639724396295
+  },
+  "without_lumps": {
+   "wall_s": 20.199810209000134,
+   "steps_per_s_run_call": 3.0257906862268236,
+   "steps_per_s_incl_setup_and_postproc": 2.9703249376702896
+  },
+  "machine_after": {
+   "loadavg": [
+    5.16845703125,
+    6.2958984375,
+    6.19775390625
+   ],
+   "processes_over_20pct_cpu": [
+    "196.4 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "124.1 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_p"
+   ]
+  },
+  "overhead_lumps": 0.13709550819451244
+ },
+ {
+  "config": "check_box_d24_p000_L132",
+  "N": 240,
+  "L": 132.0,
+  "threads": 2,
+  "steps": 60,
+  "numba_threads_env": "2",
+  "lump_every_steps": 10,
+  "machine_before": {
+   "loadavg": [
+    5.16845703125,
+    6.2958984375,
+    6.19775390625
+   ],
+   "processes_over_20pct_cpu": [
+    "196.5 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "90.9 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_pa"
+   ]
+  },
+  "with_lumps": {
+   "wall_s": 26.66825487499591,
+   "steps_per_s_run_call": 2.304700341277325,
+   "steps_per_s_incl_setup_and_postproc": 2.249866002902794
+  },
+  "without_lumps": {
+   "wall_s": 24.726434124997468,
+   "steps_per_s_run_call": 2.4616473505786085,
+   "steps_per_s_incl_setup_and_postproc": 2.4265528825016593
+  },
+  "machine_after": {
+   "loadavg": [
+    5.09765625,
+    6.107421875,
+    6.13232421875
+   ],
+   "processes_over_20pct_cpu": [
+    "168.2 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+    "108.5 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpC/bench_p",
+    "100.0 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -c from multiprocessing.s",
+    "99.0 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -c from multiprocessing.sp"
+   ]
+  },
+  "overhead_lumps": 0.0680986618912458
+ }
+]

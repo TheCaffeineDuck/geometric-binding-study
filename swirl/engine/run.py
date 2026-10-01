@@ -27,6 +27,10 @@ Config keys (defaults in DEFAULTS; `init` is required)
                          crossings of phi(center, t)) that fits inside it
     checkpoint_every     time between checkpoints (if checkpoint_dir is given)
     threads              FFT workers and numba threads
+    lumps                optional (absent = off): per-lump, momentum, angular momentum,
+                         half-space momentum and lump-count diagnostics, see lumps.py
+                         (LUMP_DEFAULTS). When present, the multi-lump guards run too
+                         (lumps.check_lumps) and the result gains a "lumps" block.
 
 Result JSON: {"params", "completed", "steps_done", "t", "wall_seconds",
 "steps_per_second", "series": {...}, "point": {...}, "frequency": {...},
@@ -43,6 +47,7 @@ import numpy as np
 
 from swirl.engine.evolver import Evolver, SPONGE_DEFAULT
 from swirl.engine.initial import build_initial, radial_checks
+from swirl.engine.lumps import LumpDiagnostics, check_lumps, lump_config, summarize as lump_summary
 
 DEFAULTS = {
     "N": 64, "L": 50.0, "m": 1.0, "g4": 0.30, "g6": 0.055,
@@ -89,6 +94,8 @@ def full_config(config):
         cfg["absorber"] = dict(SPONGE_DEFAULT)
     elif cfg["absorber"]:
         cfg["absorber"] = {**SPONGE_DEFAULT, **cfg["absorber"]}
+    if cfg.get("lumps"):
+        cfg["lumps"] = lump_config(cfg["lumps"])
     return cfg
 
 
@@ -221,15 +228,20 @@ def _sample(ev, series, shell, n_rc, t):
     series["E_loc"].append((np.cumsum(shells) * ev.dV).tolist())
 
 
-def _save_checkpoint(ckpt_dir, ev, cfg, series, point, wall):
+def _save_checkpoint(ckpt_dir, ev, cfg, series, point, wall, ld=None):
     os.makedirs(ckpt_dir, exist_ok=True)
     meta = {"params": cfg, "step": ev.step_count, "absorbed": ev.absorbed,
             "C_kin": ev.C_kin, "I_kin": ev.I_kin, "series": series,
             "point": point, "wall_seconds": wall}
+    arrays = {"phi": ev.phi, "pi": ev.pi}
+    if ld is not None:
+        meta["lumps_state"] = ld.state()
+        if ld.acc is not None:
+            arrays["lump_acc"] = ld.acc
     path = os.path.join(ckpt_dir, "checkpoint.npz")
     tmp = path + ".tmp"
     with open(tmp, "wb") as f:
-        np.savez(f, phi=ev.phi, pi=ev.pi, meta=np.array(json.dumps(meta)))
+        np.savez(f, meta=np.array(json.dumps(meta)), **arrays)
     os.replace(tmp, path)
 
 
@@ -238,7 +250,8 @@ def _load_checkpoint(ckpt_dir):
     if not os.path.exists(path):
         return None
     with np.load(path, allow_pickle=False) as z:
-        return z["phi"].copy(), z["pi"].copy(), json.loads(str(z["meta"]))
+        acc = z["lump_acc"].copy() if "lump_acc" in z.files else None
+        return z["phi"].copy(), z["pi"].copy(), json.loads(str(z["meta"])), acc
 
 
 def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=False):
@@ -264,9 +277,15 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
     def point_value():
         return float(sum(w * ev.phi[i] for i, w in zip(pidx, pw)))
 
+    ld, lump_guards = None, None
+    if cfg.get("lumps"):
+        lump_guards = check_lumps(cfg["init"], cfg["L"], cfg["absorber"], cfg["lumps"]["sponge_tol"])
+        ld = LumpDiagnostics(ev, cfg["lumps"])
+        l_every = max(1, int(cfg["lumps"]["every"]))
+
     ck = _load_checkpoint(checkpoint_dir) if checkpoint_dir else None
     if ck is not None:
-        phi, pi, meta = ck
+        phi, pi, meta, lacc = ck
         if meta["params"] != cfg:
             raise ValueError("checkpoint params differ from config")
         ev.phi[...] = phi
@@ -274,6 +293,8 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         ev.step_count, ev.absorbed = meta["step"], meta["absorbed"]
         ev.C_kin, ev.I_kin = meta["C_kin"], meta["I_kin"]
         series, point, wall_prior = meta["series"], meta["point"], meta["wall_seconds"]
+        if ld is not None:
+            ld.restore(meta["lumps_state"], lacc)
         resumed = True
     else:
         phi, pi = build_initial(ev.coords, ev.L, cfg["init"])
@@ -296,9 +317,13 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
                 point["phi"].append(point_value())
                 point["C"].append(ev.C_kin)
                 point["I"].append(ev.I_kin)
+            if ld is not None:
+                ld.read_points(n * dt)
+                if n % l_every == 0 or n == n_total:
+                    ld.sample(n * dt)
             if checkpoint_dir and n % c_every == 0 and start < n < n_total:
                 _save_checkpoint(checkpoint_dir, ev, cfg, series, point,
-                                 wall_prior + time.perf_counter() - t0)
+                                 wall_prior + time.perf_counter() - t0, ld)
                 if verbose:
                     print("step %d/%d t=%.2f E=%.10g absorbed=%.4g" % (
                         n, n_total, n * dt, series["E_total"][-1], ev.absorbed), flush=True)
@@ -310,7 +335,7 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
     wall = time.perf_counter() - t0
     completed = n >= n_total
     if checkpoint_dir and not completed:
-        _save_checkpoint(checkpoint_dir, ev, cfg, series, point, wall_prior + wall)
+        _save_checkpoint(checkpoint_dir, ev, cfg, series, point, wall_prior + wall, ld)
 
     freq = frequency_from_point(point["t"], point["phi"])
     tz = np.array(freq["zero_crossings"])
@@ -345,6 +370,14 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         "summary": summary,
         "init_checks": [radial_checks(p, cfg["L"]) for p in cfg["init"].get("radial", [])],
     }
+    if ld is not None:
+        st = ld.state()
+        result["lumps"] = {
+            "guards": lump_guards,
+            "raw": {k: st[k] for k in ("series", "point", "centers")},
+            "counts": st["counts"],
+            "averages": lump_summary(st, series["t"], cfg["lumps"]["avg_window"]),
+        }
     if out_path:
         atomic_write_json(result, out_path)
     result["_evolver"] = ev
