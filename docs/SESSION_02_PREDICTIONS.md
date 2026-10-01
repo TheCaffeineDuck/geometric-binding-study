@@ -37,6 +37,16 @@ Initial data for phase theta: phi = Phi(r) cos(theta), phi_t = -omega Phi(r) sin
 | C0a | theta = 180 equals theta = 0 to rounding | phi -> -phi is an exact symmetry | — |
 | C0b | theta = 45, 90, 135 pass, with differences of order 1e-3 or less | early shedding at beta = 4/3 is 0.03% (F-002 D3), so the start phase changes little | A phi_t = 0 single-frequency start is not the quasi-breather (van Dissel 2023, `READ`). Pair runs in the literature use phase-shifted copies (Amin & Mou 2020, Xue 2025, `READ`). No source for phase dependence of the settling |
 
+## Block 1b. WP-A supplement. Written 2026-10-02 00:20 (+07), before the supplement runs
+
+What I know when writing this: the first sweep (18 long runs to T = 30,000, `outputs/session2/wpA/lifetime_table.json`). Above beta = 4/3 every best start is alive at the cap, so the sweep cannot rank those beta values by measurement. The supplement extends the best starts at beta = 4/3, 1.6, 2.0, 3.0 and 5.0 to T = 300,000 (a deviation from the plan's cap, to answer its question "is there a beta where a lone lump is effectively permanent"), and adds the reviewer's safeguard starts and matched-size starts.
+
+| # | Prediction | Basis | Literature |
+|---|---|---|---|
+| A6 | beta = 4/3, start omega 0.9065: T_90 falls between 50,000 and 300,000; the lump is not permanent | measured rate at or below 2e-8 now, but the lump drifts out of its dip (F-004 mechanism) | Published beta = 4/3 lifetimes are 1e4 to 1e5; Mukaida 2017 ran to 1e5 without death (`READ`) |
+| A7 | beta = 3.0 and 5.0: the best starts are alive at T = 300,000 with frac above 0.95. beta = 1.6 and 2.0: alive with frac above 0.90 | rates at or below 1e-9 to 1e-8 | Geometric decoupling at large beta (A&S, `READ`); a "longevity cliff" near beta 1.6 to 2.1 is possible (N17, low confidence), which would make 1.6 or 2.0 fall short |
+| A8 | At matched N/N_min = 1.3, 1.8 and 2.5 the lifetime rises monotonically with beta | Session 1 D3 scan, monotone to T = 600 | no source |
+
 ## Block 1 outcome for the WP-C phase control (recorded 2026-10-01, before Block 2)
 
 Radial runs, `outputs/session2/wpC/phase_control_radial.json`. C0a: hit (2.9e-15). C0b: hit at 45 (9.3e-4) and 135 (1.1e-3); **miss at 90**: the difference in frac is 6.6e-3, 1.09e-2 and 2.46e-2 at T = 300, 500 and 1000 against the 0.01 criterion, and omega is off by 0.0066 to 0.0079 against 0.005. No death. Cause, from three diagnostics: the t = 0 energy of the single-frequency start depends on theta (2843.8 at 0, 2605.2 at 90), so the 90-degree start is a lighter lump (N 9.5% lower, omega 0.9157) that behaves exactly like the family member with its N. Ledger entry F-009.

@@ -1,0 +1,56 @@
+{
+ "beta": 5.0,
+ "omega": 0.9911904876957681,
+ "T": 30000.0,
+ "grids": [
+  {
+   "dr": 0.05,
+   "dt": 0.0125,
+   "R_sponge": 193.64916731037084,
+   "R_box": 387.2983346207417,
+   "sigma_max": 1.0,
+   "sigma_profile": "sigma_max((r-R_sponge)/(R_box-R_sponge))^2",
+   "scheme": "u=r phi, 4th-order FD, odd reflection at r=0 and r=R_box, RK4",
+   "size_scale": 1.9364916731037085
+  },
+  {
+   "dr": 0.05,
+   "dt": 0.0125,
+   "R_sponge": 387.2983346207417,
+   "R_box": 774.5966692414834,
+   "sigma_max": 1.0,
+   "sigma_profile": "sigma_max((r-R_sponge)/(R_box-R_sponge))^2",
+   "scheme": "u=r phi, 4th-order FD, odd reflection at r=0 and r=R_box, RK4",
+   "size_scale": 1.9364916731037085
+  }
+ ],
+ "max_abs_diff_frac": 6.580986752324769e-06,
+ "t_at_max": 10765.0,
+ "target": 0.0001,
+ "max_rel_diff_E_lump": 1.80253082777843e-07,
+ "max_abs_diff_by_5000": {
+  "0-5000": 3.027985273629241e-06,
+  "5000-10000": 5.793261478315159e-06,
+  "10000-15000": 6.580986752324769e-06,
+  "15000-20000": 6.0160101660322596e-06,
+  "20000-25000": 3.3987181026207125e-06,
+  "25000-30000": 4.679342767932582e-06
+ },
+ "frac_end": [
+  0.9686619353969781,
+  0.9686599847595236
+ ],
+ "frac_end_stored_long": 0.9686619353969781,
+ "T_death": [
+  null,
+  null
+ ],
+ "T_90": [
+  null,
+  null
+ ],
+ "walls": [
+  179.74277091026306,
+  364.05460810661316
+ ]
+}
