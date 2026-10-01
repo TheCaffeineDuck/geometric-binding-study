@@ -2,7 +2,10 @@
 
 Resume file. Updated by the orchestrator after each package. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`.
 
-Last update: 2026-10-01 21:45 (+07), WP0 done; S, A build, B, C build running.
+Last update: 2026-10-01 23:20 (+07). WP0 and WP-S done; WP-A build merged, sweep starting; WP-B running; WP-C build running.
+
+WP-A sweep command (resumes if rerun), from the repo root:
+`PY=.venv/bin/python; nohup caffeinate -i sh -c "$PY -m swirl.family.wpa families --workers 2 && $PY -m swirl.family.wpa maps --workers 2 && $PY -m swirl.family.wpa rank && $PY -m swirl.family.wpa long --workers 2" > logs/session2/wpa_sweep.log 2>&1 &`
 
 ## Packages
 
@@ -10,7 +13,7 @@ Last update: 2026-10-01 21:45 (+07), WP0 done; S, A build, B, C build running.
 |---|---|---|---|
 | WP0 housekeeping | runner | **done**. Effort values "5" and "30": the Claude Code docs list only named levels (low, medium, high, xhigh, max) and give no numeric scale, and no documented way for the parent session to confirm a subagent's effort after the fact. So the mapping stays unconfirmed. The WP0 runner reported model `claude-sonnet-5-5`, effort not visible | Errata in `LESSONS_2026-10-01.md`; pointer line in `SWIRL_PLAN_2026-10-01.md`; reporting rule in `.claude/agents/numerics.md`; `AWS_REPORT.md` re-check: quota now 64 vCPU, request closed, 120 USD credits, nothing left in us-east-2 |
 | WP-S prior-art brief | scholar | **done**; orchestrator has read S0, S6, S7, S8 | `docs/PRIOR_ART.md` lines 468 to 813, "Session 2 brief" (S0 to S10, notes N12 to N18, searches 41 to 82) |
-| WP-A lifetime map | numerics build, then runner | build started | `outputs/session2/wpA/` |
+| WP-A lifetime map | numerics build, then runner | **build done and merged** (061fc83); sweep handed to runner; review and ledger entry in progress. Prediction A1 MISSED: path integral gives T_death 11,540 against 1145.5 (beta 0.85) and T_90 33,006 against 10,630 (beta 4/3). Cause found by diagnostics: gaps in the map's energy coverage; with the run's own Gamma(E) the integral gives 10,673 (+0.4%). Consequence: rankings are provisional, so the long stage runs two picks per beta (path-integral best, and lowest measured rate). Also missed: box doubling at beta 0.75, 3.29e-4 against 1e-4, after the lump has died | `outputs/session2/wpA/`, `docs/WPA_BUILD_NOTES.md` |
 | WP-B 3D primary to T = 5000 | runner | **running detached**, started 22:28, expected finish about 02:40. Collection and the isotropy check (B2) still to do | `outputs/session2/wpB/` |
 | WP-C two-body law | numerics build, then runner or cloud | build started | `outputs/session2/wpC/`, `docs/WPC_DERIVATION.md` |
 | WP-D arrangement maths | numerics | waits for WP-C | `outputs/session2/wpD/` |
