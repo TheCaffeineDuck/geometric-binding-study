@@ -1,15 +1,14 @@
 """WP3 task A: radial tables of Phi(r) in Set-B-like units from the WP1A profile solver.
 
-The solver module is loaded by file path from the WP1A worktree (not on main yet).
+Uses the WP1A profile solver (swirl.family.profile, merged to main at acccf08).
 Solves in rescaled units (m=1, g4=1, g6=beta) and converts Phi_setB = Phi/sqrt(g4).
 Run: .venv/bin/python outputs/step2/make_profiles.py
 """
-import importlib.util, json, os
+import json, os, sys
 import numpy as np
 
-WT = "/Users/aaronramos/Desktop/SWIRL/.claude/worktrees/agent-a63e9fc3746934e76"
-spec = importlib.util.spec_from_file_location("wp1a_profile", WT + "/swirl/family/profile.py")
-P = importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+from swirl.family import profile as P
 
 G4, M = 0.30, 1.0
 PICKS = [("primary", 4.0 / 3.0, 0.909149280617113, "0.9091"),
