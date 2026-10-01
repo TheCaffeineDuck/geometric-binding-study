@@ -47,7 +47,7 @@ What I know when writing this: the first sweep (18 long runs to T = 30,000, `out
 | A7 | beta = 3.0 and 5.0: the best starts are alive at T = 300,000 with frac above 0.95. beta = 1.6 and 2.0: alive with frac above 0.90 | rates at or below 1e-9 to 1e-8 | Geometric decoupling at large beta (A&S, `READ`); a "longevity cliff" near beta 1.6 to 2.1 is possible (N17, low confidence), which would make 1.6 or 2.0 fall short |
 | A8 | At matched N/N_min = 1.3, 1.8 and 2.5 the lifetime rises monotonically with beta | Session 1 D3 scan, monotone to T = 600 | no source |
 
-## Block 1c. 3D confirmation of the long-lived beta = 4/3 start. Written 2026-10-02 02:10 (+07), before the run
+## Block 1c. 3D confirmation of the long-lived beta = 4/3 start. Written 2026-10-02 02:03 (+07), before the run
 
 Radial result in hand: the beta = 4/3 start at omega 0.906505 keeps frac 0.9946 at T = 300,000 (`long_beta1.3333_w0.906505_T300k.json`). At the T = 300,000 horizon no other beta beats it by a wide margin in retained energy; beta = 5 beats it in rate (zero within error against 1.7e-8). The plan asks for one 3D confirmation of any beta that beats 4/3 by a wide margin. I run the 4/3 start itself in 3D now on the Mac, because it is the candidate for Step 4 at the verified beta, and list a beta = 5 confirmation as pending on rented compute.
 
