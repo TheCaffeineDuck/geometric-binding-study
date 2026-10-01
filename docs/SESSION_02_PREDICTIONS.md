@@ -84,6 +84,15 @@ Predicted: both pass. G1 about 1e-4 (noise run: 1.3e-6 over T = 80). G2 as in th
 | C12 | Resolution check (d = 20, in phase, N = 224, T = 300): d(t) within 0.1 of the N = 160 run. Box check (d = 24, in phase, L = 132, T = 300): d(t) within 0.02 | targets | — |
 | C13 | Angular momentum about z and about x stays at zero to noise in every pair run (collinear lumps) | — | N12 (derived): 0/180 patterns carry none |
 
+### Block 2a. Amendment to how the force is measured. Written 2026-10-01 23:50 (+07), before any pair run has started (the rented batch is still on its benchmark and gate runs)
+
+Source: the independent review of the WP-C code. It ran a single lump at x = +12 on the production grid (no partner) and found that the momentum in the far half-space swings by -0.56 (theta = 0) to -1.12 (theta = 45) at t of about 46 and recovers by t of about 88: the lump's own start-up radiation. The slope over the early window [10, 60] is -0.006 to -0.011 per lump, against a predicted pair force of 0.0176 at d = 24. The early half-space slope is therefore not a measurement of the pair force at d = 20 and 24. No pair data informed this amendment. The predicted values in Block 2 are unchanged.
+
+- **C2, C3, C4 are judged on two measures:** (i) the sliding half-space force against F(d(t), dtheta(t)) at the measured omega, on windows centred at t >= 100 while two distinct lumps remain; (ii) the centroid separation d(t) against the point model run with the measured dtheta(t). The early half-space slope over [10, 60] is reported for every run but counts as a criterion only at d = 16 (tolerance as in C2). Where the single-lump runs allow it (d = 24, same geometry and phases), the early slope is also reported with the single-lump contribution subtracted.
+- **C5a restated:** at dtheta = 90 the measured force on windows at t >= 100 equals F0(d) cos(measured dtheta) to within 0.15 F0(d). (The start is not exactly at 90: the +-45 pair reads 92.3 degrees.)
+- **Per-lump N and energy at "start"** are read from the first window centred at t >= 15; the first whole-period window is a start-up artefact.
+- **Known limits, stated before the runs:** the box check is 1.5 times the box (L = 132 against 88), not the 2 times of standard 4; only in-phase linear twins are in the rented batch (one anti-phase twin at d = 16 is added on the Mac); lumps started at +theta and -theta settle 8e-5 to 1.2e-4 apart in omega, a static phase drift of about 8e-5 rad per unit time, about a tenth of the predicted pendulum drift at d = 24.
+
 Stop rule from the plan, section 4: if the measured pair law contradicts the derivation in sign (C1), stop after WP-C.
 
 ## Block 3. WP-E arrangement runs
