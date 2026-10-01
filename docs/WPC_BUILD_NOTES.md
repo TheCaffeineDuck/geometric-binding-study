@@ -135,7 +135,7 @@ Script `outputs/session2/wpC/phase_control_radial.py`, result `phase_control_rad
 Caveats for the orchestrator's Block 2.
 
 - **The start is not exactly at the nominal phase.** The -/+ starts settle with a phase offset: the ±45 pair at d = 20 reads 92.3 degrees (check 4c). A 2.3-degree offset at nominal 90 gives F = -0.040 F0 from the start. Compare with F(d(t), dtheta(t)) using the measured phase (the post-processing does).
-- **The lump at each dtheta has its own omega.** The settled omega is 0.9087 to 0.9123. At d = 24 this moves kappa enough to change F by up to about 18%. Use the measured-omega prediction (`F_pred_measured_omega`).
+- **The lump at each dtheta has its own omega.** The settled omega is 0.9087 to 0.9123. Corrected after review: A and kappa move together and F changes by -3.5%, -1.0% and +1.7% at d = 16, 20, 24 for omega = 0.9122 (the first version said up to 18%, counting only e^{-kappa d}; `WPC_DERIVATION.md` section 3). The analysis uses F at the measured omega.
 - **The point model loses validity late in some runs.** It is linear in the N exchange and assumes constant A and E. It is outside its validity once |N_1 - N0| > ~10% N. That happens at d = 16 for 45 and 90 degrees late in the run.
 - **Below d ≈ 12 nothing is predicted.** Merger dynamics there are outside the derivation.
 
@@ -185,26 +185,28 @@ The batch: one detached runner per free 2-thread slot. Each list puts the gate r
     nohup outputs/session2/wpC/run_batch.sh outputs/session2/wpC/batch_slotA.txt > outputs/session2/wpC/logs/slotA.log 2>&1 &
     nohup outputs/session2/wpC/run_batch.sh outputs/session2/wpC/batch_slotB.txt > outputs/session2/wpC/logs/slotB.log 2>&1 &
 
-Post-processing (any time; it works on partial results):
+Post-processing, version 2 (after review; any time; it works on partial results):
 
+    .venv/bin/python outputs/session2/wpC/gate_eval.py          # gate G1, G2 (cloud worker's script)
     .venv/bin/python outputs/session2/wpC/postprocess.py
 
-It writes `outputs/session2/wpC/analysis/summary.json` and one PNG per run with:
+It uses the stored series only and never puts the predicted force inside a fit: predictions are evaluated along the measured d(t), dtheta(t) and omega(t) and compared. It writes:
 
-- centroid tracks, d(t), P(x<0) and dtheta(t);
-- `F_early_halfspace` (slope over t in [10, 60]);
-- `F_slide` and the ratio to F(d(t), dtheta(t));
-- the early quadratic fit of d(t);
-- N, omega and E per lump;
-- the lump counts and the outcome;
-- batch fits of kappa (dtheta = 0 and 180) and of F/F0 against cos(dtheta);
-- the single-lump drifts.
+- `analysis/criteria.json`: one entry per row C1 to C13 of Block 2 with Block 2a: measured values, tolerance, hit or miss per item, or "not evaluable" with the reason; `all_misses` lists every miss; `evaluator_choices` lists every definition that Block 2/2a does not fix (for example the 0.25 F0 cut below which a force ratio is undefined, the prominence of an interior extremum for C10, the |L|/(E d0) threshold for C13).
+- `analysis/summary.json` and one PNG per run.
 
-The outcome criteria are written into the JSON:
+Measures (Block 2a):
 
-- **merged:** the last count window has one distinct lump, or d < 2 hw;
-- **separated:** d(T) > d0 + 1 and still increasing;
-- **bounded:** otherwise. "Bounded at T" is not "bonded".
+- (i) sliding half-space force, 40-unit windows centred at t >= 100 while two distinct lumps remain, against the window mean of F(d(t), dtheta(t)) at the measured omega; the slope of P(x<0) - P_total/2 is reported beside it, because the -/+ theta pairs carry a nonzero total momentum (the N current carries momentum omega x N flux; P_x = -18.95 at t = 0 for the d = 16, 90-degree pair on the test grid);
+- (ii) d(t) against the point model integrated with the measured dtheta(t), and a second model with its own phase dynamics;
+- (iii) at d = 24, the early slope with the single-lump contributions subtracted (lump 2 from the +12 single at its phase; lump 1 from the mirror image of the +12 single, which stands in for -theta except at 0 and 180);
+- the early half-space slope over [10, 60], reported everywhere, a criterion only at d = 16;
+- start values (N, E, d) from the first window centred at t >= 15;
+- N flow per lump and antisymmetric, early and sliding, against 2 pi A^2 sin(measured dtheta) e^{-kappa d}/d, direction stated as leader-to-lagger or not;
+- outcome (merged, separated, bounded) and the C10 bonded test as written; contact time (d <= 2 hw) and retained energy of completed mergers;
+- C12 max |d(t) difference| against the partner run; C11 twins; C13 extremes of L and P; settled omega per lump.
+
+`--test-record-end-as-T` treats a short record's end as the design T; for pipeline testing only (it is recorded in criteria.json).
 
 ## 7. Disclosure: test-sized pair runs made during the build
 
@@ -240,7 +242,20 @@ These were used to validate the pipeline. They are not the batch and not committ
 - **The ball centroid of an overlapping lump is biased toward its partner.** The overlap energy is real field energy. The bias is 0.028 at d = 16 (t = 0) and decays as e^{-kappa d}. It changes a measured shift by about 1% as d shrinks.
 - **Not built.** The phase-averaged multipole shape diagnostic (still the Session 1 open issue).
 
+**Found while testing postprocess v2 (test-sized data only: N = 96, dx = 0.92, T <= 150, scratch; not the batch).** These are properties of the criteria as written, likely to matter on the real runs. The criteria were not changed.
+
+- **C2 at d = 16, dtheta = 0.** The only measure-(i) windows centred at t >= 100 run up to the contact (predicted near 126), where d falls to about 8. There the tail formula overpredicts by up to 2.5 times (`WPC_DERIVATION.md` section 6). On test data the judged worst ratio was 0.18. The analysis also reports, unjudged, the worst ratio over windows with d >= 12 (none existed for that run).
+- **C2 at 45 and 135.** dtheta drifts toward 180, so F_pred passes through zero. Windows just above the 0.25 F0 cut amplify any absolute error: on test data d16_45 gave 1.48 while its residual stayed small.
+- **C5b at d = 24.** Over the early window [15, 60] the +45 and -45 lumps settle at different rates. On test data dN/dt was 0.054 for the +45 lump and 0.0005 for the -45 lump, which is larger than the interaction rate of 0.038, and the antisymmetric rate came out in the wrong direction. The analysis subtracts each lump's own single-lump N drift where both singles exist. Only +theta singles are configured. Proposal: `single_x12_tm22.5`, `tm45.0`, `tm67.5` on the Mac, T = 150 (about 0.3 h each).
+- **C11 "no centroid attraction".** The ball centroids of a dispersing linear field are not lump positions. On test data the in-phase twin's centroids closed by 3.8 (counted as attraction) and the anti-phase twin's separated by 18.
+- **Total momentum of the -/+ theta pairs is not zero.** P_x = -18.95 at t = 0 for d = 16, 90 degrees. The overlap carries momentum: the period-averaged momentum density is omega times the N current, and the energy it moves from leader to lagger shifts the energy centroid at P/E. Measure (i) also reports the slope of P(x<0) - P_total/2.
+- **L_z in the -/+ theta pairs is 4e-5 to 9e-5, not 1e-13.** Relative to E d0 that is 1e-9, which is inside the C13 evaluator threshold of 1e-8. Cause: the engine's minimum-image lever arm is -L/2 on the box-face plane, which has no mirror partner, so p_x there is not cancelled. Proposal for a later engine change: zero lever weight on that plane.
+- **The sign slip "F = -dU/dd" also appears in Block 2 of `SESSION_02_PREDICTIONS.md`** (orchestrator's file, not edited).
+
 **Deviations.**
+
+- The box check is 1.5 times the box (L = 132 against 88), not the 2 times of standard 4 (also listed in Block 2a).
+- Only in-phase linear twins were configured for the rented batch. One anti-phase twin, `twin_d16_p180` (d = 16, T = 300), was added after review and runs on the Mac. Linearity makes every phase pair a combination of the in-phase and anti-phase twins, so these two at d = 16 cover the phase dependence there; the other separations have the in-phase twin only.
 
 - The radial phase option is a new script under `outputs/session2/wpC/` that drives `swirl.family.radial.Radial`, as the task allowed. `swirl/family/` was not edited.
 - Test check records go to `outputs/session2/wpC/checks/`, not `outputs/engine/`, to stay inside the allowed paths.
