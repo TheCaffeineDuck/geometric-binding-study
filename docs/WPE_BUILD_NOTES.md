@@ -9,7 +9,7 @@ Code: `swirl/engine/snapshot.py` (new), `swirl/engine/lumps.py`, `swirl/engine/i
 - **Snapshot starts work and are exact where they can be.**
   - An uncropped, unshifted snapshot continues bit for bit.
   - Relative phases come out at the set value to 5e-5 rad.
-  - With the wide window (26, 30), copies at different phases start equal in N to 0.4e-6 to 4.7e-6, and stay equal in E to 3e-6 over T = 100. With the single-frequency ansatz (F-009) the corresponding differences were 2.5e-2 in frac and 9.5% in N.
+  - With the wide window (26, 30), copies at different phases start equal in N to 0.4e-6 to 4.7e-6 (**first-window values on the dx = 0.8 test source**) and stay equal in E to 3.1e-6 over T = 100. The worst ΔN/N over a T = 100 record is 6.4e-5 (section 4c). With the single-frequency ansatz (F-009) the corresponding differences were 2.5e-2 in frac and 9.5% in N.
 - **Misses against the targets as written.**
   - **The specified window (14, 18) does not make equal lumps.** Copies at different phases differ in N by up to 4.3e-4. The crop transient is first order in the cut tail amplitude, about Φ(r_in)/Φ0, while the crop loss is an energy and therefore second order (section 3).
   - **A sub-grid shifted copy matches the shifted source to 1.2e-6 Φ0 at t = 0** (max norm, production dx), not 1e-8. In energy norm the difference is 8e-9 of E.
@@ -131,6 +131,17 @@ Code checks that needed a fix:
 - Cheap check not run; proposal: the same at dt = 0.04, and N from a fixed ω.
 - What this means for WP-E: compare lumps by E or at a fixed ω, and treat a ΔN/N below about 5e-5 over the record as not resolved by this estimator.
 
+**(e) The N difference between two far copies drifts, and not as the interaction predicts.** `snapshot_two_far_copies_w26_30.json` gives d(N1 − N0)/dt at equal lump age = +2.1e-4 per time unit, against −5.6e-5 predicted from the interaction at d = 40 (lump 1 leads by 72° and should lose N). At (14, 18) it is −1.3e-3.
+- At (26, 30) the sign is wrong and the fitted change over T = 100 (2.1e-2, or 7e-6 of N) is below the record-level jitter of the N estimator (4.4e-5 of N, section 4c). I read it as a fit to that jitter, not a trend.
+- At (14, 18) it is 23 times the prediction, with the predicted sign. Over T = 100 it amounts to 4.5e-5 of N, the size of the phase-dependent crop transient (section 4a).
+- Either way the interaction at d = 40 (2e-6 of N over T = 100) is below what these runs resolve. That is what a far-apart control should show. It also means N exchange between lumps can only be read where it exceeds about 5e-5 of N over the record.
+
+**(f) The source carries radiation above the evanescent profile.** Measured on the production reference state (scratch check):
+- φ rms in 26 < r < 34 is 5.1e-5 Φ0, and φ_t rms is 1.4e-4 ωΦ0. The single-frequency profile there is 2.3e-6 Φ0 rms (r 22 to 26: 7.4e-5 against 2.0e-5).
+- The face guard (Φ ≤ 1e-6 Φ0 beyond r_face) uses the evanescent profile, so it underestimates the field a lump carries at 30 by a factor of about 20. That field is the lump's steady 3ω radiation.
+- The (26, 30) window removes it beyond 30 at t = 0. Every run, like the source run itself, regrows it within about 30 time units, and the sponge absorbs it.
+- What the guard bounds is the initial data, not the radiation reaching the sponge and faces. That radiation is present in every run whatever the start, and is handled by the sponge, validated by the box checks.
+
 **(d) Crop guard at (14,18).** On the production and testbig sources the crop loss is 1.07e-4 and 1.09e-4 (1.1x the 1e-4 target). That is a pass with a note. The guard raises only above 3x; the ratio is recorded per config.
 
 ## 5. K-lump diagnostics (lumps.py)
@@ -175,30 +186,35 @@ which executes (the engine command is the same on Linux; caffeinate wraps it onl
 - **A rented instance needs the source file.** Ship `outputs/session2/wpE/source/src_prod_N160_L88.npz` (66 MB, not in git). The hash is checked at load.
 - Remake the source: `NUMBA_NUM_THREADS=2 $PYTHON outputs/session2/wpE/make_source.py prod` (stage 1 about 45 min under load, resumable; stage 2 about 5 min).
 
-**Post-processing:** `$PYTHON outputs/session2/wpE/postprocess.py [--results DIR] [--criteria FILE] [--out DIR]`. Per run:
+**Post-processing** (revised after review, Block 3 implemented as written):
 
-- regime;
-- lump count over time (count, count_distinct);
-- distance matrix statistics over time, from tracked centroids and from the count-window maxima: min, max, nearest-neighbour mean, min and max over lumps of the nearest-neighbour distance;
-- per-lump N and ω;
-- θ_k − θ_0, and the differences across the neighbour edges of the initial geometry;
-- group energy retained (raw and one-period mean);
-- L about the pattern axis (box, sphere); |P_total|;
-- the outcome, from `criteria.json`.
+    $PYTHON outputs/session2/wpE/postprocess.py [--results DIR] [--criteria FILE] [--emap FILE] [--out DIR]
 
-**Criteria file** (the orchestrator fills the numbers; `criteria_template.json` has nulls and gives "not evaluated"):
+**Outcome** (`criteria.json`, Block 3). Samples are the count windows with t_mid ≥ 50. A sample is ok when the distinct-lump count equals K and every lump's nearest-neighbour distance is within 0.5 to 1.5 of its initial value; distances come from the coordinates of the count-window maxima, matched to the tracked lumps.
+- bonded: ok in at least 95% of the samples and in the last sample, the run completed, and K distinct lumps in the first count window;
+- merged: count below K at the end;
+- flew apart: count K at the end and some ratio above 1.5;
+- not distinct at the start: fewer than K distinct lumps in the first window; never bonded; the end state is reported;
+- otherwise: "bounded at T, not bonded", with the slope of the mean nearest-neighbour distance over the last third.
 
-- min_lump_count (int or "K");
-- count_key;
-- distance_source ("peaks" or "tracked");
-- nn_distance_min, nn_distance_max;
-- pair_distance_max;
-- relative_to_initial;
-- eval_from;
-- hold_fraction;
-- require_completed.
+A missing parameter, or K = 1, gives "not evaluated". min_lump_count "K" is the run's own K.
 
-Outcome: "bonded" when every condition holds on at least hold_fraction of the count windows after eval_from. Otherwise the state at the last window: merged, flew_apart, too_close, unresolved or incomplete.
+**Mechanical report per run:**
+- contact time: the first count window with count < K, or a pair within 2 hw = 6.688. Tracked pairs resolve to half a period; count windows to 25.
+- the first time a nearest-neighbour ratio passes 1.5;
+- the hold fraction and the count series;
+- min and max ratio over the run and at the end;
+- group energy at the end (and at t = 100, 250, 300);
+- L in the first period and its extremes; total momentum extremes;
+- the per-lump N spread and the neighbour phase steps.
+
+Tracked and per-lump series are set to null from the start of the first count window with count < K (`per_lump_valid_until`, with a note in the JSON).
+
+**Criteria table** (`analysis/criteria_E.json`): rows E1 to E15 of Block 3 where they are numeric, each item with measured value, tolerance and hit / miss / not evaluable with the reason. Run names come from the editable `criteria_E_map.json`: the exact name, else a unique result with the row's prefix.
+
+**Synthetic-series tests** (`tests/engine/test_wpe_postprocess.py`) cover every outcome class, the 95% rule (one failing sample of 18 is not bonded, of 26 is bonded), the last-sample rule, count above K, incomplete runs, missing parameters, K = 1, the guards after a merger, and the table.
+
+**Generator.** It refuses a snapshot window other than (26, 30) unless `--allow-window` is given, and writes each config's window to `index.json`. The stale (14, 18) is removed from `candidates_example.json`. The smoke list needs `--allow-window`, because the dx = 0.8 test source only measured windows up to (16, 20).
 
 **Smoke run** (`smoke/`; pipeline only, coarse dx = 0.8, T = 60; generated before the defaults count_every = 25 and it_every_step were set, so it counted every 10, about every 30 in effect, and sampled the ball every 5 steps; its result carries its full parameters). K = 3 ring, a = 10, 120° steps, snapshot window (14,18). It completed with ΔE + absorbed of 5.8e-6, count_distinct 3 throughout, and group energy retained 0.994. The pipeline-test criteria (not the bonded criteria) gave "bonded". Not a result, noted because it is the first stepped-phase ring run: L_axis ≈ −1460 (the stepped ring carries angular momentum from the start), and the nearest-neighbour distance grew from 10.4 to 15.5 by t = 60.
 

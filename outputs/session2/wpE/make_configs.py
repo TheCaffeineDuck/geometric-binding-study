@@ -26,6 +26,8 @@ Candidate list format (JSON):
   ]
 }
 "first" (default) puts the family's resolution and box checks on its first candidate.
+A snapshot window other than the default (26, 30) is refused unless --allow-window is given; every
+config's window is written to index.json.
 
 Box "auto": R_ext = max |x_i| (about the origin); clearances from the profile tail: d_sp with
 Phi(d_sp) = sponge_tol Phi(0) (lump to sponge, check_lumps) and d_face with Phi(d_face) = 1e-6 Phi(0)
@@ -135,6 +137,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("candidates")
     ap.add_argument("--out", default=os.path.join(HERE, "configs"))
+    ap.add_argument("--allow-window", action="store_true",
+                    help="accept a snapshot window other than the default (26, 30); recorded in index.json")
     a = ap.parse_args()
     spec = json.load(open(a.candidates))
     prof = json.load(open(PROFILE))
@@ -143,6 +147,10 @@ def main():
     runs, fam_res, fam_box = {}, set(), set()
     for raw in spec["candidates"]:
         c = {**dflt, **raw}
+        if c["start"] == "snapshot" and list(map(float, c["window"])) != DEFAULTS["window"] and not a.allow_window:
+            raise ValueError("%s: window %s differs from the default %s (lumps at different phases differ by up "
+                             "to 4.3e-4 in N at (14, 18)); pass --allow-window to use it"
+                             % (c["name"], c["window"], DEFAULTS["window"]))
         dx = c["dx"]
         pos = np.asarray(c["positions"], float)
         if c["box"] == "auto":
@@ -174,7 +182,10 @@ def main():
         with open(path + ".tmp", "w") as f:
             json.dump(cfg, f)
         os.replace(path + ".tmp", path)
+        snap = cfg["init"].get("snapshot")
         index[name] = {"N": cfg["N"], "L": cfg["L"], "dx": cfg["L"] / cfg["N"], "T": cfg["t_end"],
+                       "window": snap["window"] if snap else None,
+                       "window_is_default": (snap["window"] == DEFAULTS["window"]) if snap else None,
                        "K": cfg["_candidate"]["K"], "start": cfg["_candidate"]["start"],
                        "linear": cfg["g4"] == 0 and cfg["g6"] == 0, "note": cfg["_note"], "guards": guards}
     with open(os.path.join(a.out, "index.json.tmp"), "w") as f:
