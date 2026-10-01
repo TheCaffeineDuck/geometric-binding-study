@@ -1,0 +1,13 @@
+{
+ "_note": "TEMPLATE: the orchestrator fills these numbers (do not invent them). Format in postprocess.py.",
+ "min_lump_count": null,
+ "count_key": "count_distinct",
+ "distance_source": "peaks",
+ "nn_distance_min": null,
+ "nn_distance_max": null,
+ "pair_distance_max": null,
+ "relative_to_initial": false,
+ "eval_from": 15.0,
+ "hold_fraction": null,
+ "require_completed": true
+}

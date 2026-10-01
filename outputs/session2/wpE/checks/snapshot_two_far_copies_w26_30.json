@@ -1,0 +1,42 @@
+{
+ "d": 40.0,
+ "theta_deg": [
+  0.0,
+  72.0
+ ],
+ "window": [
+  26.0,
+  30.0
+ ],
+ "N": 130,
+ "L": 104.0,
+ "T": 100.0,
+ "omega_source": 0.909539735400628,
+ "crop": {
+  "window": [
+   26.0,
+   30.0
+  ],
+  "crop_loss_E_max": 3.9859184323254304e-05,
+  "crop_loss_E_mean": 3.96286662913526e-05,
+  "crop_loss_N": 4.301562665554037e-05,
+  "shell_energy_fraction_max": 1.0040763298484264e-05
+ },
+ "relative_phase_max_abs_err_rad": 4.857295457627586e-05,
+ "n_phase_windows": 183,
+ "same_age": {
+  "n_windows": 23,
+  "dN_over_N_first": -3.7135421148137837e-06,
+  "dN_over_N_worst": 4.3781586453128796e-05,
+  "dE_over_E_worst": 1.0825070424602679e-05,
+  "domega_worst": 1.667002110261606e-05,
+  "dfrac_worst": 1.1146609779855154e-05
+ },
+ "d(N1-N0)/dt_same_age_fit": 0.0002091406443134877,
+ "d(N1-N0)/dt_predicted_interaction": -5.593680045104232e-05,
+ "ansatz_comparison": "WP-C: ansatz starts at -/+45 read 92.3 deg (2.3 deg offset); F-009: N up to 9.5% lower at 90",
+ "targets": {
+  "relative_phase_rad": 0.001,
+  "dN_over_N": 1e-06
+ }
+}

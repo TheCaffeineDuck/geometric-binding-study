@@ -13,7 +13,8 @@ Config keys (defaults in DEFAULTS; `init` is required)
     m, g4, g6            couplings (Set B: 1, 0.30, 0.055)
     dt                   time step (default dx/8)
     t_end                final time
-    init                 {"radial": [...], "gaussians": [...]}, see initial.py
+    init                 {"radial": [...], "gaussians": [...], "snapshot": {...}}, see initial.py
+                         and snapshot.py (snapshot starts: copies of one settled lump)
     absorber             null/false (off), true (SPONGE_DEFAULT), or a dict overriding
                          {"gamma", "width", "power", "r_out"} (evolver.sponge_profile)
     kfilter              null (default, off), or {"nu", "power"}: damping rate
@@ -47,7 +48,8 @@ import numpy as np
 
 from swirl.engine.evolver import Evolver, SPONGE_DEFAULT
 from swirl.engine.initial import build_initial, radial_checks
-from swirl.engine.lumps import LumpDiagnostics, check_lumps, lump_config, summarize as lump_summary
+from swirl.engine.lumps import (LUMP_DEFAULTS, LumpDiagnostics, check_lumps, lump_config,
+                                summarize as lump_summary)
 
 DEFAULTS = {
     "N": 64, "L": 50.0, "m": 1.0, "g4": 0.30, "g6": 0.055,
@@ -228,11 +230,13 @@ def _sample(ev, series, shell, n_rc, t):
     series["E_loc"].append((np.cumsum(shells) * ev.dV).tolist())
 
 
-def _save_checkpoint(ckpt_dir, ev, cfg, series, point, wall, ld=None):
+def _save_checkpoint(ckpt_dir, ev, cfg, series, point, wall, ld=None, init_info=None):
     os.makedirs(ckpt_dir, exist_ok=True)
     meta = {"params": cfg, "step": ev.step_count, "absorbed": ev.absorbed,
             "C_kin": ev.C_kin, "I_kin": ev.I_kin, "series": series,
             "point": point, "wall_seconds": wall}
+    if init_info:
+        meta["init_info"] = init_info
     arrays = {"phi": ev.phi, "pi": ev.pi}
     if ld is not None:
         meta["lumps_state"] = ld.state()
@@ -278,11 +282,14 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         return float(sum(w * ev.phi[i] for i, w in zip(pidx, pw)))
 
     ld, lump_guards = None, None
+    if cfg.get("lumps") or cfg["init"].get("snapshot"):
+        tol = cfg["lumps"]["sponge_tol"] if cfg.get("lumps") else LUMP_DEFAULTS["sponge_tol"]
+        lump_guards = check_lumps(cfg["init"], cfg["L"], cfg["absorber"], tol)
     if cfg.get("lumps"):
-        lump_guards = check_lumps(cfg["init"], cfg["L"], cfg["absorber"], cfg["lumps"]["sponge_tol"])
         ld = LumpDiagnostics(ev, cfg["lumps"])
         l_every = max(1, int(cfg["lumps"]["every"]))
 
+    init_info = {}
     ck = _load_checkpoint(checkpoint_dir) if checkpoint_dir else None
     if ck is not None:
         phi, pi, meta, lacc = ck
@@ -293,11 +300,12 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         ev.step_count, ev.absorbed = meta["step"], meta["absorbed"]
         ev.C_kin, ev.I_kin = meta["C_kin"], meta["I_kin"]
         series, point, wall_prior = meta["series"], meta["point"], meta["wall_seconds"]
+        init_info = meta.get("init_info", {})
         if ld is not None:
             ld.restore(meta["lumps_state"], lacc)
         resumed = True
     else:
-        phi, pi = build_initial(ev.coords, ev.L, cfg["init"])
+        phi, pi = build_initial(ev.coords, ev.L, cfg["init"], info=init_info, threads=cfg["threads"])
         ev.set_state(phi, pi)
         series = {k: [] for k in SERIES_KEYS}
         point = {"t": [], "phi": [], "C": [], "I": []}
@@ -323,7 +331,7 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
                     ld.sample(n * dt)
             if checkpoint_dir and n % c_every == 0 and start < n < n_total:
                 _save_checkpoint(checkpoint_dir, ev, cfg, series, point,
-                                 wall_prior + time.perf_counter() - t0, ld)
+                                 wall_prior + time.perf_counter() - t0, ld, init_info)
                 if verbose:
                     print("step %d/%d t=%.2f E=%.10g absorbed=%.4g" % (
                         n, n_total, n * dt, series["E_total"][-1], ev.absorbed), flush=True)
@@ -335,7 +343,7 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
     wall = time.perf_counter() - t0
     completed = n >= n_total
     if checkpoint_dir and not completed:
-        _save_checkpoint(checkpoint_dir, ev, cfg, series, point, wall_prior + wall, ld)
+        _save_checkpoint(checkpoint_dir, ev, cfg, series, point, wall_prior + wall, ld, init_info)
 
     freq = frequency_from_point(point["t"], point["phi"])
     tz = np.array(freq["zero_crossings"])
@@ -370,6 +378,10 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         "summary": summary,
         "init_checks": [radial_checks(p, cfg["L"]) for p in cfg["init"].get("radial", [])],
     }
+    if init_info:
+        result["init_info"] = init_info
+    if lump_guards is not None and ld is None:
+        result["snapshot_guards"] = lump_guards
     if ld is not None:
         st = ld.state()
         result["lumps"] = {

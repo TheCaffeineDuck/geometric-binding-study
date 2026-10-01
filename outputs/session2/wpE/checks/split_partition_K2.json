@@ -1,0 +1,20 @@
+{
+ "K": 2,
+ "centers": [
+  [
+   -1.6,
+   0.13,
+   -0.07
+  ],
+  [
+   1.5,
+   0.11,
+   0.2
+  ]
+ ],
+ "n_inner_points": 12213,
+ "max_abs_sum_minus_1_inner": 4.440892098500626e-16,
+ "max_sum_everywhere": 1.0000000000000004,
+ "target": 1e-14,
+ "max_abs_diff_vs_wpc_tanh_split": 2.220446049250313e-16
+}

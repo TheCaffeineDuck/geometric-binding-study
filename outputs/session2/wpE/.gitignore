@@ -1,0 +1,4 @@
+# field arrays (snapshot sources) and temporaries are never committed
+*.npz
+*.tmp
+logs/

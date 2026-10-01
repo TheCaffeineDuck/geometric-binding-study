@@ -15,10 +15,13 @@ equation of motion, standard 3)
     p_i = -phi_t d_i phi        (momentum density; also the energy flux)
 Gradients are spectral with the Nyquist wavenumber zeroed (as Evolver.energy_density).
 
-Per lump i, with weight W_i(x) = b(|x - c_i|) * prod_j h(s_ij):
+Per lump i, with weight W_i(x) = b(|x - c_i|) / sum_j exp(2 d_ij s_ij / (ell d_nn)):
     b: 1 inside R_ball - taper, cos^2 taper to 0 at R_ball (smooth, so no staircase);
-    h: 0.5 (1 - tanh(s/ell)), s = signed distance past the bisector plane of c_i, c_j
-       (balls that overlap are split by the mid-plane; h_ij + h_ji = 1).
+    s_ij = signed distance past the bisector plane of c_i, c_j; j runs over i (term 1) and the
+       lumps whose balls can overlap ball i; d_nn = smallest centre distance (floored at ell).
+       Overlapping balls are split by the nearest tracked centre, smoothly over a width ell.
+       For K = 2 this is b * 0.5 (1 - tanh(s/ell)) (the WP-C split); for any K the weights
+       of the lumps covering a point sum to 1.
     E_i = int W e,  X_i = c_i + int W e (x - c_i) / E_i (minimum image),
     It_i = int W phi_t^2,  Ip_i = int W phi^2,  P_i = int W p.
 The balls follow the lumps: c_i <- X_i after each sample.
@@ -26,8 +29,15 @@ phi(c_i) is read every step (trilinear) for the frequency, the whole-period wind
 and the relative phase.
 
 Field quantities: total momentum int p; angular momentum n . int (x - o) x p about
-each axis (o, n) (minimum image about o); half-space momentum int_{x_a < s} p_a for
-each plane (axis a, position s), whose time derivative is the force on that half.
+each axis (o, n) (minimum image about o; the grid plane at exactly L/2 from o has lever 0,
+see lever_arms); half-space momentum int_{x_a < s} p_a for each plane (axis a, position s),
+whose time derivative is the force on that half.
+
+K lumps (WP-E): balls that overlap are split by the nearest tracked centre with a smooth
+partition of unity (sample(); identical to the WP-C bisector split for K = 2). Optional
+"group": {"R", "taper", "axis"}: energy inside a sphere about the energy-weighted centroid
+of the lumps, and the angular momentum about that centroid (series G, E_group, L_group_box,
+L_group_sphere, L_axis_box, L_axis_sphere). Absent = off (WP-C configs unchanged).
 
 Lump count (standard 8, from coordinates): every `count_every` time units the
 energy density is averaged over `count_periods` nominal periods with Hann weights
@@ -78,8 +88,12 @@ def lumps_init(profile, centers, phases, omega):
 
 
 def check_lumps(init, L, absorber, sponge_tol=SPONGE_TOL):
-    """Guards for multi-lump data; raises ValueError, else returns the numbers."""
+    """Guards for multi-lump data; raises ValueError, else returns the numbers.
+    A snapshot entry is checked by snapshot.check (source settled, crop loss, faces, sponge)."""
     out = []
+    if init.get("snapshot"):
+        from swirl.engine.snapshot import check
+        out.append({"snapshot": check(init["snapshot"], L, absorber, sponge_tol)})
     for p in init.get("radial", []):
         g = radial_checks(p, L)
         c = np.asarray(p.get("center", (0, 0, 0)), float)
@@ -132,6 +146,25 @@ def _wrap(x, L):
     return x - L * np.round(x / L)
 
 
+def lever_arms(coords, L, origin):
+    """Minimum-image coordinates about `origin`, one broadcastable array per axis. The grid plane
+    at exactly L/2 from the origin has two images (+L/2 and -L/2) and gets lever 0, their mean
+    (otherwise it carries an unpaired lever -L/2: the WP-C pair L_z of 4e-5 to 9e-5)."""
+    out = []
+    for a in range(3):
+        x = _wrap(coords - origin[a], L)
+        x[np.abs(np.abs(x) - L / 2) < 1e-9 * L] = 0.0
+        out.append(x.reshape([-1 if b == a else 1 for b in range(3)]))
+    return out
+
+
+def pair_distances(X, L):
+    """K x K minimum-image distance matrix of positions X (K x 3)."""
+    X = np.asarray(X, float)
+    dv = _wrap(X[None, :, :] - X[:, None, :], L)
+    return np.sqrt(np.sum(dv ** 2, axis=-1))
+
+
 def trilinear(coords, L, dx, center):
     N = coords.size
     f = [((c + L / 2) / dx) % N for c in center]
@@ -150,6 +183,24 @@ def trilinear(coords, L, dx, center):
 def ball_weight(r, R, taper):
     u = np.clip((r - (R - taper)) / taper, 0.0, 1.0)
     return np.cos(0.5 * np.pi * u) ** 2
+
+
+def split_weight(rel, dvs, R, taper, ell, d_nn):
+    """Weight of lump i at offsets rel (3 broadcastable arrays) from its centre; dvs: minimum-image
+    vectors from c_i to the other tracked centres. W = b(r) / sum_j exp((r_i^2 - r_j^2)/(ell d_nn)),
+    j over i (term 1) and the lumps closer than 2 R + 4 ell (balls that can overlap).
+    r_i^2 - r_j^2 = 2 d_ij s_ij with s_ij the signed distance past the bisector plane, so for
+    K = 2 (d_nn = d) W = b 0.5 (1 - tanh(s/ell)), the WP-C split; for any K the weights of the
+    lumps covering a point sum to 1 (a product of pair factors would not)."""
+    r = np.sqrt(rel[0] ** 2 + rel[1] ** 2 + rel[2] ** 2)
+    S = np.ones_like(r)
+    for dv in dvs:
+        dn = float(np.linalg.norm(dv))
+        if dn >= 2 * R + 4 * ell:
+            continue
+        arg = (2 * (rel[0] * dv[0] + rel[1] * dv[1] + rel[2] * dv[2]) - dn * dn) / (ell * d_nn)
+        S = S + np.exp(np.minimum(arg, 700.0))
+    return ball_weight(r, R, taper) / S
 
 
 # ---------------------------------------------------------------------------
@@ -238,8 +289,7 @@ class LumpDiagnostics:
             o = np.asarray(ax["origin"], float)
             n = np.asarray(ax["dir"], float)
             n = n / np.linalg.norm(n)
-            X = [_wrap(c - o[a], L).reshape([-1 if b == a else 1 for b in range(3)]) for a in range(3)]
-            self._axes.append((X, n))
+            self._axes.append((lever_arms(c, L, o), n))
         self._planes = []
         for pl in cfg["planes"]:
             a, s = int(pl["axis"]), float(pl["pos"])
@@ -261,41 +311,52 @@ class LumpDiagnostics:
 
     def _set_point_idx(self):
         self._pidx = [trilinear(self.ev.coords, self.ev.L, self.ev.dx, c) for c in self.centers]
+        self._wcache = None
+
+    def _ball_weights(self):
+        """[(index tuple, rel, W)] per lump for the current tracked centres (cached until they move)."""
+        if self._wcache is None:
+            ev, cfg = self.ev, self.cfg
+            L, dx, N = ev.L, ev.dx, ev.N
+            R, tap, ell = cfg["R_ball"], cfg["taper"], cfg["split_width"]
+            nb = int(np.ceil(R / dx)) + 1
+            d_nn = ell
+            if self.K > 1:
+                D = pair_distances(self.centers, L)
+                d_nn = max(float(np.min(D[np.triu_indices(self.K, 1)])), ell)
+            out = []
+            for i in range(self.K):
+                c = self.centers[i]
+                i0 = np.round((c + L / 2) / dx).astype(int)
+                ids = [(i0[a] + np.arange(-nb, nb + 1)) % N for a in range(3)]
+                rel = [_wrap(ev.coords[ids[a]] - c[a], L).reshape([-1 if b == a else 1 for b in range(3)])
+                       for a in range(3)]
+                dvs = [_wrap(self.centers[j] - c, L) for j in range(self.K) if j != i]
+                out.append((np.ix_(*ids), rel, split_weight(rel, dvs, R, tap, ell, d_nn)))
+            self._wcache = out
+        return self._wcache
 
     # -- every step ------------------------------------------------------------
     def read_points(self, t):
         phi = self.ev.phi
         self.point["t"].append(float(t))
         self.point["phi"].append([float(sum(w * phi[i] for i, w in zip(idx, wts))) for idx, wts in self._pidx])
+        if self.cfg.get("it_every_step"):
+            # int W phi_t^2 per lump every step (no FFT): the whole-period average of the ball N
+            # then needs no interpolation of a signal with 2, 4 and 6 omega content
+            pi = self.ev.pi
+            self.point.setdefault("It", []).append(
+                [float((pi[sub] ** 2 * W).sum()) * self.ev.dV for sub, _, W in self._ball_weights()])
 
     # -- every `every` steps -----------------------------------------------------
     def sample(self, t):
         ev, cfg = self.ev, self.cfg
         L, dx, N, dV = ev.L, ev.dx, ev.N, ev.dV
         e, p = densities(ev)
-        R, tap, ell = cfg["R_ball"], cfg["taper"], cfg["split_width"]
-        nb = int(np.ceil(R / dx)) + 1
         rows = {k: [] for k in ("E", "X", "It", "Ip", "P")}
         new_c = self.centers.copy()
-        for i in range(self.K):
+        for i, (sub, rel, W) in enumerate(self._ball_weights()):
             c = self.centers[i]
-            i0 = np.round((c + L / 2) / dx).astype(int)
-            ids = [(i0[a] + np.arange(-nb, nb + 1)) % N for a in range(3)]
-            rel = [_wrap(ev.coords[ids[a]] - c[a], L).reshape([-1 if b == a else 1 for b in range(3)])
-                   for a in range(3)]
-            r = np.sqrt(rel[0] ** 2 + rel[1] ** 2 + rel[2] ** 2)
-            W = ball_weight(r, R, tap)
-            for j in range(self.K):
-                if j == i:
-                    continue
-                dv = _wrap(self.centers[j] - c, L)
-                dn = np.linalg.norm(dv)
-                if dn >= 2 * R + 4 * ell:
-                    continue
-                n = dv / dn
-                s = rel[0] * n[0] + rel[1] * n[1] + rel[2] * n[2] - 0.5 * dn
-                W = W * 0.5 * (1 - np.tanh(s / ell))
-            sub = np.ix_(*ids)
             es = e[sub] * W
             Ei = float(es.sum()) * dV
             Xi = c + np.array([float((es * rel[a]).sum()) * dV / Ei for a in range(3)])
@@ -321,6 +382,9 @@ class LumpDiagnostics:
             sl[a] = slice(0, k)
             ph.append(float(p[a][tuple(sl)].sum()) * dV)
         self.series["P_half"].append(ph)
+        g = cfg.get("group")
+        if g:
+            self._sample_group(g, e, p, rows)
         # lump-count window (Hann weights over count_periods nominal periods)
         if t >= self.win_start:
             u = (t - self.win_start) / self.win_len
@@ -344,6 +408,36 @@ class LumpDiagnostics:
                     self.win_start += cfg["count_every"]
         self.centers = new_c
         self._set_point_idx()
+
+
+    def _sample_group(self, g, e, p, rows):
+        """Group sphere about the energy-weighted centroid G of the lump centroids: energy inside
+        (ball weight, radius g["R"], taper g.get("taper", 2)), angular momentum about G of the
+        whole box and of the sphere (3-vectors), and its component on the pattern axis g["axis"]."""
+        ev = self.ev
+        L, dV = ev.L, ev.dV
+        Es = np.array(rows["E"])
+        Xs = np.array(rows["X"])
+        s = self.series
+        # minimum image about the previous group centre (first sample: mean of the configured
+        # centres), so a group wider than L/2 about any one lump is still handled
+        G0 = np.array(s["G"][-1]) if s.get("G") else np.mean(np.array(self.cfg["centers"], float), axis=0)
+        G = _wrap(G0 + (Es[:, None] * _wrap(Xs - G0, L)).sum(0) / Es.sum(), L)
+        rel = lever_arms(ev.coords, L, G)
+        Wg = ball_weight(np.sqrt(rel[0] ** 2 + rel[1] ** 2 + rel[2] ** 2), g["R"], g.get("taper", 2.0))
+        cr = [rel[1] * p[2] - rel[2] * p[1], rel[2] * p[0] - rel[0] * p[2], rel[0] * p[1] - rel[1] * p[0]]
+        Lbox = [float(x.sum()) * dV for x in cr]
+        Lsph = [float((x * Wg).sum()) * dV for x in cr]
+        n = np.asarray(g.get("axis", [0.0, 0.0, 1.0]), float)
+        n = n / np.linalg.norm(n)
+        for k in ("G", "E_group", "L_group_box", "L_group_sphere", "L_axis_box", "L_axis_sphere"):
+            s.setdefault(k, [])
+        s["G"].append(G.tolist())
+        s["E_group"].append(float((e * Wg).sum()) * dV)
+        s["L_group_box"].append(Lbox)
+        s["L_group_sphere"].append(Lsph)
+        s["L_axis_box"].append(float(np.dot(n, Lbox)))
+        s["L_axis_sphere"].append(float(np.dot(n, Lsph)))
 
 
 # ---------------------------------------------------------------------------
@@ -377,7 +471,8 @@ def summarize(diag_state, t_out, W):
     phis = np.array(pt["phi"]).reshape(len(tp), K)
     out = {"t": list(map(float, t_out)), "lumps": [], "relative_phase": [], "P_total": None,
            "P_half": None, "L_axes": None, "omega_window_lump0": None, "t_center_lump0": None,
-           "note": "each average is over whole periods of that lump's phi(c_i, t) inside [t - W, t]; "
+           "note": "each average is over whole periods of that lump's phi(c_i, t) inside [t - W, t] "
+                   "(It from the per-step record when it_every_step is set); "
                    "plot it at t_center (window centre), not at t; P_total, P_half, L_axes and the "
                    "relative phase use lump 0's windows"}
     if ts.size < 4:
@@ -404,10 +499,17 @@ def summarize(diag_state, t_out, W):
                 res.append(v.tolist() if np.ndim(v) else float(v))
         return res
 
+    It_step = np.array(pt["It"]).reshape(len(tp), K) if pt.get("It") else None
+
+    def per_window_step(y, win):
+        cs = CubicSpline(tp, y).antiderivative()
+        return [None if wv is None or wv[0] < tp[0] or wv[1] > tp[-1] else float(_avg(cs, wv[0], wv[1]))
+                for wv in win]
+
     for k in range(K):
         win = wins[k]
         om = [None if wv is None else float(np.pi * wv[2] / (wv[1] - wv[0])) for wv in win]
-        itav = per_window(It[:, k], win)
+        itav = per_window(It[:, k], win) if It_step is None else per_window_step(It_step[:, k], win)
         out["lumps"].append({
             "t_center": [None if wv is None else float(0.5 * (wv[0] + wv[1])) for wv in win],
             "omega": om, "E": per_window(E[:, k], win), "X": per_window(X[:, k, :], win),

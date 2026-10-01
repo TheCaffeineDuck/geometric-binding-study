@@ -1,0 +1,42 @@
+{
+ "K": 5,
+ "N": 140,
+ "L": 56.0,
+ "dx": 0.4,
+ "gauss_R": 1.2,
+ "nearest_spacing": 22.0,
+ "thetas": [
+  0.3,
+  1.5566370614359173,
+  2.8132741228718343,
+  4.069911184307752,
+  5.326548245743669
+ ],
+ "max_rel_err_E": 4.710876133628972e-11,
+ "max_abs_err_It_over_scale": 3.988765440264913e-12,
+ "max_abs_err_Ip_over_scale": 4.473279689455495e-12,
+ "max_abs_P_over_scale": 2.2726204907601744e-14,
+ "centroid_err_per_iteration": [
+  3.2870492398858303e-10,
+  7.173766017504554e-13,
+  7.173766017504554e-13,
+  7.173766017504554e-13
+ ],
+ "max_abs_err_distance_matrix": 7.389644451905042e-13,
+ "count": 5,
+ "count_distinct": 5,
+ "max_peak_position_err": 0.006549748800139002,
+ "group_E_rel_err": -3.7718494994010143e-11,
+ "group_centroid_err": 5.767798833322916e-13,
+ "group_L_box_over_scale": 3.1798602357453366e-16,
+ "targets": {
+  "E": 1e-08,
+  "It_Ip_P": 1e-08,
+  "centroid": 1e-08,
+  "distances": 1e-08,
+  "count": 5,
+  "group_E": 1e-08,
+  "group_centroid": 1e-08,
+  "group_L": 1e-12
+ }
+}

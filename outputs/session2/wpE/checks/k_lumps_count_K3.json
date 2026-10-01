@@ -1,0 +1,19 @@
+{
+ "K": 3,
+ "separated": {
+  "spacing": 7.199999999999999,
+  "count": 3,
+  "count_distinct": 3,
+  "saddles": [
+   0.0008696586706507716,
+   0.0009605208569001914,
+   0.0007618189609285421
+  ]
+ },
+ "merged": {
+  "spacing": 0.6,
+  "count": 1,
+  "count_distinct": 1,
+  "saddles": []
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "T": 100.0,
+ "N": 80,
+ "dx": 0.8,
+ "identical_point_series": true,
+ "identical_final_field": true,
+ "target": "bit-identical"
+}

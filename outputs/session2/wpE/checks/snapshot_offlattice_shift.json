@@ -1,0 +1,101 @@
+{
+ "delta": [
+  0.248,
+  -0.136,
+  0.18400000000000002
+ ],
+ "dx": 0.8,
+ "T": 100.0,
+ "rows": [
+  {
+   "t": 0.0,
+   "max_dphi_over_Phi0": 1.1368058461410062e-05,
+   "max_dpi_over_omega_Phi0": 6.983499213234429e-05,
+   "energy_of_difference_over_E": 1.8973423031465497e-08,
+   "rel_dE": -5.0142986207646345e-08
+  },
+  {
+   "t": 10.0,
+   "max_dphi_over_Phi0": 0.00016685628452234506,
+   "max_dpi_over_omega_Phi0": 0.00022003617364981136,
+   "energy_of_difference_over_E": 9.431133105404647e-08,
+   "rel_dE": -5.6663400638257144e-08
+  },
+  {
+   "t": 20.0,
+   "max_dphi_over_Phi0": 4.2541458637486514e-05,
+   "max_dpi_over_omega_Phi0": 0.00044309439158280096,
+   "energy_of_difference_over_E": 1.15784854644812e-07,
+   "rel_dE": -4.846400791791439e-08
+  },
+  {
+   "t": 30.0,
+   "max_dphi_over_Phi0": 6.314917180670995e-05,
+   "max_dpi_over_omega_Phi0": 0.000172888020258887,
+   "energy_of_difference_over_E": 1.0600483599562685e-07,
+   "rel_dE": -1.2123261805552232e-07
+  },
+  {
+   "t": 40.0,
+   "max_dphi_over_Phi0": 4.146031813356817e-05,
+   "max_dpi_over_omega_Phi0": 0.0002257231491066814,
+   "energy_of_difference_over_E": 1.0117990904758786e-07,
+   "rel_dE": -3.081681081429366e-07
+  },
+  {
+   "t": 50.0,
+   "max_dphi_over_Phi0": 4.8296100420860924e-05,
+   "max_dpi_over_omega_Phi0": 0.00018916375443290312,
+   "energy_of_difference_over_E": 9.862794383878848e-08,
+   "rel_dE": -4.956455695870332e-07
+  },
+  {
+   "t": 60.0,
+   "max_dphi_over_Phi0": 6.693483625802387e-05,
+   "max_dpi_over_omega_Phi0": 0.00013904893720486413,
+   "energy_of_difference_over_E": 9.998037135198642e-08,
+   "rel_dE": -6.83285813263268e-07
+  },
+  {
+   "t": 70.0,
+   "max_dphi_over_Phi0": 5.060099842385868e-05,
+   "max_dpi_over_omega_Phi0": 0.00019639307143984813,
+   "energy_of_difference_over_E": 1.020553089287573e-07,
+   "rel_dE": -8.733541504435394e-07
+  },
+  {
+   "t": 80.0,
+   "max_dphi_over_Phi0": 0.0001204482541734024,
+   "max_dpi_over_omega_Phi0": 0.0003411594200137935,
+   "energy_of_difference_over_E": 1.1555819172069924e-07,
+   "rel_dE": -1.060209396608336e-06
+  },
+  {
+   "t": 90.0,
+   "max_dphi_over_Phi0": 0.00013521267996595605,
+   "max_dpi_over_omega_Phi0": 0.0002516487121280895,
+   "energy_of_difference_over_E": 1.20884681555165e-07,
+   "rel_dE": -1.243794849004054e-06
+  },
+  {
+   "t": 100.0,
+   "max_dphi_over_Phi0": 0.00015611816998853297,
+   "max_dpi_over_omega_Phi0": 0.0003150134314907404,
+   "energy_of_difference_over_E": 1.2511283055784574e-07,
+   "rel_dE": -1.4309787443878008e-06
+  }
+ ],
+ "observables": {
+  "max_rel_dN_ball": 3.471322528447729e-05,
+  "max_rel_dE_ball": 4.113429214358533e-06,
+  "max_domega": 1.3637295426138785e-05,
+  "max_centroid_err": 0.00024522301469219265,
+  "n_windows": 92
+ },
+ "t0_max_dphi_over_Phi0": 1.1368058461410062e-05,
+ "worst_max_dphi_over_Phi0": 0.00016685628452234506,
+ "worst_max_dpi_over_omega_Phi0": 0.00044309439158280096,
+ "worst_energy_of_difference_over_E": 1.2511283055784574e-07,
+ "worst_abs_rel_dE": 1.4309787443878008e-06,
+ "target": 1e-08
+}
