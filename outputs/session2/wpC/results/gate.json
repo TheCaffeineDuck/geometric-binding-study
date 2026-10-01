@@ -1,0 +1,384 @@
+{
+ "criteria": {
+  "G1": "|centroid drift| of single_x12_t00.0 at T = 500 below 0.01",
+  "G2": "theta = 22.5, 45, 67.5 vs 0: |d frac| <= 0.01 at T = 300 and 500; |d omega| <= 0.005; frac > 0.5 throughout"
+ },
+ "definitions": "WP-C gate evaluation (SESSION_02_PREDICTIONS.md, Block 2 \"Gate\", criteria G1 and G2).\n\nUsage: <python> outputs/session2/wpC/gate_eval.py [--results DIR] [--out FILE]\nReads the four 3D single-lump gate runs single_x12_t{00.0,22.5,45.0,67.5} and writes the\nnumbers and the verdicts. Criteria are fixed (not reinterpreted):\n\n  G1  single_x12_t00.0: |centroid drift| at T = 500 below 0.01.\n      Drift = period-averaged ball centroid at t_out = 500 minus the first window\n      (the same definition as noise_floor.py); the 3-vector norm is the criterion,\n      the x component is reported.\n  G2  theta = 22.5, 45, 67.5 against theta = 0:\n      |frac_theta - frac_0| <= 0.01 at T = 300 and at T = 500;\n      |omega_theta - omega_0| <= 0.005 at T = 300 and at T = 500;\n      no death: frac > 0.5 at every t_out of the run.\n      frac = (ball energy) / (the run's own t = 0 ball energy). Ball = 3 half-widths\n      (R_ball = 10). Primary: whole-period average of the ball energy (the engine's\n      \"averages\", window ending at T) over the raw t = 0 value. omega: whole-period\n      average frequency of phi(centre, t), window ending at T.\n  Cross-checks reported, not used for the verdict: instantaneous raw ball energy at T over\n  its t = 0 value; omega median over t_center in [30, 80].\n",
+ "runs": {
+  "00.0": {
+   "completed": true,
+   "t_reached": 500.0,
+   "E_ball_t0_raw": 2825.629129203032,
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "threads": 2,
+   "min_frac_all_t": 0.9983878411519397,
+   "t_at_min_frac": 499.0,
+   "frac": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9989871593830547
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9983878411519397
+    }
+   },
+   "omega": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9095191476612605
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9095585067852177
+    }
+   },
+   "frac_instantaneous": {
+    "300": {
+     "t": 300.0,
+     "value": 0.9983201864072409
+    },
+    "500": {
+     "t": 500.0,
+     "value": 0.9983856998045829
+    }
+   },
+   "omega_median_30_80": 0.9094723621137203,
+   "centroid": {
+    "t_out_first": 9.0,
+    "t_out_last": 500.0,
+    "X_first": [
+     11.999999865732397,
+     -3.5484011075076183e-16,
+     -3.4665058617735406e-16
+    ],
+    "X_last": [
+     12.000028937602284,
+     -1.3195383361561238e-11,
+     -1.3059023257411879e-11
+    ],
+    "drift_vec": [
+     2.907186988743149e-05,
+     -1.3195028521450488e-11,
+     -1.3058676606825702e-11
+    ],
+    "drift_norm": 2.9071869887437415e-05,
+    "drift_x": 2.907186988743149e-05,
+    "raw_X_t0": [
+     11.999999797042854,
+     -3.4808590638573106e-16,
+     -3.2465704730207605e-16
+    ],
+    "raw_X_last": [
+     12.000054456892958,
+     -1.3535718235084004e-11,
+     -1.3393462792871657e-11
+    ],
+    "raw_drift_norm": 5.465985010389194e-05
+   },
+   "name": "single_x12_t00.0"
+  },
+  "22.5": {
+   "completed": true,
+   "t_reached": 500.0,
+   "E_ball_t0_raw": 2844.0121183316414,
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "threads": 2,
+   "min_frac_all_t": 0.9963508172660098,
+   "t_at_min_frac": 499.0,
+   "frac": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9968232973875515
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9963508172660098
+    }
+   },
+   "omega": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9092293146401894
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9092617905017798
+    }
+   },
+   "frac_instantaneous": {
+    "300": {
+     "t": 300.0,
+     "value": 0.9957472281209612
+    },
+    "500": {
+     "t": 500.0,
+     "value": 0.9957680433040277
+    }
+   },
+   "omega_median_30_80": 0.9091801974289926,
+   "centroid": {
+    "t_out_first": 9.0,
+    "t_out_last": 500.0,
+    "X_first": [
+     11.999999848756756,
+     -2.5519113451423016e-16,
+     -3.0643415691159025e-16
+    ],
+    "X_last": [
+     12.0001044470907,
+     -2.7475522114935536e-11,
+     -2.7380997196991354e-11
+    ],
+    "drift_vec": [
+     0.00010459833394449447,
+     -2.7475266923801023e-11,
+     -2.7380690762834444e-11
+    ],
+    "drift_norm": 0.00010459833394450165,
+    "drift_x": 0.00010459833394449447,
+    "raw_X_t0": [
+     11.999999808480739,
+     -3.8574011525229277e-16,
+     -3.3752260084575615e-16
+    ],
+    "raw_X_last": [
+     12.000031581110779,
+     -2.8184628909657195e-11,
+     -2.8085045549315816e-11
+    ],
+    "raw_drift_norm": 3.177263003986401e-05
+   },
+   "name": "single_x12_t22.5"
+  },
+  "45.0": {
+   "completed": true,
+   "t_reached": 500.0,
+   "E_ball_t0_raw": 2863.813770407975,
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "threads": 2,
+   "min_frac_all_t": 0.996696534674112,
+   "t_at_min_frac": 492.0,
+   "frac": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9970033639731395
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9967044840431746
+    }
+   },
+   "omega": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9087522136753338
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9087743219992018
+    }
+   },
+   "frac_instantaneous": {
+    "300": {
+     "t": 300.0,
+     "value": 0.9959276580209516
+    },
+    "500": {
+     "t": 500.0,
+     "value": 0.9958529693541998
+    }
+   },
+   "omega_median_30_80": 0.908709026760957,
+   "centroid": {
+    "t_out_first": 8.0,
+    "t_out_last": 500.0,
+    "X_first": [
+     11.999999850391712,
+     -3.4958465248294133e-16,
+     -3.0131200994355576e-16
+    ],
+    "X_last": [
+     12.00010960265825,
+     -1.0645885528971314e-11,
+     -1.0547993214612333e-11
+    ],
+    "drift_vec": [
+     0.00010975226653897607,
+     -1.0645535944318831e-11,
+     -1.054769190260239e-11
+    ],
+    "drift_norm": 0.0001097522665389771,
+    "drift_x": 0.00010975226653897607,
+    "raw_X_t0": [
+     11.999999833965536,
+     -3.0381647011530663e-16,
+     -3.6656117589998954e-16
+    ],
+    "raw_X_last": [
+     11.999983427178375,
+     -1.0922774697410886e-11,
+     -1.0819833999166272e-11
+    ],
+    "raw_drift_norm": 1.640678716086806e-05
+   },
+   "name": "single_x12_t45.0"
+  },
+  "67.5": {
+   "completed": true,
+   "t_reached": 500.0,
+   "E_ball_t0_raw": 2729.2853557616563,
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "threads": 2,
+   "min_frac_all_t": 0.9930378201003255,
+   "t_at_min_frac": 500.0,
+   "frac": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9951574378287881
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9930378201003255
+    }
+   },
+   "omega": {
+    "300": {
+     "t_out": 300.0,
+     "value": 0.9121632290108418
+    },
+    "500": {
+     "t_out": 500.0,
+     "value": 0.9123123829908378
+    }
+   },
+   "frac_instantaneous": {
+    "300": {
+     "t": 300.0,
+     "value": 0.996145980851346
+    },
+    "500": {
+     "t": 500.0,
+     "value": 0.9940066841901861
+    }
+   },
+   "omega_median_30_80": 0.9120002031489054,
+   "centroid": {
+    "t_out_first": 8.0,
+    "t_out_last": 500.0,
+    "X_first": [
+     11.999999828630434,
+     -3.462492759113847e-16,
+     -3.06193884636486e-16
+    ],
+    "X_last": [
+     11.999971726505581,
+     1.0826593622883641e-11,
+     1.0931087544850376e-11
+    ],
+    "drift_vec": [
+     -2.8102124852935617e-05,
+     1.0826939872159552e-11,
+     1.0931393738735013e-11
+    ],
+    "drift_norm": 2.8102124852939832e-05,
+    "drift_x": -2.8102124852935617e-05,
+    "raw_X_t0": [
+     11.99999985097399,
+     -4.1581539107306867e-16,
+     -3.7769898022470396e-16
+    ],
+    "raw_X_last": [
+     12.000020120101873,
+     1.1068578755613713e-11,
+     1.1177450679422959e-11
+    ],
+    "raw_drift_norm": 2.0269127881895054e-05
+   },
+   "name": "single_x12_t67.5"
+  }
+ },
+ "G1": {
+  "drift_norm": 2.9071869887437415e-05,
+  "drift_x": 2.907186988743149e-05,
+  "threshold": 0.01,
+  "t_out_last": 500.0,
+  "pass": true
+ },
+ "G2": {
+  "rows": [
+   {
+    "theta": 22.5,
+    "completed": true,
+    "min_frac_all_t": 0.9963508172660098,
+    "no_death": true,
+    "frac_300": 0.9968232973875515,
+    "dfrac_300": -0.0021638619955032246,
+    "omega_300": 0.9092293146401894,
+    "domega_300": -0.0002898330210711064,
+    "dfrac_instantaneous_300": -0.0025729582862796807,
+    "frac_500": 0.9963508172660098,
+    "dfrac_500": -0.002037023885929856,
+    "omega_500": 0.9092617905017798,
+    "domega_500": -0.00029671628343785894,
+    "dfrac_instantaneous_500": -0.002617656500555232,
+    "domega_median_30_80": -0.00029216468472770263,
+    "pass": true
+   },
+   {
+    "theta": 45.0,
+    "completed": true,
+    "min_frac_all_t": 0.996696534674112,
+    "no_death": true,
+    "frac_300": 0.9970033639731395,
+    "dfrac_300": -0.0019837954099152233,
+    "omega_300": 0.9087522136753338,
+    "domega_300": -0.0007669339859267543,
+    "dfrac_instantaneous_300": -0.0023925283862892277,
+    "frac_500": 0.9967044840431746,
+    "dfrac_500": -0.0016833571087651045,
+    "omega_500": 0.9087743219992018,
+    "domega_500": -0.0007841847860158291,
+    "dfrac_instantaneous_500": -0.0025327304503831582,
+    "domega_median_30_80": -0.0007633353527632947,
+    "pass": true
+   },
+   {
+    "theta": 67.5,
+    "completed": true,
+    "min_frac_all_t": 0.9930378201003255,
+    "no_death": true,
+    "frac_300": 0.9951574378287881,
+    "dfrac_300": -0.0038297215542666407,
+    "omega_300": 0.9121632290108418,
+    "domega_300": 0.002644081349581273,
+    "dfrac_instantaneous_300": -0.0021742055558948703,
+    "frac_500": 0.9930378201003255,
+    "dfrac_500": -0.0053500210516141955,
+    "omega_500": 0.9123123829908378,
+    "domega_500": 0.002753876205620176,
+    "dfrac_instantaneous_500": -0.004379015614396797,
+    "domega_median_30_80": 0.0025278410351851077,
+    "pass": true
+   }
+  ],
+  "pass": true,
+  "reference_theta0": {
+   "frac_300": 0.9989871593830547,
+   "frac_500": 0.9983878411519397,
+   "omega_300": 0.9095191476612605,
+   "omega_500": 0.9095585067852177,
+   "min_frac_all_t": 0.9983878411519397,
+   "no_death": true
+  }
+ },
+ "gate_pass": true
+}
