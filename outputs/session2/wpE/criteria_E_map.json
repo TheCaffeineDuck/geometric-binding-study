@@ -1,0 +1,22 @@
+{
+ "_note": "Block 3 rows -> result names. 'run' is the exact name; if no result has that name, a unique result whose name starts with 'prefix' is used. Edit freely; no code change needed.",
+ "rows": {
+  "E1": {"run": "E01_ring5_m1_a16", "prefix": "E01_"},
+  "E2": {"run": "E02_ring5_m0_a16", "prefix": "E02_"},
+  "E3": {"run": "E03_ring5_m1_a8.11", "prefix": "E03_"},
+  "E4": {"run": "E04_ring5_m1_a3.02", "prefix": "E04_"},
+  "E5": {"run": "E05_ring4_alt_a16", "prefix": "E05_"},
+  "E6": {"run": "E06_ring4_m1_a12", "prefix": "E06_"},
+  "E7": {"run": "E07_ring6_m1_a7.32", "prefix": "E07_"},
+  "E8": {"run": "E08_octa_c_r3.82", "prefix": "E08_"},
+  "E9": {"run": "E09_cube_c_r8.51", "prefix": "E09_"},
+  "E10": {"run": "E10_ring8_m2_a12", "prefix": "E10_"},
+  "E11": {"run": "E11_ring6_c_r15.77", "prefix": "E11_"},
+  "E12": {"run": "E12_ring5_00110_a16", "prefix": "E12_"},
+  "E13": {"run": "E13_ring5_m2_a16", "prefix": "E13_"},
+  "E14": {"run": "E14_ring5_m1_a30", "prefix": "E14_"},
+  "E15_twin": {"run": "E15_twin_E01", "prefix": "E15_twin"},
+  "E15_res": {"run": "E15_res_E03", "prefix": "E15_res"},
+  "E15_box": {"run": "E15_box_E03", "prefix": "E15_box"}
+ }
+}
