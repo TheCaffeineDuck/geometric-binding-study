@@ -1,0 +1,93 @@
+{
+ "rows": [
+  {
+   "beta": 0.75,
+   "R_box": 200.0,
+   "n_grid": 4001,
+   "wall_s_per_T": 0.0030250096321105956,
+   "map_runs_est": 53,
+   "map_wall_s": 368.7486741542816,
+   "long_wall_s": 93.77529859542847
+  },
+  {
+   "beta": 0.85,
+   "R_box": 200.0,
+   "n_grid": 4001,
+   "wall_s_per_T": 0.0030667567253112793,
+   "map_runs_est": 57,
+   "map_wall_s": 402.0518066883087,
+   "long_wall_s": 95.06945848464966
+  },
+  {
+   "beta": 1.0,
+   "R_box": 200.0,
+   "n_grid": 4001,
+   "wall_s_per_T": 0.00290492057800293,
+   "map_runs_est": 61,
+   "map_wall_s": 407.56035709381104,
+   "long_wall_s": 90.05253791809082
+  },
+  {
+   "beta": 1.15,
+   "R_box": 200.0,
+   "n_grid": 4001,
+   "wall_s_per_T": 0.002744259834289551,
+   "map_runs_est": 66,
+   "map_wall_s": 416.5786428451538,
+   "long_wall_s": 85.07205486297607
+  },
+  {
+   "beta": 1.3333333333333333,
+   "R_box": 200.0,
+   "n_grid": 4001,
+   "wall_s_per_T": 0.0027321052551269533,
+   "map_runs_est": 66,
+   "map_wall_s": 414.7335777282715,
+   "long_wall_s": 84.69526290893555
+  },
+  {
+   "beta": 1.6,
+   "R_box": 219.08902300206648,
+   "n_grid": 4383,
+   "wall_s_per_T": 0.0030200552940368654,
+   "map_runs_est": 66,
+   "map_wall_s": 458.44439363479614,
+   "long_wall_s": 93.62171411514282
+  },
+  {
+   "beta": 2.0,
+   "R_box": 244.9489742783178,
+   "n_grid": 4900,
+   "wall_s_per_T": 0.0033837497234344483,
+   "map_runs_est": 66,
+   "map_wall_s": 513.6532080173492,
+   "long_wall_s": 104.8962414264679
+  },
+  {
+   "beta": 3.0,
+   "R_box": 300.0,
+   "n_grid": 6001,
+   "wall_s_per_T": 0.0041187357902526854,
+   "map_runs_est": 66,
+   "map_wall_s": 625.2240929603577,
+   "long_wall_s": 127.68080949783325
+  },
+  {
+   "beta": 5.0,
+   "R_box": 387.2983346207417,
+   "n_grid": 7747,
+   "wall_s_per_T": 0.005409194231033325,
+   "map_runs_est": 66,
+   "map_wall_s": 821.1156842708588,
+   "long_wall_s": 167.68502116203308
+  }
+ ],
+ "estimate": {
+  "maps_core_s": 4428.1104373931885,
+  "long_core_s": 942.5483989715576,
+  "wall_h_on_cores": 0.7459248383839925,
+  "cores": 2,
+  "longest_single_long_run_h": 0.04657917254500919,
+  "note": "upper bound: long runs assumed to reach T = 30000 (death stops earlier); map runs assumed to reach T_map (death stops earlier); 2 dips per beta for refinement; measured with one process while other processes (a parallel worker) used about 4 of the 10 cores; the validation maps ran at 2.5e-3 core-s per unit T effective"
+ }
+}
