@@ -1,0 +1,128 @@
+{
+  "ico": {
+    "n_vertices": 12,
+    "n_edges": 30,
+    "n_group_total": 120,
+    "n_rot": 60,
+    "n_refl": 60,
+    "n_assignments_at_CE": 544,
+    "rotations_only": 12,
+    "rotations_reflections": 10,
+    "rotations_flip": 6,
+    "all_three": 5,
+    "rot_flip_classes": [
+      {
+        "size": 40,
+        "sig2": 2.25,
+        "closed_form_E": 3.8317,
+        "n_pi_min": 3
+      },
+      {
+        "size": 120,
+        "sig2": 1.25,
+        "closed_form_E": -0.1931,
+        "n_pi_min": 5
+      },
+      {
+        "size": 120,
+        "sig2": 0.9167,
+        "closed_form_E": -1.2772,
+        "n_pi_min": 5
+      },
+      {
+        "size": 120,
+        "sig2": 0.9167,
+        "closed_form_E": -1.2772,
+        "n_pi_min": 5
+      },
+      {
+        "size": 120,
+        "sig2": 0.9167,
+        "closed_form_E": -1.2772,
+        "n_pi_min": 5
+      },
+      {
+        "size": 24,
+        "sig2": 1.25,
+        "closed_form_E": -0.1931,
+        "n_pi_min": 5
+      }
+    ],
+    "merged_by_reflection": [
+      {
+        "rot_flip_class_indices": [
+          3,
+          4
+        ],
+        "sig2": [
+          0.9167,
+          0.9167
+        ],
+        "closed_form_E": [
+          -1.2772,
+          -1.2772
+        ]
+      }
+    ]
+  },
+  "cube": {
+    "n_vertices": 8,
+    "n_edges": 12,
+    "n_group_total": 48,
+    "n_rot": 24,
+    "n_refl": 24,
+    "n_assignments_at_CE": 64,
+    "rotations_only": 7,
+    "rotations_reflections": 6,
+    "rotations_flip": 5,
+    "all_three": 4,
+    "rot_flip_classes": [
+      {
+        "size": 24,
+        "sig2": 1.25,
+        "closed_form_E": 3.8056,
+        "n_pi_min": 2
+      },
+      {
+        "size": 8,
+        "sig2": 0.75,
+        "closed_form_E": -0.635,
+        "n_pi_min": 4
+      },
+      {
+        "size": 8,
+        "sig2": 0.75,
+        "closed_form_E": 0.635,
+        "n_pi_min": 2
+      },
+      {
+        "size": 12,
+        "sig2": 0.25,
+        "closed_form_E": -3.8056,
+        "n_pi_min": 4
+      },
+      {
+        "size": 12,
+        "sig2": 0.25,
+        "closed_form_E": -3.8056,
+        "n_pi_min": 4
+      }
+    ],
+    "merged_by_reflection": [
+      {
+        "rot_flip_class_indices": [
+          3,
+          4
+        ],
+        "sig2": [
+          0.25,
+          0.25
+        ],
+        "closed_form_E": [
+          -3.8056,
+          -3.8056
+        ]
+      }
+    ]
+  }
+}

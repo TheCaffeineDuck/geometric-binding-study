@@ -1,0 +1,18 @@
+{
+  "n": 50,
+  "t_first": 0.0,
+  "t_last": 999.9999999996382,
+  "n_bound_t0": 30,
+  "n_bound_T1000": 30,
+  "same_set": true,
+  "n_sign_changes": 0,
+  "max_abs_change_E_bind": 0.03203288993270803,
+  "argmax_change": 23,
+  "mean_abs_change": 0.022553747281296523,
+  "min_abs_E_bind_t0": 0.39181684851925525,
+  "n_seeds_with_any_sign_change_over_series": 0,
+  "mean_E_bind_T1000": -3.1197374702446523,
+  "order_param_mean_t0": 0.04179972159359731,
+  "order_param_mean_T1000": -0.07510317376039187,
+  "report_summary_n_bound": 30
+}

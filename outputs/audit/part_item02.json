@@ -1,0 +1,105 @@
+{
+  "J_d6": 5.2029557422908175,
+  "J_d10": 0.23903316750937056,
+  "PDE_pair_same_d6_T500": 5.172304543261493,
+  "PDE_pair_same_d10_T500": 0.23849067579024918,
+  "cube_edges": 12,
+  "ico_edges": 30,
+  "cube_patterns": {
+    "bipartite_boundary_test_checkerboard": {
+      "phases": [
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "CE": 12,
+      "closed_form": -51.65365065556216
+    },
+    "phase2_polarized_T1_file": {
+      "phases": [
+        -1.0,
+        1.0,
+        -1.0,
+        1.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "CE": 8,
+      "closed_form": -23.982396835435672
+    },
+    "phase2_checkerboard_CE6_file": {
+      "phases": [
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        1
+      ],
+      "CE": 6,
+      "closed_form": -3.805622192827623
+    }
+  },
+  "cube_PDE": {
+    "boundary_test_checkerboard_L50_T500": -51.53,
+    "phase2_polarized_T1_T500": -23.9449738779296,
+    "phase2_checkerboard_CE6_T500": -3.8634193342947754,
+    "phase2_cube_polarized_T1_CE12_T500": -51.52640060352002
+  },
+  "cube_closed_form_distinct_values": [
+    -51.654,
+    -25.827,
+    -23.982,
+    -20.812,
+    -11.991,
+    -3.806,
+    -0.635,
+    0.635,
+    3.806,
+    8.186,
+    16.371,
+    20.812,
+    37.244,
+    74.487
+  ],
+  "ico_all_same_closed_form": 165.95770822598408,
+  "ico_all_same_PDE_T500": 164.1058197879512,
+  "ico_all_same_PDE_phase3": 164.1058197879512,
+  "ico_pairs_by_distance": {
+    "6.0": 30,
+    "9.708204": 30,
+    "11.412678": 6
+  },
+  "ico_edges_only_sum": 156.08867226872454,
+  "E_single_t0": 13.461782355144003,
+  "grid_t0_cube_bipartite": -51.52948353157675,
+  "grid_t0_cube_p2": -23.94682661179324,
+  "grid_t0_ico_all_same": 164.1190282423312,
+  "grid_t0_pair_d6": 5.17272957438481,
+  "grid_t0_pair_d10": 0.23850856319665326,
+  "seeds": {
+    "n": 50,
+    "t_final": 999.9999999996382,
+    "corr_T1000": 0.9999967451888347,
+    "max_abs_miss": 0.16095703101979808,
+    "argmax_miss": 0,
+    "mean_abs_miss": 0.06363304118916846,
+    "pde_min": -39.64998507480419,
+    "pde_max": 77.43224556722407,
+    "corr_t0": 0.9999966619254085,
+    "max_abs_miss_t0": 0.14381109936243952,
+    "corr_omega_1p11256": 0.9999958670508072,
+    "max_abs_miss_omega_1p11256": 0.14632361767048252,
+    "cf_min": -39.748877410170415,
+    "cf_max": 77.4687933345593
+  }
+}
