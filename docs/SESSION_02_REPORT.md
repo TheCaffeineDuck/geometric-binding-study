@@ -12,9 +12,9 @@ Units are Set-B-like (m = 1, g4 = 0.30, g6 = 0.09 beta). "frac" is the energy in
 
 - **Two swirls obey the derived tail law.** In phase they attract and merge; in anti-phase they repel; in between, N flows from the lump that leads in phase to the one that lags, the relative phase runs toward 180 degrees, and the pair ends up repelling. The measured decay constant is 0.416 to 0.417 against 0.4165, for separations of 3.6 half-widths and more. No pair is bonded.
 - **The reason nothing binds, at first order, is structural.** Neighbours attract only when their relative phase is below 90 degrees, and that is exactly when their relative phase is unstable. Phase patterns that are stable repel.
-- **The 3D tests agree.** Stepped-phase rings merge, only later than in-phase rings (by a factor 1.84 for five lumps; the point model said 1.85). Rings with 90-degree steps or more, and 0/180 rings, fly apart or exchange N and break up. The two balance points Claude Desktop estimated are confirmed in the point model, and in 3D neither even starts as distinct lumps.
-- **Mergers do not make one bigger swirl out of a ring.** Five lumps merge and throw out two lumps back to back. A shell of six in deep overlap around a centre leaves one lump with about half the energy, still decaying.
-- **A lone swirl, by contrast, can be made very long-lived.** At beta = 4/3 a start at omega = 0.9065 keeps 0.9946 of its energy to T = 300,000 (about 43,000 oscillations) and is confirmed in 3D to T = 3000. Lifetime rises with beta and does not fall anywhere up to beta = 5, where no decay is measurable. Below 4/3 every lump dies.
+- **The 3D tests agree.** Stepped-phase rings merge, only later than in-phase rings (by a factor 1.84 for five lumps; the point model said 1.85). Alternating 0/180 rings and rings with steps above 90 degrees fly apart; rings with 90-degree steps exchange N and either fly apart (four lumps) or merge in pairs (eight lumps, two turns). The two balance points Claude Desktop estimated are confirmed in the point model, and in 3D neither is a set of distinct lumps: the ring shows 2 distinct lumps in its first window, and the shell's seven cores overlap and are one lump by t = 35.
+- **Mergers do not make one bigger swirl out of a ring.** Five lumps merge and throw out two lumps back to back, each with 0.36 to 0.41 of the starting energy. A shell of six in deep overlap around a centre leaves one lump with about half the energy, still decaying.
+- **A lone swirl, by contrast, can be made very long-lived.** At beta = 4/3 a start at omega = 0.9065 keeps 0.9946 of its energy to T = 300,000 (about 43,000 oscillations) and is confirmed in 3D to T = 3000. In the starts tried, lifetime rises with beta and does not fall anywhere up to beta = 5, where no decay is measurable after the first 30,000 time units. Below 4/3 every lump dies.
 
 Against the theory's three claims (plan, section 1): claim 1 (a lone swirl is metastable) is supported at beta of 4/3 and above, much more strongly than Session 1 suggested. Claims 2 and 3 concern bonded groups, and this session found none to test. Step 4 as designed needs a bonded group; section 13 proposes what could be done instead.
 
@@ -175,21 +175,21 @@ The scan of WP-D was rerun with the measured law (kappa = 0.41721, amplitude 21,
 |---|---|---|---|---|
 | E1 | 5-ring, 72 degree steps (4.8) | merged, contact 190 to 420, 1.85 times later than E2 | merged: contact at 294 to 296; factor 1.84. Steps and equal N hold to t of about 150 to 200. Then two lumps of 0.36 E0 each leave back to back | hit |
 | E2 | 5-ring, all in phase (4.8) | merged, contact 105 to 200 | merged: contact at 150 to 160. Two lumps of 0.38 E0 leave along the ring axis | hit |
-| E3 | 5-ring, 72 steps, at the superposition-model balance (2.43) | merged by T = 300 | contact at 22.7; one blob at 35; two lumps of 0.41 E0 leave back to back | hit on the counts at T = 300; scored a miss by the script, which read the debris at T = 500 (F-018) |
-| E4 | 5-ring, 72 steps, at Claude Desktop's balance, kappa R = 1.07 (0.90) | not five distinct lumps; does not hold | 2 distinct lumps at t = 0; recoiling fragments; 0.98 absorbed | hit |
+| E3 | 5-ring, 72 steps, at the superposition-model balance (2.43) | merged by T = 300 | contact at 22.7 to 22.8; one blob at 35; two lumps of 0.41 E0 leave back to back | hit on the counts at t = 285 and 310 (2 lumps); scored a miss by the script, which read the debris at T = 500 (F-018) |
+| E4 | 5-ring, 72 steps, at Claude Desktop's balance, kappa R = 1.07 (0.90) | not five distinct lumps; does not hold | 2 distinct lumps in the first window; recoiling fragments; 0.98 absorbed | hit |
 | E5 | 4-ring, alternating 0/180 (4.8); mirror control | flies apart, passes 1.5 at 160 to 320 | four intact lumps, passes 1.5 at 230; N equal to 1.2e-4 | hit |
-| E6 | 4-ring, 90 degree steps (3.6) | flies apart, 200 to 450 | passes 1.5 at 416 to 435; N flows between the lumps and the steps drift | hit, at the top of the window |
-| E7 | 6-ring, 60 steps, at the superposition-model balance (2.19) | merged by T = 300 | one blob at t = 10; two lumps of 0.45 E0 leave | hit on the counts at T = 300; labelled "not distinct at the start" (F-018) |
+| E6 | 4-ring, 90 degree steps (3.6) | flies apart, 200 to 450 | passes 1.5 at 416 to 435; N flows between the lumps (34% spread at t = 200) and the steps drift by 36 degrees | hit, at the top of the window |
+| E7 | 6-ring, 60 steps, at the superposition-model balance (2.19) | merged by T = 300 | one blob at t = 10; two lumps of 0.45 E0 leave | 2 lumps at t = 285, debris counted as 6 at 310; labelled "not distinct at the start"; scored a miss by the script (F-018) |
 | E8 | octahedron around an opposite-phase centre at Claude Desktop's balance, kappa R = 1.59 (1.14) | not seven distinct lumps; does not hold | cores overlap from the start; one lump from t = 25 with 0.47 E0, omega 0.83, still losing 0.23% per unit time | hit |
 | E9 | cube around an opposite-phase centre (2.54) | merged or flew apart by 250 | nine lumps to t = 85, one lump from 110 with about 0.45 E0 | hit |
-| E10 | 8-ring, 90 degree steps, two turns (3.6) | merged, contact 170 to 370 | contact at 190; eight lumps become four, which recede | hit |
+| E10 | 8-ring, 90 degree steps, two turns (3.6) | merged, contact 170 to 370 | contact at 190 to 193; N spread 52% at t = 150; eight lumps become four, which recede | hit |
 | E11 | 6-ring around an opposite-phase centre, R = 15.77 (4.7); a probe | merged, contact 320 to 650 | no contact by T = 700: seven lumps throughout; ring contracting from 15.77 to 13.13 at a growing rate. **Labelled bonded by the criterion** | **miss** (F-017); second run PENDING |
 | E12 | 5-ring, 0, 0, 180, 180, 0 (4.8); rounded control | merged, contact 80 to 160, in-phase neighbours first | in-phase pair closes at 116; two unequal lumps separate | hit |
 | E13 | 5-ring, 144 degree steps (4.8); control | no merger, expanding | five intact lumps, radius 13.6 to 26 | hit |
 | E14 | 5-ring, 72 steps, far apart (9.0); control | nothing happens | nothing happens. **Also labelled bonded by the criterion** | hit as a control |
 | E15 | linear twin of E1; resolution and box checks of E3 | twin gone by T = 100 (group energy below 0.1); checks: same class, contact within 15% | twin: 0.236 at 100, 0.098 at 150 (0.058 by the ball measure). Checks: identical to E3 up to contact (22.69 in all three), then diverging after t = 235 | twin within 3 times its target; checks: see below |
 
-**E11 is not a bonded group.** The reviewer's analysis of the stored series: the ring's inward speed grows from 0.0004 to 0.0092 with no turning point; the centre-to-ring phase swings about 180 degrees by +-17 degrees with a period of about 350, with 9% of N passing between centre and ring; the forces cancel only at exactly 180, and the swing leaves a net inward pull of the measured size. From t of about 500 the hexagon loses its symmetry and two pairs of neighbours close up; the first pair reaches 2 hw at an extrapolated t of 699 to 709. The run stopped at 700. PENDING: the second run (T = 1200, and a finer grid to T = 1000), prediction in Block 3b.
+**E11 is not a bonded group.** The reviewer's analysis of the stored series: the ring's inward speed grows from 0.0004 at t = 100 to 0.0079 averaged over t = 600 to 690 (0.0092 at the end), with no turning point after t = 85; the centre-to-ring phase swings about 180 degrees by +-17 degrees with a period of about 350, with 9% of N passing between centre and ring; the forces cancel only at exactly 180, and the swing leaves a net inward pull of the measured size. From t of about 500 the hexagon loses its symmetry and two pairs of neighbours close up; the first pair reaches 2 hw at an extrapolated t of 699 to 709. The run stopped at 700. PENDING: the second run (T = 1200, and a finer grid to T = 1000), prediction in Block 3b.
 
 **The criterion was flawed, and I wrote it.** It labels the far-apart control bonded because nothing moves, and E11 because its collapse takes about as long as the run. It has no trend test, no link between run length and interaction time, and no comparison with the control. No conclusion in this report rests on the label "bonded"; a sound rule is proposed in section 13.
 
@@ -197,9 +197,9 @@ The scan of WP-D was rerun with the measured law (kappa = 0.41721, amplitude 21,
 
 **Stepped rings and angular momentum.** Each stepped ring starts with the angular momentum the overlap formula gives, to +0.5 to +3.4% (E1: -1030 against -997; 7.2% of N per lump). None rotates at J/I before contact (E1 turns 0.7 degrees by t = 100, the other way). The angular momentum about the group centre is conserved to 0.2 to 1.5% until merger or ejection.
 
-**Against the point model** (not scored in the predictions): contact and fly-apart times agree to 7% or better at 4.8 hw (E1, E2, E5, E12), are off by 23 to 49% for the 90-degree rings (E6, E10), by a factor 1.5 for E11, and by a factor 6 or more inside 2.5 hw (E3, E7). The 90-degree rings exchange N early in 3D (36% and 53% spread), which the model's "fixed point of the N flow" does not allow for (F-019).
+**Against the point model** (not scored in the predictions): contact and fly-apart times agree to 7% or better at 4.8 hw (E1, E2, E5, E12), are off by 23 to 49% for the 90-degree rings (E6, E10), by a factor 1.5 for E11, and by a factor 6 or more inside 2.5 hw (E3, E7). The 90-degree rings exchange N early in 3D (34% and 52% spread; already 1.45% at t = 50 in the four-ring, from 2e-4 at the start), which the model's "fixed point of the N flow" does not allow for (F-019). In the published optical models a uniform stepped ring is likewise only an existence condition, and such clusters are metastable.
 
-**Claude Desktop's two rough numbers.** Confirmed as point-model balances (kappa R = 1.0695, radially restoring; kappa R = 1.591, not restoring). In 3D neither is a set of distinct lumps at t = 0 (2 and 1 distinct), so the question of holding does not arise; what forms is fragments (ring) or one decaying lump (shell).
+**Claude Desktop's two rough numbers.** Confirmed as point-model balances (kappa R = 1.0695, radially restoring; kappa R = 1.591, not restoring). In 3D neither is a set of distinct lumps (the t = 0 energy density has 2 and 1 distinct maxima; the first period-averaged window gives 2 for the ring and spurious maxima on one overlapping core for the shell), so the question of holding does not arise; what forms is fragments (ring) or one decaying lump (shell).
 
 ## 8. Hits and misses
 
@@ -210,7 +210,7 @@ Each miss has a ledger entry in `docs/FAILURES.md` with expected and measured va
 - WP-B: B1 tracking (7.3e-5); B2 (by symmetry).
 - WP-C: C0a; the 3D gate; C1, C3, C5a, C5c, C5d, C6 (outcome), C7, C8, C9, C10, C12, C13.
 - WP-D: Claude Desktop's two balance numbers, in the point model.
-- WP-E: E1, E2, E4, E5, E6, E8, E9, E10, E12, E13, E14; E3 and E7 on the stored counts at T = 300.
+- WP-E: E1, E2, E4, E5, E6, E8, E9, E10, E12, E13, E14; E3 on the stored counts at T = 300 (E7 on the count at t = 285 only).
 
 **Not tested.** A5 (no beta is permanent): nothing above 4/3 died.
 
@@ -238,7 +238,18 @@ Each miss has a ledger entry in `docs/FAILURES.md` with expected and measured va
 
 ## 9. Novelty
 
-PENDING: the scholar's final check and the wording it supports for each item. Nothing in this report is claimed as new before that.
+Nothing here is claimed as new. The scholar checked each item against the documented searches (`docs/PRIOR_ART.md`, Addendum F; searches 1 to 119, web search only, so "no source found" is not proof of absence). What the record supports saying:
+
+| Item | Wording the search record supports |
+|---|---|
+| Lifetime against beta | No source found for a lifetime map of the real phi^4-phi^6 oscillon against beta. Measured here for the longest-lived start found at each of nine values of beta, radial solver, T up to 300,000 |
+| The beta = 4/3 state near omega = 0.907 | Not new: a beta = 4/3 lump of this size alive beyond 3e5 is visible in a figure of Li, Yamaguchi & Zhang 2025. No source found for a measured loss rate below about 5e-9 for this potential, for a retained fraction at T = 300,000, or for a 3D test of it (ours covers 435 oscillations) |
+| The pair force | The tail law and the phase-dependent charge exchange are published for complex solitons and Q-balls (Malomed 1998; Battye & Sutcliffe 2000), and a phase-dependent exponential force for 1+1D oscillons (Campos et al. 2026, abstract only). No source found for a measured force between real 3D oscillons against separation and phase, or for their measured decay constant, N exchange or phase drift |
+| Phase dependence of the single-frequency start | No source found. It follows from the structure of the ansatz; it is a derived consequence and a check I missed (F-009) |
+| Arrangements | The pair structure behind the exclusion (attraction against phase stability) is published; its statement for rings is this project's derivation, no source found. No source found for a point-lump scan of arrangements, or for rings or polyhedra of real-scalar oscillons in 3D. Bound 3D clusters of stepped-phase lumps exist for complex fields (Crasovan 2003; Dong, Liu & Malomed 2025) |
+| Multi-lump mergers | No source found for a simultaneous merger of five lumps, for two lumps ejected back to back, or for one lump of about half the energy left by a shell around an opposite-phase centre. An in-phase ring of 3D quantum droplets is reported to fuse into a state elongated along the ring axis (Dong et al. 2025; complex field; no ejection described). Ours are single runs, not resolution-checked after contact |
+
+One statement in circulation is contradicted by the measurements: the uncited sentence (Wikipedia, "Oscillon") that oscillons of opposite phase attract and form bonded pairs. In this model opposite phases repel, as every primary source says.
 
 ## 10. Workers
 
