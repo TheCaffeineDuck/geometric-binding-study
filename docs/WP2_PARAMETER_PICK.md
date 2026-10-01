@@ -48,3 +48,10 @@ Literature next to each (source: `docs/PRIOR_ART.md`).
 Step 2 targets (unchanged from the plan): Go if >= 90% of energy inside 3 half-widths at T = 1000 with measured omega < m; the linear twin must fall below 10% in the same time or the diagnostic is broken; No-go only if no member survives for any beta >= 5/8. A result between targets is reported as it is.
 
 Status: subject to the reviewer's independent re-run of the WP1A radial result. If that re-run overturns the low-beta deaths, this pick is revisited before WP3 and the change is recorded here.
+
+## Errata (added after the WP1A review, before any WP3 result was read)
+
+- "0.956 at T = 5000" for the primary profile has no data file: it came from a development run reported by the numerics worker and not saved. The traceable figure is `outputs/family/gamma_map.json` (omega = 0.9100, not 0.9091): 0.9938 at T = 500 and 0.9772 at T = 3000. The pick does not change.
+- The radial Gamma = 3.0e-6 sits at the E_loc fit's noise floor (about 1e-6 to 3e-6); read it as an upper bound. The match to Ibe 2019 is the dip position (log10 Q = 2.156 vs 2.14), not its depth.
+- Primary Phi(0) in Set-B-like units is 6.8905 (rescaled 3.7741). An orchestrator instruction to the runner wrongly quoted 12.56 (a double unit conversion); the runner caught it, and the configs use the solved table.
+- F2 is recorded as F-002 in `docs/FAILURES.md`, reframed after the review: the stable-branch lumps die by energetic death at E ≈ E_min; the dN/domega criterion is not what failed, the lifetime is.
