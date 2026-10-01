@@ -1,0 +1,421 @@
+{
+ "date": "2026-10-01",
+ "machine": {
+  "chip": "Apple M4",
+  "perf_cores": 4,
+  "eff_cores": 6,
+  "ram_GiB": 16,
+  "os": "macOS 26.5.2",
+  "python": "3.12.14",
+  "numba": "0.68.0",
+  "numpy": "2.5.3"
+ },
+ "engine": {
+  "branch": "worktree-agent-ad6ebac785fbd2772",
+  "model": "Set B m=1 g4=0.30 g6=0.055, absorber SPONGE_DEFAULT, init gaussian amp 2.0 R 2.5, dt=dx/8 with dx=50/64 for all N (L=50N/64)"
+ },
+ "method": {
+  "raw": "Evolver.step only, 2 warm-up steps, then 300/60/30/30 steps (4 threads) or 150/20/10/10 steps (1 thread); wall via perf_counter",
+  "diag": "run() with sample_every=1.0, point_every=1, r_c=[5,10,15], 200 steps at 128, 100 steps at 192, after a 2-step warm run",
+  "side_by_side": "4 concurrent processes, NUMBA_NUM_THREADS=1 and threads=1, same N, run twice (8 values per N)",
+  "rss": "resource.ru_maxrss of each process",
+  "load_check": "ps before/after; other agent ran pytest (~100% of one core) intermittently; pass 2 of 4-thread runs overlapped it and is excluded from the headline numbers; headline 4-thread numbers were from a quiet pass (no python >50% CPU), side-by-side pass 1 and 2 agree (pass 1 had a ~100% python process listed at its end; values equal to quiet pass 2 within 5%)"
+ },
+ "four_thread_all_passes": {
+  "64": [
+   286.7,
+   208.3,
+   265.5
+  ],
+  "128": [
+   33.67,
+   28.15,
+   33.86
+  ],
+  "192": [
+   9.351,
+   7.743,
+   9.354
+  ],
+  "256": [
+   3.595,
+   3.425,
+   3.408
+  ]
+ },
+ "four_thread_pass_note": "pass1 (some other CPU load, one core likely busy for part), pass2 (other python/pytest at ~100% CPU the whole time: contaminated), pass3 (quiet, verified no other python >50%)",
+ "side_by_side_raw_values": {
+  "64": [
+   94.97,
+   84.02,
+   83.66,
+   83.32,
+   93.78,
+   93.25,
+   83.34,
+   83.08
+  ],
+  "128": [
+   8.958,
+   8.93,
+   8.881,
+   8.886,
+   8.943,
+   8.945,
+   8.948,
+   8.934
+  ],
+  "192": [
+   2.447,
+   2.422,
+   2.409,
+   2.384,
+   2.538,
+   2.556,
+   2.539,
+   2.531
+  ],
+  "256": [
+   0.838,
+   0.729,
+   0.707,
+   0.699,
+   0.751,
+   0.738,
+   0.721,
+   0.706
+  ]
+ },
+ "table": [
+  {
+   "N": 64,
+   "threads4_sps": 265.45,
+   "single_core_alone_sps": 115.4,
+   "side_by_side_4x1_per_run_sps_mean": 87.4275,
+   "side_by_side_aggregate_sps": 349.71,
+   "aggregate_over_4thread": 1.3174232435486908,
+   "retention_vs_alone": 0.7576039861351819,
+   "threads4_over_1thread": 2.3002599653379545,
+   "peak_rss_MB": 190,
+   "peak_rss_MB_side_by_side": 190
+  },
+  {
+   "N": 128,
+   "threads4_sps": 33.86,
+   "single_core_alone_sps": 14.81,
+   "side_by_side_4x1_per_run_sps_mean": 8.928125,
+   "side_by_side_aggregate_sps": 35.7125,
+   "aggregate_over_4thread": 1.0547105729474306,
+   "retention_vs_alone": 0.6028443619176231,
+   "threads4_over_1thread": 2.286293045239703,
+   "peak_rss_MB": 392,
+   "peak_rss_MB_side_by_side": 392
+  },
+  {
+   "N": 192,
+   "threads4_sps": 9.354,
+   "single_core_alone_sps": 4.059,
+   "side_by_side_4x1_per_run_sps_mean": 2.47825,
+   "side_by_side_aggregate_sps": 9.913,
+   "aggregate_over_4thread": 1.0597605302544366,
+   "retention_vs_alone": 0.6105567873860557,
+   "threads4_over_1thread": 2.3045084996304506,
+   "peak_rss_MB": 944,
+   "peak_rss_MB_side_by_side": 730
+  },
+  {
+   "N": 256,
+   "threads4_sps": 3.5,
+   "single_core_alone_sps": 1.754,
+   "side_by_side_4x1_per_run_sps_mean": 0.7361249999999999,
+   "side_by_side_aggregate_sps": 2.9444999999999997,
+   "aggregate_over_4thread": 0.8412857142857142,
+   "retention_vs_alone": 0.4196835803876852,
+   "threads4_over_1thread": 1.9954389965792474,
+   "peak_rss_MB": 2020,
+   "peak_rss_MB_side_by_side": 1535
+  }
+ ],
+ "diag_run_sps": {
+  "128": 25.78,
+  "192": 7.21
+ },
+ "diag_overhead_factor": {
+  "128": 0.761370348493798,
+  "192": 0.7707932435321788
+ },
+ "diag_peak_rss_MB": {
+  "128": 445,
+  "192": 1121
+ },
+ "projections_T1000": [
+  {
+   "N": 64,
+   "L": 50.0,
+   "dx": 0.78125,
+   "dt_rule": "dx/8",
+   "dt": 0.09765625,
+   "steps": 10240,
+   "sps_threads4_with_diag": 203.35641275164778,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 0.013987483384250425,
+   "wall_h_threads4_raw_nodiag": 0.0107155563927084,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.013987483384250425,
+   "aws_cost_USD_per_run_2_concurrent": 0.004993531568177402,
+   "aws_cost_USD_per_run_1_alone": 0.009987063136354803,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.004993531568177402
+  },
+  {
+   "N": 128,
+   "L": 50.0,
+   "dx": 0.390625,
+   "dt_rule": "dx/8",
+   "dt": 0.048828125,
+   "steps": 20480,
+   "sps_threads4_with_diag": 25.78,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 0.22067063184208258,
+   "wall_h_threads4_raw_nodiag": 0.168012075867953,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.22067063184208258,
+   "aws_cost_USD_per_run_2_concurrent": 0.07877941556762348,
+   "aws_cost_USD_per_run_1_alone": 0.15755883113524696,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.07877941556762348
+  },
+  {
+   "N": 192,
+   "L": 50.0,
+   "dx": 0.2604166666666667,
+   "dt_rule": "dx/8",
+   "dt": 0.032552083333333336,
+   "steps": 30720,
+   "sps_threads4_with_diag": 7.21,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 1.183541377716135,
+   "wall_h_threads4_raw_nodiag": 0.9122656973843632,
+   "aws_c7i_4xlarge_wall_h_per_run": 1.183541377716135,
+   "aws_cost_USD_per_run_2_concurrent": 0.4225242718446602,
+   "aws_cost_USD_per_run_1_alone": 0.8450485436893204,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.4225242718446602
+  },
+  {
+   "N": 256,
+   "L": 50.0,
+   "dx": 0.1953125,
+   "dt_rule": "dx/8",
+   "dt": 0.0244140625,
+   "steps": 40960,
+   "sps_threads4_with_diag": 2.6812862860454594,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 4.243402816399172,
+   "wall_h_threads4_raw_nodiag": 3.250793650793651,
+   "aws_c7i_4xlarge_wall_h_per_run": 4.243402816399172,
+   "aws_cost_USD_per_run_2_concurrent": 1.5148948054545044,
+   "aws_cost_USD_per_run_1_alone": 3.029789610909009,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 1.5148948054545044
+  },
+  {
+   "N": 64,
+   "L": 50.0,
+   "dx": 0.78125,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 203.35641275164778,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 0.02731930348486411,
+   "wall_h_threads4_raw_nodiag": 0.020928821079508594,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.02731930348486411,
+   "aws_cost_USD_per_run_2_concurrent": 0.009752991344096486,
+   "aws_cost_USD_per_run_1_alone": 0.019505982688192973,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.009752991344096486
+  },
+  {
+   "N": 128,
+   "L": 50.0,
+   "dx": 0.390625,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 25.78,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 0.21549866390828376,
+   "wall_h_threads4_raw_nodiag": 0.16407429283979788,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.21549866390828376,
+   "aws_cost_USD_per_run_2_concurrent": 0.0769330230152573,
+   "aws_cost_USD_per_run_1_alone": 0.1538660460305146,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.0769330230152573
+  },
+  {
+   "N": 192,
+   "L": 50.0,
+   "dx": 0.2604166666666667,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 7.21,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 0.7705347511172754,
+   "wall_h_threads4_raw_nodiag": 0.5939229800679449,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.7705347511172754,
+   "aws_cost_USD_per_run_2_concurrent": 0.2750809061488673,
+   "aws_cost_USD_per_run_1_alone": 0.5501618122977346,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.2750809061488673
+  },
+  {
+   "N": 256,
+   "L": 50.0,
+   "dx": 0.1953125,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 2.6812862860454594,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 2.071974031444908,
+   "wall_h_threads4_raw_nodiag": 1.5873015873015874,
+   "aws_c7i_4xlarge_wall_h_per_run": 2.071974031444908,
+   "aws_cost_USD_per_run_2_concurrent": 0.7396947292258321,
+   "aws_cost_USD_per_run_1_alone": 1.4793894584516643,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.7396947292258321
+  },
+  {
+   "N": 64,
+   "L": 70.0,
+   "dx": 1.09375,
+   "dt_rule": "dx/8",
+   "dt": 0.13671875,
+   "steps": 7314,
+   "sps_threads4_with_diag": 203.35641275164778,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 0.009991059560178874,
+   "wall_h_threads4_raw_nodiag": 0.007653968851934572,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.009991059560178874,
+   "aws_cost_USD_per_run_2_concurrent": 0.0035668082629838577,
+   "aws_cost_USD_per_run_1_alone": 0.007133616525967715,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.0035668082629838577
+  },
+  {
+   "N": 128,
+   "L": 70.0,
+   "dx": 0.546875,
+   "dt_rule": "dx/8",
+   "dt": 0.068359375,
+   "steps": 14629,
+   "sps_threads4_with_diag": 25.78,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 0.15762187988720183,
+   "wall_h_threads4_raw_nodiag": 0.12000862561996645,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.15762187988720183,
+   "aws_cost_USD_per_run_2_concurrent": 0.056271011119731054,
+   "aws_cost_USD_per_run_1_alone": 0.11254202223946211,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.056271011119731054
+  },
+  {
+   "N": 192,
+   "L": 70.0,
+   "dx": 0.3645833333333333,
+   "dt_rule": "dx/8",
+   "dt": 0.045572916666666664,
+   "steps": 21943,
+   "sps_threads4_with_diag": 7.21,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 0.8453866983686679,
+   "wall_h_threads4_raw_nodiag": 0.6516183552745453,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.8453866983686679,
+   "aws_cost_USD_per_run_2_concurrent": 0.3018030513176144,
+   "aws_cost_USD_per_run_1_alone": 0.6036061026352288,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.3018030513176144
+  },
+  {
+   "N": 256,
+   "L": 70.0,
+   "dx": 0.2734375,
+   "dt_rule": "dx/8",
+   "dt": 0.0341796875,
+   "steps": 29257,
+   "sps_threads4_with_diag": 2.6812862860454594,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 3.031002011713694,
+   "wall_h_threads4_raw_nodiag": 2.3219954648526078,
+   "aws_c7i_4xlarge_wall_h_per_run": 3.031002011713694,
+   "aws_cost_USD_per_run_2_concurrent": 1.0820677181817886,
+   "aws_cost_USD_per_run_1_alone": 2.164135436363577,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 1.0820677181817886
+  },
+  {
+   "N": 64,
+   "L": 70.0,
+   "dx": 1.09375,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 203.35641275164778,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 0.02731930348486411,
+   "wall_h_threads4_raw_nodiag": 0.020928821079508594,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.02731930348486411,
+   "aws_cost_USD_per_run_2_concurrent": 0.009752991344096486,
+   "aws_cost_USD_per_run_1_alone": 0.019505982688192973,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.009752991344096486
+  },
+  {
+   "N": 128,
+   "L": 70.0,
+   "dx": 0.546875,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 25.78,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 0.21549866390828376,
+   "wall_h_threads4_raw_nodiag": 0.16407429283979788,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.21549866390828376,
+   "aws_cost_USD_per_run_2_concurrent": 0.0769330230152573,
+   "aws_cost_USD_per_run_1_alone": 0.1538660460305146,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.0769330230152573
+  },
+  {
+   "N": 192,
+   "L": 70.0,
+   "dx": 0.3645833333333333,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 7.21,
+   "diag_factor_source": "measured",
+   "wall_h_threads4_local": 0.7705347511172754,
+   "wall_h_threads4_raw_nodiag": 0.5939229800679449,
+   "aws_c7i_4xlarge_wall_h_per_run": 0.7705347511172754,
+   "aws_cost_USD_per_run_2_concurrent": 0.2750809061488673,
+   "aws_cost_USD_per_run_1_alone": 0.5501618122977346,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.2750809061488673
+  },
+  {
+   "N": 256,
+   "L": 70.0,
+   "dx": 0.2734375,
+   "dt_rule": "0.05",
+   "dt": 0.05,
+   "steps": 20000,
+   "sps_threads4_with_diag": 2.6812862860454594,
+   "diag_factor_source": "mean of measured 128/192",
+   "wall_h_threads4_local": 2.071974031444908,
+   "wall_h_threads4_raw_nodiag": 1.5873015873015874,
+   "aws_c7i_4xlarge_wall_h_per_run": 2.071974031444908,
+   "aws_cost_USD_per_run_2_concurrent": 0.7396947292258321,
+   "aws_cost_USD_per_run_1_alone": 1.4793894584516643,
+   "aws_c7i_16xlarge_cost_USD_per_run_8_concurrent": 0.7396947292258321
+  }
+ ],
+ "aws": {
+  "quota_status": "request f00511d0... status CASE_OPENED (support case 179083780400294), desired 64 vCPU; current applied L-1216C47A = 16 vCPU (read via AWS MCP service-quotas read calls, not CLI)",
+  "largest_instance_now": "c7i.4xlarge 16 vCPU (8 physical cores) 0.7140 USD/h; c8g.4xlarge 0.6358; c7i.16xlarge 2.856 once 64 vCPU granted",
+  "assumptions": [
+   "per-core speed of c7i equals M4 performance core (not verified; M4 is likely faster per core, so AWS wall times are optimistic)",
+   "16 vCPU = 8 physical cores (hyperthread pairs); FFT/stencil code is bandwidth-bound so hyperthreads are not counted",
+   "AWS runs: 2 concurrent 4-thread runs per c7i.4xlarge, each at the M4 4-thread rate; per-run wall equals local wall; cost per run = wall*price/2 (or wall*price if only one run is alone on the box)",
+   "no extra memory-bandwidth penalty beyond that already in the M4 4-thread rate; M4 unified memory bandwidth (~120 GB/s) is higher than a c7i.4xlarge slice, so this is optimistic",
+   "c8g (Graviton4) not benchmarked; same-rate assumption would give price/run 11% lower than c7i; arm64 needs a numba build check",
+   "instance start/data transfer/EBS costs ignored"
+  ]
+ }
+}
