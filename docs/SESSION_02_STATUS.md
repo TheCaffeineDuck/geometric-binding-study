@@ -2,7 +2,7 @@
 
 Resume file. Updated by the orchestrator after each package. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`.
 
-Last update: 2026-10-02 02:55 (+07). AWS SIGN-IN EXPIRED (see Rented compute); the two instances self-terminate at about 02:55. Done: WP0, WP-S, WP-A sweeps, WP-D (derived law), all four build reviews. Running on the Mac: WP-B (T about 3700 of 5000); local d = 16 pair runs; A9 3D confirmation; WP-E arrangement batch starting. Ledger at F-012.
+Last update: 2026-10-02 03:10 (+07). AWS SIGN-IN EXPIRED (see Rented compute). Done: WP0, WP-S, WP-A sweeps, WP-D (derived law), all build reviews. Running on the Mac: WP-E arrangement batch (to about midday), WP-B, local d = 16 pairs, A9 confirmation. Ledger at F-012.
 
 **Stop-condition note (plan section 4).** The phase control missed at theta = 90 only. The plan's control is over the phases used, and the redesigned batch uses none that fails, so I read the stop as not triggered; the 3D gate (G1, G2 in the predictions file) must pass before pair runs start. WP-D and WP-E go ahead only if the gate passes and the measured force agrees with the derivation in sign. This reading is flagged to Aaron and goes in the report as a deviation.
 
@@ -24,13 +24,23 @@ WP-A sweep command (resumes if rerun), from the repo root:
 
 ## Running now
 
-**WP-B 3D run.** PID in `logs/session2/wpB.pid` (python 59202 under `caffeinate -i`), 2 threads, about 6.7 steps/s, T = 950 to 5000.
+All on the Mac (4 performance cores, oversubscribed). Checked 2026-10-02 03:10 (+07).
+
+**WP-E arrangement batch (17 configs).** Launched 02:51. Two slot runners under `caffeinate -i`: PIDs in `logs/session2/wpE_slotA.pid` (34850) and `wpE_slotB.pid` (34851). Expected finish about 12:10 to 12:40, sooner once the other runs end.
+- Slot A: E01, E03, E05, E07, E09, E11, E13, E15_twin_E01, E15_box_E03. Slot B: E02, E04, E06, E08, E10, E12, E15_res_E03, E14.
+- Results `outputs/session2/wpE/results/`; logs `outputs/session2/wpE/logs/`; checkpoints `checkpoints/session2/wpE/<name>/`.
+- Resume after a restart: rerun the two commands in `outputs/session2/wpE/BATCH_README.md` (finished runs are skipped, unfinished ones resume).
+- Analysis when done: `.venv/bin/python outputs/session2/wpE/postprocess.py` (writes `analysis/summary.json` and `analysis/criteria_E.json`; bonded rule from `criteria.json`).
+- Initial fields: E04 has 2 distinct lumps at t = 0 and E08 has 1 (both predicted "not distinct"). E08 starts with 1.66 times the energy of 7 single lumps.
+
+**WP-B 3D run.** PID in `logs/session2/wpB.pid` (python 59202 under `caffeinate -i`), 2 threads, T = 950 to 5000; at T about 3800 at 03:10.
 - Log: `logs/session2/wpB.log` (one line per 250 time units). Checkpoint: `checkpoints/session2/wpB/checkpoint.npz`. Result, rewritten each chunk: `outputs/session2/wpB/run1_primary_T5000.json`.
 - If it dies, rerun from the repo root; the driver continues from the checkpoint:
   `NUMBA_NUM_THREADS=2 nohup caffeinate -i .venv/bin/python outputs/session2/wpB/run_T5000.py --ckpt checkpoints/session2/wpB --out outputs/session2/wpB/run1_primary_T5000.json --chunk-steps 6250 >> logs/session2/wpB.log 2>&1 &`
 - When done: `.venv/bin/python outputs/session2/wpB/compare_radial.py` writes `compare_radial.json` and `.png`. Then run `outputs/step2/diagnostics/shape.py` on the final checkpoint for B2.
-- Resume fidelity was checked: T = 950 to 1000 regenerated bit-identical to Session 1. The Session 1 checkpoint stops at T = 950 because the engine does not checkpoint at the last step.
 - Comparison on T <= 1000: max |frac 3D - radial| = 7.26e-5 at t = 255.
+
+**Local WP-C pair runs and the A9 3D confirmation** (a runner is driving these): `outputs/session2/wpC/results_mac/` (d = 16 at 0 and 180 done; 45, 90, 135 and the anti-phase twin running or queued), then `outputs/session2/wpA/confirm3d/`.
 
 ## Rented compute
 
