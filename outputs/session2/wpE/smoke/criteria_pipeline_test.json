@@ -1,0 +1,13 @@
+{
+ "_note": "PIPELINE TEST VALUES ONLY (smoke run); not the bonded criteria, which the orchestrator writes",
+ "min_lump_count": "K",
+ "count_key": "count_distinct",
+ "distance_source": "peaks",
+ "nn_distance_min": 0.5,
+ "nn_distance_max": 1.5,
+ "pair_distance_max": null,
+ "relative_to_initial": true,
+ "eval_from": 15.0,
+ "hold_fraction": 0.9,
+ "require_completed": true
+}

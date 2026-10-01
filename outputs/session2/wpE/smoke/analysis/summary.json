@@ -1,0 +1,23 @@
+{
+ "criteria_file": "outputs/session2/wpE/smoke/criteria_pipeline_test.json",
+ "runs": {
+  "smoke_ring3_a10_step120": {
+   "K": 3,
+   "start": "snapshot",
+   "linear": false,
+   "completed": true,
+   "t_end": 60.0,
+   "outcome": "bonded",
+   "held_fraction": 1.0,
+   "count_distinct_last": 3,
+   "nn_mean_tracked_last": 15.516483149981601,
+   "pair_max_tracked_last": 15.835992285915044,
+   "E_group_retained_last": 0.9942251177378154,
+   "L_axis_box_last": -1457.8818294169157,
+   "regime": {
+    "omega_over_m_median": 0.9149720768185423,
+    "nonlinear_share_t0": 0.18673623171034268
+   }
+  }
+ }
+}

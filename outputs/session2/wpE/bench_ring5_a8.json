@@ -1,0 +1,34 @@
+{
+ "a": 8.0,
+ "K": 5,
+ "N": 144,
+ "L": 79.2,
+ "dx": 0.55,
+ "dt": 0.04,
+ "steps": 100,
+ "threads": 2,
+ "steps_per_s_with_diagnostics": 6.870036050090683,
+ "steps_per_s_without_lumps": 7.790766955623296,
+ "init_build_seconds_snapshot": 24.501136625010986,
+ "peak_rss_GB": 1.282064384,
+ "bytes_per_point_peak": 429.360768175583,
+ "load_average_before": [
+  7.49853515625,
+  8.728515625,
+  9.80419921875
+ ],
+ "load_average_after": [
+  7.314453125,
+  8.3759765625,
+  9.57568359375
+ ],
+ "other_processes_over_20pct_cpu": [
+  "100.7 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python outputs/session2/wpE/bench_r",
+  "172.2 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/aaronramos/Desktop/SW",
+  "98.3 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -c from multiprocessing.sp",
+  "98.7 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -c from multiprocessing.sp",
+  "99.7 /opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -c from multiprocessing.sp"
+ ],
+ "lumps_every": 10,
+ "count_every": 25.0
+}

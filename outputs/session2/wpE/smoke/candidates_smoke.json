@@ -1,0 +1,78 @@
+{
+ "defaults": {
+  "dx": 0.8,
+  "dt": 0.08,
+  "T": 60.0,
+  "source": "outputs/session2/wpE/source/src_test_N80_L64.npz",
+  "window": [
+   14.0,
+   18.0
+  ],
+  "threads": 4,
+  "res_dx": 0.5714285714285714,
+  "box_factor": 1.5,
+  "lumps": {
+   "every": 5,
+   "count_every": 10.0
+  }
+ },
+ "candidates": [
+  {
+   "name": "smoke_ring3_a10_step120",
+   "family": "ring3",
+   "positions": [
+    [
+     5.773502691896258,
+     0.0,
+     0.0
+    ],
+    [
+     -2.886751345948128,
+     5.000000000000001,
+     0.0
+    ],
+    [
+     -2.8867513459481318,
+     -4.999999999999999,
+     0.0
+    ]
+   ],
+   "phases_deg": [
+    0,
+    120,
+    240
+   ],
+   "start": "snapshot",
+   "linear_twin": true
+  },
+  {
+   "name": "smoke_ring3_a10_step120_ansatz",
+   "family": "ring3",
+   "positions": [
+    [
+     5.773502691896258,
+     0.0,
+     0.0
+    ],
+    [
+     -2.886751345948128,
+     5.000000000000001,
+     0.0
+    ],
+    [
+     -2.8867513459481318,
+     -4.999999999999999,
+     0.0
+    ]
+   ],
+   "phases_deg": [
+    0,
+    120,
+    240
+   ],
+   "start": "ansatz",
+   "res_check": false,
+   "box_check": false
+  }
+ ]
+}

@@ -15,6 +15,9 @@ Radial entry (dict): r, Phi (arrays, Phi(r) on 0 = r[0] <= r <= r_max, zero
 Gaussian entry (dict): center, amp, R, phase (default 0), omega (default 0):
     phi = amp cos(phase) exp(-r^2 / 2R^2), phi_t = -omega amp sin(phase) exp(...)
     (the legacy convention, paper_draft_v9 section 2.2).
+
+Snapshot entry (dict, init["snapshot"]): copies of one settled lump at given centres and
+    phases, see snapshot.py.
 """
 
 import numpy as np
@@ -69,10 +72,19 @@ def _offsets(coords, L, center):
     return out
 
 
-def build_initial(coords, L, init):
+def build_initial(coords, L, init, info=None, threads=4):
+    """Sum of the init entries on the grid. A "snapshot" entry (snapshot.place) adds copies of
+    one settled lump; its build record goes to info["snapshot"] when info is a dict."""
     N = coords.size
     phi = np.zeros((N, N, N))
     pi = np.zeros((N, N, N))
+    if init.get("snapshot"):
+        from swirl.engine.snapshot import place
+        ps, vs, inf = place(init["snapshot"], coords, L, threads=threads)
+        phi += ps
+        pi += vs
+        if info is not None:
+            info["snapshot"] = inf
     for g in init.get("gaussians", []):
         dx, dy, dz = _offsets(coords, L, g.get("center", (0, 0, 0)))
         prof = g["amp"] * np.exp(-(dx ** 2 + dy ** 2 + dz ** 2) / (2 * g["R"] ** 2))
