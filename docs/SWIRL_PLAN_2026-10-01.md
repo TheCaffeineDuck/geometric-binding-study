@@ -1,3 +1,5 @@
+> Session 2 is governed by `docs/SESSION_02_PLAN.md`, which supersedes section 1 and Step 4 of this plan.
+
 # Swirl Theory restart: maths plan
 
 Date: 2026-10-01 (revision 3: harness with five workers and pinned effort levels, failure handling, literature checks, rented compute)

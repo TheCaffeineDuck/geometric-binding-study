@@ -55,3 +55,12 @@ To check on it later:
 ```
 aws service-quotas get-requested-service-quota-change --request-id f00511d0f93147afb7d6b704be5dec67pQ8AD9jr --profile swirl --region us-east-2
 ```
+
+## Re-check 2026-10-01 (Session 2)
+Read-only calls only (profile `swirl`, us-east-2; freetier call via us-east-1 endpoint). Nothing launched, requested or changed.
+
+- Quota L-1216C47A applied value: **64 vCPUs** (was 16). The increase is in effect.
+- Request `f00511d0f93147afb7d6b704be5dec67pQ8AD9jr`: status **CASE_CLOSED**, desired 64, support case 179083780400294, last updated 2026-10-01 09:12 UTC. This supersedes the PENDING status above.
+- Plan state: PAID, ACTIVE. Remaining credits: **120.00 USD** (unchanged, nothing spent).
+- Leftover resources in us-east-2: instances 0, EBS volumes 0, snapshots (self-owned) 0, Elastic IPs 0, S3 buckets 0 (account-wide list).
+- At 64 vCPUs, one 16xlarge (64 vCPUs) fits; two 8xlarge would also fit.
