@@ -70,6 +70,9 @@ def main():
                 prof, c, ph, T, note="pair d=%g dtheta=%d deg, theta=%s rad" % (d, p, ph))
         runs["twin_d%02d_p000" % d] = base(prof, c, [0.0, 0.0], T_TWIN, g4=0.0, g6=0.0,
                                            note="linear twin (g4 = g6 = 0) of pair d=%g dtheta=0" % d)
+        if d == 16.0:   # added after review (Block 2a): one anti-phase twin, run on the Mac
+            runs["twin_d16_p180"] = base(prof, c, [0.0, np.pi], T_TWIN, g4=0.0, g6=0.0,
+                                         note="linear twin (g4 = g6 = 0) of pair d=16 dtheta=180")
     for th in (0.0, 22.5, 45.0, 67.5):
         runs["single_x12_t%04.1f" % th] = base(
             prof, [[12.0, 0.0, 0.0]], [np.deg2rad(th)], T_PAIR,

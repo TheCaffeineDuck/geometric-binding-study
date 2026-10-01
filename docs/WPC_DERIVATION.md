@@ -18,6 +18,8 @@ Lumps: phi_i = Phi(|x - x_i|) cos(omega t + theta_i). The profile solves the per
 
 and far out it is Phi = A e^{-kappa r}/r. Lump 1 sits at x = -d/2 and lump 2 at +d/2, and dtheta = theta_2 - theta_1.
 
+**Regime (standard 1).** omega/m = 0.909. Nonlinear share of the period-averaged profile energy (E = 2801.7): quartic <-g4 phi^4/24> = -19.5% of E, sextic <g6 phi^6/720> = +6.3% (checked from the profile table; time averages <cos^4> = 3/8, <cos^6> = 5/16). On the t = 0 slice of a theta = 0 start (E0 = 2843.8) the same terms are -51.3% and +19.7%; Session 1's 0.35 was (|E4| + |E6|) over the sum of absolute terms, a third definition.
+
 Values from the profile actually used for initial data (`outputs/step2/profiles/profile_beta1.3333_w0.9091.json`, omega = 0.909149): A = 56.700, kappa = 0.41647, E = 2801.7 (the period-averaged energy), N = 2865.5, hw = 3.344, Phi(0) = 6.8905.
 
 - **The brief's numbers belong to a different profile.** Its A = 55.7, E = 2767 and N = 2828 are the family row at omega = 0.910 (A_resc 30.494 / sqrt(0.3) = 55.67), not the profile used here. Using them would lower F by 3.5%.
@@ -43,9 +45,11 @@ With g = A e^{-kappa r}/r, the integrand is A^2 e^{-2 kappa r} (2 kappa^2/r + 2 
 
     F(d, dtheta) = 2 pi A^2 cos(dtheta) e^{-kappa d} (kappa/d + 1/d^2)     (force on lump 1 toward lump 2; > 0 attracts)
 
-and F = -dU/dd with
+and F = +dU/dd with
 
     U(d, dtheta) = -2 pi A^2 cos(dtheta) e^{-kappa d} / d.
+
+Sign convention (corrected after review; the first version wrote "F = -dU/dd" here): F is defined positive for attraction, i.e. toward decreasing d. The generalized force along increasing separation is -dU/dd = -F, so F = +dU/dd. For dtheta = 0, U rises toward 0 as d grows, dU/dd > 0, and the lumps attract. The relative coordinate obeys d'' = -2F/E (section 4), which is the same statement.
 
 **This confirms the brief's U, coefficient and sign.** In-phase lumps attract and anti-phase lumps repel.
 
@@ -80,7 +84,7 @@ Three consequences follow.
 - **Nonlinearity and second order in the overlap.** At the mid-plane the nonlinear source is (g4/8) Phi(d/2)^2/kappa^2 of the linear operator: 0.0138 at r = 8 (d = 16), 0.0017 at r = 10, 2e-4 at r = 12. F_sup/F_asym - 1 (table above) estimates this correction: -1.1% at d = 16, -0.14% at d = 20, -0.02% at d = 24. It is repulsive at every phase. The estimate is incomplete at O(e^{-2 kappa d}), because each core also polarizes in the other's tail.
 - **Next-order force at dtheta = 90.** The leading force vanishes there. The superposition integral leaves a small repulsion: -9.6e-4 at d = 16 (0.12% of F(0)), -1.8e-5 at d = 20, -4e-7 at d = 24.
 - **Radiation.** The third harmonic radiates (3 omega > m). A coherent cross-radiation force scales as B^2/d with radiated amplitude B ≈ 0.015, about 1e-4, without exponential decay. That is negligible against F(24) = 0.018, but it would dominate beyond d ≈ 35. The initial shedding of the single-frequency start (0.03% of E) crosses the mid-plane in the first ~50 time units. It contaminates the early half-space momentum slope by up to about 10% at d = 16 (section 8, check 7).
-- **The lumps are not at the profile omega.** The start phase sets the settled omega (section 7): 0.9095 at theta = 0 and 0.9123 at theta = +-67.5. kappa follows omega, so at d = 24 a shift of omega by 0.003 changes e^{-kappa d} by up to 18%. Predictions per run must use the measured omega of that run's lumps.
+- **The lumps are not at the profile omega.** The start phase sets the settled omega (section 7): 0.9095 at theta = 0 and 0.9123 at theta = +-67.5. A and kappa both follow omega and their effects on F largely cancel. Corrected after review (the first version said "up to 18%", counting only e^{-kappa d}). For omega = 0.9122 against the profile's 0.909149, with A(omega) from a cubic spline of the family table: A^2 falls 12.2%, e^{-kappa d} rises 11.4%, 14.4% and 17.5% at d = 16, 20, 24, and (kappa/d + 1/d^2) falls 1.4%. Net change of F: -3.5% (d = 16), -1.0% (d = 20), +1.7% (d = 24). For the theta = 90 start's omega = 0.9161 (not used in the pairs): -7.2%, -1.3%, +5.0%. The reviewer's estimate of a net 3% at d = 24 (A^2 -10.5%, exponential +15%) is the same size; my numbers use the spline, linear interpolation of the 0.005-spaced table gives the smaller A^2 drop. Predictions per run still use the measured omega.
 
 ## 4. From force to centroid acceleration
 
@@ -190,7 +194,7 @@ Section 4.2 uses the same method (mid-plane momentum flux, after Bowcock et al. 
   - 4.2's mid-plane integrand, -(1/2) cos(delta) f^2 [kappa^2 + (kappa + 1/r)^2], is mine: g'^2 = g^2 (kappa + 1/r)^2.
   - The sign (attraction in phase) agrees.
   - The coefficient C = 2 pi A^2, with A the coefficient of e^{-kappa r}/r, agrees.
-- **One difference: 4.2 drops the 1/d^2 term in F.** It gives F "about 2 pi C^2 kappa cos(delta) e^{-kappa d}/d" for kappa d >> 1. The plane integral can be done exactly: F = 2 pi A^2 cos(delta) e^{-kappa d}(kappa/d + 1/d^2). This equals -dU/dd exactly for U = -2 pi A^2 cos(delta) e^{-kappa d}/d. So the U of 4.2 and of the brief is exact at leading order in the overlap, and only its stated F is approximate. The dropped 1/(kappa d) is 15% at d = 16, 12% at d = 20 and 10% at d = 24, which matters at the plan's force-law precision. (4.2's 2 pi C^2 reads as 2 pi C with C = A^2 in its own notation. Its last line, U about -2 pi C^2 ..., uses C = A, so the notation is mixed but the content is the same.)
+- **One difference: 4.2 drops the 1/d^2 term in F.** It gives F "about 2 pi C^2 kappa cos(delta) e^{-kappa d}/d" for kappa d >> 1. The plane integral can be done exactly: F = 2 pi A^2 cos(delta) e^{-kappa d}(kappa/d + 1/d^2). This equals +dU/dd exactly (F positive for attraction; see section 1) for U = -2 pi A^2 cos(delta) e^{-kappa d}/d. So the U of 4.2 and of the brief is exact at leading order in the overlap, and only its stated F is approximate. The dropped 1/(kappa d) is 15% at d = 16, 12% at d = 20 and 10% at d = 24, which matters at the plan's force-law precision. (4.2's 2 pi C^2 reads as 2 pi C with C = A^2 in its own notation. Its last line, U about -2 pi C^2 ..., uses C = A, so the notation is mixed but the content is the same.)
 - **What is held fixed.** 4.2 says an energy comparison at fixed N is not meaningful because the superposed ansatz changes N with separation, and recommends centroid acceleration. I agree on the measurement, and section 2 makes the point exact:
   - U is the overlap term of E - omega N at fixed omega, and equals the fixed-N interaction energy to first order.
   - The superposition's raw E excess is U + omega N_cross, about 30 times |U| at d = 16.
