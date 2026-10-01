@@ -119,7 +119,7 @@ Source: the independent review of the WP-C code. It ran a single lump at x = +12
 
 Stop rule from the plan, section 4: if the measured pair law contradicts the derivation in sign (C1), stop after WP-C.
 
-## Block 3. WP-E arrangement runs. Written 2026-10-02 02:35 (+07), before any arrangement run
+## Block 3. WP-E arrangement runs. Written 2026-10-02 02:27 (+07), before any arrangement run
 
 **What I know when writing this.** The point-lump scan (`docs/WPD_NOTES.md` with its review corrections; `outputs/session2/wpD/predictions_point_model.json`), built on the derived pair law, not yet on the measured one: the rented pair results cannot be fetched (AWS sign-in expired), and a local copy of the d = 16 pair runs is still running. From its logs I have seen only that the in-phase pair has absorbed 811 of its energy by t = 250 and the anti-phase pair 10.6. I have also seen one coarse smoke run from the tooling build (a 3-lump ring with 120 degree steps expanded from spacing 10.4 to 15.5 by t = 60). No arrangement run starts until the local pair runs confirm the sign of the force (C1).
 
