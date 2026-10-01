@@ -1,0 +1,22 @@
+{
+ "A_ring4_alternating": {
+  "max_rel_drift": 4.683135438648364e-12,
+  "t_end": 1000.0,
+  "max_displacement": 86.12179921957102
+ },
+ "A_octa_c_antiphase": {
+  "max_rel_drift": 1.4862743664224484e-12,
+  "t_end": 1000.0,
+  "max_displacement": 178.79627957952022
+ },
+ "B_ring4_alternating": {
+  "max_rel_drift": 1.0205386561017547e-10,
+  "t_end": 1000.0,
+  "max_displacement": 85.39021688391226
+ },
+ "B_octa_c_antiphase": {
+  "max_rel_drift": 9.735513925204783e-12,
+  "t_end": 1000.0,
+  "max_displacement": 165.57056324513815
+ }
+}

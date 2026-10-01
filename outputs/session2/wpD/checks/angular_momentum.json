@@ -1,0 +1,25 @@
+{
+ "ring3_m1_s16": {
+  "grid": -227.3458726105505,
+  "asymptotic_formula": -281.3434110614349,
+  "true_profile_formula": -227.34944902546576,
+  "asym_over_grid": 1.2375127282094258,
+  "true_over_grid": 1.0000157311627178
+ },
+ "ring4_m1_s14": {
+  "grid": -1172.570864956879,
+  "asymptotic_formula": -1509.9241043374363,
+  "true_profile_formula": -1172.5913632869863,
+  "asym_over_grid": 1.2877039243107609,
+  "true_over_grid": 1.0000174815277438
+ },
+ "ring5_m2_s12": {
+  "grid": -2135.1028803795352,
+  "asymptotic_formula": -2925.588658736048,
+  "true_profile_formula": -2135.1458381353104,
+  "asym_over_grid": 1.3702331094303035,
+  "true_over_grid": 1.0000201197591787
+ },
+ "worst_true_rel": 2.011975917870501e-05,
+ "binary_J_abs": 2.8687692979545897e-30
+}

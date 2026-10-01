@@ -1,0 +1,14 @@
+{
+ "source": "profile values from outputs/session2/wpC/pair_law_predictions.json (beta = 4/3, omega = 0.909149 profile); replace A, kappa, E, N, omega, domega_dN with the measured pair law when available",
+ "A": 56.700456391543426,
+ "kappa": 0.41647038976785133,
+ "E": 2801.6838149373493,
+ "N": 2865.545211117668,
+ "hw": 3.344038183621855,
+ "omega": 0.909149280617113,
+ "domega_dN": -2.22827996225046e-05,
+ "beta": 1.3333333333333333,
+ "m": 1.0,
+ "g4": 0.3,
+ "g6": 0.12
+}
