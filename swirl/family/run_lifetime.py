@@ -5,7 +5,13 @@ dN/domega < 0 branch at E/(mN) = 1.0, 0.95, 0.9, 0.85, 0.8, 0.7 (where the
 computed family reaches). Evolved (full radial equation, absorber on) to
 T = 3000 or until E(r < 3 hw)/E0 < 0.05. Linear twins to T = 500.
 
-lifetime = first t with E(r < 3 hw)/E0 < 0.5.
+lifetime = first t with E(r < 3 hw)/E0 < 0.5 (normalised to the TOTAL E at t = 0).
+  This differs from death_time in radial_beta*.json / gamma_map.json, which is the
+  first t > 50 with E(r<3hw) < 0.5 E(r<3hw, t=50) (normalised after initial
+  shedding). Both are stored per run here. When a profile sheds more than half its
+  energy early and the remnant lives on, "lifetime" measures shedding, not death:
+  lifetime_reflects_early_shedding = True when E(r<3hw)/E0 < 0.75 at t = 50 (more
+  than 25% shed) and death_time is None or more than 20 after lifetime.
 omega_before_death = median core omega over [lifetime - 30, lifetime - 10].
 
 Run: <venv python> -m swirl.family.run_lifetime   (needs run_family outputs)
@@ -29,7 +35,8 @@ from swirl.family.family import at, continue_to
 from swirl.family.io import INK2, OUT_DIR, SERIES, style, write_json
 from swirl.family.profile import profile_curve, solve_profile
 from swirl.family.run_family import BETAS as BETAS_ALL
-from swirl.family.run_radial import DR, G4, R_BOX, evolve, load_family
+from swirl.family.run_radial import (DR, DT, G4, OMEGA_CAVEAT, R_BOX, R_SPONGE, SIGMA_MAX,
+                                     death_time, evolve, load_family)
 
 T_MAX = 3000.0
 TARGETS = [1.0, 0.95, 0.9, 0.85, 0.8, 0.7]
@@ -81,8 +88,14 @@ def job(args):
         sel = (ot >= life - 30) & (ot <= life - 10)
         w_before = float(np.median(om[sel])) if sel.any() else None
     sel = ot <= 50
+    td = death_time(ts)
     return dict(beta=beta, label=label, omega_profile=omega, half_width=hw, linear=linear,
-                lifetime=life, t_end=float(t[-1]), frac_end=float(fr[-1]),
+                lifetime=life, death_time=td,
+                lifetime_minus_death=None if (life is None or td is None) else life - td,
+                lifetime_reflects_early_shedding=bool(
+                    life is not None and fr[np.argmin(np.abs(t - 50))] < 0.75
+                    and (td is None or td - life > 20.0)),
+                t_end=float(t[-1]), frac_end=float(fr[-1]),
                 frac_t0=float(fr[0]), frac_T50=float(fr[np.argmin(np.abs(t - 50))]),
                 omega_early=float(np.median(om[sel])) if sel.any() else None,
                 omega_before_death=w_before, nonlinear_share_t0=ts["nonlinear_share_t0"],
@@ -106,16 +119,30 @@ def main():
         res = pool.map(job, jobs)
     out = dict(
         description=__doc__,
-        units="Set-B-like: m=1, g4=0.30, g6=beta*g4^2; absorber on (R_sponge=100, R_box=200)",
+        units="Set-B-like: m=1, g4=0.30, g6=beta*g4^2",
+        params=dict(m=1.0, g4=G4, g6="beta*g4^2", dr=DR, dt=DT, R_sponge=R_SPONGE, R_box=R_BOX,
+                    sigma_max=SIGMA_MAX,
+                    sigma_profile="sigma_max((r-R_sponge)/(R_box-R_sponge))^2",
+                    scheme="u=r phi, 4th-order FD, odd reflection at r=0 and r=R_box, RK4",
+                    T_max_nonlinear=T_MAX, T_linear_twin=500.0,
+                    stop_early="when E(r<3hw)/E0 < 0.05 after t=50",
+                    initial_data="phi = Phi(r) single-frequency profile, phi_t = 0"),
+        definitions=dict(
+            lifetime="first t with E(r<3hw)/E0 < 0.5 (E0 = total energy at t=0)",
+            death_time="first t > 50 with E(r<3hw) < 0.5 E(r<3hw, t=50) (same as radial_beta*.json)",
+            lifetime_reflects_early_shedding="lifetime set by early shedding, not a death: "
+                                             "E(r<3hw)/E0 < 0.75 at t=50 and death_time None "
+                                             "or > lifetime + 20",
+            omega=OMEGA_CAVEAT),
         features={str(b): dict(omega_dNdw_sign_change=feats[b]["omega_dNdw_sign_change"],
                                omega_E_eq_mN=feats[b]["omega_E_eq_mN"]) for b in feats},
         runs=res, wall_s=time.time() - t0)
     write_json("lifetime_scan.json", out)
     for x in res:
         if not x["linear"]:
-            print("beta=%.4f w=%.4f %-40s life=%s w_early=%.4f w_before_death=%s frac_end=%.3f"
-                  % (x["beta"], x["omega_profile"], x["label"], x["lifetime"], x["omega_early"],
-                     x["omega_before_death"], x["frac_end"]))
+            print("beta=%.4f w=%.4f %-40s life=%s death=%s shedding_flag=%s frac_T50=%.3f frac_end=%.3f"
+                  % (x["beta"], x["omega_profile"], x["label"], x["lifetime"], x["death_time"],
+                     x["lifetime_reflects_early_shedding"], x["frac_T50"], x["frac_end"]))
     plot(res, feats)
     print("wall %.1f s" % (time.time() - t0))
 

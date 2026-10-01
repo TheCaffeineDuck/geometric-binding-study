@@ -141,8 +141,14 @@ def to_setB_units(d, g4=0.30, m=1.0):
             out[k] = v / g4
         elif k in ("half_width", "hw_at_minE", "hw_at_lowest", "R_box"):
             out[k] = v / m
-        elif k in ("kappa",):
+        elif k in ("kappa", "kappa_fit"):
             out[k] = v * m
+        elif k == "m":
+            out[k] = m
+        elif k == "g4":
+            out[k] = g4
+        elif k == "g6":
+            out[k] = d["beta"] * g4**2 / m**2
         elif k.startswith("omega") and isinstance(v, float):
             out[k] = v * m
         elif k.startswith("omega") and isinstance(v, list):

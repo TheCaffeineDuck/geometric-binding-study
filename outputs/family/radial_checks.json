@@ -2,12 +2,22 @@
  "profile_omega": 0.8853597793082626,
  "beta": 0.6111111111111112,
  "conservation_T100": {
+  "target": 1e-05,
   "max_rel_drift_discrete": 9.848528516408141e-09,
-  "max_rel_drift_physical_density": 0.0001260403490106555
+  "discrete_verdict": "pass",
+  "discrete_note": "E_h, the exactly conserved semi-discrete energy (4th-order D2 form)",
+  "max_rel_drift_physical_density": 0.0001260403490106555,
+  "physical_density_verdict": "miss",
+  "physical_density_note": "energy from the physical density (np.gradient phi_r, trapezoid in r^2 dr), the quadrature used for E_loc; its variation is O(dr^2) quadrature error of this diagnostic as the field moves on the grid, not non-conservation of the dynamics. It bounds the accuracy of E_loc fractions (~1e-4)."
  },
  "conservation_T500": {
+  "target": 1e-05,
   "max_rel_drift_discrete": 6.343260179704962e-08,
-  "max_rel_drift_physical_density": 0.0002051723993296564
+  "discrete_verdict": "pass",
+  "discrete_note": "E_h, the exactly conserved semi-discrete energy (4th-order D2 form)",
+  "max_rel_drift_physical_density": 0.0002051723993296564,
+  "physical_density_verdict": "miss",
+  "physical_density_note": "energy from the physical density (np.gradient phi_r, trapezoid in r^2 dr), the quadrature used for E_loc; its variation is O(dr^2) quadrature error of this diagnostic as the field moves on the grid, not non-conservation of the dynamics. It bounds the accuracy of E_loc fractions (~1e-4)."
  },
  "box_doubling_oscillon": {
   "max_abs_diff_frac": 2.371643708721019e-08,

@@ -25,7 +25,7 @@ import numpy as np
 from swirl.family.family import at, n_minimum
 from swirl.family.io import OUT_DIR, SERIES, style, write_json
 from swirl.family.profile import profile_curve
-from swirl.family.run_radial import DR, G4, R_BOX, evolve, summarize
+from swirl.family.run_radial import DR, G4, OMEGA_CAVEAT, R_BOX, evolve, summarize
 
 BETAS = [0.70, 0.85, 4.0 / 3.0]
 DW = 0.01
@@ -75,6 +75,7 @@ def main():
                      "in 1/m)",
                omega_dNdw_sign_change={str(b): wc[b] for b in BETAS},
                definitions="see summarize() in run_radial.py and radial_beta*.json 'definitions'",
+               omega_caveat=OMEGA_CAVEAT,
                runs=res, wall_s=time.time() - t0)
     write_json("gamma_map.json", out)
     for x in res:

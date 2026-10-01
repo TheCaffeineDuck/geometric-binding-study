@@ -34,10 +34,16 @@ def test_energy_conservation_absorber_off():
     for T in (100.0, 500.0):
         ts = evolve(phi, G4, G6, [3 * p["half_width"]], T=T, sigma_max=0.0)
         Eh = np.array(ts["E_discrete"])
+        Ep = np.array(ts["E_total"])
         drift = np.max(np.abs(Eh - Eh[0])) / Eh[0]
-        print("\ncheck5 Set B profile w=%.4f, absorber off, T=%g: max rel energy drift %.2e "
-              "(target 1e-5); nonlinear share t=0 %.3f" % (p["omega"], T, drift,
-                                                            ts["nonlinear_share_t0"]))
+        dphys = np.max(np.abs(Ep - Ep[0])) / Ep[0]
+        print("\ncheck5 Set B profile w=%.4f, absorber off, T=%g (target 1e-5; nonlinear share "
+              "t=0 %.3f):\n  discrete conserved energy E_h: max rel drift %.2e -> %s\n"
+              "  physical-density energy (E_loc quadrature): max rel variation %.2e -> %s "
+              "(O(dr^2) quadrature error of the diagnostic; recorded, not asserted)"
+              % (p["omega"], T, ts["nonlinear_share_t0"], drift,
+                 "pass" if drift < 1e-5 else "MISS", dphys,
+                 "pass" if dphys < 1e-5 else ("pass with note" if dphys < 3e-5 else "MISS")))
         assert drift < 1e-5
 
 

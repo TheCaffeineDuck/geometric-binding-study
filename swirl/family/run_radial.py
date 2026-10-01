@@ -4,7 +4,25 @@ legacy Gaussian control, absorber validation and energy conservation.
 Run: <venv python> -m swirl.family.run_radial   (needs run_family outputs)
 Writes outputs/family/radial_beta*.json, radial_checks.json, radial_beta*.png.
 Units: Set-B-like (m=1, g4=0.30, g6=beta*g4^2); for beta=0.6111 this is Set B.
+
+Deviation from WP1A as written: the plan asks for one profile "near minimum E".
+Because dE/domega = omega dN/domega, min E coincides with the dN/domega sign
+change, so (as the task allowed) the third profile is a deeper one on the
+dN/domega < 0 branch at E/(mN) = 0.95 instead.
+
+Caveat on omega: core omega is read from upward zero crossings of phi(0,t).
+When phi(0,t) carries strong harmonics (deep profiles, E/(mN) <~ 0.8, and e.g.
+beta = 4/3 at omega <= 0.809, which reads ~1.6), extra crossings appear and the
+value is not the core frequency. summarize() flags omega > 1.2 as unreliable.
 """
+
+DEVIATION = ("WP1A asks for a profile near minimum E; min E coincides with the dN/domega sign "
+             "change (dE/domega = omega dN/domega), so the third profile is a deeper one on the "
+             "dN/domega < 0 branch at E/(mN) = 0.95.")
+OMEGA_CAVEAT = ("omega_early/omega_settled/omega_late come from upward zero crossings of phi(0,t); "
+                "they are unreliable when harmonic content adds crossings (values > 1.2 are flagged "
+                "in omega_zero_crossing_unreliable; e.g. beta=4/3, omega<=0.809 reads ~1.6).")
+OMEGA_UNRELIABLE_ABOVE = 1.2
 
 import json
 import os
@@ -102,10 +120,12 @@ def summarize(ts, k=0):
     T = ts["times"][-1]
     td = death_time(ts, k)
     plateau_end = T if td is None else td - 20.0
+    om = dict(omega_early=window(ts, 0, 50), omega_settled=window(ts, 50, 100),
+              omega_late=window(ts, T - 50, T))
     return dict(
         nonlinear_share_t0=ts["nonlinear_share_t0"],
-        omega_early=window(ts, 0, 50), omega_late=window(ts, T - 50, T),
-        omega_settled=window(ts, 50, 100),
+        **om,
+        omega_zero_crossing_unreliable=[k for k, v in om.items() if v > OMEGA_UNRELIABLE_ABOVE],
         death_time=td, alive_at_end=td is None,
         gamma_last200=gamma_fit(ts, T - 200, T, k),
         gamma_plateau=gamma_fit(ts, T_SHED, plateau_end, k),
@@ -184,6 +204,7 @@ def run_beta(beta, gauss=False):
     out = dict(beta=beta, units="Set-B-like: m=1, g4=0.30, g6=beta*g4^2=%.6g" % g6,
                equation="phi_tt - lap phi + m^2 phi - (g4/6) phi^3 + (g6/120) phi^5 = 0 (full, radial)",
                initial_data="phi = Phi(r) (single-frequency profile), phi_t = 0",
+               deviation_from_WP1A=DEVIATION, omega_caveat=OMEGA_CAVEAT,
                definitions=dict(
                    frac="E(r < r_c, t) / E_total(t=0), r_c = 3 half-widths of the initial profile",
                    shedding_fraction="1 - E(r<r_c, t=50) / E(r<r_c, t=0)",
@@ -239,9 +260,21 @@ def checks():
         ts = evolve(phi, G4, g6, rcs, T=T, sigma_max=0.0)
         Eh = np.array(ts["E_discrete"])
         Ep = np.array(ts["E_total"])
+        dh = float(np.max(np.abs(Eh - Eh[0])) / Eh[0])
+        dp = float(np.max(np.abs(Ep - Ep[0])) / Ep[0])
         out["conservation_T%d" % T] = dict(
-            max_rel_drift_discrete=float(np.max(np.abs(Eh - Eh[0])) / Eh[0]),
-            max_rel_drift_physical_density=float(np.max(np.abs(Ep - Ep[0])) / Ep[0]))
+            target=1e-5,
+            max_rel_drift_discrete=dh,
+            discrete_verdict="pass" if dh < 1e-5 else ("pass with note" if dh < 3e-5 else "miss"),
+            discrete_note="E_h, the exactly conserved semi-discrete energy (4th-order D2 form)",
+            max_rel_drift_physical_density=dp,
+            physical_density_verdict="pass" if dp < 1e-5 else ("pass with note" if dp < 3e-5
+                                                               else "miss"),
+            physical_density_note="energy from the physical density (np.gradient phi_r, "
+                                  "trapezoid in r^2 dr), the quadrature used for E_loc; its "
+                                  "variation is O(dr^2) quadrature error of this diagnostic as "
+                                  "the field moves on the grid, not non-conservation of the "
+                                  "dynamics. It bounds the accuracy of E_loc fractions (~1e-4).")
     # box doubling with absorber on (oscillon and Gaussian, nonlinear and linear)
     Rg = GAUSS["R"]
     gphi = lambda r: GAUSS["phi0"] * np.exp(-r**2 / (2 * Rg**2))
