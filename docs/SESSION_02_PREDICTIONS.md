@@ -160,3 +160,11 @@ Stop rule from the plan, section 4: if the measured pair law contradicts the der
 | E-CD | CD's two numbers: the 5-ring at kappa R = 1.07 and the octahedral shell at kappa R = 1.59 do not hold in 3D (E4, E8) | reproduced in the point model by the scholar and by WP-D; both in the overlap region |
 
 Runs are on the Mac until rented compute is available again; anything not run is listed as pending in the report.
+
+### Block 3a. Notes added 2026-10-02 02:47 (+07), before any arrangement run. No criterion or prediction is changed
+
+From the independent review of the tooling:
+- **The equality figures quoted above are the best case.** "4e-6 in N, 3e-6 in E" is the first window on a dx = 0.8 test source. Over a whole record the per-lump N differ by up to 6.4e-5. Copies are not exactly identical: the source frequency still rises by 4.4e-5 over 200 time units and carries a modulation of rms 2.8e-5. All of this is at or below 1e-4, against signals of 1e-3 or more.
+- **The window must be (26, 30)** in every run's config; the example file still carried (14, 18), with which lumps differ by up to 4.3e-4 in N.
+- **The post-processing did not yet implement the bonded rule as written** (it lacked the last-sample condition, the "not distinct at the start" label, and it used "at least K" for "equals K"). It is being corrected to the rule above; the rule is not being changed to fit the code. With samples every 25 time units from t = 50, a T = 500 run has 18 samples, so 95% means no sample may fail there; T = 600 and 700 runs tolerate one.
+- Per-lump tracked series (N, phase, energy of each lump) are not meaningful once the distinct-lump count is below K and will not be read there.
