@@ -1,9 +1,1 @@
 E01_ring5_m1_a16
-E03_ring5_m1_a8.11
-E05_ring4_alt_a16
-E07_ring6_m1_a7.32
-E09_cube_c_R8.51
-E11_ring6_c_R15.77
-E13_ring5_m2_a16
-E15_twin_E01
-E15_box_E03

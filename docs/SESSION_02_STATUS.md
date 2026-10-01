@@ -2,7 +2,7 @@
 
 Resume file. Updated by the orchestrator after each package. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`.
 
-Last update: 2026-10-02 03:10 (+07). AWS SIGN-IN EXPIRED (see Rented compute). Done: WP0, WP-S, WP-A sweeps, WP-D (derived law), all build reviews. Running on the Mac: WP-E arrangement batch (to about midday), WP-B, local d = 16 pairs, A9 confirmation. Ledger at F-012.
+Last update: 2026-10-02 03:35 (+07). AWS sign-in restored; cloud worker collecting WP-C and running the WP-E batch on AWS. On the Mac: E01 and E02 (WP-E), WP-B, the last local pair runs, the A9 confirmation. Report draft exists (`docs/SESSION_02_REPORT.md`).
 
 **Stop-condition note (plan section 4).** The phase control missed at theta = 90 only. The plan's control is over the phases used, and the redesigned batch uses none that fails, so I read the stop as not triggered; the 3D gate (G1, G2 in the predictions file) must pass before pair runs start. WP-D and WP-E go ahead only if the gate passes and the measured force agrees with the derivation in sign. This reading is flagged to Aaron and goes in the report as a deviation.
 
@@ -44,15 +44,13 @@ All on the Mac (4 performance cores, oversubscribed). Checked 2026-10-02 03:10 (
 
 ## Rented compute
 
-**BLOCKED since 18:24Z (01:24 +07) on 2026-10-02: the AWS sign-in for profile `swirl` has expired.** Both the CLI and the AWS MCP tool fail. Aaron must run `aws login --profile swirl`. Nobody in the session can check or clean up AWS until then.
+**AWS sign-in restored at about 03:28 (+07) on 2026-10-02** (Aaron ran `aws login --profile swirl`). Checked at 03:30: both WP-C instances are terminated (dead-man timers); the bucket swirl-wpc-156084119557-71737 holds all 24 WP-C result JSONs.
 
-Still on AWS (us-east-2, account 156084119557, tagged project=swirl):
-- Instance A i-0eb9855e4546429f2 and instance B i-069c4011d363790e3 (both c8g.4xlarge, 0.6358 USD/h; launched 16:23Z and 17:25Z). **Dead-man timers terminate them at 19:54:50Z and 19:55:20Z (02:55 +07) without any sign-in.** Root volumes delete on termination.
-- S3 bucket swirl-wpc-156084119557-71737: each instance syncs results, logs and checkpoints every 5 minutes to `A/` and `B/`. It survives termination. Role swirl-wpc-role, profile swirl-wpc-profile, security group sg-0fd9e12ecf65ba23b also remain until deleted.
-- State at the last contact (18:15Z): gate passed (G1 2.9e-5; G2 worst 5.35e-3 and 0.00275); 7 runs back on the Mac (4 gate runs, 3 twins); four d = 16 pairs finished on B but not copied; the other pairs at t = 450 of 500; `pair_d16_p180` at 150 of 300; `check_box` at 2500 of 7500 steps and `check_res` at 3750 of 7500. Everything was expected to finish by about 19:00Z, before the timers.
-- Cost so far about 2.0 USD; projected 2.9 to 3.3 USD for the batch (cap 12). Ledger row not yet written; ledger file still says 2.80.
+The `cloud` worker has been resumed with two parts:
+1. **WP-C collection:** pull the 24 results and logs into `outputs/session2/wpC/results/` and `logs/`, verify, run `outputs/session2/wpC/postprocess.py` (writes `analysis/criteria.json`), write the ledger row.
+2. **WP-E batch on two c8g.4xlarge** (cap 10 USD): 16 configs (E03 to E14, the twin, the two checks, and E01 as a cross-machine duplicate named `E01_ring5_m1_a16_aws`). E01 and E02 finish on the Mac; the Mac slot lists were truncated in place to those two runs (full lists kept as `slotA_full.txt`, `slotB_full.txt`). Results come back to `outputs/session2/wpE/results/`; then `outputs/session2/wpE/postprocess.py`; then full cleanup and the second ledger row.
 
-After sign-in (hand to the `cloud` worker): pull `A/results`, `A/logs`, `B/results`, `B/logs` from the bucket into `outputs/session2/wpC/results/` and `logs/`; check all 24 JSONs have `completed: true` (a run cut off by the timer is resumable from its checkpoint in the bucket); run `.venv/bin/python outputs/session2/wpC/postprocess.py`; confirm both instances are terminated; delete the bucket (after the results are verified locally), the role (detach AmazonSSMManagedInstanceCore, delete inline policy `s3bucket`), the instance profile and the security group; verify nothing remains; write the ledger row.
+Still on AWS until the worker cleans up: the WP-C bucket, role swirl-wpc-role, profile swirl-wpc-profile, security group sg-0fd9e12ecf65ba23b, plus whatever Part 2 creates. If the session is resumed cold: check `aws ec2 describe-instances` and `aws s3 ls` with profile `swirl` in us-east-2, terminate and delete, and bring `docs/CLOUD_LEDGER.md` up to date (it still says 2.80; WP-C cost about 3 USD).
 
 ## Notes for a resuming session
 
