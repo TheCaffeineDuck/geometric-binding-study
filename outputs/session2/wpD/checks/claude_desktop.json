@@ -1,0 +1,50 @@
+{
+ "ring5_step72": [
+  {
+   "kappa_R": 1.0695021130323379,
+   "radial_restoring": true,
+   "breathing_d2U_dR2_total": 0.4577367511169804,
+   "U_i_lump0": -0.03580441290596045,
+   "U_i_centre": null,
+   "n_negative": 4,
+   "n_modes": 15,
+   "n_zero": 6,
+   "n_zero_rigid": 6,
+   "lump0_curvature_radial": 0.1691666910186584,
+   "lump0_curvature_tangential": -0.3283641198315796,
+   "lump0_curvature_third": 0.12339301590696068
+  }
+ ],
+ "ring6_step60": [
+  {
+   "kappa_R": 0.2946719823792965,
+   "radial_restoring": true,
+   "breathing_d2U_dR2_total": 14.296841284682294,
+   "U_i_lump0": -0.41017854027395273,
+   "U_i_centre": null,
+   "n_negative": 5,
+   "n_modes": 18,
+   "n_zero": 6,
+   "n_zero_rigid": 6,
+   "lump0_curvature_radial": 27.750378872998404,
+   "lump0_curvature_tangential": -54.71953284588058,
+   "lump0_curvature_third": 26.558975432608225
+  }
+ ],
+ "octa_inphase_shell_antiphase_centre": [
+  {
+   "kappa_R": 1.5909003412757392,
+   "radial_restoring": false,
+   "breathing_d2U_dR2_total": -0.5126179733143694,
+   "U_i_lump0": -0.0723899931536828,
+   "U_i_centre": 0.7684029719415191,
+   "n_negative": 10,
+   "n_modes": 21,
+   "n_zero": 6,
+   "n_zero_rigid": 6,
+   "lump0_curvature_radial": 0.21257637741880975,
+   "lump0_curvature_tangential": -0.1424831852862462,
+   "lump0_curvature_third": -0.1424831852862462
+  }
+ ]
+}

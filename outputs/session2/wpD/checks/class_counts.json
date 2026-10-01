@@ -1,0 +1,102 @@
+{
+ "ring3": {
+  "bruteforce": 2,
+  "burnside": 2.0,
+  "group_order": 12
+ },
+ "ring3+c": {
+  "bruteforce": 4,
+  "burnside": 4.0,
+  "group_order": 12
+ },
+ "ring4": {
+  "bruteforce": 4,
+  "burnside": 4.0,
+  "group_order": 16
+ },
+ "ring4+c": {
+  "bruteforce": 6,
+  "burnside": 6.0,
+  "group_order": 16
+ },
+ "ring5": {
+  "bruteforce": 4,
+  "burnside": 4.0,
+  "group_order": 20
+ },
+ "ring5+c": {
+  "bruteforce": 8,
+  "burnside": 8.0,
+  "group_order": 20
+ },
+ "ring6": {
+  "bruteforce": 8,
+  "burnside": 8.0,
+  "group_order": 24
+ },
+ "ring6+c": {
+  "bruteforce": 13,
+  "burnside": 13.0,
+  "group_order": 24
+ },
+ "ring7": {
+  "bruteforce": 9,
+  "burnside": 9.0,
+  "group_order": 28
+ },
+ "ring7+c": {
+  "bruteforce": 18,
+  "burnside": 18.0,
+  "group_order": 28
+ },
+ "ring8": {
+  "bruteforce": 18,
+  "burnside": 18.0,
+  "group_order": 32
+ },
+ "ring8+c": {
+  "bruteforce": 30,
+  "burnside": 30.0,
+  "group_order": 32
+ },
+ "tetra": {
+  "bruteforce": 3,
+  "burnside": 3.0,
+  "group_order": 24
+ },
+ "tetra+c": {
+  "bruteforce": 5,
+  "burnside": 5.0,
+  "group_order": 24
+ },
+ "octa": {
+  "bruteforce": 6,
+  "burnside": 6.0,
+  "group_order": 48
+ },
+ "octa+c": {
+  "bruteforce": 10,
+  "burnside": 10.0,
+  "group_order": 48
+ },
+ "cube": {
+  "bruteforce": 14,
+  "burnside": 14.0,
+  "group_order": 48
+ },
+ "cube+c": {
+  "bruteforce": 22,
+  "burnside": 22.0,
+  "group_order": 48
+ },
+ "icosa": {
+  "bruteforce": 46,
+  "burnside": 46.0,
+  "group_order": 120
+ },
+ "icosa+c": {
+  "bruteforce": 82,
+  "burnside": 82.0,
+  "group_order": 120
+ }
+}
