@@ -123,6 +123,30 @@ def jsonable(o):
     return o
 
 
+def eloc_plot():
+    names = [("run1_primary.json", "run 1 primary", 0), ("run3_primary_quad.json", "run 3 quad", 1),
+             ("run4_primary_res.json", "run 4 res (T=300)", 2), ("run1b_secondary.json", "run 1b secondary", 3),
+             ("run2_primary_twin.json", "run 2 primary twin", 4), ("run2b_secondary_twin.json", "run 2b secondary twin", 5),
+             ("run5_primary_generic.json", "run 5 generic (r_c 10.0321)", 6)]
+    fig, axs = plt.subplots(1, 2, figsize=(12, 4.8))
+    for f, lab, k in names:
+        d = load("results/" + f); t = np.array(d["series"]["t"])
+        y = np.array(d["series"]["E_loc"])[:, 2] / d["summary"]["E0"]
+        for ax in axs:
+            ax.plot(t, y, color=SERIES[k % len(SERIES)], lw=1.6, ls="--" if "twin" in f else ("-." if "run5" in f else "-"), label=lab)
+    axs[0].set_ylim(0, 1.02); axs[1].set_yscale("log"); axs[1].set_ylim(1e-4, 1.5)
+    axs[0].axhline(0.90, color="k", lw=0.8, ls=":")
+    axs[0].text(axs[0].get_xlim()[1], 0.90, "Go line (0.90) ", ha="right", va="bottom", fontsize=8)
+    for ax in axs:
+        ax.axhline(0.10, color="gray", lw=0.8, ls=":")
+        ax.text(ax.get_xlim()[1], 0.10, "control line (0.10) ", ha="right", va="bottom", fontsize=8, color="gray")
+        ax.set_xlabel("t (1/m)"); ax.set_ylabel("E(r<3 hw)/E0"); ax.spines[["top", "right"]].set_visible(False)
+    axs[0].legend(frameon=False, fontsize=7, loc="center right"); axs[0].set_title("linear scale"); axs[1].set_title("log scale (twins decay)")
+    axs[0].text(0.5, 0.60, "runs 1, 3, 4, 5 overlap at ~0.995\n(indistinguishable on this scale)", transform=axs[0].transAxes,
+                ha="center", fontsize=8, bbox=dict(boxstyle="round", fc="white", ec="gray", lw=0.5))
+    fig.tight_layout(); fig.savefig(os.path.join(OUT, "eloc_curves.png"), dpi=130); plt.close(fig)
+
+
 def plots(rads, d1r, d3r):
     fig, axs = plt.subplots(1, 2, figsize=(12, 4.5))
     for ax, key, lab in zip(axs, ["1b", "1"], ["run 1b: beta=0.85, omega=0.7793", "run 1: beta=4/3, omega=0.9091"]):
@@ -136,23 +160,12 @@ def plots(rads, d1r, d3r):
         ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout(); fig.savefig(os.path.join(OUT, "run1b_vs_radial.png"), dpi=130); plt.close(fig)
 
-    names = [("run1_primary.json", "run 1 primary", 0), ("run3_primary_quad.json", "run 3 quad", 1),
-             ("run4_primary_res.json", "run 4 res (T=300)", 2), ("run1b_secondary.json", "run 1b secondary", 3),
-             ("run2_primary_twin.json", "run 2 primary twin", 4), ("run2b_secondary_twin.json", "run 2b secondary twin", 5)]
-    fig, axs = plt.subplots(1, 2, figsize=(12, 4.5))
-    for f, lab, k in names:
-        d = load("results/" + f); t = np.array(d["series"]["t"])
-        y = np.array(d["series"]["E_loc"])[:, 2] / d["summary"]["E0"]
-        for ax in axs:
-            ax.plot(t, y, color=SERIES[k], lw=1.6, ls="--" if "twin" in f else "-", label=lab)
-    axs[0].set_ylim(0, 1.02); axs[1].set_yscale("log"); axs[1].set_ylim(1e-3, 1.5)
-    for ax in axs:
-        ax.set_xlabel("t (1/m)"); ax.set_ylabel("E(r<3 hw)/E0"); ax.spines[["top", "right"]].set_visible(False)
-    axs[0].legend(frameon=False, fontsize=8); axs[0].set_title("linear scale"); axs[1].set_title("log scale (twins decay)")
-    fig.tight_layout(); fig.savefig(os.path.join(OUT, "eloc_curves.png"), dpi=130); plt.close(fig)
+    eloc_plot()
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "eloc":
+        eloc_plot(); sys.exit(0)
     rads = {k: radial_case(k) for k in CASES}
     d1r = {k: d1(k, rads[k]) for k in CASES}
     d3r = d3("1b")

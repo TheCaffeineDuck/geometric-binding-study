@@ -1,0 +1,43 @@
+{
+ "description": "F-003 test: max rel variation of physical-density energy (np.gradient + trapezoid) vs dr",
+ "params": {
+  "profile_omega": 0.8853597793082626,
+  "beta": 0.6111111111111112,
+  "m": 1.0,
+  "g4": 0.3,
+  "g6": 0.055,
+  "T": 100.0,
+  "absorber": "off (sigma_max=0)",
+  "R_box": 200.0,
+  "dt_over_dr": 0.25,
+  "rec_dt": 0.5
+ },
+ "rows": [
+  {
+   "dr": 0.05,
+   "dt": 0.012500000000000002,
+   "max_rel_var_physical": 0.0001260403490097077,
+   "max_rel_var_physical_minmax": 0.00016421174389753267,
+   "max_rel_drift_discrete": 9.84852529402771e-09,
+   "wall_s": 0.4370570182800293
+  },
+  {
+   "dr": 0.025,
+   "dt": 0.006250000000000001,
+   "max_rel_var_physical": 3.157738973912917e-05,
+   "max_rel_var_physical_minmax": 4.11291219728269e-05,
+   "max_rel_drift_discrete": 3.3085240286992525e-10,
+   "wall_s": 0.9776151180267334,
+   "ratio_prev_over_this": 3.9914745978362043
+  },
+  {
+   "dr": 0.0125,
+   "dt": 0.0031250000000000006,
+   "max_rel_var_physical": 7.8986439710137e-06,
+   "max_rel_var_physical_minmax": 1.0287132289337747e-05,
+   "max_rel_drift_discrete": 1.1797323897609738e-11,
+   "wall_s": 3.8294918537139893,
+   "ratio_prev_over_this": 3.997824165136611
+  }
+ ]
+}

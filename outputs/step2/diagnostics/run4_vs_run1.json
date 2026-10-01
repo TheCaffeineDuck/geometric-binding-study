@@ -1,0 +1,54 @@
+{
+ "description": "run 4 (dt 0.9879-sampled) vs run 1 (dt 1.0), cubic-spline aligned, t=1..300 step 0.25",
+ "r_c_run1": [
+  5.0,
+  7.5,
+  10.032114550865565,
+  15.0,
+  20.0
+ ],
+ "r_c_run4": [
+  5.0,
+  7.5,
+  10.032114550865565,
+  15.0,
+  20.0
+ ],
+ "frac_columns": {
+  "r_c=5": {
+   "max_abs_diff": 0.003373218541931844,
+   "t_at_max": 299.0
+  },
+  "r_c=7.5": {
+   "max_abs_diff": 0.0003896790852883081,
+   "t_at_max": 122.5
+  },
+  "r_c=10.03": {
+   "max_abs_diff": 0.0001223516488814136,
+   "t_at_max": 11.75
+  },
+  "r_c=15": {
+   "max_abs_diff": 6.0624190496572083e-05,
+   "t_at_max": 18.25
+  },
+  "r_c=20": {
+   "max_abs_diff": 7.972496661468043e-05,
+   "t_at_max": 22.75
+  }
+ },
+ "omega": {
+  "n": 72,
+  "t_range": [
+   50.09289042965305,
+   295.3419030502798
+  ],
+  "max_abs_diff": 3.232438894329448e-08,
+  "t_at_max": 291.8877717265153,
+  "median_abs_diff": 1.5565765398850573e-08
+ },
+ "sample_dt": {
+  "run1": 1.0,
+  "run4": 0.9878999999999962
+ },
+ "note": "omega_4 interpolated onto run 1 t_mid in [50,300]; frac = E_loc/summary.E0 per run"
+}
