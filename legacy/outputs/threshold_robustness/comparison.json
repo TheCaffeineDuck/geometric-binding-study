@@ -1,0 +1,114 @@
+{
+  "test": "near_threshold_robustness",
+  "description": "Tests marginal E_bind configs under L=100 and sigma=0 perturbations",
+  "conditions": {
+    "standard": {
+      "L": 50.0,
+      "N": 64,
+      "sigma": 0.01
+    },
+    "large_box": {
+      "L": 100.0,
+      "N": 128,
+      "sigma": 0.01
+    },
+    "no_dissipation": {
+      "L": 50.0,
+      "N": 64,
+      "sigma": 0.0
+    }
+  },
+  "baselines": {
+    "standard": {
+      "E_single": 13.46381472407115,
+      "energy_drift": 0.00015097324214067325
+    },
+    "large_box": {
+      "E_single": 13.463814474617067,
+      "energy_drift": 0.00015095471160159047
+    },
+    "no_dissipation": {
+      "E_single": 13.461717089518439,
+      "energy_drift": 4.848215774234918e-06
+    }
+  },
+  "results": {
+    "tet_single_flip": {
+      "standard": {
+        "E_bind": -0.04089707182469482,
+        "energy_drift": 0.00014973694087846577
+      },
+      "large_box": {
+        "E_bind": -0.04079257310452533,
+        "energy_drift": 0.0001516605240676458,
+        "pct_change": 0.25551638664357557,
+        "sign_preserved": true
+      },
+      "no_dissipation": {
+        "E_bind": -0.040823834163155936,
+        "energy_drift": 4.841607940590531e-06,
+        "pct_change": 0.17907800796305426,
+        "sign_preserved": true
+      }
+    },
+    "cube_balanced": {
+      "standard": {
+        "E_bind": -3.8634193342947754,
+        "energy_drift": 0.00015896361684661044
+      },
+      "large_box": {
+        "E_bind": -3.8629396801367193,
+        "energy_drift": 0.00016356398087028496,
+        "pct_change": 0.012415275603097842,
+        "sign_preserved": true
+      },
+      "no_dissipation": {
+        "E_bind": -3.863667270167511,
+        "energy_drift": 5.044039993781638e-06,
+        "pct_change": -0.006417524252021077,
+        "sign_preserved": true
+      }
+    },
+    "oct_face3": {
+      "standard": {
+        "E_bind": -15.673400324226776,
+        "energy_drift": 0.00020308329160340742
+      },
+      "large_box": {
+        "E_bind": -15.673156741344982,
+        "energy_drift": 0.00020680218616550837,
+        "pct_change": 0.0015541163803313395,
+        "sign_preserved": true
+      },
+      "no_dissipation": {
+        "E_bind": -15.674400800567156,
+        "energy_drift": 5.6273466931175734e-06,
+        "pct_change": -0.006383275611441233,
+        "sign_preserved": true
+      }
+    },
+    "ico_ce15_A": {
+      "standard": {
+        "E_bind": 3.557019763068979,
+        "energy_drift": 0.00014380993931540652
+      },
+      "large_box": {
+        "E_bind": 3.5578225926672644,
+        "energy_drift": 0.000148654522806279,
+        "pct_change": 0.02257028781849368,
+        "sign_preserved": true
+      },
+      "no_dissipation": {
+        "E_bind": 3.557674303521253,
+        "energy_drift": 4.6892413313807956e-06,
+        "pct_change": 0.0184013723811656,
+        "sign_preserved": true
+      }
+    }
+  },
+  "verdict": "PASS",
+  "signs_preserved": 8,
+  "signs_flipped": 0,
+  "flipped_details": [],
+  "wall_time_total": 13808.056360958028
+}
