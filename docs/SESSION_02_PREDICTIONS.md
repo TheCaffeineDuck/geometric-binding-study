@@ -47,6 +47,14 @@ What I know when writing this: the first sweep (18 long runs to T = 30,000, `out
 | A7 | beta = 3.0 and 5.0: the best starts are alive at T = 300,000 with frac above 0.95. beta = 1.6 and 2.0: alive with frac above 0.90 | rates at or below 1e-9 to 1e-8 | Geometric decoupling at large beta (A&S, `READ`); a "longevity cliff" near beta 1.6 to 2.1 is possible (N17, low confidence), which would make 1.6 or 2.0 fall short |
 | A8 | At matched N/N_min = 1.3, 1.8 and 2.5 the lifetime rises monotonically with beta | Session 1 D3 scan, monotone to T = 600 | no source |
 
+## Block 1c. 3D confirmation of the long-lived beta = 4/3 start. Written 2026-10-02 02:10 (+07), before the run
+
+Radial result in hand: the beta = 4/3 start at omega 0.906505 keeps frac 0.9946 at T = 300,000 (`long_beta1.3333_w0.906505_T300k.json`). At the T = 300,000 horizon no other beta beats it by a wide margin in retained energy; beta = 5 beats it in rate (zero within error against 1.7e-8). The plan asks for one 3D confirmation of any beta that beats 4/3 by a wide margin. I run the 4/3 start itself in 3D now on the Mac, because it is the candidate for Step 4 at the verified beta, and list a beta = 5 confirmation as pending on rented compute.
+
+| # | Prediction | Basis | Literature |
+|---|---|---|---|
+| A9 | 3D (N = 128, L = 70, dx = 0.547, dt = 0.04, T = 3000) tracks the radial frac curve of the same start to 1e-3 at every sampled time; measured omega 0.9069 within 0.0005; twin below 0.10 by T = 100 | Session 1: this grid reproduced the primary to 1.6e-5; 3D matched radial to 7e-5 | no source for 3D at this omega; nodeless states do not fragment (van Dissel 2023) |
+
 ## Block 1 outcome for the WP-C phase control (recorded 2026-10-01, before Block 2)
 
 Radial runs, `outputs/session2/wpC/phase_control_radial.json`. C0a: hit (2.9e-15). C0b: hit at 45 (9.3e-4) and 135 (1.1e-3); **miss at 90**: the difference in frac is 6.6e-3, 1.09e-2 and 2.46e-2 at T = 300, 500 and 1000 against the 0.01 criterion, and omega is off by 0.0066 to 0.0079 against 0.005. No death. Cause, from three diagnostics: the t = 0 energy of the single-frequency start depends on theta (2843.8 at 0, 2605.2 at 90), so the 90-degree start is a lighter lump (N 9.5% lower, omega 0.9157) that behaves exactly like the family member with its N. Ledger entry F-009.
