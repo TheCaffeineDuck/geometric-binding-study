@@ -38,7 +38,8 @@ def bench(N, threads=4, n_steps=None):
     res = run(cfg)
     rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     rss_mb = rss / 2 ** 20 if sys.platform == "darwin" else rss / 2 ** 10
-    return {"N": N, "L": L, "dt": dt, "threads": threads, "n_steps": n_steps,
+    return {"params": res["params"], "raw_timing": "Evolver.step only, same config, after one warm-up step",
+            "N": N, "L": L, "dt": dt, "threads": threads, "n_steps": n_steps,
             "raw_steps_per_second": raw,
             "run_steps_per_second_with_diagnostics": res["steps_per_second_this_call"],
             "peak_rss_MB": rss_mb,

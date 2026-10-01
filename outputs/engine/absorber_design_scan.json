@@ -1,0 +1,267 @@
+{
+ "purpose": "How SPONGE_DEFAULT = {gamma: 2.0, width: 12, power: 3} was chosen",
+ "scan_1d": {
+  "generated_by": "python -m swirl.engine.sponge1d",
+  "params": {
+   "m": 1.0,
+   "interior_half_width": 15.0,
+   "dx": 0.2,
+   "dt": 0.05,
+   "k0": [
+    0.2,
+    0.4,
+    0.7,
+    1.0,
+    1.5,
+    2.0,
+    2.8
+   ],
+   "envelope": "s = min(1.5*lambda, a/3)",
+   "x0": -7.5
+  },
+  "designs": [
+   {
+    "gamma": 0.3,
+    "width": 10.0,
+    "power": 3,
+    "returned_energy_fraction": [
+     0.12770062881096678,
+     0.054978566466089424,
+     0.07962267039050842,
+     0.12513464757440512,
+     0.16882171480184968,
+     0.18953292887096376,
+     0.2036558498690536
+    ]
+   },
+   {
+    "gamma": 1.0,
+    "width": 10.0,
+    "power": 3,
+    "returned_energy_fraction": [
+     0.16399153506569727,
+     0.06472773740772639,
+     0.0022258157859456466,
+     0.0015129599302164277,
+     0.0029958865305235263,
+     0.0041117366563937965,
+     0.005136435390516742
+    ]
+   },
+   {
+    "gamma": 2.0,
+    "width": 10.0,
+    "power": 3,
+    "returned_energy_fraction": [
+     0.18655271769526824,
+     0.08742594148435491,
+     0.004319755509891424,
+     7.992474764393423e-05,
+     1.715784639151065e-05,
+     2.440255318210454e-05,
+     3.2012586218426996e-05
+    ]
+   },
+   {
+    "gamma": 1.0,
+    "width": 14.0,
+    "power": 3,
+    "returned_energy_fraction": [
+     0.1397150287993244,
+     0.0392546425111753,
+     0.0008346601217459242,
+     0.00011306869740285292,
+     0.00029171129836553004,
+     0.0004551203674528811,
+     0.0006242570532840404
+    ]
+   },
+   {
+    "gamma": 2.0,
+    "width": 14.0,
+    "power": 3,
+    "returned_energy_fraction": [
+     0.16271822159894447,
+     0.05566560459530932,
+     0.001084137642315497,
+     5.447485649738108e-06,
+     2.1425467172456485e-07,
+     3.468207021978195e-07,
+     5.102503030761103e-07
+    ]
+   },
+   {
+    "gamma": 1.0,
+    "width": 10.0,
+    "power": 2,
+    "returned_energy_fraction": [
+     0.1614194599057332,
+     0.0746987934939216,
+     0.0023129340726140723,
+     0.00019144197610539257,
+     0.0004363748376476175,
+     0.0006615485488284066,
+     0.0008901615741744785
+    ]
+   },
+   {
+    "gamma": 4.0,
+    "width": 14.0,
+    "power": 3,
+    "returned_energy_fraction": [
+     0.18536059923545387,
+     0.07740106801896247,
+     0.002852953657684726,
+     3.306937056317182e-05,
+     1.1311295036266078e-07,
+     7.503711472706635e-10,
+     2.7298740075943838e-11
+    ]
+   },
+   {
+    "gamma": 2.0,
+    "width": 12.0,
+    "power": 3,
+    "returned_energy_fraction": [
+     0.17394248455524822,
+     0.06924495092114025,
+     0.0020827887283022817,
+     1.8884371581456137e-05,
+     1.9082106014597636e-06,
+     2.908479043182654e-06,
+     4.041427463957944e-06
+    ]
+   }
+  ]
+ },
+ "scan_3d_L50_exploratory": {
+  "note": "Exploratory scratch runs (code not committed), check-4 setup: Set B Gaussian phi0=0.5 R=2.5, L=50 N=64, dt=dx/8, phi-only rel L2 on r<10 vs L=100 N=128 reference, sampled every 26 steps up to t=73.6 (T=75 itself NOT sampled).",
+  "max_rel_L2": [
+   {
+    "absorber": null,
+    "value": 0.5622
+   },
+   {
+    "absorber": {
+     "gamma": 1.0,
+     "width": 12,
+     "power": 2
+    },
+    "value": 0.6708
+   },
+   {
+    "absorber": {
+     "gamma": 0.3,
+     "width": 12,
+     "power": 2
+    },
+    "value": 0.1944
+   },
+   {
+    "absorber": {
+     "gamma": 0.3,
+     "width": 14,
+     "power": 3
+    },
+    "value": 0.1266
+   },
+   {
+    "absorber": {
+     "gamma": 1.0,
+     "width": 14,
+     "power": 3
+    },
+    "value": 0.322
+   },
+   {
+    "absorber": {
+     "gamma": 0.1,
+     "width": 14,
+     "power": 3
+    },
+    "value": 0.3122
+   },
+   {
+    "absorber": {
+     "gamma": 0.1,
+     "width": 18,
+     "power": 3
+    },
+    "value": 0.264
+   },
+   {
+    "absorber": {
+     "gamma": 0.05,
+     "width": 18,
+     "power": 2
+    },
+    "value": 0.335
+   },
+   {
+    "absorber": {
+     "gamma": 0.2,
+     "width": 18,
+     "power": 4
+    },
+    "value": 0.1722
+   },
+   {
+    "absorber": {
+     "gamma": 0.3,
+     "width": 8,
+     "power": 3
+    },
+    "value": 0.1973
+   },
+   {
+    "absorber": {
+     "gamma": 1.0,
+     "width": 8,
+     "power": 3
+    },
+    "value": 0.2061
+   },
+   {
+    "absorber": {
+     "gamma": 0.3,
+     "width": 10,
+     "power": 3
+    },
+    "value": 0.1615
+   },
+   {
+    "absorber": {
+     "gamma": 1.0,
+     "width": 10,
+     "power": 2
+    },
+    "value": 0.381
+   },
+   {
+    "absorber": {
+     "gamma": 2.0,
+     "width": 14,
+     "power": 3
+    },
+    "value": 0.7118
+   },
+   {
+    "absorber": {
+     "gamma": 2.0,
+     "width": 10,
+     "power": 3
+    },
+    "value": 0.6119
+   },
+   {
+    "absorber": {
+     "gamma": 2.0,
+     "width": 12,
+     "power": 3
+    },
+    "value": 0.5591
+   }
+  ]
+ },
+ "rationale": "Step 2 radiation is mainly the third harmonic, k ~ 2-2.8. In 1D, gamma=2/width=12/cubic returns <= 4e-6 of the energy for k >= 1.5 and 1.9e-5 at k=1, while weak sponges that did better on the free-Gaussian check-4 test at L=50 (gamma=0.3: 0.127) return 13-20% at k >= 1.5. No design passed check 4 at L=50, so check 4 at L=50 could not decide between designs; the fast-radiation behaviour did. Width 12 (rather than 14) keeps a larger interior at a given L; the cubic ramp starts smoothly. Integrated damping per layer crossing gamma*width/4 = 6."
+}

@@ -68,7 +68,10 @@ def test_cube_ebind_t0(name, grid, record):
         "check": "3", "config": name, "phases": [float(x) for x in phases], "cross_edges": ce,
         "E_single": e_single, "E_bind_t0": e_bind, "table2": table2, "diff_table2": e_bind - table2,
         "closed_form": closed, "diff_closed": e_bind - closed, "tol_closed": tol_closed,
-        "N": 64, "L": 50.0, "phi0": PHI0, "R": R, "omega_eff": W_EFF, "g4": 0.30, "g6": 0.055})
+        "params": {"N": 64, "L": 50.0, "m": M, "g4": 0.30, "g6": 0.055, "t": 0.0,
+                   "init": {"gaussians": gs}, "single_reference": {"gaussians": [
+                       {"center": [0, 0, 0], "amp": PHI0, "R": R}]},
+                   "vertex_order": "paper Appendix A", "phases_from": "paper Appendix B"}})
     assert len(edges) == 12
     assert ce == ce_label
     assert abs(e_bind - table2) < 0.05

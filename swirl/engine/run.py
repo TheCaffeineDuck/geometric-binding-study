@@ -22,7 +22,9 @@ Config keys (defaults in DEFAULTS; `init` is required)
     r_c                  radii for E_loc (energy inside |x - center| <= r_c)
     sample_every         time between diagnostic samples
     point_every          steps between samples of phi(center) (frequency series)
-    avg_window           time window for the phi_t^2 average and N
+    avg_window           longest span for the phi_t^2 average and N; the window used
+                         is the largest whole number of measured periods (zero
+                         crossings of phi(center, t)) that fits inside it
     checkpoint_every     time between checkpoints (if checkpoint_dir is given)
     threads              FFT workers and numba threads
 
@@ -40,7 +42,7 @@ import time
 import numpy as np
 
 from swirl.engine.evolver import Evolver, SPONGE_DEFAULT
-from swirl.engine.initial import build_initial
+from swirl.engine.initial import build_initial, radial_checks
 
 DEFAULTS = {
     "N": 64, "L": 50.0, "m": 1.0, "g4": 0.30, "g6": 0.055,
@@ -158,30 +160,43 @@ def frequency_from_point(t, y):
             "zero_crossings": tz.tolist()}
 
 
-def window_averages(ts, C, tz, W):
-    """Windowed <int phi_t^2 d3x> = (C(t_j) - C(t_j - W))/W, the window-mean
-    omega from zero crossings inside it, and N = <...>/omega.
+def _hermite(pt, C, I, z):
+    """C at time z by cubic Hermite interpolation (C' = I) on the step grid."""
+    i = min(max(int(np.searchsorted(pt, z, side="right")) - 1, 0), pt.size - 2)
+    h = pt[i + 1] - pt[i]
+    s = (z - pt[i]) / h
+    return ((2 * s ** 3 - 3 * s ** 2 + 1) * C[i] + (s ** 3 - 2 * s ** 2 + s) * h * I[i]
+            + (-2 * s ** 3 + 3 * s ** 2) * C[i + 1] + (s ** 3 - s ** 2) * h * I[i + 1])
 
-    W is rounded to a whole number of sample intervals so C is read exactly
-    (C is the per-step trapezoid integral, not an interpolation).
+
+def window_averages(ts, tz, pt, pC, pI, W):
+    """Whole-period averages ending at each sample time t_j.
+
+    The window runs between zero crossings z_a < z_b of phi(center, t) inside
+    [t_j - W, t_j], with an even number of half periods between them, so it
+    spans an integer number of measured periods. Returns, per sample,
+    <int phi_t^2 d3x> = (C(z_b) - C(z_a)) / (z_b - z_a), the window-mean omega
+    = pi * (half periods) / (z_b - z_a), and N = <...> / omega. C is the
+    per-step trapezoid integral of int phi_t^2 d3x, read between steps by
+    cubic Hermite interpolation with C' = I. None where fewer than two
+    half periods fit.
     """
-    ts = np.asarray(ts)
-    C = np.asarray(C)
+    pt, pC, pI = np.asarray(pt), np.asarray(pC), np.asarray(pI)
     avg, om, Nad = [], [], []
-    if ts.size < 2:
-        return [None] * ts.size, [None] * ts.size, [None] * ts.size
-    k = max(1, int(round(W / (ts[1] - ts[0]))))
-    for j, t in enumerate(ts):
-        if j < k:
+    for t in ts:
+        i0 = int(np.searchsorted(tz, t - W - 1e-12, side="left"))
+        i1 = int(np.searchsorted(tz, t + 1e-12, side="right")) - 1
+        if (i1 - i0) % 2:
+            i1 -= 1
+        if i1 - i0 < 2:
             avg.append(None), om.append(None), Nad.append(None)
             continue
-        Wj = t - ts[j - k]
-        a = (C[j] - C[j - k]) / Wj
-        z = tz[(tz >= ts[j - k]) & (tz <= t)]
-        w = np.pi * (z.size - 1) / (z[-1] - z[0]) if z.size >= 3 else None
+        za, zb = tz[i0], tz[i1]
+        a = (_hermite(pt, pC, pI, zb) - _hermite(pt, pC, pI, za)) / (zb - za)
+        w = np.pi * (i1 - i0) / (zb - za)
         avg.append(float(a))
-        om.append(None if w is None else float(w))
-        Nad.append(None if w is None else float(a / w))
+        om.append(float(w))
+        Nad.append(float(a / w))
     return avg, om, Nad
 
 
@@ -264,7 +279,7 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         phi, pi = build_initial(ev.coords, ev.L, cfg["init"])
         ev.set_state(phi, pi)
         series = {k: [] for k in SERIES_KEYS}
-        point = {"t": [], "phi": []}
+        point = {"t": [], "phi": [], "C": [], "I": []}
         wall_prior = 0.0
         resumed = False
 
@@ -279,6 +294,8 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
             if n % p_every == 0:
                 point["t"].append(n * dt)
                 point["phi"].append(point_value())
+                point["C"].append(ev.C_kin)
+                point["I"].append(ev.I_kin)
             if checkpoint_dir and n % c_every == 0 and start < n < n_total:
                 _save_checkpoint(checkpoint_dir, ev, cfg, series, point,
                                  wall_prior + time.perf_counter() - t0)
@@ -297,7 +314,8 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
 
     freq = frequency_from_point(point["t"], point["phi"])
     tz = np.array(freq["zero_crossings"])
-    avg, om_w, Nad = window_averages(series["t"], series["C_kin"], tz, cfg["avg_window"])
+    avg, om_w, Nad = window_averages(series["t"], tz, point["t"], point["C"], point["I"],
+                                     cfg["avg_window"])
     out_series = dict(series)
     out_series["I_kin_window_avg"] = avg
     out_series["omega_window"] = om_w
@@ -325,6 +343,7 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         "point": point,
         "frequency": {"t_mid": freq["t_mid"], "omega": freq["omega"]},
         "summary": summary,
+        "init_checks": [radial_checks(p, cfg["L"]) for p in cfg["init"].get("radial", [])],
     }
     if out_path:
         atomic_write_json(result, out_path)

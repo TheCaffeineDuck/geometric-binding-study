@@ -38,8 +38,10 @@ def test_linear_gaussian_matches_exact(dt_label, record):
     err_phi = np.linalg.norm(ev.phi - phi_ex) / np.linalg.norm(phi_ex)
     err_pi = np.linalg.norm(ev.pi - pi_ex) / np.linalg.norm(pi_ex)
     record("check1_linear_exact_dt_" + dt_label.replace("/", "_"),
-           {"check": "1", "N": 64, "L": 50.0, "dt": dt, "T": T, "init": {"gaussians": [
-               {**INIT["gaussians"][0], "phase": float(np.pi / 3)}]},
+           {"check": "1",
+            "params": {"N": 64, "L": 50.0, "m": 1.0, "g4": 0.0, "g6": 0.0, "absorber": None,
+                       "kfilter": None, "dt": dt, "T": T, "init": {"gaussians": [
+                           {**INIT["gaussians"][0], "phase": float(np.pi / 3)}]}},
             "rel_L2_phi": err_phi, "rel_L2_phi_t": err_pi, "target": TARGET})
     assert err_phi < TARGET
     assert err_pi < TARGET

@@ -263,8 +263,10 @@ class Evolver:
         return e
 
 
-# Default sponge (validated in tests/engine/test_check4_absorber.py): cubic
-# ramp, gamma_max = 2, width 12. Integrated damping per face crossing is
+# Default sponge: cubic ramp, gamma_max = 2, width 12. Chosen from the 1D
+# design scan (swirl/engine/sponge1d.py -> outputs/engine/absorber_design_scan.json)
+# for fast radiation; validated in 3D by tests/engine/test_check4_absorber.py
+# (check 4 box scan, the k0 = 2.4 outgoing-packet test, energy bookkeeping). Integrated damping per face crossing is
 # gamma_max * width / (power + 1) = 6, so a wave at v ~ 1 keeps an amplitude
 # fraction ~ exp(-6) per periodic pass (two crossings) along the shortest path.
 SPONGE_DEFAULT = {"gamma": 2.0, "width": 12.0, "power": 3}

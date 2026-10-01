@@ -50,7 +50,9 @@ def test_setB_energy_drift(dt_label, limit, record):
     rel = np.abs(Es - Es[0]) / Es[0]
     early = rel[ts <= 10.0].max()
     record("check2_energy_dt_" + dt_label.replace("/", "_"),
-           {"check": "2", "N": 64, "L": 50.0, **SETB, "init": INIT, "dt": dt, "T": 100.0,
+           {"check": "2",
+            "params": {"N": 64, "L": 50.0, **SETB, "init": INIT, "absorber": None,
+                       "kfilter": None, "dt": dt, "T": 100.0, "energy_sample_every": 0.5},
             "E0": Es[0], "E_end": Es[-1], "max_rel_drift": rel.max(),
             "max_rel_drift_t_le_10": early, "end_rel_drift": (Es[-1] - Es[0]) / Es[0],
             "target": TARGET})
@@ -95,7 +97,10 @@ def test_legacy_ko_term_makes_the_step(record):
     step = Es[late].mean() - E0
     full_dev = np.abs((Es + Ss) - (E0 + S0)).max()
     record("check2_legacy_step", {
-        "legacy_sigma": 0.01, "dt": 0.05, "E0_legacy": E0, "E_legacy_mean_t5_10": Es[late].mean(),
+        "params": {"code": "legacy/engine/evolver.py SexticEvolver (read-only import)",
+                   "N": 64, "L": 50.0, **SETB, "dissipation_sigma": 0.01, "dt": 0.05, "T": 10.0,
+                   "init": INIT, "phi_t0": 0.0, "energy_sample_every": 0.5},
+        "E0_legacy": E0, "E_legacy_mean_t5_10": Es[late].mean(),
         "step": step, "max_E_legacy_t_le_10": Es.max(),
         "max_dev_E_plus_stiffness": full_dev,
         "note": "legacy energy omits sigma dx^4 |lap phi|^2/2; with it included, energy is conserved"})
