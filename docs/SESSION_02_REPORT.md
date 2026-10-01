@@ -1,6 +1,6 @@
 # Session 2 report
 
-**DRAFT, updated 2026-10-02 05:40 (+07). Sections marked PENDING are waiting for runs that are still going or for results held on AWS. `docs/SESSION_02_STATUS.md` says what is running and how to resume.**
+**DRAFT, updated 2026-10-02 06:40 (+07). Sections marked PENDING are waiting for runs that are still going or for results held on AWS. `docs/SESSION_02_STATUS.md` says what is running and how to resume.**
 
 Plan: `docs/SESSION_02_PLAN.md`, WP0 to WP-F. Predictions were written before the runs they refer to, in `docs/SESSION_02_PREDICTIONS.md` (Blocks 1, 1b, 1c, 2, 2a, 2b, 3, 3a; each commit precedes its runs). The failure ledger is `docs/FAILURES.md` (F-007 to F-012 are this session). All work is on `main`; nothing has been pushed.
 
@@ -8,13 +8,15 @@ Units are Set-B-like (m = 1, g4 = 0.30, g6 = 0.09 beta). "frac" is the energy in
 
 ## Verdict
 
-PENDING for the arrangement batch. What is already settled:
+**No arrangement of distinct swirls holds in this model, at beta = 4/3, in any of the tests made.** PENDING: one arrangement (a ring of six around an opposite-phase centre) was still contracting when its run ended, and its required second run is in progress. Everything else is settled:
 
-- **A lone lump can be made to last far longer than Session 1 found, at the same beta.** At beta = 4/3, a start at omega = 0.9065 keeps 0.9946 of its energy to T = 300,000, about 43,000 oscillations. The Session 1 primary (omega = 0.9091) fell below 0.90 at 10,630. Radial runs; the 3D confirmation is running.
-- **Lifetime rises with beta and does not fall anywhere up to beta = 5.** Below 4/3 every lump dies. From 1.15 up the best starts are alive at T = 30,000; at 4/3 and above the best are alive at T = 300,000. No lump is shown to be permanent: at 4/3 and 1.6 the loss rate is still rising; at beta = 5 it is zero within the measurement error.
-- **The pair force is the derived tail law** in sign, decay constant (0.416 to 0.417 measured against 0.4165), cosine dependence, N flow and phase drift, for separations of 3.6 hw and more, with one unexplained excess (the 45-degree pair at d = 16). In phase attracts and merges; anti-phase repels; anything in between has its phase run toward 180 and ends up repelling. **No pair is bonded.**
-- **In the point-lump model built on that law, no arrangement holds.** Neighbours attract only when their relative phase is unstable, and their relative phase is stable only when they repel.
-- PENDING: whether any arrangement holds in full 3D (WP-E).
+- **Two swirls obey the derived tail law.** In phase they attract and merge; in anti-phase they repel; in between, N flows from the lump that leads in phase to the one that lags, the relative phase runs toward 180 degrees, and the pair ends up repelling. The measured decay constant is 0.416 to 0.417 against 0.4165, for separations of 3.6 half-widths and more. No pair is bonded.
+- **The reason nothing binds, at first order, is structural.** Neighbours attract only when their relative phase is below 90 degrees, and that is exactly when their relative phase is unstable. Phase patterns that are stable repel.
+- **The 3D tests agree.** Stepped-phase rings merge, only later than in-phase rings (by a factor 1.84 for five lumps; the point model said 1.85). Rings with 90-degree steps or more, and 0/180 rings, fly apart or exchange N and break up. The two balance points Claude Desktop estimated are confirmed in the point model, and in 3D neither even starts as distinct lumps.
+- **Mergers do not make one bigger swirl out of a ring.** Five lumps merge and throw out two lumps back to back. A shell of six in deep overlap around a centre leaves one lump with about half the energy, still decaying.
+- **A lone swirl, by contrast, can be made very long-lived.** At beta = 4/3 a start at omega = 0.9065 keeps 0.9946 of its energy to T = 300,000 (about 43,000 oscillations) and is confirmed in 3D to T = 3000. Lifetime rises with beta and does not fall anywhere up to beta = 5, where no decay is measurable. Below 4/3 every lump dies.
+
+Against the theory's three claims (plan, section 1): claim 1 (a lone swirl is metastable) is supported at beta of 4/3 and above, much more strongly than Session 1 suggested. Claims 2 and 3 concern bonded groups, and this session found none to test. Step 4 as designed needs a bonded group; section 13 proposes what could be done instead.
 
 ## 1. Housekeeping (WP0)
 
@@ -163,49 +165,172 @@ The scan of WP-D was rerun with the measured law (kappa = 0.41721, amplitude 21,
 
 ## 7. Arrangement search: 3D tests (WP-E)
 
-PENDING: 14 runs, a linear twin and two checks are running on the Mac (expected to finish about midday). Starts are copies of one settled lump taken at different times, so lumps at every phase are the same lump (N equal to about 4e-6 at the start, 6.4e-5 worst over a record; the single-frequency start gave up to 9.5%).
+14 arrangements, one linear twin and two checks, at beta = 4/3 with lumps of the Session 1 primary size (hw = 3.344); grid dx = 0.55, dt = 0.04. E01 and E02 ran on the Mac, the rest on AWS; E01 was run on both and agrees to 1e-9. E_total + absorbed is conserved to 4.5e-6 in every run. Analysis `outputs/session2/wpE/analysis/criteria_E.json`; every outcome was recomputed by the reviewer from the result files (`docs/WPE_BUILD_NOTES.md`, last section).
 
-Already on record from the initial fields: the 5-ring at Claude Desktop's balance (0.90 hw) has 2 distinct lumps at t = 0, and the octahedral shell at its balance has 1. Neither starts as distinct swirls, so neither can count as a bonded group whatever follows.
+**Starts.** Lumps are copies of one settled lump taken at different times and placed with a spectral shift, so lumps at every phase are the same lump: N equal to about 4e-6 at the start and 6.4e-5 at worst over a run (the single-frequency start gave up to 9.5%, F-009). The far-apart control (E14) sets the noise floor: distances change by 5e-4, per-lump N by 2e-4, phase steps by 0.05 degrees over T = 500.
+
+**Bonded** was defined before the runs: from t = 50, the number of distinct lumps equals K and every nearest-neighbour distance stays within 0.5 to 1.5 of its start, in at least 95% of samples and in the last one.
+
+| # | Arrangement (spacing in hw) | Predicted | What happened | Outcome against prediction |
+|---|---|---|---|---|
+| E1 | 5-ring, 72 degree steps (4.8) | merged, contact 190 to 420, 1.85 times later than E2 | merged: contact at 294 to 296; factor 1.84. Steps and equal N hold to t of about 150 to 200. Then two lumps of 0.36 E0 each leave back to back | hit |
+| E2 | 5-ring, all in phase (4.8) | merged, contact 105 to 200 | merged: contact at 150 to 160. Two lumps of 0.38 E0 leave along the ring axis | hit |
+| E3 | 5-ring, 72 steps, at the superposition-model balance (2.43) | merged by T = 300 | contact at 22.7; one blob at 35; two lumps of 0.41 E0 leave back to back | hit on the counts at T = 300; scored a miss by the script, which read the debris at T = 500 (F-018) |
+| E4 | 5-ring, 72 steps, at Claude Desktop's balance, kappa R = 1.07 (0.90) | not five distinct lumps; does not hold | 2 distinct lumps at t = 0; recoiling fragments; 0.98 absorbed | hit |
+| E5 | 4-ring, alternating 0/180 (4.8); mirror control | flies apart, passes 1.5 at 160 to 320 | four intact lumps, passes 1.5 at 230; N equal to 1.2e-4 | hit |
+| E6 | 4-ring, 90 degree steps (3.6) | flies apart, 200 to 450 | passes 1.5 at 416 to 435; N flows between the lumps and the steps drift | hit, at the top of the window |
+| E7 | 6-ring, 60 steps, at the superposition-model balance (2.19) | merged by T = 300 | one blob at t = 10; two lumps of 0.45 E0 leave | hit on the counts at T = 300; labelled "not distinct at the start" (F-018) |
+| E8 | octahedron around an opposite-phase centre at Claude Desktop's balance, kappa R = 1.59 (1.14) | not seven distinct lumps; does not hold | cores overlap from the start; one lump from t = 25 with 0.47 E0, omega 0.83, still losing 0.23% per unit time | hit |
+| E9 | cube around an opposite-phase centre (2.54) | merged or flew apart by 250 | nine lumps to t = 85, one lump from 110 with about 0.45 E0 | hit |
+| E10 | 8-ring, 90 degree steps, two turns (3.6) | merged, contact 170 to 370 | contact at 190; eight lumps become four, which recede | hit |
+| E11 | 6-ring around an opposite-phase centre, R = 15.77 (4.7); a probe | merged, contact 320 to 650 | no contact by T = 700: seven lumps throughout; ring contracting from 15.77 to 13.13 at a growing rate. **Labelled bonded by the criterion** | **miss** (F-017); second run PENDING |
+| E12 | 5-ring, 0, 0, 180, 180, 0 (4.8); rounded control | merged, contact 80 to 160, in-phase neighbours first | in-phase pair closes at 116; two unequal lumps separate | hit |
+| E13 | 5-ring, 144 degree steps (4.8); control | no merger, expanding | five intact lumps, radius 13.6 to 26 | hit |
+| E14 | 5-ring, 72 steps, far apart (9.0); control | nothing happens | nothing happens. **Also labelled bonded by the criterion** | hit as a control |
+| E15 | linear twin of E1; resolution and box checks of E3 | twin gone by T = 100 (group energy below 0.1); checks: same class, contact within 15% | twin: 0.236 at 100, 0.098 at 150 (0.058 by the ball measure). Checks: identical to E3 up to contact (22.69 in all three), then diverging after t = 235 | twin within 3 times its target; checks: see below |
+
+**E11 is not a bonded group.** The reviewer's analysis of the stored series: the ring's inward speed grows from 0.0004 to 0.0092 with no turning point; the centre-to-ring phase swings about 180 degrees by +-17 degrees with a period of about 350, with 9% of N passing between centre and ring; the forces cancel only at exactly 180, and the swing leaves a net inward pull of the measured size. From t of about 500 the hexagon loses its symmetry and two pairs of neighbours close up; the first pair reaches 2 hw at an extrapolated t of 699 to 709. The run stopped at 700. PENDING: the second run (T = 1200, and a finer grid to T = 1000), prediction in Block 3b.
+
+**The criterion was flawed, and I wrote it.** It labels the far-apart control bonded because nothing moves, and E11 because its collapse takes about as long as the run. It has no trend test, no link between run length and interaction time, and no comparison with the control. No conclusion in this report rests on the label "bonded"; a sound rule is proposed in section 13.
+
+**What the checks show.** The resolution and box checks of E3 are identical to it before contact and diverge after t = 235, when the recoiling lumps reach sponges at different radii (ball energy at T = 500: 0.017, 0.031, 0.159). So for this family the box and resolution standards are met up to contact and not after; the "contact within 15%" items could not have failed. The resolution check also changed the box size, so it is not a clean check.
+
+**Stepped rings and angular momentum.** Each stepped ring starts with the angular momentum the overlap formula gives, to +0.5 to +3.4% (E1: -1030 against -997; 7.2% of N per lump). None rotates at J/I before contact (E1 turns 0.7 degrees by t = 100, the other way). The angular momentum about the group centre is conserved to 0.2 to 1.5% until merger or ejection.
+
+**Against the point model** (not scored in the predictions): contact and fly-apart times agree to 7% or better at 4.8 hw (E1, E2, E5, E12), are off by 23 to 49% for the 90-degree rings (E6, E10), by a factor 1.5 for E11, and by a factor 6 or more inside 2.5 hw (E3, E7). The 90-degree rings exchange N early in 3D (36% and 53% spread), which the model's "fixed point of the N flow" does not allow for (F-019).
+
+**Claude Desktop's two rough numbers.** Confirmed as point-model balances (kappa R = 1.0695, radially restoring; kappa R = 1.591, not restoring). In 3D neither is a set of distinct lumps at t = 0 (2 and 1 distinct), so the question of holding does not arise; what forms is fragments (ring) or one decaying lump (shell).
 
 ## 8. Hits and misses
 
-PENDING for WP-B, WP-C and WP-E. Settled so far:
+Each miss has a ledger entry in `docs/FAILURES.md` with expected and measured values, ranked causes, diagnostics, what it rules in and out, and the literature check.
 
-**Hits.** A2 (lifetime rises with beta, no fall to beta = 5, to the cap and to T = 300,000). A4. A7. C0a. The 3D gate G1 and G2. Claude Desktop's two WP-D numbers (confirmed in the point model). The force sign and size at d = 16.
+**Hits.**
+- WP-A: A2 (lifetime rises with beta; no fall to beta = 5, at T = 30,000 and at 300,000), A4, A7, A9 (3D confirmation, 7.0e-5).
+- WP-B: B1 tracking (7.3e-5); B2 (by symmetry).
+- WP-C: C0a; the 3D gate; C1, C3, C5a, C5c, C5d, C6 (outcome), C7, C8, C9, C10, C12, C13.
+- WP-D: Claude Desktop's two balance numbers, in the point model.
+- WP-E: E1, E2, E4, E5, E6, E8, E9, E10, E12, E13, E14; E3 and E7 on the stored counts at T = 300.
 
 **Not tested.** A5 (no beta is permanent): nothing above 4/3 died.
 
-**Claude Desktop's guess that lifetime rises then falls above 4/3:** not supported; no fall to beta = 5 at either horizon.
+**Predictions carried from Claude Desktop.** "Lifetime rises then falls above 4/3": not supported, no fall to beta = 5. "At 90 degrees the leading force vanishes and N flows from one lump to the other": holds, and the pair then repels. "A five-lump ring with 72 degree steps balances near kappa R = 1.07, radially restoring but in the overlap region": confirmed in the point model; not a set of distinct lumps in 3D. "An octahedral shell around an opposite-phase centre has a balance that is not restoring": confirmed.
 
-**Misses.** Each has an entry in `docs/FAILURES.md` with the literature check.
+**Misses.**
 
-- **F-007. Path-integral validation (A1).** Expected within 30%; measured +907% and +210%. Causes, as re-ranked by the reviewer: rate windows of 300 discard fast-dying starts; an unsampled energy range bridged by a chord that lies below the true curve; log-linear interpolation across a rate null; an over-wide exclusion rule in the validation. Diagnostics: the run's own rates give +0.4% and +1.3%; re-windowing at 50 gives 934 or 1773 against 1146; sqrt-interpolation gives +1.3% at 4/3. Rules in: the method; trajectories from different starts follow one curve where sampled. Rules out: the integral, units, the start energy. Literature: published agreement is 2 to 7% away from deep dips; no source for a failure this size.
-- **F-008. Box doubling at beta = 0.75.** 3.29e-4 against 1e-4, only after the lump has died (3.3e-7 while alive). Slow waves returning from the sponge, the F-001 class. No effect on death times.
-- **F-009. Phase control at 90 degrees (C0b).** Above.
-- **F-010. Lifetime bands (A3).** beta = 0.75: 868 against 350 to 600; beta = 1.15: T_90 27,231 against 3,000 to 15,000; beta = 1.0: 29,404 against 3,000 to 12,000 in the supplement. The bands came from Session 1 starts of mixed size (N/N_min 2.5 to 3.8); the longest-lived starts are much larger lumps or sit in dips not sampled before. At matched size the band holds at 0.75 only.
-- **F-011. The 4/3 start outlives its prediction (A6).** Expected T_90 between 50,000 and 300,000; not reached at 300,000 (frac 0.9946). The lump leaves its dip at a rate set by its own loss rate, 150 to 700 times below the primary's. A published figure shows a run from omega = 0.90 alive to about 5e5 (Li 2025); our rate of 4e-9 to 1.7e-8 is 5 to 21 times below the published dip values and at the floor of that paper's numerical panel.
-- **F-012. Matched-size T_90 not monotone in beta (A8).** Above.
-- **Tooling targets I set too tight** (recorded as misses in the build notes and as strict expected failures in the tests): snapshot copies against the source with the first window, off-lattice shift 2.9e-7 against 1e-8, equality of N across phases 3.7e-6 at the start against 1e-6.
+| Entry | Prediction | Expected | Measured | Main cause | Status |
+|---|---|---|---|---|---|
+| F-007 | A1: path-integral lifetime validates | within 30% | +907%, +210% | rate map built from short runs: windows discard fast-dying starts; interpolation across a rate null is biased low. The integral itself is sound (+0.4%, +1.3% with the run's own rates) | explained |
+| F-008 | box doubling at beta = 0.75 | 1e-4 | 3.3e-4, after the lump died | slow waves returning from the sponge | explained |
+| F-009 | C0b: all start phases give the same lump | differences of 1e-3 | 2.5e-2 at 90 degrees | the single-frequency start's energy depends on its phase; foreseeable from t = 0 alone, and I did not check | explained |
+| F-010 | A3: lifetime bands | 350 to 600; 3,000 to 12,000; 3,000 to 15,000 | 868; 29,404; 27,231 | bands interpolated from Session 1 starts of mixed size; the longest-lived starts are larger or sit in dips | explained |
+| F-011 | A6: the 4/3 start falls below 0.90 by 300,000 | 50,000 to 300,000 | not reached (0.9946) | the lump leaves its dip at a rate set by its own loss rate | explained; its death is not observed |
+| F-012 | A8: matched-size lifetime monotone in beta | monotone | T_90 not monotone | a fixed size ratio samples a dip at one beta and a peak at the next | explained |
+| F-013 | C2, C4: force ratio and cosine law | 15%, 25%; slope 1 +- 0.15 | worst windows 0.12 to 3.7; slope 1.21 at d = 16 | close-range windows where the tail law fails by construction; plus a real excess of 1.3 to 1.5 in the 45-degree pair at d = 16 | partly open: the excess is unexplained |
+| F-014 | C5b: N flow at d = 24 | 0.038, leader to lagger | wrong direction in the early window | the two lumps settle in opposite directions; with single-lump runs subtracted: 0.038 +- 0.007 | explained |
+| F-015 | C11: twins show no centroid attraction | none | centroids "close" by 1.1 | the criterion cannot measure it | criterion flaw; a clean test is missing |
+| F-016 | B1: frac(5000) about 0.956 | 0.956 | 0.9755 | an untraced number of mine reused | my error |
+| F-017 | E11: merged by 650 | contact 320 to 650 | none by 700; labelled bonded | point-model time used as a target; balance rests on second-order terms; criterion flaw | second run PENDING |
+| F-018 | E3, E7, E15 as scored; twin energy | merged; below 0.1 | scored misses; 0.236 | the script read the end of the run; the lump finder counts debris; my twin limit ignored the size of the group sphere | scoring |
+| F-019 | point model: stepped rings are fixed points of the N flow; "steps of 90 or more expand" | — | 90-degree rings exchange N; E10 merges | neutral, not stable, fixed point; a wording error of mine in the summary row | open |
+
+**Tooling targets I set too tight** (recorded in `docs/WPE_BUILD_NOTES.md` and as strict expected failures in the tests): a cropped copy against its source with the first window (1.5e-4 to 7e-4 against about 6e-5; the window was widened to (26, 30)); off-lattice shift 2.9e-7 against 1e-8; equality of N across phases 3.7e-6 at the start against 1e-6.
 
 ## 9. Novelty
 
-PENDING (scholar's final check on what this report would call new). Candidates, none claimed yet: the lifetime map against beta for this model; the beta = 4/3 state at omega of about 0.907 with a rate of 4e-9 to 1.7e-8; a measured 3D pair force against separation and phase for real oscillons, with N exchange and phase drift; the exclusion between attraction and phase stability for arrangements; 3D tests of arrangements.
+PENDING: the scholar's final check and the wording it supports for each item. Nothing in this report is claimed as new before that.
 
 ## 10. Workers
 
-PENDING (table to be completed at the end).
+Every worker stated its model from its own context; all match `CLAUDE.md`. Effort could not be confirmed: the documentation gives no numeric scale, and workers see either a number or nothing.
+
+| Worker | Packages | Model | Effort seen | What it did well | What review or I caught |
+|---|---|---|---|---|---|
+| Orchestrator | plan, predictions, judging, report | claude-fable-5-1 | not visible | — | My errors are listed below |
+| numerics | WP-A build; WP-C build and analysis v2; WP-D; WP-E tooling and outcome fix | claude-opus-5-5 | not visible | reported its own misses first; independent derivation; disclosed test runs and changed targets | WP-A: a false sentence about coverage, a ranking that ignored measured deaths, tests that could not catch the failure. WP-C: early-force window swamped by start-up radiation. WP-D: the top of its ranking was what it called an artefact; "bounded" hid expansion. WP-E: the old window left in the example file; the outcome rule not as written |
+| runner | WP0, WP-B, WP-A sweeps, local pair runs, A9, batch setup, diagnostics, E11 second run | claude-sonnet-5-5 | not visible | exact reporting; noticed a discrepancy in an energy I had quoted | one failed first launch (a rounded omega), fixed and disclosed |
+| reviewer | four build reviews; pair verdict; arrangement outcomes | claude-sonnet-5-5 | 30 | recomputed everything with its own code; found the selection flaw in WP-A, the window problem in WP-C, the residence-against-survival error, and the flaw in my bonded criterion | — |
+| scholar | brief; ledger F-007 to F-019; novelty check | claude-sonnet-5-5 | 30 | found the published force law; corrected its own brief three times and my stated causes twice | — |
+| cloud | WP-C and WP-E batches | claude-sonnet-5-5 | 10 | benchmarked first; chose the faster, cheaper instance; dead-man timers kept the sign-in lapse harmless; clean-up verified | handed back mid-batch twice (once unprompted, once when the sign-in lapsed); benchmarked two instance types at once |
+
+**My own errors this session.**
+- I wrote prediction C0b without the cheapest check (the t = 0 energy), and A1's 30% and the tooling tolerances without any basis.
+- I reused an untraced number (0.956) and quoted an energy (2826) that is in no file.
+- I filed the 45-degree pair's force excess as "mechanical" before the batch; it is real.
+- I used the point model's merger time as a quantitative target for E11.
+- My bonded criterion labels a non-interacting control bonded.
+- I told Aaron that merged five-rings "disperse", from a number that measures residence in a sphere; I had flagged it as provisional, and it was wrong: two lumps leave.
+- One clause of my summary prediction (rings with steps of 90 degrees or more expand) contradicted my own row for E10.
+- I wrote clock times from memory into three prediction blocks and had to correct them; the commit times are the record.
+- I bundled a commit with the first wave of launches; Aaron stopped it and I relaunched in separate steps.
 
 ## 11. Rented compute
 
-PENDING. One c7i.4xlarge benchmark (9 minutes) and two c8g.4xlarge instances for the WP-C batch; estimated 2.9 to 3.3 USD; ledger row not yet written because the AWS sign-in expired at 18:24Z on 2026-10-01. The instances carry dead-man timers for 19:55Z. The bucket, role, profile and security group remain until someone signed in deletes them.
+| Batch | Machines | Hours | Cost (USD) |
+|---|---|---|---|
+| Session 1 | c7i.4xlarge | 3.90 | 2.80 |
+| WP-C pairs | 2 x c8g.4xlarge, plus a 9-minute c7i.4xlarge benchmark | 3.53 + 2.50 + 0.16 | 3.98 |
+| WP-E arrangements | 2 x c8g.4xlarge | 2.26 + 2.26 | 2.91 |
+| **Total** | | | **9.69 of 50** |
+
+- **Nothing is left on AWS.** Instances terminated; bucket, role, instance profile and security group deleted; verified by the cloud worker at 22:56Z on 2026-10-01 and by me afterwards (no running instances, no buckets).
+- **The sign-in lapsed at 18:24Z, mid-batch.** The instances' dead-man timers terminated them at 19:55Z and all results were already in the bucket; nothing was lost. About 1.3 USD of the WP-C cost is idle time during the lapse. Aaron renewed the sign-in at about 20:28Z.
+- **Benchmark.** At N = 160 a c8g.4xlarge (Graviton, 16 real cores) ran 33.5 steps/s in total with 8 jobs of 2 threads; a c7i.4xlarge ran 15.5. The Graviton machine is 2.2 times faster and 11% cheaper for this engine, the opposite of what Session 1's projection assumed for Intel (F-006).
+- Costs are computed from hours and list prices, not billed amounts.
 
 ## 12. Deviations, open issues, parking lot
 
-PENDING.
+**Deviations.**
+- **Order.** WP-S and the WP-A, WP-B and WP-C builds were started alongside WP0, not after it.
+- **Stop condition.** The phase control failed at 90 degrees; I read the plan's control as covering the phases used, changed the pair design so that no 90-degree start is used, and went on (section 5). The reviewer called the reading fair. The underlying finding stands and was met in WP-E with settled-lump starts.
+- **WP-A.** The path-integral estimate failed its validation, so it was not used to choose runs; a supplement of 73 long runs replaced the "best profile" rule. Seven runs were extended to T = 300,000, past the plan's cap of 30,000. The 3D confirmation run was made for the beta = 4/3 start, not for a higher beta.
+- **WP-C.** The force measurement was amended before any pair run (Block 2a) on evidence from a single-lump run. Local copies of the d = 16 runs were made on the Mac while AWS was unreachable. The box check used 1.5 times the box, not twice; only in-phase twins ran on AWS (one anti-phase twin on the Mac).
+- **WP-D** was built on the derived law and rerun with the measured one afterwards.
+- **WP-E.** Starts are copies of a settled lump, not the plan's single-frequency profiles; the window was widened after a tooling miss. Box checks at 1.5 times; the resolution check resampled the source and changed the box.
+- **Diagnostics.** More than three were used for F-007.
+- **Repository size.** Result JSON for the two batches adds about 300 MB.
+- **Length.** This report is longer than Session 1's.
+
+**Open issues.**
+- The force excess in the 45-degree pair at d = 16 (F-013).
+- No clean test that linear twins do not interact (F-015).
+- The 90-degree rings' N exchange (F-019).
+- The lump finder's relative threshold counts debris; `E_retained_end` measures residence, not survival.
+- The N estimator jitters at about 5e-5; N exchange below that cannot be read.
+- Reviewer checks are not yet on file for F-010, F-011, F-012 and F-016.
+- The effort mapping of the workers.
+- Session 1's open issues (twin revival, the a2 bump of run 5) were not touched.
+
+**Pending runs.**
+- E11 second run (T = 1200 and a finer grid): running on the Mac.
+- A 3D confirmation at beta = 5: not run. No beta beats 4/3 by a wide margin in retained energy at T = 300,000, and the run needs a box of N = 256 to 288 (about 4 USD rented).
+
+**Parking lot.**
+- Pairs started from settled-lump copies, to remove the unequal settling from the N-flow and 45-degree runs.
+- Lumps of unequal size or frequency, and a second component: the mechanisms that bind clusters in the literature all add something a single real field with equal lumps lacks.
+- Groups with orbital motion (angular momentum), the one binding mechanism the optics literature has.
+- A spinning single lump: no source found; literature check only, as the plan said.
+- How long the beta = 4/3, omega = 0.9065 lump lives (a run to T of 1e6), and whether the ejected lumps of the mergers survive.
+- Rebuilding the lifetime estimate from stitched long runs (Li 2025).
+- A displacement test for arrangements, and three-lump overlap terms in the point model.
 
 ## 13. Proposals for Step 4
 
-PENDING.
+These are proposals for Aaron and Claude Desktop, not decisions.
+
+**The situation.** Step 4 was to hit a lone lump and a bonded group with the same disturbances and compare break thresholds, with a lifetime comparison as a second test. This session found no bonded group, and a structural reason why first-order tail forces between equal swirls cannot make one. Three ways forward:
+
+1. **Run the lone-lump half now.** It is well posed and cheap, and it measures claim 1 (metastability) directly: how large a disturbance a lone swirl survives.
+2. **Widen the search before Step 4**, in the directions the literature's bound clusters point to: unequal lumps (different omega), orbital motion, or a second field. Each changes the model or the initial data, so it is Aaron's call.
+3. **Record the negative result** for geometric binding of equal swirls in a single real field and reconsider what "bonded" should mean in the theory.
+
+**If Step 4 goes ahead, these are the choices I would propose.**
+
+- **Which beta.** For the break-threshold test: beta = 4/3 with the omega = 0.9065 start. It is confirmed in 3D, loses 0.5% in 43,000 oscillations when left alone, and its potential is the published one. A second point at beta = 2.0 (start omega = 0.9596, hw 3.65, about the same size in 3D) would show whether the threshold depends on beta. Beta = 5 has no measurable decay but its lumps are twice as wide and need a box of N = 256 or more. For the lifetime comparison: beta = 1.0, where a lone lump of moderate size dies at 1,100 to 1,600 and the longest-lived start at 29,400, so that any effect of company on lifetime is visible inside a run; beta = 0.85 (615 to 740 at moderate size, 3,380 at best) is the cheaper alternative.
+- **Which disturbances.** Each stated as energy delivered over the lump's energy, so that the same disturbance can be given to a lone lump and to any group: (a) an amplitude kick, scaling the field or its velocity inside the lump's ball by 1 + epsilon; (b) an incoming packet of radiation of chosen wavenumber (slow, and near the third-harmonic wavenumber); (c) a collision with another lump at a chosen phase and speed, which is also the "absorption" test (in phase absorbs, anti-phase bounces); (d) a velocity kick; (e) removal of a fraction of N from the core.
+- **What "broken" means.** For a lone lump: within a fixed time after the disturbance (I suggest 2,000), the energy inside 3 half-widths of its tracked centre falls below half its pre-disturbance value, while the undisturbed twin run stays above 0.9. For a group: the corrected bonded rule fails. That rule should require the lump count to equal K in every sample; distances within about 10% with no trend above a few times the far-apart control's drift (5e-4); a run of at least five interaction times, taking the in-phase control's contact time as the unit; per-lump N and phase steps held; a response that differs from the far-apart control; and recovery after a 15% displacement.
+- **The lone-lump size control.** Two controls, because a group of K lumps holds K times the N of one: a single lump of the member's size, and a single lump holding the group's total N (at beta = 4/3 with five members that is far down the stable branch, near the thin-wall end, so its existence and lifetime need a radial check first). The merged remnants seen here (two lumps of 0.36 to 0.38 E0 from five) are a third reference.
+- **Starts.** Use copies of a settled lump for any multi-lump initial data; the single-frequency profile gives unequal lumps at different phases (F-009).
 
 ## 14. Tests on main
 
