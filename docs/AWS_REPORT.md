@@ -66,5 +66,5 @@ Read-only calls only (profile `swirl`, us-east-2; freetier call via us-east-1 en
 - At 64 vCPUs, one 16xlarge (64 vCPUs) fits; two 8xlarge would also fit.
 
 ## Spend limit, 2026-10-02 (Session 2)
-- Aaron reports that he set the AWS spend limit to **50 USD** (about 07:50 +07). Not verified from the session: the `swirl` sign-in had lapsed again at the time.
+- Aaron reports that he set the AWS spend limit to **50 USD** (message received about 08:40 +07). The session did not check the setting itself. The `swirl` sign-in, which had lapsed again by 07:10, was valid again at 08:40.
 - This matches the 50 USD working budget in `CLAUDE.md`. Spent so far by the ledger: 9.69 USD (`docs/CLOUD_LEDGER.md`), computed from hours and list prices, not billed amounts.
