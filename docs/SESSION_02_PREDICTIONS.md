@@ -55,7 +55,7 @@ Radial result in hand: the beta = 4/3 start at omega 0.906505 keeps frac 0.9946 
 |---|---|---|---|
 | A9 | 3D (N = 128, L = 70, dx = 0.547, dt = 0.04, T = 3000) tracks the radial frac curve of the same start to 1e-3 at every sampled time; measured omega 0.9069 within 0.0005; twin below 0.10 by T = 100 | Session 1: this grid reproduced the primary to 1.6e-5; 3D matched radial to 7e-5 | no source for 3D at this omega; nodeless states do not fragment (van Dissel 2023) |
 
-## Block 1d. 3D confirmation at beta = 5. Written 2026-10-02 07:12 (+07), before the run
+## Block 1d. 3D confirmation at beta = 5. Written 2026-10-02 07:11 (+07), before the run
 
 The report's reviewer pointed out that by loss rate, the measure my own verdict uses, beta = 5 does beat 4/3 by a wide margin (zero within error against 1.7e-8), so the plan's 3D confirmation applies to it. Rented compute is unavailable (the AWS sign-in lapsed again), so the run is made on the Mac to T = 1000, the Session 1 gate horizon, for the start at omega = 0.975598 (N/N_min = 1.97, hw = 6.62), whose radial run keeps 0.9985 at T = 300,000.
 
