@@ -1,0 +1,78 @@
+{
+ "rows": {
+  "N2/N1=1.0 d=16": {
+   "quadrature": 3.223677948211708,
+   "closed_form": 3.2235197323089504,
+   "rel": 4.908172305317926e-05,
+   "model_U": -1.611759865938567,
+   "model_U_over_minus_half_closed": 0.9999999998660419,
+   "single_exponential_equal_weights_rel": 3.886239696715421e-08
+  },
+  "N2/N1=1.0 d=20": {
+   "quadrature": 0.4874886399749639,
+   "closed_form": 0.48745794289863714,
+   "rel": 6.297379450659335e-05,
+   "model_U": -0.24372897141666908,
+   "model_U_over_minus_half_closed": 0.9999999998660418,
+   "single_exponential_equal_weights_rel": 3.8862397078176514e-08
+  },
+  "N2/N1=1.0 d=24": {
+   "quadrature": 0.07678912662921837,
+   "closed_form": 0.07678435434041428,
+   "rel": 6.215183867963603e-05,
+   "model_U": -0.0383921771650642,
+   "model_U_over_minus_half_closed": 0.9999999998660419,
+   "single_exponential_equal_weights_rel": 3.886239696715421e-08
+  },
+  "N2/N1=1.5 d=16": {
+   "quadrature": 4.0085270321651025,
+   "closed_form": 4.008375541974592,
+   "rel": 3.77934125492807e-05,
+   "model_U": -2.0041877706414866,
+   "model_U_over_minus_half_closed": 0.9999999998274565,
+   "single_exponential_equal_weights_rel": 0.034264328733504934
+  },
+  "N2/N1=1.5 d=20": {
+   "quadrature": 0.5691481952488034,
+   "closed_form": 0.5691175384405602,
+   "rel": 5.386727024303539e-05,
+   "model_U": -0.28455876917118134,
+   "model_U_over_minus_half_closed": 0.9999999998274565,
+   "single_exponential_equal_weights_rel": 0.06277281071950636
+  },
+  "N2/N1=1.5 d=24": {
+   "quadrature": 0.08480935862279187,
+   "closed_form": 0.08480492345928889,
+   "rel": 5.229841997467233e-05,
+   "model_U": -0.04240246172232817,
+   "model_U_over_minus_half_closed": 0.9999999998274565,
+   "single_exponential_equal_weights_rel": 0.09723498412377574
+  },
+  "N2/N1=2.0 d=16": {
+   "quadrature": 5.102137046755516,
+   "closed_form": 5.102006397193336,
+   "rel": 2.5607486939138724e-05,
+   "model_U": -2.5510031980871357,
+   "model_U_over_minus_half_closed": 0.999999999800262,
+   "single_exponential_equal_weights_rel": 0.06827520229003703
+  },
+  "N2/N1=2.0 d=20": {
+   "quadrature": 0.7145531218015959,
+   "closed_form": 0.7145196374029543,
+   "rel": 4.6862810885395234e-05,
+   "model_U": -0.35725981863011874,
+   "model_U_over_minus_half_closed": 0.9999999998002619,
+   "single_exponential_equal_weights_rel": 0.1274753049807843
+  },
+  "N2/N1=2.0 d=24": {
+   "quadrature": 0.10580224556354055,
+   "closed_form": 0.10579751478904362,
+   "rel": 4.4715365066672064e-05,
+   "model_U": -0.052898757383955906,
+   "model_U_over_minus_half_closed": 0.9999999998002618,
+   "single_exponential_equal_weights_rel": 0.19497671704036623
+  }
+ },
+ "worst_rel_d_ge_20": 6.297379450659335e-05,
+ "note": "first order in the overlap; the residual at d = 16 includes O(overlap^2)"
+}

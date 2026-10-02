@@ -106,6 +106,10 @@ def check_lumps(init, L, absorber, sponge_tol=SPONGE_TOL):
     """Guards for multi-lump data; raises ValueError, else returns the numbers.
     A snapshot entry is checked by snapshot.check (source settled, crop loss, faces, sponge)."""
     out = []
+    for sn in init.get("snapshots", []):       # WP-P3: one entry per source
+        from swirl.engine.snapshot import check
+        out.append({"snapshot": check(sn, L, absorber, sponge_tol)})
+
     if init.get("snapshot"):
         from swirl.engine.snapshot import check
         out.append({"snapshot": check(init["snapshot"], L, absorber, sponge_tol)})

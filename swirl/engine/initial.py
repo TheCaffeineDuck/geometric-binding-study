@@ -78,6 +78,19 @@ def build_initial(coords, L, init, info=None, threads=4):
     N = coords.size
     phi = np.zeros((N, N, N))
     pi = np.zeros((N, N, N))
+    if init.get("snapshots"):
+        # WP-P3: a list of snapshot entries, one per source (lumps of different N), summed; each entry is placed
+        # exactly as a single init["snapshot"] entry is
+        from swirl.engine.snapshot import place
+        infs = []
+        for sn in init["snapshots"]:
+            ps, vs, inf = place(sn, coords, L, threads=threads)
+            phi += ps
+            pi += vs
+            infs.append(inf)
+        if info is not None:
+            info["snapshots"] = infs
+
     if init.get("snapshot"):
         from swirl.engine.snapshot import place
         ps, vs, inf = place(init["snapshot"], coords, L, threads=threads)
