@@ -1,0 +1,72 @@
+{
+ "rows": {
+  "d=16 dtheta=45": {
+   "P_x_first_order": -16.57832012513206,
+   "predicted": -16.578319480858795,
+   "rel": 3.886239885453335e-08,
+   "P_x_self_consistent": -15.881012185458067,
+   "self_consistent_over_first_order_minus_1": -0.042061435320995044,
+   "P_y_P_z": [
+    0.0,
+    0.0
+   ]
+  },
+  "d=16 dtheta=90": {
+   "P_x_first_order": -23.445285162324588,
+   "predicted": -23.4452842511846,
+   "rel": 3.886239885453335e-08,
+   "P_x_self_consistent": -23.402236006302928,
+   "self_consistent_over_first_order_minus_1": -0.0018361540806011156,
+   "P_y_P_z": [
+    0.0,
+    0.0
+   ]
+  },
+  "d=16 dtheta=135": {
+   "P_x_first_order": -16.57832012513206,
+   "predicted": -16.5783194808588,
+   "rel": 3.886239863248875e-08,
+   "P_x_self_consistent": -17.306240249912523,
+   "self_consistent_over_first_order_minus_1": 0.043907954442076846,
+   "P_y_P_z": [
+    0.0,
+    0.0
+   ]
+  },
+  "d=20 dtheta=45": {
+   "P_x_first_order": -3.1336995334312365,
+   "predicted": -3.1336994116481605,
+   "rel": 3.886239863248875e-08,
+   "P_x_self_consistent": -3.1019979152856263,
+   "self_consistent_over_first_order_minus_1": -0.010116355383599451,
+   "P_y_P_z": [
+    0.0,
+    0.0
+   ]
+  },
+  "d=20 dtheta=90": {
+   "P_x_first_order": -4.431720380580695,
+   "predicted": -4.4317202083534175,
+   "rel": 3.886239863248875e-08,
+   "P_x_self_consistent": -4.4312636009472675,
+   "self_consistent_over_first_order_minus_1": -0.00010307049953539593,
+   "P_y_P_z": [
+    0.0,
+    0.0
+   ]
+  },
+  "d=20 dtheta=135": {
+   "P_x_first_order": -3.1336995334312365,
+   "predicted": -3.133699411648161,
+   "rel": 3.886239863248875e-08,
+   "P_x_self_consistent": -3.165726034201327,
+   "self_consistent_over_first_order_minus_1": 0.010220029210976422,
+   "P_y_P_z": [
+    0.0,
+    0.0
+   ]
+  }
+ },
+ "worst_rel_first_order": 3.886239885453335e-08,
+ "note": "the self-consistent value differs at second order in the overlap (the boost phase of the overlap momentum feeds back into U)"
+}

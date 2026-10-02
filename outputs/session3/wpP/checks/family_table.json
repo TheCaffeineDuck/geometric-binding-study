@@ -1,0 +1,40 @@
+{
+ "Q_self_over_A_max": 4.872951708811968e-08,
+ "table_vs_family_file_max_rel": 2.544026100892438e-09,
+ "rows_matched": 20,
+ "fit_residuals_nodes": {
+  "N_max_rel": 2.3180346531148643e-12,
+  "A_max_rel": 3.936406756110955e-12,
+  "hw_max_abs": 9.842850978714068e-10,
+  "E_max_rel": 3.223532551999142e-12,
+  "q_max_abs": 1.7891012227266856e-08
+ },
+ "fit_vs_fresh_profiles_at_midpoints": {
+  "N": 1.4149237337335308e-11,
+  "E": 1.437572283435884e-11,
+  "A": 1.944664429487375e-10,
+  "hw_abs": 1.092743673325458e-09,
+  "q_abs": 3.2175941244716455e-08
+ },
+ "dEdN_over_omega_minus_1_max": 8.881784197001252e-16,
+ "N0_lump_vs_session2_params_rel": {
+  "omega": 7.505107646466058e-14,
+  "A": 8.51470005613919e-11,
+  "E": 7.474021401776554e-13,
+  "domega_dN_vs_fresh_fd": 5.452820928120161e-08
+ },
+ "domega_dN": {
+  "domega_dN_fit": -2.228200651304653e-05,
+  "domega_dN_fd": -2.228200529804868e-05,
+  "domega_dN_session2": -2.22827996225046e-05,
+  "session2_vs_fd_rel": 3.564869702232798e-05
+ },
+ "omega_range": [
+  0.85,
+  0.945
+ ],
+ "N_range": [
+  1842.0880329542556,
+  10529.889469085594
+ ]
+}

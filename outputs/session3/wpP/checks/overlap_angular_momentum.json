@@ -1,0 +1,26 @@
+{
+ "rows": {
+  "ring4 m=1": {
+   "L_first_order": -750.2491251943864,
+   "J_session2_formula": -750.2490961638265,
+   "rel": 3.869456155491946e-08
+  },
+  "ring5 m=1": {
+   "L_first_order": -1232.326800673661,
+   "J_session2_formula": -1232.32675298931,
+   "rel": 3.869456755012379e-08
+  },
+  "ring6 m=1": {
+   "L_first_order": -1695.4791262534216,
+   "J_session2_formula": -1695.4790606475892,
+   "rel": 3.869456954852524e-08
+  },
+  "ring8 m=2": {
+   "L_first_order": -3622.4020001596878,
+   "J_session2_formula": -3622.4018599924343,
+   "rel": 3.869456199900867e-08
+  }
+ },
+ "worst_rel": 3.869456954852524e-08,
+ "note": "asymptotic-tail J; the true-profile J is 19 to 27% smaller at d = 12 to 16 (WPD_NOTES 1.5)"
+}
