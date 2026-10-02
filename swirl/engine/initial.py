@@ -18,6 +18,9 @@ Gaussian entry (dict): center, amp, R, phase (default 0), omega (default 0):
 
 Snapshot entry (dict, init["snapshot"]): copies of one settled lump at given centres and
     phases, see snapshot.py.
+
+WP-L entry (dict, init["wpl"]): settled lumps from a snapshot source, boosted, stretched or
+    multiplied by a smooth random field (boost.py).
 """
 
 import numpy as np
@@ -85,6 +88,13 @@ def build_initial(coords, L, init, info=None, threads=4):
         pi += vs
         if info is not None:
             info["snapshot"] = inf
+    if init.get("wpl"):
+        from swirl.engine.boost import place_wpl
+        ps, vs, inf = place_wpl(init["wpl"], coords, L, threads=threads)
+        phi += ps
+        pi += vs
+        if info is not None:
+            info["wpl"] = inf
     for g in init.get("gaussians", []):
         dx, dy, dz = _offsets(coords, L, g.get("center", (0, 0, 0)))
         prof = g["amp"] * np.exp(-(dx ** 2 + dy ** 2 + dz ** 2) / (2 * g["R"] ** 2))

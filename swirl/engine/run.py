@@ -13,8 +13,9 @@ Config keys (defaults in DEFAULTS; `init` is required)
     m, g4, g6            couplings (Set B: 1, 0.30, 0.055)
     dt                   time step (default dx/8)
     t_end                final time
-    init                 {"radial": [...], "gaussians": [...], "snapshot": {...}}, see initial.py
-                         and snapshot.py (snapshot starts: copies of one settled lump)
+    init                 {"radial": [...], "gaussians": [...], "snapshot": {...}, "wpl": {...}}, see
+                         initial.py, snapshot.py (copies of one settled lump) and boost.py (boosted,
+                         stretched or randomly perturbed settled lumps)
     absorber             null/false (off), true (SPONGE_DEFAULT), or a dict overriding
                          {"gamma", "width", "power", "r_out"} (evolver.sponge_profile)
     kfilter              null (default, off), or {"nu", "power"}: damping rate
@@ -282,7 +283,7 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
         return float(sum(w * ev.phi[i] for i, w in zip(pidx, pw)))
 
     ld, lump_guards = None, None
-    if cfg.get("lumps") or cfg["init"].get("snapshot"):
+    if cfg.get("lumps") or cfg["init"].get("snapshot") or cfg["init"].get("wpl"):
         tol = cfg["lumps"]["sponge_tol"] if cfg.get("lumps") else LUMP_DEFAULTS["sponge_tol"]
         lump_guards = check_lumps(cfg["init"], cfg["L"], cfg["absorber"], tol)
     if cfg.get("lumps"):
