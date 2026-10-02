@@ -23,7 +23,7 @@
  "status": 0,
  "outcome": "flew apart",
  "t_event": 5350.0,
- "closest_approach_hw": 7.425372406616602,
+ "closest_approach_hw": 7.425371138210586,
  "flag_below_3p6hw": false,
  "contact_time_unit": 1720.6365812794222,
  "reference_orbit": {
@@ -1271,5 +1271,13 @@
    62.20796320231842
   ]
  },
- "wall_total_s": 2.256101131439209
+ "wall_total_s": 2.256101131439209,
+ "reflag": {
+  "old_closest_approach_hw": 7.425372406616602,
+  "old_flag": false,
+  "new_closest_approach_hw": 7.425371138210586,
+  "new_flag": false,
+  "method": "dense output (20001 points) plus event times, and a non-terminal 3.6 hw event",
+  "outcome_reproduced": true
+ }
 }

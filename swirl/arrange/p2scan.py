@@ -40,6 +40,7 @@ T_MAX = 10000.0
 D_FAR = 45.0           # far-apart control: 13.5 hw (in-phase contact well beyond T_MAX)
 N_SAMPLES = 400
 RTOL = 1e-10
+VALID_HW = 3.6
 PERT_X, PERT_TH, PERT_SEED = 1e-3, 1e-3, 20261002   # Session 2 WP-D values; seed + run number
 OUT = os.path.join(un.ROOT, "outputs", "session3", "wpP", "p2")
 SPACINGS_STATIC_HW = [3.6, 4.2, 4.8, 6.0, 7.2]
@@ -273,9 +274,15 @@ def run_spec(spec, control=False, T_override=None, model_wrap=None):
         W = z[7 * K:]
         return min(np.min(W - F.W_lo), np.min(F.W_hi - W))
     left.terminal, left.direction = True, -1
+    hw0 = F.hw(z0[7 * K:])
+    hws0 = hw0[i] + hw0[j]
+
+    def valid(t, z, *_):            # 3.6 hw (in the start hw of each pair) crossed: non-terminal, for the flag
+        X = z[:3 * K].reshape(K, 3)
+        return np.min(2 * np.linalg.norm(X[i] - X[j], axis=1) / hws0) - VALID_HW
     t0 = time.time()
     sol = solve_ivp(m.rhs, [0.0, T], z0, method="DOP853", rtol=RTOL, atol=RTOL, t_eval=t_eval, args=(K,),
-                       events=[contact_event(m, K), far_event(K, far), left])
+                    events=[contact_event(m, K), far_event(K, far), left, valid], dense_output=True)
     wall = time.time() - t0
     edges = edges_of(z0[:3 * K].reshape(K, 3))
     S = series(m, sol, K, edges)
@@ -292,13 +299,13 @@ def run_spec(spec, control=False, T_override=None, model_wrap=None):
         t_event = float(S["t"][np.argmax(crossed)]) if crossed.any() else float(sol.t[-1])
     else:
         outcome, t_event = "bounded for the run", None
-    # closest approach, validity flag (3.6 hw = 1.8 (hw_i + hw_j))
+    # closest approach, validity flag (3.6 hw = 1.8 (hw_i + hw_j)): from the dense output on a fine grid and at
+    # every event time (contact included), and from the non-terminal 3.6 hw crossing event
+    closest, crossed36 = closest_dense(sol, K, hwsum)
     Xs = S["X"]
     pd = np.linalg.norm(Xs[:, i] - Xs[:, j], axis=-1)
-    ratio = pd / hwsum
-    closest = float(np.min(ratio) * 2)                     # in units of hw (mean of the pair)
     res = {"spec": spec, "T": T, "t_end": float(sol.t[-1]), "status": int(sol.status), "outcome": outcome,
-           "t_event": t_event, "closest_approach_hw": closest, "flag_below_3p6hw": bool(closest < 3.6),
+           "t_event": t_event, "closest_approach_hw": closest, "flag_below_3p6hw": bool(closest < VALID_HW or crossed36),
            "contact_time_unit": tc, "reference_orbit": ref, "nfev": int(sol.nfev), "wall_s": wall,
            "N_change_max_rel": float(np.max(np.abs(S["N"] / S["N"][0] - 1))),
            "omega_start": z0[7 * K:].tolist(), "N_start": F.N(z0[7 * K:]).tolist(), "d0": d,
@@ -308,6 +315,19 @@ def run_spec(spec, control=False, T_override=None, model_wrap=None):
     if outcome == "bounded for the run":
         res["mean_pair_distance_change_rel"] = float(np.mean(pd[-1] / pd[0] - 1))
     return res, S
+
+
+def closest_dense(sol, K, hwsum, n_dense=20001):
+    """Closest approach (in mean hw of the pair) over the whole run, from the dense output on n_dense points and at
+    every event time; and whether the 3.6 hw event (the last event function) fired."""
+    i, j = np.triu_indices(K, 1)
+    tt = np.linspace(sol.t[0], sol.t[-1], n_dense)
+    te = np.concatenate([np.atleast_1d(e) for e in sol.t_events if len(e)] or [np.zeros(0)])
+    tt = np.sort(np.concatenate([tt, te[(te >= sol.t[0]) & (te <= sol.t[-1])]]))
+    Y = sol.sol(tt)
+    X = Y[:3 * K].T.reshape(-1, K, 3)
+    d = np.linalg.norm(X[:, i] - X[:, j], axis=-1)
+    return float(np.min(2 * d / hwsum)), bool(len(sol.t_events[-1]) > 0)
 
 
 def contact_event(m, K):
