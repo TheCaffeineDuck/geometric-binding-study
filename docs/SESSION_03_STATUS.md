@@ -2,16 +2,16 @@
 
 Resume file. Plan: `docs/SESSION_03_PLAN.md`. Predictions: `docs/SESSION_03_PREDICTIONS.md`. Report (when written): `docs/SESSION_03_REPORT.md`.
 
-Last update: 2026-10-02 12:50 (+07). Session started. AWS sign-in (`aws login --profile swirl`) renewed by Aaron at about 12:46 (+07); it lasts about 12 hours.
+Last update: 2026-10-02 13:20 (+07). WP0 done; WP-S, WP-L build and WP-P build launching. AWS sign-in (`aws login --profile swirl`) renewed by Aaron at about 12:46 (+07); it lasts about 12 hours.
 
 ## Packages
 
 | Package | Worker | State | Outputs |
 |---|---|---|---|
-| WP0 housekeeping | runner | starting | |
-| WP-S prior-art brief | scholar | waits for WP0 | |
-| WP-L lone-lump break test | numerics build; runner or cloud runs | waits for WP0 | |
-| WP-P binding search, unequal lumps and orbits | numerics | waits for WP0 | |
+| WP0 housekeeping | runner | **done** (2effa98; FINDINGS.md written by the orchestrator, because the harness stops subagents from creating report files). Corrected bonded rule: E14 gives "no interaction", E11 first run "not bonded". Lump-finder floor 0.05 of the first window's maximum: E3, E7, E4 now read "merged"; E1, E2, E14, lone lump unchanged. Changed `outputs/session2/wpE/postprocess.py` (E_residence_end) sits on the external drive, not in git. Runner model Sonnet 5.5, effort not visible; matches CLAUDE.md as far as visible | `docs/FINDINGS.md`, `swirl/engine/bonded.py`, `swirl/engine/lumps.py`, `tests/engine/test_bonded.py`, `tests/engine/test_lump_floor.py`, `docs/SESSION_03_PREDICTIONS.md` (definitions) |
+| WP-S prior-art brief | scholar | running | |
+| WP-L lone-lump break test | numerics build; runner or cloud runs | L1/L2 build running | |
+| WP-P binding search, unequal lumps and orbits | numerics | P1 build running | |
 | WP-F review and report | reviewer, scholar, orchestrator | waits for all | |
 
 ## Running now
