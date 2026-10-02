@@ -64,11 +64,29 @@ The pair Hamiltonian at first order is H_12 = -L_12 at theta' = Omega(N) (the fi
 - E(N) is the exact integral of omega dN of the fit (dE/dN = omega to 9e-16), so phi' = Omega/gamma is consistent with the energy.
 - **Valid**: first order in the overlap, so beyond about 3.6 hw (10%) and 4.8 hw (1%), as in WPC section 6; omega 0.85 to 0.945 (runs leaving it stop as "left the family"). The long-lived range at 4/3 is about omega 0.857 to 0.9075 (N/N_min 1.8 to 5.2, alive at 30,000 in WP-A); smaller lumps (N/N_min about 1.3, omega 0.931) die within 10^4.
 - **Not included**: O(e^{-2 kappa d}) terms (core polarization, and the response of one core to the other's off-frequency tail, which is where any frequency pulling or locking beyond the pendulum would come from); radiation; lump lifetimes; three-body overlap. The superposition-corrected law (Model B) is not extended to unequal lumps.
+- **The phase-independent mean force is not in the model** (review fix; `PRIOR_ART.md` N34). For lumps of different frequency, the time mean of the nonlinear cross terms does not vanish:
+  - quartic: U34 = -(g4/16) ∫ F1² F2² (attractive);
+  - sextic: U6 = +(g6/256) ∫ (F1⁴ F2² + F1² F2⁴) (repulsive).
+  
+  Both are second order in the overlap, the same order as the beat-averaged force the model does produce. `outputs/session3/wpP/n34_check.json` (`swirl/arrange/n34_check.py`, quadrature of the true profiles, N ratios 1.1, 1.5, 2) gives, against the in-phase first-order force F0:
+
+  | spacing (hw) | F34/F0 | sextic cancels | net (F34 + F6)/F0 |
+  |---|---|---|---|
+  | 3.6 | 0.18–0.23 | 26–31% of F34 | 0.13–0.16 |
+  | 4.8 | 0.033–0.039 | 18–23% | 0.027–0.030 |
+  | 6.0 | about 0.006 | 15–20% | 0.0049–0.0051 |
+  | 7.2 | about 0.001 | 13–19% | 0.0008–0.0009 |
+
+  The net is nearly independent of the N ratio. For ratios of 1.5 and above it is as large as, or larger than, the model's beat-averaged force (section 5.3). An unequal-lump result of this model is therefore incomplete at second order. The reviewer's 20–28% cancellation and net values agree with these within the ranges quoted.
 - **Size of the unequal structure**: a single-exponential law with geometric-mean amplitude and mean kappa is off by 3 to 10% at N ratio 1.5 and 7 to 20% at ratio 2 (d = 16 to 24).
 
 ## 3. Moving lumps
 
-- **Single lump**: H_i = sqrt(P_i^2 + E(N_i)^2). So X' = P/(gamma E), energy gamma E, phase rate dH/dN = Omega/gamma (exact to 4e-16 in the test). At the speeds that matter (circular speeds 0.003 to 0.16; 0.02 to 0.07 at 4.8 to 6 hw): gamma - 1 = 2e-4 to 5e-3. The time-dilation shift Omega (1 - 1/gamma) is 1.1e-3 per unit time at v = 0.05. It is common to equal lumps on a symmetric orbit; it is not negligible against the pendulum rate (0.0085 at 4.8 hw) when lumps move at different speeds, and it reduces the in-phase pair's phase growth by 9% at 3.6 hw through the coupling of N to the kinetic energy.
+- **Single lump**: H_i = sqrt(P_i^2 + E(N_i)^2). So X' = P/(gamma E), energy gamma E, phase rate dH/dN = Omega/gamma.
+  - The 4e-16 in the test is an identity check of the code, not a physics check.
+  - The physics check is WP-L's 3D gate (WPL_BUILD_NOTES section 7: test source at omega 0.9091, dx 0.8). At v = 0.05 the gate measured speed 3.0e-5 off v, E/(gamma E0) - 1 = 5.2e-5, and omega_lab/omega_rest 3.2e-6 off 1/gamma; at v = 0.2 the same three were 4.0e-5, 2.1e-5 and 8.1e-6.
+  - These are the model's predictions (speed v, energy gamma E0, phase rate Omega/gamma) for the same lump, so they are directly comparable: the 3D boosted lump follows the model's single-lump kinematics to 5e-5 or better, within the gate's own targets (1e-4).
+  - The gate does not test the boost phase between two lumps. At the speeds that matter (circular speeds 0.003 to 0.16; 0.02 to 0.07 at 4.8 to 6 hw): gamma - 1 = 2e-4 to 5e-3. The time-dilation shift Omega (1 - 1/gamma) is 1.1e-3 per unit time at v = 0.05. It is common to equal lumps on a symmetric orbit; it is not negligible against the pendulum rate (0.0085 at 4.8 hw) when lumps move at different speeds, and it reduces the in-phase pair's phase growth by 9% at 3.6 hw through the coupling of N to the kinetic energy.
 - **Boost phase**: a lump moving with V has the phase -Omega gamma V.(x - X) relative to its centre. Each core therefore sees the other's tail with a shifted phase, delta_j = Omega_j P_j.r/E_j. This term is first order in V and carries the momentum and angular momentum of the overlap:
   - two resting lumps at phase difference dtheta have canonical momentum -omega 2 pi A^2 e^{-kappa d} sin(dtheta), the FND-11 value (3.9e-8);
   - a resting stepped ring has canonical angular momentum equal to the WPD overlap formula J = omega sum I_ij (x_i x x_j) (3.9e-8; the asymptotic-tail value, 19 to 27% above the true-profile J at d = 12 to 16).
@@ -76,7 +94,9 @@ The pair Hamiltonian at first order is H_12 = -L_12 at theta' = Omega(N) (the fi
   - Diagnostic: an axisymmetric quadrature of the averaged Lagrangian of two exactly boosted profiles.
   - A uniformly moving pair reproduces L0(gamma d)/gamma, the Lorentz value, to 2e-11.
   - For head-on motion (+v, -v) the superposition's reduction of the cross term is 0.69 of the resummed cos form at v = 0.02, 0.04 and 0.06.
-  - **Adopted form (default)**: the co-moving part of the two shifts exact, the counter-moving part to first order only. It is exact for boosted pairs and exact at first order in V, and it leaves out the counter-moving O(v^2) term. The superposition says that term is 0.69 of the resummed one; the 3D contact times at d = 16 and 20 agree best with leaving it out (-0.8% and -0.5%, against -7.4% and -3.3% resummed). The resummed form is kept as `boost="resummed"`. Rigid rotation has no counter-moving part, so the item 4 table does not depend on this choice.
+  - **Adopted form (default)**: the co-moving part of the two shifts exact, the counter-moving part to first order only. It is exact for boosted pairs up to the Lorentz contraction of the tails (an O(kappa d v^2) correction the model leaves out) and exact at first order in V, and it leaves out the counter-moving O(v^2) term. The superposition says that term is 0.69 of the resummed one; the 3D contact times at d = 16 and 20 agree best with leaving it out (-0.8% and -0.5%, against -7.4% and -3.3% resummed). The resummed form is kept as `boost="resummed"`. Rigid rotation has no counter-moving part, so the item 4 table does not depend on this choice.
+  - **Caveat (review).** The form was chosen using the same two 3D contact times that the regression then counts as a pass, so that pass is not independent of the choice.
+  - Sensitivity (reviewer's recomputation): about 2.5% of P2 outcome classes change between the default and the resummed form, and about 15% change with no boost phase at all.
 - **Lorentz contraction** of the tails is left out: kappa d (gamma - 1) = 5e-3 at v = 0.04 and d = 16.
 - **Pending L2 comparison** (needs WP-L's boosted 3D lump). The model predicts, for a lone settled lump boosted to v: centroid speed v, energy gamma E0, phase rate at the moving centre Omega/gamma. At a fixed lab point the frequency is gamma Omega. For the profile lump (Omega 0.909149, E0 2801.68): v = 0.02 gives E = 2802.244 and rate 0.908967; v = 0.05 gives 2805.192 and 0.908012; v = 0.1 gives 2815.798 and 0.904592. The comparison to make: the tracked centroid speed against v; total energy (plus absorbed) against gamma E0 of the settled lump; the frequency of phi at the tracked centre against omega_settled/gamma; and the tail phase gradient -Omega gamma v along the motion, which is the model's boost phase. Report each as a relative difference; the model expects them to 1e-3 or better at v up to 0.1, limited by the settling of the 3D lump.
 
@@ -96,7 +116,7 @@ The pair Hamiltonian at first order is H_12 = -L_12 at theta' = Omega(N) (the fi
 | same: sum N; P; L (absolute; scales 177, 5900) | 1e-12; 1e-9; 1e-7 | 7.1e-15; 1.7e-13; 8.4e-10 | pass |
 | **circular orbit**, phases frozen, in phase; N ratio 1 and 2; d = 16, 20: period against the relativistic two-body value | 1e-6 | 1.4e-9; d drift over one period 3.1e-7 (the orbit is unstable, 14 to 16 e-folds per period) | pass |
 | **time reversal**, unequal moving 4-ring, T = 300 there and back: X, P, phi, omega | 1e-6, 1e-6, 1e-8, 1e-11 | 2.5e-12, 5.5e-13, 3.1e-13, 3.8e-15 | pass |
-| single moving lump: speed, gamma E0, Omega/gamma | 1e-12 | 6.7e-16 | pass |
+| single moving lump: speed, gamma E0, Omega/gamma | 1e-12 | 6.7e-16 | identity of the code (the physics comparison is WP-L's 3D gate, section 3: 3e-5, 5.2e-5, 3e-6) |
 | overlap momentum at rest against FND-11 (first order) | 1e-7 | 3.9e-8 | pass |
 | overlap angular momentum of resting stepped rings against WPD's formula | 1e-6 | 3.9e-8 | pass |
 | linearization against the analytic pair (frozen law): phase rate, radial rate, Omega_orb | 1e-6 | 3.8e-9 | pass |
@@ -147,6 +167,8 @@ Analytic, frozen law and nonrelativistic: (lambda_phase/Omega_orb)^2 = |domega/d
 | 1.5 | 276 | 1043 / 3149 / 9057 | 0.26 / 0.088 / 0.030 |
 | 2.0 | 174 | 968 / 2949 / 8521 | 0.18 / 0.059 / 0.020 |
 
+- **The positions are held** in `beat_check.py`: the lumps are pinned and only phases and N evolve. The average is a property of the coupling, not a prediction of what a free pair does.
+- **Free-dynamics counterexample** (reviewer; confirmed in the P2 scan). At N ratio 1.5 and d = 20 (6.0 hw) the held-position average is attractive (0.0056 F0), yet free pairs separate: p2_0175 to p2_0179 (dtheta 0, 45, 90, 135, 180) end "bounded for the run" with the mean distance up 1.3 to 7.5% by T. The early, phase-dependent first-order motion and the N exchange outweigh the small beat-averaged attraction.
 - **Beat-averaged force at held positions** (`beat_average_check.json`): <F>/F0 = 0.25 (ratio 1.1, d = 16, where the phase is not yet rotating: beat/sqrt K = 0.7), 0.004 to 0.1 at beat/sqrt K of 2 to 11, and -1e-4 at ratio 2, d = 24. It is attractive in 11 of 12 cases.
 - **A miss of my own estimate.** I estimated the residual as K/(2 beat^2), the time a fast pendulum spends near in-phase. That overestimates the model's average by 1.3 to 5 times at beat/sqrt K above 1.5 (and gets the sign of the one negative case wrong). Candidate cause: the first-order frequency modulation from the N dependence of the coupling (dU/dN_i in phi_i'), which shifts the time-weighting at first order in the coupling. Not separated further.
 - The residual is second order in the overlap, the order of the terms the model leaves out (WPC section 3: polarization about 1% of F at d = 16). The model cannot decide whether unequal lumps bind on beat-averaged forces.
@@ -211,7 +233,7 @@ Analytic, frozen law and nonrelativistic: (lambda_phase/Omega_orb)^2 = |domega/d
 | circular orbits in a Yukawa potential are unstable for kappa r > (1 + sqrt 5)/2 | classical mechanics textbook result | not checked in `PRIOR_ART.md`; for the scholar to source |
 | phase sector has negative effective mass; orbiting soliton pairs unstable | same | Malomed 1998 (PRIOR_ART S6.1, S6.5) |
 | rotating stepped clusters held by attraction plus angular momentum | the model now carries the overlap J; every rotating balance found is unstable at valid spacings | Desyatnikov & Kivshar 2002 (PRIOR_ART S6.4, S6.5) |
-| unequal-frequency lumps: relative phase beats, first-order force averages out | WP-S brief due this session | PRIOR_ART section pending (WP-S) |
+| unequal-frequency lumps: relative phase beats, first-order force averages out | the first-order force averages out (Axenides 2000; Battye & Sutcliffe 2000). Unequal 1D Q-balls at rest repel, with little charge transfer (Battye & Sutcliffe). NLS pairs of unequal frequency bind (1D, Al Khawaja 2010) or spiral (3D incoherent, Buryak 1998) through a phase-independent second-order attraction, the N34 term this model leaves out (section 2.2) | `PRIOR_ART.md` T4, T7, N34 (WP-S) |
 
 No claim that anything here is new.
 
@@ -223,3 +245,12 @@ No claim that anything here is new.
 - Equal orbits at 3.6 to 6 hw: 448 of 448 ended (merged, flew apart or left the family) within 2 reference orbital periods.
 - Unequal static pairs, contact over the equal in-phase contact (dtheta 0 starts): ratio 1.05 to 2.0 merge only at 3.6 hw (0.96 to 0.99) and 1.05 to 1.1 also at 4.2 to 4.8 (1.0 to 1.02); ratio 2.5 and 2.95 merge at 3.6 (0.88, 0.76), 4.2 (2.04, 1.66) and 4.8 (4.19, 2.84); no dtheta-0 pair with ratio 1.2 or more merges at 6 or 7.2 hw within the cap.
 - N34 diagnostic (`swirl/arrange/n34_check.py`, `outputs/session3/wpP/n34_check.json`): F34/F0 = 0.18 to 0.23 at 3.6 hw, 0.033 to 0.039 at 4.8, 0.006 at 6, 0.001 at 7.2 (nearly independent of the N ratio); F34 over the model's beat-averaged force: 0.05 to 0.43 at ratio 1.1, 0.84 to 1.66 at 1.5, 1.8 to 6.6 at 2 (and of opposite sign at ratio 2, 7.2 hw, where the model's average is -1e-4 F0).
+
+### 11.1 Review fixes (closest approach, P1 fraction)
+
+- **Closest approach and the 3.6 hw flag.** These now come from the dense output (20001 points plus every event time) and from a non-terminal 3.6 hw crossing event in `p2scan.run_spec`, not from the 401 samples.
+  - The stored scan was reflagged without rerunning the rule (`swirl/arrange/p2reflag.py`, `p2/reflag.json`). The 1029 unflagged runs were integrated again with the same start, tolerances and events. All 1029 outcomes and event times were reproduced.
+  - **5 runs change flag**: p2_0971, 1024, 1026, 1136 and 1159, the reviewer's five. All merged, all "not bonded". No candidate changes: their closest approaches are 6.03 to 6.48 hw.
+- **"Left the family"** is now its own bin in the summary.
+- **P1 fraction**: equal orbits at 3.6 to 6 hw that merged or flew apart within 2 orbital periods: 418 of 448 (93.3%; by spacing 95.5, 94.6, 90.2, 92.9%). The other 30 (6.7%) left the family within 2 periods. Among the 222 runs not flagged, 100% merged or flew apart within 2 periods.
+- **D1 with the sextic term.** D1 added the quartic N34 force only. The sextic term cancels 13 to 19% of it at 7.2 hw (section 2.2), so the D1 closing (0.65 to 0.87%) would be roughly 0.55 to 0.75%. The trend (1.4 to 1.9e-6, about 1.2 to 1.6e-6 with the sextic) stays well above the limit of 3.3e-7, so the D1 conclusion is unchanged.

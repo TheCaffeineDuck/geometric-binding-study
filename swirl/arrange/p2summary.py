@@ -35,9 +35,10 @@ def main():
     for r in R:
         g = group(r["spec"])
         counts[g][r["outcome"]] += 1
-        labels[g][r["label"]] += 1
+        lb = "left the family" if r["outcome"] == "left the family" else r["label"]    # its own bin
+        labels[g][lb] += 1
         if not r["flag_below_3p6hw"]:
-            labels_valid[g][r["label"]] += 1
+            labels_valid[g][lb] += 1
         if r["label"] in ("bonded", "bounded, beating", "too short", "no interaction"):
             s = r["spec"]
             cands.append({"id": s["id"], "group": g, "label": r["label"], "outcome": r["outcome"], "K": s["K"],
@@ -47,14 +48,27 @@ def main():
                           "failed_clauses": [k for k, v in r["bonded_rule"]["clauses"].items() if not v["pass"]],
                           "label_info": r["label_info"],
                           "mean_pair_distance_change_rel": r.get("mean_pair_distance_change_rel")})
-    # equal orbits at 3.6 to 6 hw: ended (merged, flew apart, left) within 2 reference orbital periods
+    # equal orbits at 3.6 to 6 hw (Block P P1): merged or flew apart within 2 reference orbital periods; "left the
+    # family" is its own bin (a lump's omega left the model's range: not an outcome the model can follow)
     eo = [r for r in R if group(r["spec"]) == "equal orbits" and r["spec"]["spacing_hw"] <= 6.0 + 1e-9]
-    ended2 = [r for r in eo if r["t_event"] is not None and r["reference_orbit"]
-              and r["t_event"] <= 2 * r["reference_orbit"]["T_orb"]]
+
+    def within2(r, outcomes):
+        return (r["outcome"] in outcomes and r["t_event"] is not None and r["reference_orbit"]
+                and r["t_event"] <= 2 * r["reference_orbit"]["T_orb"])
+    mf2 = [r for r in eo if within2(r, ("merged", "flew apart"))]
+    left2 = [r for r in eo if within2(r, ("left the family",))]
     by_s = {}
     for s in sorted(set(r["spec"]["spacing_hw"] for r in eo)):
         sub = [r for r in eo if r["spec"]["spacing_hw"] == s]
-        by_s[str(s)] = sum(r in ended2 for r in sub) / len(sub)
+        by_s[str(s)] = {"merged_or_flew_apart_within_2T": sum(r in mf2 for r in sub) / len(sub),
+                        "left_the_family_within_2T": sum(r in left2 for r in sub) / len(sub), "n": len(sub)}
+    eo_c = [r for r in eo if not r["flag_below_3p6hw"]]
+    p1 = {"fraction_merged_or_flew_apart_within_2_T_orb": len(mf2) / len(eo) if eo else None,
+          "fraction_left_the_family_within_2_T_orb": len(left2) / len(eo) if eo else None,
+          "fraction_other": 1 - (len(mf2) + len(left2)) / len(eo) if eo else None, "n": len(eo),
+          "counted_only": {"n": len(eo_c), "fraction_merged_or_flew_apart_within_2_T_orb":
+                           (sum(r in mf2 for r in eo_c) / len(eo_c)) if eo_c else None},
+          "outcomes": dict(collections.Counter(r["outcome"] for r in eo)), "by_spacing_hw": by_s}
     # unequal static pairs: contact time over the equal in-phase contact time, by N ratio
     sp = [r for r in R if group(r["spec"]) == "unequal static pairs"]
     ratio_tab = {}
@@ -85,8 +99,11 @@ def main():
            "label_counts_not_flagged": {g: dict(c) for g, c in labels_valid.items()},
            "flagged_below_3p6hw": {g: sum(1 for r in R if group(r["spec"]) == g and r["flag_below_3p6hw"]) for g in counts},
            "candidates": cands,
-           "equal_orbits_3p6_to_6hw_ended_within_2_T_orb": {"fraction": len(ended2) / len(eo) if eo else None,
-                                                             "n": len(eo), "by_spacing_hw": by_s},
+           "P1_equal_orbits_3p6_to_6hw": p1,
+           "reflag": (json.load(open(os.path.join(P2, "reflag.json"))) if os.path.exists(os.path.join(P2, "reflag.json"))
+                      else None),
+           "flag_method": "closest approach from the dense output and event times (p2reflag.py); before the review "
+                          "fix, from 401 samples",
            "unequal_static_pairs_contact_over_equal_inphase": ratio_tab,
            "wall_s_total": float(sum(r.get("wall_total_s", 0) for r in R))}
     un.dump(out, os.path.join(P2, "summary.json"))

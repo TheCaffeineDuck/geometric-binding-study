@@ -6,6 +6,7 @@ force F0 and its beat-averaged force at held positions (beat_check). Ratios only
     /Users/aaronramos/Desktop/SWIRL/.venv/bin/python -m swirl.arrange.n34_check
 writes outputs/session3/wpP/n34_check.json.
 """
+import json
 import os
 
 import numpy as np
@@ -26,6 +27,41 @@ def U34(p1, p2, d, h=0.05, half=36.0):
     F1 = profile_curve(p1, np.sqrt(R ** 2 + Z ** 2))
     F2 = profile_curve(p2, np.sqrt(R ** 2 + (Z - d) ** 2))
     return float(-(un.G4 / 16) * np.sum(2 * np.pi * R * F1 ** 2 * F2 ** 2) * h * h)
+
+
+def U6(p1, p2, d, h=0.05, half=36.0):
+    """Time mean of the sextic cross terms of order Phi^4 Phi^2 (unequal frequencies): +(g6/256) int (F1^4 F2^2 +
+    F1^2 F2^4) (15 g6/720 x <cos^4><cos^2> = g6/256); repulsive."""
+    rho = np.arange(0, half, h) + h / 2
+    z = np.arange(-half, d + half, h) + h / 2
+    R, Z = np.meshgrid(rho, z, indexing="ij")
+    F1 = profile_curve(p1, np.sqrt(R ** 2 + Z ** 2))
+    F2 = profile_curve(p2, np.sqrt(R ** 2 + (Z - d) ** 2))
+    return float((un.G6 / 256) * np.sum(2 * np.pi * R * (F1 ** 4 * F2 ** 2 + F1 ** 2 * F2 ** 4)) * h * h)
+
+
+def add_sextic():
+    """Add the sextic mean cross term to n34_check.json (no beat runs repeated)."""
+    path = os.path.join(un.ROOT, "outputs", "session3", "wpP", "n34_check.json")
+    with open(path) as f:
+        res = json.load(f)
+    profs = {}
+    for r in res["rows"]:
+        key = tuple(np.round(r["omega"], 12))
+        if key not in profs:
+            profs[key] = [solve_profile(w, m=un.M, g4=un.G4, g6=un.G6, tol=1e-10) for w in r["omega"]]
+        p1, p2 = profs[key]
+        d, hd = r["d"], 0.1
+        F6 = (U6(p1, p2, d + hd) - U6(p1, p2, d - hd)) / (2 * hd)       # negative = repulsion
+        r["U6"], r["F6"] = U6(p1, p2, d), F6
+        r["F6_over_F34"] = F6 / r["F34"]
+        r["Fnet_mean"] = r["F34"] + F6
+        r["Fnet_mean_over_F0"] = (r["F34"] + F6) / r["F0_in_phase_first_order"]
+        print("ratio %.1f %.1f hw  F6/F34 %.3f  (F34+F6)/F0 %.4g" % (r["N_ratio"], r["spacing_hw"], r["F6_over_F34"],
+                                                                     r["Fnet_mean_over_F0"]))
+    res["sextic"] = ("U6 = +(g6/256) int (Phi_1^4 Phi_2^2 + Phi_1^2 Phi_2^4), F6 = dU6/dd (attraction positive, so "
+                     "negative = repulsion); Fnet_mean = F34 + F6, the phase-independent mean force at this order")
+    un.dump(res, path)
 
 
 def main():
@@ -58,4 +94,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    add_sextic() if "--sextic" in sys.argv else main()

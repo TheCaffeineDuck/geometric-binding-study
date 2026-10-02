@@ -31,7 +31,7 @@
  "status": 0,
  "outcome": "bounded for the run",
  "t_event": null,
- "closest_approach_hw": 5.519161193878316,
+ "closest_approach_hw": 5.5191477245934655,
  "flag_below_3p6hw": false,
  "contact_time_unit": 495.91586667908217,
  "reference_orbit": null,
@@ -2715,5 +2715,13 @@
    19.95040500427004
   ]
  },
- "wall_total_s": 2.5931520462036133
+ "wall_total_s": 2.5931520462036133,
+ "reflag": {
+  "old_closest_approach_hw": 5.519161193878316,
+  "old_flag": false,
+  "new_closest_approach_hw": 5.5191477245934655,
+  "new_flag": false,
+  "method": "dense output (20001 points) plus event times, and a non-terminal 3.6 hw event",
+  "outcome_reproduced": true
+ }
 }

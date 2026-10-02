@@ -1271,5 +1271,13 @@
    56.031367440467676
   ]
  },
- "wall_total_s": 0.6025197505950928
+ "wall_total_s": 0.6025197505950928,
+ "reflag": {
+  "old_closest_approach_hw": 4.210645940160612,
+  "old_flag": false,
+  "new_closest_approach_hw": 4.210645940160612,
+  "new_flag": false,
+  "method": "dense output (20001 points) plus event times, and a non-terminal 3.6 hw event",
+  "outcome_reproduced": true
+ }
 }

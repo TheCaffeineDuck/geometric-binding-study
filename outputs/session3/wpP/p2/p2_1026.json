@@ -26,7 +26,7 @@
  "outcome": "merged",
  "t_event": 1246.7175506125072,
  "closest_approach_hw": 3.6954714564078635,
- "flag_below_3p6hw": false,
+ "flag_below_3p6hw": true,
  "contact_time_unit": 751.8617061593674,
  "reference_orbit": {
   "v": [
@@ -284,7 +284,7 @@
  "unequal": false,
  "label": "not bonded",
  "label_info": {
-  "counted": true
+  "counted": false
  },
  "control": {
   "outcome": "bounded for the run",
@@ -1699,5 +1699,13 @@
    12.357797656135219
   ]
  },
- "wall_total_s": 0.47936105728149414
+ "wall_total_s": 0.47936105728149414,
+ "reflag": {
+  "old_closest_approach_hw": 3.6954714564078635,
+  "old_flag": false,
+  "new_closest_approach_hw": 3.6954714564078635,
+  "new_flag": true,
+  "method": "dense output (20001 points) plus event times, and a non-terminal 3.6 hw event",
+  "outcome_reproduced": true
+ }
 }

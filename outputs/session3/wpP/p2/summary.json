@@ -44,20 +44,25 @@
  },
  "label_counts_all": {
   "unequal static pairs": {
-   "not bonded": 247,
+   "not bonded": 224,
+   "left the family": 23,
    "bounded, beating": 3
   },
   "unequal static rings": {
-   "not bonded": 312
+   "not bonded": 260,
+   "left the family": 52
   },
   "equal orbits": {
-   "not bonded": 672
+   "not bonded": 628,
+   "left the family": 44
   },
   "unequal orbiting pairs": {
-   "not bonded": 252
+   "not bonded": 247,
+   "left the family": 5
   },
   "alternating-size rings": {
-   "not bonded": 336
+   "not bonded": 324,
+   "left the family": 12
   }
  },
  "label_counts_not_flagged": {
@@ -69,7 +74,7 @@
    "not bonded": 73
   },
   "equal orbits": {
-   "not bonded": 385
+   "not bonded": 380
   },
   "unequal orbiting pairs": {
    "not bonded": 201
@@ -81,7 +86,7 @@
  "flagged_below_3p6hw": {
   "unequal static pairs": 116,
   "unequal static rings": 239,
-  "equal orbits": 287,
+  "equal orbits": 292,
   "unequal orbiting pairs": 51,
   "alternating-size rings": 100
  },
@@ -98,7 +103,7 @@
    "pattern": "dtheta=0",
    "speed_frac": 0.0,
    "T": 4603.293067019212,
-   "closest_approach_hw": 6.4750880692608686,
+   "closest_approach_hw": 6.4750830484415856,
    "flag_below_3p6hw": false,
    "failed_clauses": [
     "phase_steps_held_deg"
@@ -123,7 +128,7 @@
    "pattern": "dtheta=180",
    "speed_frac": 0.0,
    "T": 4603.293067019212,
-   "closest_approach_hw": 6.478734690446155,
+   "closest_approach_hw": 6.4787344441149886,
    "flag_below_3p6hw": false,
    "failed_clauses": [
     "phase_steps_held_deg"
@@ -162,16 +167,87 @@
    "mean_pair_distance_change_rel": -0.000932433437771385
   }
  ],
- "equal_orbits_3p6_to_6hw_ended_within_2_T_orb": {
-  "fraction": 1.0,
+ "P1_equal_orbits_3p6_to_6hw": {
+  "fraction_merged_or_flew_apart_within_2_T_orb": 0.9330357142857143,
+  "fraction_left_the_family_within_2_T_orb": 0.06696428571428571,
+  "fraction_other": 0.0,
   "n": 448,
+  "counted_only": {
+   "n": 222,
+   "fraction_merged_or_flew_apart_within_2_T_orb": 1.0
+  },
+  "outcomes": {
+   "merged": 127,
+   "flew apart": 291,
+   "left the family": 30
+  },
   "by_spacing_hw": {
-   "3.6": 1.0,
-   "4.2": 1.0,
-   "4.8": 1.0,
-   "6.0": 1.0
+   "3.6": {
+    "merged_or_flew_apart_within_2T": 0.9553571428571429,
+    "left_the_family_within_2T": 0.044642857142857144,
+    "n": 112
+   },
+   "4.2": {
+    "merged_or_flew_apart_within_2T": 0.9464285714285714,
+    "left_the_family_within_2T": 0.05357142857142857,
+    "n": 112
+   },
+   "4.8": {
+    "merged_or_flew_apart_within_2T": 0.9017857142857143,
+    "left_the_family_within_2T": 0.09821428571428571,
+    "n": 112
+   },
+   "6.0": {
+    "merged_or_flew_apart_within_2T": 0.9285714285714286,
+    "left_the_family_within_2T": 0.07142857142857142,
+    "n": 112
+   }
   }
  },
+ "reflag": {
+  "checked_unflagged_runs": 1029,
+  "newly_flagged": 5,
+  "runs": [
+   {
+    "id": "p2_0971",
+    "outcome": "merged",
+    "label": "not bonded",
+    "old": 3.601296706874393,
+    "new": 3.601296706874393
+   },
+   {
+    "id": "p2_1024",
+    "outcome": "merged",
+    "label": "not bonded",
+    "old": 3.6869179880402227,
+    "new": 3.6869179880402227
+   },
+   {
+    "id": "p2_1026",
+    "outcome": "merged",
+    "label": "not bonded",
+    "old": 3.6954714564078635,
+    "new": 3.6954714564078635
+   },
+   {
+    "id": "p2_1136",
+    "outcome": "merged",
+    "label": "not bonded",
+    "old": 3.830478394973712,
+    "new": 3.830478394973712
+   },
+   {
+    "id": "p2_1159",
+    "outcome": "merged",
+    "label": "not bonded",
+    "old": 3.6130236785854075,
+    "new": 3.6130236785854075
+   }
+  ],
+  "outcome_not_reproduced": [],
+  "wall_s": 775.3847999572754
+ },
+ "flag_method": "closest approach from the dense output and event times (p2reflag.py); before the review fix, from 401 samples",
  "unequal_static_pairs_contact_over_equal_inphase": {
   "1.0": {
    "runs": 25,
