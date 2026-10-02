@@ -245,6 +245,7 @@ def series(m, sol, n, edges):
         eff.append(ph[:, b] - ph[:, a] + 0.5 * (da + db))
     wrap = lambda x: np.rad2deg(np.angle(np.exp(1j * np.asarray(x))))
     return {"t": sol.t, "X": Xs, "nn": nn, "N": Ns, "W": Ws, "steps_raw_unwrapped": np.array(raw).T,
+            "steps_eff_unwrapped": np.array(eff).T, "edges": edges,
             "steps": wrap(np.array(raw).T), "steps_eff": wrap(np.array(eff).T), "dmin": Dm.min((1, 2))}
 
 
@@ -332,16 +333,58 @@ def bonded_inputs(S, K):
 
 
 def phase_lock(S):
-    """Clause-5 variant for unequal or rotating groups: the largest excursion of each neighbour step from its
-    mean slope (a locked step librates; a beating step runs away), and the mean drift rate of each step."""
+    """Each neighbour edge's effective step D_eff (unwrapped): its mean drift rate (linear fit), its largest
+    excursion about the fit, and the drift expected from the lumps' frequency difference (time-mean omega)."""
     t = S["t"]
     if t.size < 3:
-        return {"step_rate_deg_per_t": None, "detrended_excursion_deg": None}
-    U = np.rad2deg(S["steps_raw_unwrapped"])        # continuous: the phases are integrated, never wrapped
-    rate = [(U[-1, k] - U[0, k]) / (t[-1] - t[0]) for k in range(U.shape[1])]
-    exc = [float(np.max(np.abs(U[:, k] - U[0, k] - rate[k] * (t - t[0])))) for k in range(U.shape[1])]
-    return {"step_rate_deg_per_t": rate, "detrended_excursion_deg": exc, "total_step_change_deg":
-            [float(U[-1, k] - U[0, k]) for k in range(U.shape[1])]}
+        return None
+    U = np.rad2deg(S["steps_eff_unwrapped"])       # continuous: the phases are integrated, never wrapped
+    rate, exc, expect = [], [], []
+    for k, (a, b) in enumerate(S["edges"]):
+        c = np.polyfit(t, U[:, k], 1)
+        rate.append(float(c[0]))
+        exc.append(float(np.max(np.abs(U[:, k] - np.polyval(c, t)))))
+        expect.append(float(np.rad2deg(np.mean(S["W"][:, b] - S["W"][:, a]))))
+    return {"drift_deg_per_t": rate, "excursion_deg": exc, "expected_beat_deg_per_t": expect,
+            "total_change_deg": [float(U[-1, k] - U[0, k]) for k in range(U.shape[1])], "t_span": float(t[-1] - t[0])}
+
+
+def label(rule, lock, ctl_lock, unequal, flagged, steps_tol=0.25):
+    """Block P (SESSION_03_PREDICTIONS.md, decisions fixed before the scan). rule: bonded_rule applied to the
+    effective steps D_eff (clause 5 on D_eff for moving groups; equal to the raw step at rest). For unequal lumps
+    clause 5 is "locked": every edge's drift times the run length and its excursion about the drift within the
+    clause-5 tolerance, the drift limit raised to 3 times the far-apart control's detrended excursion if that is
+    larger. A group meeting every other held clause whose steps drift at the lumps' frequency difference (within
+    10% or the drift limit) is "bounded, beating". Runs closer than 3.6 hw at any time are labelled but not counted."""
+    if rule is None:
+        return "not bonded", {"reason": "too few samples"}
+    cl = rule["clauses"]
+    others = all(cl[k]["pass"] for k in ("count_equals_K", "distance_within_tol", "no_distance_trend", "N_held"))
+    info = {}
+    if unequal and lock is not None:
+        noise = 3 * max(ctl_lock["excursion_deg"]) if ctl_lock else 0.0
+        lim = max(steps_tol, noise)
+        T = lock["t_span"]
+        locked = all(abs(r) * T <= lim and e <= lim for r, e in zip(lock["drift_deg_per_t"], lock["excursion_deg"]))
+        beating = all(abs(r - x) <= max(0.1 * abs(x), lim / T) and e <= lim and abs(x) * T > lim
+                      for r, e, x in zip(lock["drift_deg_per_t"], lock["excursion_deg"], lock["expected_beat_deg_per_t"]))
+        phase_ok = locked
+        info = {"locked": locked, "beating": beating, "limit_deg": lim}
+    else:
+        phase_ok = cl["phase_steps_held_deg"]["pass"]
+        beating = False
+    if not others:
+        lab = "not bonded"
+    elif not phase_ok:
+        lab = "bounded, beating" if beating else "not bonded"
+    elif not cl["response_differs_from_control"]["pass"]:
+        lab = "no interaction"
+    elif not cl["duration"]["pass"]:
+        lab = "too short"
+    else:
+        lab = "bonded"
+    info["counted"] = not flagged
+    return lab, info
 
 
 def run_with_rule(spec):
@@ -352,13 +395,18 @@ def run_with_rule(spec):
     cres, CS = run_spec(ctrl_spec, control=True)
     tc = res["contact_time_unit"] or T_MAX
     run_in, ctl_in = bonded_inputs(S, K), bonded_inputs(CS, K)
-    res["bonded_rule"] = bonded_rule(run_in, ctl_in, tc) if S["t"].size >= 3 else None
-    # variants of clause 5 (reported only): effective (boost-covariant) steps; phase lock
-    eff = dict(run_in, steps=S["steps_eff"])
-    ctl_eff = dict(ctl_in, steps=CS["steps_eff"])
-    res["clause5_variant_effective_steps"] = (bonded_rule(eff, ctl_eff, tc)["clauses"]["phase_steps_held_deg"]
-                                              if S["t"].size >= 3 else None)
-    res["clause5_variant_phase_lock"] = phase_lock(S)
+    ok = S["t"].size >= 3 and CS["t"].size >= 3
+    # the rule as written (raw lab steps), recorded
+    res["bonded_rule_raw_steps"] = bonded_rule(run_in, ctl_in, tc) if ok else None
+    # the rule with clause 5 on the effective step D_eff (Block P decision (a))
+    eff, ctl_eff = dict(run_in, steps=S["steps_eff"]), dict(ctl_in, steps=CS["steps_eff"])
+    res["bonded_rule"] = bonded_rule(eff, ctl_eff, tc) if ok else None
+    res["phase_lock"] = phase_lock(S)
+    res["control_phase_lock"] = phase_lock(CS)
+    unequal = len(set(np.round(spec["N_mult"], 9))) > 1
+    res["unequal"] = unequal
+    res["label"], res["label_info"] = label(res["bonded_rule"], res["phase_lock"], res["control_phase_lock"],
+                                            unequal, res["flag_below_3p6hw"])
     res["control"] = {"outcome": cres["outcome"], "t_end": cres["t_end"], "d0": cres["d0"]}
     k = np.linspace(0, len(S["t"]) - 1, 41).astype(int)
     res["series"] = {"t": S["t"][k], "X": S["X"][k], "N": S["N"][k], "steps_deg": S["steps"][k],

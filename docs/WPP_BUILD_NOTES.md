@@ -214,3 +214,12 @@ Analytic, frozen law and nonrelativistic: (lambda_phase/Omega_orb)^2 = |domega/d
 | unequal-frequency lumps: relative phase beats, first-order force averages out | WP-S brief due this session | PRIOR_ART section pending (WP-S) |
 
 No claim that anything here is new.
+
+## 11. P2 scan (run 2026-10-02, Block P decisions applied)
+
+`swirl/arrange/p2scan.py` (labelling per Block P: clause 5 on D_eff for every run; unequal lumps "locked" or "bounded, beating"), `swirl/arrange/p2summary.py`, results `outputs/session3/wpP/p2/` (1822 runs, `summary.json`), 1059 s wall on 2 workers, 0 errors.
+
+- Labels: 1819 "not bonded", 3 "bounded, beating", no "bonded", "too short" or "no interaction". The 3 are unequal static pairs at 7.2 hw (N ratio 1.75 at dtheta 0 and 180; 2.5 at 90): distance changes 0.1 to 0.24% over T = 4603 (drifting together), trend 2.2 to 2.6e-7 against a limit of 3.3e-7, N exchange 3.4 to 8.3e-4 against 1e-3, steps beating at the frequency difference to 1e-5 relative; duration exactly 5 units (T = 5 contact units by construction). Marginal on two clauses; the N34 attraction the model lacks (below) is about 1e-3 F0 there, the same size as or larger than the model's beat-averaged force, and an estimate puts it above the trend limit.
+- Equal orbits at 3.6 to 6 hw: 448 of 448 ended (merged, flew apart or left the family) within 2 reference orbital periods.
+- Unequal static pairs, contact over the equal in-phase contact (dtheta 0 starts): ratio 1.05 to 2.0 merge only at 3.6 hw (0.96 to 0.99) and 1.05 to 1.1 also at 4.2 to 4.8 (1.0 to 1.02); ratio 2.5 and 2.95 merge at 3.6 (0.88, 0.76), 4.2 (2.04, 1.66) and 4.8 (4.19, 2.84); no dtheta-0 pair with ratio 1.2 or more merges at 6 or 7.2 hw within the cap.
+- N34 diagnostic (`swirl/arrange/n34_check.py`, `outputs/session3/wpP/n34_check.json`): F34/F0 = 0.18 to 0.23 at 3.6 hw, 0.033 to 0.039 at 4.8, 0.006 at 6, 0.001 at 7.2 (nearly independent of the N ratio); F34 over the model's beat-averaged force: 0.05 to 0.43 at ratio 1.1, 0.84 to 1.66 at 1.5, 1.8 to 6.6 at 2 (and of opposite sign at ratio 2, 7.2 hw, where the model's average is -1e-4 F0).

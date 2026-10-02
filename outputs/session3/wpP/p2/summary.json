@@ -1,0 +1,435 @@
+{
+ "what": "WP-P2 point-model scan, Block P (SESSION_03_PREDICTIONS.md)",
+ "n_runs": 1822,
+ "n_errors": 0,
+ "errors": [],
+ "settings": {
+  "T_cap": 10000.0,
+  "far_control_d": 45.0,
+  "perturbation": "1e-3 positions and phases, seed 20261002 + run",
+  "boost": "default (co-moving exact, counter-moving first order)",
+  "rtol": 1e-10,
+  "phase_clause": "D_eff for every run; unequal: locked / beating (p2scan.label)"
+ },
+ "outcome_counts": {
+  "unequal static pairs": {
+   "merged": 62,
+   "left the family": 23,
+   "flew apart": 78,
+   "bounded for the run": 87
+  },
+  "unequal static rings": {
+   "merged": 148,
+   "flew apart": 46,
+   "bounded for the run": 66,
+   "left the family": 52
+  },
+  "equal orbits": {
+   "merged": 176,
+   "flew apart": 446,
+   "left the family": 44,
+   "bounded for the run": 6
+  },
+  "unequal orbiting pairs": {
+   "merged": 7,
+   "flew apart": 240,
+   "left the family": 5
+  },
+  "alternating-size rings": {
+   "merged": 50,
+   "flew apart": 271,
+   "left the family": 12,
+   "bounded for the run": 3
+  }
+ },
+ "label_counts_all": {
+  "unequal static pairs": {
+   "not bonded": 247,
+   "bounded, beating": 3
+  },
+  "unequal static rings": {
+   "not bonded": 312
+  },
+  "equal orbits": {
+   "not bonded": 672
+  },
+  "unequal orbiting pairs": {
+   "not bonded": 252
+  },
+  "alternating-size rings": {
+   "not bonded": 336
+  }
+ },
+ "label_counts_not_flagged": {
+  "unequal static pairs": {
+   "not bonded": 131,
+   "bounded, beating": 3
+  },
+  "unequal static rings": {
+   "not bonded": 73
+  },
+  "equal orbits": {
+   "not bonded": 385
+  },
+  "unequal orbiting pairs": {
+   "not bonded": 201
+  },
+  "alternating-size rings": {
+   "not bonded": 236
+  }
+ },
+ "flagged_below_3p6hw": {
+  "unequal static pairs": 116,
+  "unequal static rings": 239,
+  "equal orbits": 287,
+  "unequal orbiting pairs": 51,
+  "alternating-size rings": 100
+ },
+ "candidates": [
+  {
+   "id": "p2_0230",
+   "group": "unequal static pairs",
+   "label": "bounded, beating",
+   "outcome": "bounded for the run",
+   "K": 2,
+   "spacing_hw": 7.2,
+   "size_kind": "pair",
+   "N_ratio": 1.75,
+   "pattern": "dtheta=0",
+   "speed_frac": 0.0,
+   "T": 4603.293067019212,
+   "closest_approach_hw": 6.4750880692608686,
+   "flag_below_3p6hw": false,
+   "failed_clauses": [
+    "phase_steps_held_deg"
+   ],
+   "label_info": {
+    "locked": false,
+    "beating": true,
+    "limit_deg": 0.25,
+    "counted": true
+   },
+   "mean_pair_distance_change_rel": -0.0012792897917011103
+  },
+  {
+   "id": "p2_0234",
+   "group": "unequal static pairs",
+   "label": "bounded, beating",
+   "outcome": "bounded for the run",
+   "K": 2,
+   "spacing_hw": 7.2,
+   "size_kind": "pair",
+   "N_ratio": 1.75,
+   "pattern": "dtheta=180",
+   "speed_frac": 0.0,
+   "T": 4603.293067019212,
+   "closest_approach_hw": 6.478734690446155,
+   "flag_below_3p6hw": false,
+   "failed_clauses": [
+    "phase_steps_held_deg"
+   ],
+   "label_info": {
+    "locked": false,
+    "beating": true,
+    "limit_deg": 0.25,
+    "counted": true
+   },
+   "mean_pair_distance_change_rel": -0.00104979220769863
+  },
+  {
+   "id": "p2_0242",
+   "group": "unequal static pairs",
+   "label": "bounded, beating",
+   "outcome": "bounded for the run",
+   "K": 2,
+   "spacing_hw": 7.2,
+   "size_kind": "pair",
+   "N_ratio": 2.5,
+   "pattern": "dtheta=90",
+   "speed_frac": 0.0,
+   "T": 4603.293067019212,
+   "closest_approach_hw": 6.028062891415815,
+   "flag_below_3p6hw": false,
+   "failed_clauses": [
+    "phase_steps_held_deg"
+   ],
+   "label_info": {
+    "locked": false,
+    "beating": true,
+    "limit_deg": 0.25,
+    "counted": true
+   },
+   "mean_pair_distance_change_rel": -0.000932433437771385
+  }
+ ],
+ "equal_orbits_3p6_to_6hw_ended_within_2_T_orb": {
+  "fraction": 1.0,
+  "n": 448,
+  "by_spacing_hw": {
+   "3.6": 1.0,
+   "4.2": 1.0,
+   "4.8": 1.0,
+   "6.0": 1.0
+  }
+ },
+ "unequal_static_pairs_contact_over_equal_inphase": {
+  "1.0": {
+   "runs": 25,
+   "merged": 5,
+   "outcomes": {
+    "merged": 5,
+    "left the family": 2,
+    "flew apart": 18
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 0.9999508449688301,
+    "min": 0.9992295347827289,
+    "max": 0.999997782777391
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.9999594014314526,
+     "4.2": 0.999997782777391,
+     "4.8": 0.9992295347827289,
+     "6.0": 0.9999508449688301,
+     "7.2": 0.9996008886177893
+    },
+    "not_merged_spacings": []
+   }
+  },
+  "1.05": {
+   "runs": 25,
+   "merged": 4,
+   "outcomes": {
+    "merged": 4,
+    "left the family": 3,
+    "flew apart": 17,
+    "bounded for the run": 1
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.0101011610980044,
+    "min": 0.9920093858045301,
+    "max": 1.0665111324398844
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.9920093858045301,
+     "4.2": 1.0007672778479206,
+     "4.8": 1.0194350443480884
+    },
+    "not_merged_spacings": [
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "1.1": {
+   "runs": 25,
+   "merged": 6,
+   "outcomes": {
+    "merged": 6,
+    "flew apart": 12,
+    "left the family": 2,
+    "bounded for the run": 5
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.1112855274696056,
+    "min": 0.9853931188966855,
+    "max": 1.2824781354234918
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.9853931188966855,
+     "4.2": 1.0114606628856089
+    },
+    "not_merged_spacings": [
+     4.8,
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "1.2": {
+   "runs": 25,
+   "merged": 5,
+   "outcomes": {
+    "merged": 5,
+    "flew apart": 11,
+    "left the family": 2,
+    "bounded for the run": 7
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.0500374728053785,
+    "min": 0.9777693210822381,
+    "max": 1.4288815413025542
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.9777693210822381
+    },
+    "not_merged_spacings": [
+     4.2,
+     4.8,
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "1.35": {
+   "runs": 25,
+   "merged": 5,
+   "outcomes": {
+    "merged": 5,
+    "left the family": 5,
+    "flew apart": 5,
+    "bounded for the run": 10
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.0114751962367232,
+    "min": 0.9725222880362108,
+    "max": 1.3799347374751554
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.9725222880362108
+    },
+    "not_merged_spacings": [
+     4.2,
+     4.8,
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "1.5": {
+   "runs": 25,
+   "merged": 6,
+   "outcomes": {
+    "merged": 6,
+    "bounded for the run": 12,
+    "flew apart": 7
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.121407538028753,
+    "min": 0.9596147870331952,
+    "max": 2.4099547501954826
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.9699411911086209
+    },
+    "not_merged_spacings": [
+     4.2,
+     4.8,
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "1.75": {
+   "runs": 25,
+   "merged": 6,
+   "outcomes": {
+    "merged": 6,
+    "flew apart": 5,
+    "left the family": 1,
+    "bounded for the run": 13
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.1600757383519529,
+    "min": 0.9041122566072917,
+    "max": 2.9492695627012093
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.9678944095756573
+    },
+    "not_merged_spacings": [
+     4.2,
+     4.8,
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "2.0": {
+   "runs": 25,
+   "merged": 6,
+   "outcomes": {
+    "merged": 6,
+    "flew apart": 1,
+    "bounded for the run": 17,
+    "left the family": 1
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.090299632299267,
+    "min": 0.8571640697727552,
+    "max": 2.0973844101000996
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.961962549167651
+    },
+    "not_merged_spacings": [
+     4.2,
+     4.8,
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "2.5": {
+   "runs": 25,
+   "merged": 9,
+   "outcomes": {
+    "merged": 9,
+    "flew apart": 1,
+    "left the family": 3,
+    "bounded for the run": 12
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.6878804202497428,
+    "min": 0.7702608325066038,
+    "max": 4.194886629265113
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.8751042649894044,
+     "4.2": 2.0352859111578274,
+     "4.8": 4.194886629265113
+    },
+    "not_merged_spacings": [
+     6.0,
+     7.2
+    ]
+   }
+  },
+  "2.95": {
+   "runs": 25,
+   "merged": 10,
+   "outcomes": {
+    "merged": 10,
+    "flew apart": 1,
+    "left the family": 4,
+    "bounded for the run": 10
+   },
+   "contact_over_equal_inphase_all_phases": {
+    "median": 1.5706680037305776,
+    "min": 0.6953232262980519,
+    "max": 3.567830093340066
+   },
+   "contact_over_equal_inphase_start_dtheta0": {
+    "values_by_spacing": {
+     "3.6": 0.759440367548583,
+     "4.2": 1.6557149318351099,
+     "4.8": 2.8357612831944503
+    },
+    "not_merged_spacings": [
+     6.0,
+     7.2
+    ]
+   }
+  }
+ },
+ "wall_s_total": 2111.5426065921783
+}
