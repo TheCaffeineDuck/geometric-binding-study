@@ -1,0 +1,753 @@
+{
+ "params_file": "outputs/session2/wpD/params_measured.json",
+ "fsup_table": "outputs/session2/wpD_measured/fsup_table.json",
+ "pair_law": {
+  "source": "params_default.json with kappa = 0.41721 and A = sqrt(21136.56/(2 pi)) from the WP-C pair batch (outputs/session2/wpC/analysis/criteria.json row C3, kappa_measure_i: kappa 0.41721, C 21136.56). E, N, hw, omega, domega_dN unchanged from the default: the batch fits only the pair-law shape (kappa, C), and does not measure these better than the single-lump family does.",
+  "A": 57.99989658575635,
+  "kappa": 0.41721,
+  "E": 2801.6838149373493,
+  "N": 2865.545211117668,
+  "hw": 3.344038183621855,
+  "omega": 0.909149280617113,
+  "domega_dN": -2.22827996225046e-05,
+  "beta": 1.3333333333333333,
+  "m": 1.0,
+  "g4": 0.3,
+  "g6": 0.12
+ },
+ "seed": 20261002,
+ "T": 2000.0,
+ "R_E11": 15.767,
+ "sigmas": [
+  0.001,
+  1e-05,
+  1e-07,
+  1e-10,
+  0.0
+ ],
+ "reference_3D": {
+  "ring_radius": {
+   "300": 15.36,
+   "500": 14.48,
+   "690": 13.13
+  },
+  "first_pair_contact_extrapolated": 700
+ },
+ "note": "same standard-normal draws as scan.run_one scaled by sigma; sigma applies to position and phase; stop at 2 hw (model B: not below the table end d_min); T_run = 2000",
+ "runs": [
+  {
+   "model": "A",
+   "R": 15.767,
+   "sigma": 0.001,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 436.2497357456889,
+   "t_end": 436.0,
+   "asymmetry_passes_1pct_at": 357.0,
+   "asymmetry_at_end_over_radius": 0.07084668804128799,
+   "asymmetry_max_over_radius": 0.07084668804128799,
+   "ring_radius": {
+    "100": 15.753361362504734,
+    "300": 15.644930606164628,
+    "500": null,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.98810105861278,
+    "300": 179.9635021488871,
+    "500": null,
+    "700": null
+   },
+   "ring_radius_end": 15.31995311821539,
+   "ring_radius_last_sample": 15.31995311821539,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "A",
+   "R": 15.767,
+   "sigma": 1e-05,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 640.4635940633384,
+   "t_end": 640.0,
+   "asymmetry_passes_1pct_at": 574.0,
+   "asymmetry_at_end_over_radius": 0.06127956574626842,
+   "asymmetry_max_over_radius": 0.06127956574626842,
+   "ring_radius": {
+    "100": 15.753702459635706,
+    "300": 15.64560955483398,
+    "500": 15.419234676896686,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99988121793672,
+    "300": 179.99962178244974,
+    "500": -179.9992765878831,
+    "700": null
+   },
+   "ring_radius_end": 15.024928880691354,
+   "ring_radius_last_sample": 15.024928880691354,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "A",
+   "R": 15.767,
+   "sigma": 1e-07,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 823.6997798258592,
+   "t_end": 823.5,
+   "asymmetry_passes_1pct_at": 772.5,
+   "asymmetry_at_end_over_radius": 0.051253377849949086,
+   "asymmetry_max_over_radius": 0.051253377849949086,
+   "ring_radius": {
+    "100": 15.753705890314372,
+    "300": 15.645613314704358,
+    "500": 15.41942529863943,
+    "700": 15.050809240831683
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.9999988121998,
+    "300": 179.99999621650008,
+    "500": -179.99999333280556,
+    "700": 179.99999559920593
+   },
+   "ring_radius_end": 14.588386659914846,
+   "ring_radius_last_sample": 14.588386659914846,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "A",
+   "R": 15.767,
+   "sigma": 1e-10,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1052.943667133437,
+   "t_end": 1052.5,
+   "asymmetry_passes_1pct_at": 1025.5,
+   "asymmetry_at_end_over_radius": 0.032974532015715666,
+   "asymmetry_max_over_radius": 0.032974532015715666,
+   "ring_radius": {
+    "100": 15.75370592493456,
+    "300": 15.645613352344405,
+    "500": 15.419425361418442,
+    "700": 15.05099101292741
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.9999999988122,
+    "300": 179.99999999621676,
+    "500": -179.9999999933388,
+    "700": 179.99999999191854
+   },
+   "ring_radius_end": 13.719296175574165,
+   "ring_radius_last_sample": 13.719296175574165,
+   "t_ring_radius_below": {
+    "14.0": 1021.0,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "A",
+   "R": 15.767,
+   "sigma": 0.0,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1264.2033794833847,
+   "t_end": 1264.0,
+   "asymmetry_passes_1pct_at": null,
+   "asymmetry_at_end_over_radius": 0.00010608401313825602,
+   "asymmetry_max_over_radius": 0.00010608401313825602,
+   "ring_radius": {
+    "100": 15.753705924967797,
+    "300": 15.645613352382973,
+    "500": 15.419425361462636,
+    "700": 15.050991013164891
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -180.0,
+    "300": -180.0,
+    "500": -180.0,
+    "700": -180.0
+   },
+   "ring_radius_end": 12.235482997415842,
+   "ring_radius_last_sample": 12.235482997415842,
+   "t_ring_radius_below": {
+    "14.0": 1024.0,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "A",
+   "R": 15.6403250161789,
+   "sigma": 0.001,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 421.982302183887,
+   "t_end": 421.5,
+   "asymmetry_passes_1pct_at": 345.5,
+   "asymmetry_at_end_over_radius": 0.06969036758718994,
+   "asymmetry_max_over_radius": 0.06969036758718994,
+   "ring_radius": {
+    "100": 15.625265086107873,
+    "300": 15.504879644273172,
+    "500": null,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.98350014000374,
+    "300": 179.95166630534845,
+    "500": null,
+    "700": null
+   },
+   "ring_radius_end": 15.191895799777745,
+   "ring_radius_last_sample": 15.191895799777745,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "A",
+   "R": 15.6403250161789,
+   "sigma": 1e-05,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 619.0298685486546,
+   "t_end": 619.0,
+   "asymmetry_passes_1pct_at": 555.0,
+   "asymmetry_at_end_over_radius": 0.061836105670827694,
+   "asymmetry_max_over_radius": 0.061836105670827694,
+   "ring_radius": {
+    "100": 15.62560640117808,
+    "300": 15.505745162387782,
+    "500": 15.253230721717628,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99983521675,
+    "300": 179.99949896243828,
+    "500": -179.99911786737192,
+    "700": null
+   },
+   "ring_radius_end": 14.87558241141088,
+   "ring_radius_last_sample": 14.87558241141088,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "A",
+   "R": 15.6403250161789,
+   "sigma": 1e-07,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 795.1551628443492,
+   "t_end": 795.0,
+   "asymmetry_passes_1pct_at": 746.0,
+   "asymmetry_at_end_over_radius": 0.05069902209307708,
+   "asymmetry_max_over_radius": 0.05069902209307708,
+   "ring_radius": {
+    "100": 15.625609835748117,
+    "300": 15.505748977567068,
+    "500": 15.2536205216563,
+    "700": 14.837982571049716
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99999835218918,
+    "300": 179.99999498785263,
+    "500": -179.9999921233036,
+    "700": -179.99999859583497
+   },
+   "ring_radius_end": 14.428295606184127,
+   "ring_radius_last_sample": 14.428295606184127,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "A",
+   "R": 15.6403250161789,
+   "sigma": 1e-10,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1014.0730109315571,
+   "t_end": 1014.0,
+   "asymmetry_passes_1pct_at": 988.0,
+   "asymmetry_at_end_over_radius": 0.032990581594786884,
+   "asymmetry_max_over_radius": 0.032990581594786884,
+   "ring_radius": {
+    "100": 15.625609870406096,
+    "300": 15.5057490155861,
+    "500": 15.253620605347722,
+    "700": 14.838580980746542
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99999999835242,
+    "300": 179.99999999498795,
+    "500": -179.99999999213287,
+    "700": 179.99999999310884
+   },
+   "ring_radius_end": 13.523525839671636,
+   "ring_radius_last_sample": 13.523525839671636,
+   "t_ring_radius_below": {
+    "14.0": 945.5,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "A",
+   "R": 15.6403250161789,
+   "sigma": 0.0,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1195.5643053626668,
+   "t_end": 1195.5,
+   "asymmetry_passes_1pct_at": null,
+   "asymmetry_at_end_over_radius": 0.002893794016413643,
+   "asymmetry_max_over_radius": 0.002893794016413643,
+   "ring_radius": {
+    "100": 15.625609870441584,
+    "300": 15.505749015626412,
+    "500": 15.253620605392312,
+    "700": 14.838580981399119
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -180.0,
+    "300": -180.0,
+    "500": -180.0,
+    "700": -180.0
+   },
+   "ring_radius_end": 12.180431475499349,
+   "ring_radius_last_sample": 12.180431475499349,
+   "t_ring_radius_below": {
+    "14.0": 946.0,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "B",
+   "R": 15.767,
+   "sigma": 0.001,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 453.7958803693731,
+   "t_end": 453.5,
+   "asymmetry_passes_1pct_at": 366.5,
+   "asymmetry_at_end_over_radius": 0.06938667794299823,
+   "asymmetry_max_over_radius": 0.06938667794299823,
+   "ring_radius": {
+    "100": 15.766312327837364,
+    "300": 15.76334324348982,
+    "500": null,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.98825779532865,
+    "300": 179.96673089590323,
+    "500": null,
+    "700": null
+   },
+   "ring_radius_end": 15.58773211818334,
+   "ring_radius_last_sample": 15.58773211818334,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "B",
+   "R": 15.767,
+   "sigma": 1e-05,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 681.5841387426588,
+   "t_end": 681.5,
+   "asymmetry_passes_1pct_at": 602.5,
+   "asymmetry_at_end_over_radius": 0.06138618776084862,
+   "asymmetry_max_over_radius": 0.06138618776084862,
+   "ring_radius": {
+    "100": 15.766649035739853,
+    "300": 15.763878857638558,
+    "500": 15.758309556827987,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99988278385695,
+    "300": 179.99965593126328,
+    "500": -179.9994157968041,
+    "700": null
+   },
+   "ring_radius_end": 15.598324148155292,
+   "ring_radius_last_sample": 15.598324148155292,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "B",
+   "R": 15.767,
+   "sigma": 1e-07,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 906.1016284987788,
+   "t_end": 906.0,
+   "asymmetry_passes_1pct_at": 837.5,
+   "asymmetry_at_end_over_radius": 0.05178531137681402,
+   "asymmetry_max_over_radius": 0.05178531137681402,
+   "ring_radius": {
+    "100": 15.766652422022474,
+    "300": 15.76388219839797,
+    "500": 15.758395707366544,
+    "700": 15.750275031210448
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99999882785946,
+    "300": 179.99999655817462,
+    "500": -179.99999450952683,
+    "700": 179.99999392415086
+   },
+   "ring_radius_end": 15.58513010987748,
+   "ring_radius_last_sample": 15.58513010987748,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "B",
+   "R": 15.767,
+   "sigma": 1e-10,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1235.2874038426828,
+   "t_end": 1235.0,
+   "asymmetry_passes_1pct_at": 1187.0,
+   "asymmetry_at_end_over_radius": 0.035910127529500145,
+   "asymmetry_max_over_radius": 0.035910127529500145,
+   "ring_radius": {
+    "100": 15.766652456195082,
+    "300": 15.76388223190928,
+    "500": 15.758395747828594,
+    "700": 15.750300725347065
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.9999999988279,
+    "300": 179.9999999965582,
+    "500": -179.99999999451316,
+    "700": 179.99999999284532
+   },
+   "ring_radius_end": 15.519478494759875,
+   "ring_radius_last_sample": 15.519478494759875,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "B",
+   "R": 15.767,
+   "sigma": 0.0,
+   "nn_spacing0": 15.766999999999994,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1630.379174234209,
+   "t_end": 1630.0,
+   "asymmetry_passes_1pct_at": null,
+   "asymmetry_at_end_over_radius": 0.00696011736223524,
+   "asymmetry_max_over_radius": 0.007080105086769067,
+   "ring_radius": {
+    "100": 15.766652456229288,
+    "300": 15.7638822319428,
+    "500": 15.75839574786078,
+    "700": 15.750300725402921
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -180.0,
+    "300": -180.0,
+    "500": -180.0,
+    "700": -180.0
+   },
+   "ring_radius_end": 15.318725018824756,
+   "ring_radius_last_sample": 15.318725018824756,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "E11 ring radius"
+  },
+  {
+   "model": "B",
+   "R": 15.6403250161789,
+   "sigma": 0.001,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 440.03041174936146,
+   "t_end": 440.0,
+   "asymmetry_passes_1pct_at": 355.5,
+   "asymmetry_at_end_over_radius": 0.06922982508425513,
+   "asymmetry_max_over_radius": 0.06922982508425513,
+   "ring_radius": {
+    "100": 15.639985053176133,
+    "300": 15.639671705467364,
+    "500": null,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.9836731549834,
+    "300": 179.95481556512797,
+    "500": null,
+    "700": null
+   },
+   "ring_radius_end": 15.471994296130843,
+   "ring_radius_last_sample": 15.471994296130843,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "B",
+   "R": 15.6403250161789,
+   "sigma": 1e-05,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 661.4575008987345,
+   "t_end": 661.0,
+   "asymmetry_passes_1pct_at": 584.5,
+   "asymmetry_at_end_over_radius": 0.0604049339548374,
+   "asymmetry_max_over_radius": 0.0604049339548374,
+   "ring_radius": {
+    "100": 15.640321374219745,
+    "300": 15.640319645335007,
+    "500": 15.64016465532868,
+    "700": null
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.9998369452078,
+    "300": 179.99953324382946,
+    "500": -179.99923816017113,
+    "700": null
+   },
+   "ring_radius_end": 15.49377953195769,
+   "ring_radius_last_sample": 15.49377953195769,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "B",
+   "R": 15.6403250161789,
+   "sigma": 1e-07,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 880.2355718350244,
+   "t_end": 880.0,
+   "asymmetry_passes_1pct_at": 813.5,
+   "asymmetry_at_end_over_radius": 0.051169932120906404,
+   "asymmetry_max_over_radius": 0.051169932120906404,
+   "ring_radius": {
+    "100": 15.640324758273602,
+    "300": 15.640322977601004,
+    "500": 15.640319444955848,
+    "700": 15.640254388607184
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99999836947362,
+    "300": 179.99999533094578,
+    "500": -179.99999292407526,
+    "700": 179.9999934540252
+   },
+   "ring_radius_end": 15.490755885147827,
+   "ring_radius_last_sample": 15.490755885147827,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "B",
+   "R": 15.6403250161789,
+   "sigma": 1e-10,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1202.301815008531,
+   "t_end": 1202.0,
+   "asymmetry_passes_1pct_at": 1155.0,
+   "asymmetry_at_end_over_radius": 0.03553088898580917,
+   "asymmetry_max_over_radius": 0.03553088898580917,
+   "ring_radius": {
+    "100": 15.640324792423888,
+    "300": 15.640323010914651,
+    "500": 15.640319491705483,
+    "700": 15.640314321278431
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -179.99999999836953,
+    "300": 179.99999999533114,
+    "500": -179.9999999929299,
+    "700": 179.99999999149526
+   },
+   "ring_radius_end": 15.446427265048838,
+   "ring_radius_last_sample": 15.446427265048838,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  },
+  {
+   "model": "B",
+   "R": 15.6403250161789,
+   "sigma": 0.0,
+   "nn_spacing0": 15.640325016178894,
+   "stop_distance": 6.68807636724371,
+   "outcome": "merger (contact: a pair reaches the stop distance)",
+   "contact_time": 1607.1755263720893,
+   "t_end": 1607.0,
+   "asymmetry_passes_1pct_at": null,
+   "asymmetry_at_end_over_radius": 0.0032076159441619253,
+   "asymmetry_max_over_radius": 0.0034328227150899017,
+   "ring_radius": {
+    "100": 15.640324792458069,
+    "300": 15.64032301094798,
+    "500": 15.640319491737158,
+    "700": 15.640314321367415
+   },
+   "ring_centre_phase_diff_deg": {
+    "100": -180.0,
+    "300": -180.0,
+    "500": -179.99999999999986,
+    "700": -180.0
+   },
+   "ring_radius_end": 15.257121562678899,
+   "ring_radius_last_sample": 15.257121562678899,
+   "t_ring_radius_below": {
+    "14.0": null,
+    "12.0": null,
+    "10.0": null,
+    "8.0": null,
+    "6.0": null
+   },
+   "R_label": "model-B balance radius (6.5253/kappa)"
+  }
+ ],
+ "reproduction_check_balance_R_sigma1e-3_T1000": {
+  "runs": {
+   "A": {
+    "R": 15.6403250161789,
+    "contact_time": 421.982302183887
+   },
+   "B": {
+    "R": 15.6403250161789,
+    "contact_time": 440.03041174936146
+   }
+  },
+  "stored_scan_B_kappaR_6.5253_merger": 440.0226443579101,
+  "note": "balance R = kappaR / kappa from the stored candidate row"
+ }
+}

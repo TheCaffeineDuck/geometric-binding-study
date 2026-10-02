@@ -1,0 +1,6 @@
+# Byte-identical copies of files in ../results/ (AWS runs), placed here so that the Mac analysis in ../analysis_mac/ could be run on one directory.
+gate.json
+single_x12_t*.json
+twin_d16_p000.json
+twin_d20_p000.json
+twin_d24_p000.json
