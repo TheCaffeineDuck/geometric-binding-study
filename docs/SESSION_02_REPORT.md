@@ -24,7 +24,7 @@ Date: 2026-10-02. Plan: `docs/SESSION_02_PLAN.md`, WP0 to WP-F. All work is on `
 
 ## Verdict
 
-**No arrangement of distinct swirls stayed bonded in any test made, at beta = 4/3.** {{E11_VERDICT}}
+**No arrangement of distinct swirls stayed bonded in any test made, at beta = 4/3.** The one arrangement still intact at the end of its first run (a ring of six around an opposite-phase centre) merged in its longer second run: two pairs of ring lumps came into contact at t = 699, and the five lumps left flew apart. {{E11_FINE_VERDICT}}
 
 - **Two swirls follow the derived tail law** to about 3 to 7% for separations of 3.6 to 7 half-widths while the two lumps stay nearly equal. In phase they attract and merge; in anti-phase they repel; in between, N flows from the lump that leads in phase to the one that lags, the relative phase runs toward 180 degrees, and the pair ends up repelling. The measured decay constant is 0.416 to 0.417 against 0.4165. No pair is bonded. Departures: the law fails inside 3.6 half-widths, as derived; the force is 2 to 6% high at the larger separations; and one pair (45 degrees at the closest separation) shows a force 1.3 to 1.5 times the law once the lumps have become unequal, which is unexplained.
 - **At first order there is a structural reason.** In the pair law, neighbours attract only when their relative phase is below 90 degrees, and that is when their relative phase is unstable; at exactly 90 degrees the phase is neutral, and above it the phase is stable and the neighbours repel. This is derived for equal lumps and uniform stepped rings. It does not cover second-order forces, unequal lumps, or orbital motion.
@@ -220,13 +220,16 @@ Done independently of the brief, then compared; re-derived by the reviewer.
 | E13 | 5-ring, 144 degree steps (4.8); control | no merger, expanding (ratio above 1.2) | five intact lumps, radius 13.6 to 26 (ratio 1.9) | hit |
 | E14 | 5-ring, 72 steps, far apart (9.0); control | nothing happens | nothing happens. Also labelled bonded by the criterion | hit as a control |
 | E15 | linear twin of E1; resolution and box checks of E3 | twin gone by T = 100 (group energy below 0.1); checks: same class, contact within 15% | twin: 0.236 at 100, 0.098 at 150 (0.058 by the ball measure). Checks: identical to E3 up to contact, then diverging after t = 235; both labelled "merged" against E3's "flew apart" | twin: miss, within 3 times its target. Class: miss as scored (F-018). Contact: hit, but it could not fail |
-| E-all | no arrangement is bonded | {{E_ALL_MEASURED}} | {{E_ALL_OUTCOME}} |
+| E-all | no arrangement is bonded | none: 13 of 14 merged, flew apart or were never distinct lumps; E11 merged in its second run; E14 is the far-apart control | hit, with one clause wrong as I wrote it ("steps of 90 degrees or more expand": E10 merges) |
 | E-rot | stepped rings carry angular momentum (4 to 13% of N per lump at 4.8 hw), conserved to the level of the absorbed radiation | 7.2% of N per lump for E1; initial values within +0.5 to +3.4% of the overlap formula; conserved to 0.2 to 1.5% until merger or ejection | first half hit; second half not tested (absorbed angular momentum is not recorded) |
 | E-CD | Claude Desktop's two balance points do not hold in 3D | neither is a set of distinct lumps (E4, E8) | hit |
 
 **E11, first run.** The ring's inward speed grows from 0.0004 at t = 100 to 0.0079 averaged over t = 600 to 690, with no turning point after t = 85. The centre-to-ring phase swings about 180 degrees by +-17 degrees with a period of about 350, with 9% of N passing between centre and ring; the forces cancel only at exactly 180, and the swing leaves a net inward pull of the measured size. From t of about 500 the hexagon loses its symmetry and two pairs of neighbours close up; the first pair reaches 2 hw at an extrapolated t of 699 to 709. The run stopped at 700.
 
-**E11, second run** (required by the plan before a bonded outcome is reported; predictions in Block 3b). {{E11_SECTION}}
+**E11, second run** (required by the plan before a bonded outcome is reported; predictions in Block 3b). 
+- **Longer run (same grid, T = 1200): merged.** Its series reproduces the first run up to T = 700. The first pair of ring lumps comes within 2 hw at t = 699.4, and the count of distinct lumps drops from 7 to 5 in the window centred at 710: two pairs of neighbours have merged. The five lumps that remain fly apart: at t = 1185 one is 8.6 from the centre and the other four are 34 to 37 out, at the edge of the sponge; 35% of the energy has been absorbed by T = 1200. Prediction (Block 3b): merged, contact between 700 and 850. Outcome: hit on the outcome; the contact time is 0.6 below the lower edge of my window by the pair-distance reading and inside it (710) by the count reading. The reviewer's extrapolation from the first run was 699 to 709.
+- **Finer grid (dx = 0.393, T = 1000).** {{E11_FINE}}
+- So E11 is not a bonded group: it is a slow collapse, driven by the swing of the centre-to-ring phase about 180 degrees and ended by a symmetry-breaking pairing of neighbours.
 
 **The criterion was flawed, and I wrote it.** It labels the far-apart control bonded because nothing moves, and labelled E11 bonded because its collapse takes about as long as the first run. It has no trend test, no link between run length and interaction time, and no comparison with the control. No conclusion in this report rests on the label "bonded"; a sound rule is proposed in section 13.
 
@@ -243,7 +246,7 @@ Done independently of the brief, then compared; re-derived by the reviewer.
 - WP-B: B1 tracking (7.3e-5); B2 (by symmetry).
 - WP-C: C0a (2.9e-15); the 3D gate G1 and G2; C1, C3, C5a, C5c, C5d, C6 (outcome only), C7, C8, C9, C10, C12 (loose tolerance), C13.
 - WP-D: Claude Desktop's two balance numbers, in the point model.
-- WP-E: E1, E2, E4, E5, E6, E8, E9, E10, E12, E13, E14, E-CD, the first half of E-rot.{{E11_HITLINE}}
+- WP-E: E1, E2, E4, E5, E6, E8, E9, E10, E12, E13, E14, E-CD, the first half of E-rot. E-all. The second run of E11 (merged; contact 699.4 against a window of 700 to 850).
 
 **Not tested.** A5 (no beta is permanent): nothing above 4/3 died. The second half of E-rot. The plane-stress statement N15.
 
@@ -297,7 +300,7 @@ Done independently of the brief, then compared; re-derived by the reviewer.
 **F-016. frac(5000) "about 0.956" (inside B1).** Section 4. An untraced Session 1 number of mine, which the Session 1 parameter note had already flagged as having no data file.
 
 **F-017. E11 (6-ring around an opposite-phase centre).**
-- **Expected:** merged, contact between 320 and 650. **Measured, first run:** no contact by 700; labelled bonded. {{E11_F017}}
+- **Expected:** merged, contact between 320 and 650. **Measured, first run:** no contact by 700; labelled bonded. **Second run:** merged; first pair within 2 hw at 699.4; the count goes from 7 to 5 at 710; the remaining five lumps fly apart.
 - **Causes:** I used the point model's merger time (463) as a target, though it depends on the size of the model's starting perturbation; the balance rests on second-order terms; and my bonded criterion cannot tell slow contraction from a bond. {{E11_SEED}}
 
 **F-018. Scoring in the arrangement table.**
