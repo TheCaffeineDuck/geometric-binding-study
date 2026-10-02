@@ -145,3 +145,23 @@ def test_gate_recorded():
         assert abs(r["E_ratio_vs_E0ref_err"]) < 1e-4
         assert abs(r["omega_ratio_err"]) < 1e-4
         assert abs(r["E_ball_drift_minus_rest"]) < 1e-3
+
+
+@pytest.mark.parametrize("eps", [0.1, -0.1])
+def test_stretch_axis_and_sign(H, eps):
+    """phi(S x) with S = diag(sqrt(1 + eps), sqrt(1 + eps), 1/(1 + eps)): the second moments of the N density
+    scale as 1/S_a^2, so <z^2>/<x^2> = (1 + eps)^3 exactly for a spherical density (det S = 1): eps > 0 is
+    elongated along z, eps < 0 flattened along z, and x and y stay equal."""
+    def moments(phi, pt):
+        n = phi.shape[0]
+        x = H["dx"] * (np.arange(n) - n // 2)
+        rho = pt * pt + H["omega"] ** 2 * phi * phi
+        return [float(np.sum(rho * (x ** 2).reshape([-1 if b == a else 1 for b in range(3)])) / np.sum(rho))
+                for a in range(3)]
+    m0 = moments(*boost.lump_cube(H, 0.0))
+    m = moments(*boost.lump_cube(H, 0.0, quad_eps=eps))
+    ratio = (m[2] / m[0]) / (m0[2] / m0[0])
+    print("\nstretch %+g: <z^2>/<x^2> = %.6f against (1 + eps)^3 = %.6f; <y^2>/<x^2> = %.8f"
+          % (eps, ratio, (1 + eps) ** 3, m[1] / m[0]))
+    assert abs(ratio / (1 + eps) ** 3 - 1) < 1e-4 and abs(m[1] / m[0] - 1) < 1e-10
+    assert (ratio > 1) == (eps > 0)

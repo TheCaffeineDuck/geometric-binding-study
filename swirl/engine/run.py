@@ -29,6 +29,8 @@ Config keys (defaults in DEFAULTS; `init` is required)
                          crossings of phi(center, t)) that fits inside it
     checkpoint_every     time between checkpoints (if checkpoint_dir is given)
     threads              FFT workers and numba threads
+    shape                optional {"every": time, "R": radius}: energy-density shape (a2, a3, centroid,
+                         boost.shape) about the tracked lump 0 (or `center`), in series["shape"]
     lumps                optional (absent = off): per-lump, momentum, angular momentum,
                          half-space momentum and lump-count diagnostics, see lumps.py
                          (LUMP_DEFAULTS). When present, the multi-lump guards run too
@@ -289,6 +291,8 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
     if cfg.get("lumps"):
         ld = LumpDiagnostics(ev, cfg["lumps"])
         l_every = max(1, int(cfg["lumps"]["every"]))
+    sh_cfg = cfg.get("shape")          # optional {"every": time, "R": radius}: boost.shape about lump 0
+    sh_every = max(1, int(round(sh_cfg["every"] / dt))) if sh_cfg else None
 
     init_info = {}
     ck = _load_checkpoint(checkpoint_dir) if checkpoint_dir else None
@@ -330,6 +334,11 @@ def run(config, out_path=None, checkpoint_dir=None, max_steps=None, verbose=Fals
                 ld.read_points(n * dt)
                 if n % l_every == 0 or n == n_total:
                     ld.sample(n * dt)
+            if sh_cfg and (n % sh_every == 0 or n == n_total):
+                from swirl.engine.boost import shape
+                rec = shape(ev, ld.centers[0] if ld is not None else cfg["center"], sh_cfg["R"])
+                rec["t"] = n * dt
+                series.setdefault("shape", []).append(rec)
             if checkpoint_dir and n % c_every == 0 and start < n < n_total:
                 _save_checkpoint(checkpoint_dir, ev, cfg, series, point,
                                  wall_prior + time.perf_counter() - t0, ld, init_info)

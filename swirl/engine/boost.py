@@ -40,7 +40,7 @@ import scipy.fft as sfft
 
 from swirl.engine.evolver import Evolver
 from swirl.engine.snapshot import (MARGIN_DEFAULT, _radial_grid, load_source, phase_states, phase_taus,
-                                   spectral_shift, window_profile)
+                                   resample, spectral_shift, window_profile)
 
 WINDOW = [26.0, 30.0]
 M_HARM = 32
@@ -51,14 +51,22 @@ _CACHE = {}
 # Harmonics
 # ---------------------------------------------------------------------------
 
-def harmonics(source, window=WINDOW, margin=MARGIN_DEFAULT, M=M_HARM, sha256=None, threads=2):
-    """Harmonic decomposition of the windowed source cube over one period. Cached per arguments."""
-    key = (source, tuple(window), float(margin), int(M))
+def harmonics(source, window=WINDOW, margin=MARGIN_DEFAULT, M=M_HARM, sha256=None, threads=2, dx_target=None):
+    """Harmonic decomposition of the windowed source cube over one period. Cached per arguments.
+    dx_target: resample each source state spectrally to this spacing first (resolution checks);
+    L_source / dx_target must be an even integer."""
+    key = (source, tuple(window), float(margin), int(M), dx_target)
     if key in _CACHE:
         return _CACHE[key]
     src = load_source(source, sha256)
     meta = src[2]
     dx, Ns = meta["dx"], meta["params"]["N"]
+    n_res = None
+    if dx_target is not None and abs(dx_target - dx) > 1e-9 * dx:
+        n_res = int(round(meta["params"]["L"] / dx_target))
+        if n_res % 2 or abs(meta["params"]["L"] / n_res - dx_target) > 1e-9 * dx_target:
+            raise ValueError("L_source / dx_target must be an even integer")
+        dx, Ns = meta["params"]["L"] / n_res, n_res
     Mc = int(np.ceil((window[1] + margin) / dx))
     if Mc > Ns // 2:
         raise ValueError("source box too small for the window")
@@ -73,6 +81,8 @@ def harmonics(source, window=WINDOW, margin=MARGIN_DEFAULT, M=M_HARM, sha256=Non
     first = {}
 
     def consume(k, phi, pi, rec):
+        if n_res is not None:
+            phi, pi = resample(phi, n_res), resample(pi, n_res)
         p, q = phi[sl, sl, sl] * w, pi[sl, sl, sl] * w
         if k == 0:
             first["phi"], first["pi"] = p.copy(), q.copy()
@@ -140,15 +150,34 @@ def smooth_random(n, dx, ell, seed):
     return xi / np.sqrt(np.mean(xi * xi))
 
 
-def lump_cube(H, theta=0.0, v=0.0, quad_eps=0.0, random=None):
+def apply_kick(phi, pt, dx, kick):
+    """The L1 radial disturbances on a cube centred at index n/2 (spot checks of radial points):
+    kick = {kind: field | velocity | removal, eps or s, hw}; tapers as swirl.family.wpl."""
+    from swirl.family.wpl import CORE, KICK_BALL, taper
+    n = phi.shape[0]
+    r = _radial_grid(n, dx, n // 2)
+    hw = kick["hw"]
+    if kick["kind"] in ("field", "velocity"):
+        w = 1.0 + kick["eps"] * taper(r, KICK_BALL[0] * hw, KICK_BALL[1] * hw)
+        return (phi * w, pt) if kick["kind"] == "field" else (phi, pt * w)
+    if kick["kind"] == "removal":
+        f = 1.0 - kick["s"] * taper(r, CORE[0] * hw, CORE[1] * hw)
+        return phi * f, pt * f
+    raise ValueError("unknown kick %s" % kick["kind"])
+
+
+def lump_cube(H, theta=0.0, v=0.0, quad_eps=0.0, random=None, kick=None):
     """(phi, phi_t) of one lump on the cube (centre at index Mc), lab frame. theta: phase (rad) at the
-    centre at t' = 0; v: boost speed along x; quad_eps: stretch along z; random: {amp, ell, seed}."""
+    centre at t' = 0; v: boost speed along x; quad_eps: stretch along z; random: {amp, ell, seed};
+    kick: an L1 radial disturbance (apply_kick)."""
     n = 2 * H["Mc"]
     dx = H["dx"]
-    if v != 0.0 and (quad_eps or random):
+    if v != 0.0 and (quad_eps or random or kick):
         raise ValueError("boost and distortion are not combined")
     if v == 0.0:
         phi, pt = reconstruct(H, theta)
+        if kick:
+            phi, pt = apply_kick(phi, pt, dx, kick)
         if quad_eps:
             xs = dx * (np.arange(n) - n // 2)
             s1, s3 = np.sqrt(1.0 + quad_eps), 1.0 / (1.0 + quad_eps)
@@ -257,17 +286,19 @@ def place_cubes(cubes, coords, L):
 def place_wpl(entry, coords, L, threads=2):
     """init["wpl"] = {source, sha256, window, margin, M, lumps: [{center, phase (rad), v, quad_eps, random}]}"""
     H = harmonics(entry["source"], entry.get("window", WINDOW), entry.get("margin", MARGIN_DEFAULT),
-                  entry.get("M", M_HARM), entry.get("sha256"), threads)
+                  entry.get("M", M_HARM), entry.get("sha256"), threads, entry.get("dx_target"))
     dx = L / coords.size
     if abs(dx - H["dx"]) > 1e-9 * dx:
         raise ValueError("target dx %.6g differs from the source dx %.6g" % (dx, H["dx"]))
     cubes = []
     for lp in entry["lumps"]:
-        cp, cv = lump_cube(H, lp.get("phase", 0.0), lp.get("v", 0.0), lp.get("quad_eps", 0.0), lp.get("random"))
+        cp, cv = lump_cube(H, lp.get("phase", 0.0), lp.get("v", 0.0), lp.get("quad_eps", 0.0), lp.get("random"),
+                           lp.get("kick"))
         cubes.append((cp, cv, lp["center"]))
     phi, pi, recs = place_cubes(cubes, coords, L)
     info = dict(source=H["source"], sha256=H["sha256"], omega_source=H["omega"], window=H["window"],
-                margin=H["margin"], M=H["M"], cube_points=2 * H["Mc"], lumps=[{**lp, **r} for lp, r in zip(entry["lumps"], recs)])
+                margin=H["margin"], M=H["M"], cube_points=2 * H["Mc"], dx=H["dx"],
+                lumps=[{**lp, **r} for lp, r in zip(entry["lumps"], recs)])
     return phi, pi, info
 
 
@@ -285,6 +316,37 @@ def two_lump_entry(source, d, phase_deg, v, window=WINDOW, axis_offset=(0.0, 0.0
     return dict(source=source, sha256=sha256, window=list(window),
                 lumps=[dict(center=[-0.5 * d, y, z], phase=0.0, v=float(v)),
                        dict(center=[0.5 * d, y, z], phase=float(np.radians(phase_deg)), v=-float(v))])
+
+
+# ---------------------------------------------------------------------------
+# Shape of a lump (Session 1 shape.py definitions)
+# ---------------------------------------------------------------------------
+
+def shape(ev, center, R):
+    """Energy-density shape in a sphere of radius R: centroid c (two passes from `center`),
+    M = int (x - c)(x - c) e, a2 = (lambda_max - lambda_min) / tr M, T = int (x - c)^3 e,
+    a3 = ||T||_F / (E_s (tr M / E_s)^{3/2}). A single snapshot (it oscillates at 2 omega)."""
+    from swirl.engine.lumps import _wrap
+    e = ev.energy_density()
+    L, dV = ev.L, ev.dV
+    X = [_wrap(ev.coords - center[a], L).reshape([-1 if b == a else 1 for b in range(3)]) for a in range(3)]
+    c = np.zeros(3)
+    for _ in range(2):
+        r2 = sum((X[a] - c[a]) ** 2 for a in range(3))
+        w = np.where(r2 < R * R, e, 0.0)
+        S = w.sum()
+        c = np.array([(w * X[a]).sum() / S for a in range(3)])
+    r2 = sum((X[a] - c[a]) ** 2 for a in range(3))
+    w = np.where(r2 < R * R, e, 0.0)
+    Es = w.sum() * dV
+    Y = [np.broadcast_to(X[a] - c[a], e.shape) for a in range(3)]
+    Mm = np.array([[(w * Y[i] * Y[j]).sum() for j in range(3)] for i in range(3)]) * dV
+    T = np.array([[[(w * Y[i] * Y[j] * Y[k]).sum() for k in range(3)] for j in range(3)] for i in range(3)]) * dV
+    lam = np.linalg.eigvalsh(Mm)
+    trM = np.trace(Mm)
+    return dict(centroid=(np.asarray(center, float) + c).tolist(), a2=float((lam[-1] - lam[0]) / trM),
+                a3=float(np.sqrt((T ** 2).sum()) / (Es * (trM / Es) ** 1.5)), E_sphere=float(Es),
+                eig_M=lam.tolist(), M=Mm.tolist())
 
 
 # ---------------------------------------------------------------------------

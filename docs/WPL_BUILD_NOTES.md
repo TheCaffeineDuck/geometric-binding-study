@@ -23,7 +23,7 @@ Code: `swirl/family/wpl.py` (L1), `swirl/engine/boost.py` (L2; hooked into `init
 - **The RK4 kernel** is radial._advance with per-step records added; it is bit-identical to `Radial.step` (test).
 - **Disturbances** (module docstring has the formulas):
   - (a) field: phi -> phi (1 + eps w), w = 1 to 2 hw, C-infinity taper to 0 at 3 hw, phase 0. (a) velocity: the same on phi_t, phase 90.
-  - (b) removal: (phi, phi_t) -> (1 - s c) (phi, phi_t), c = 1 to 1 hw, taper to 0 at 1.5 hw, phase 0. Distinct from (a): both components are scaled (independent of the phase) and only the core is cut, so the profile is dented rather than rescaled. The ball r < 1.5 hw holds most of N, so s and Delta N / N are close to -(2 s - s^2) x 0.76 (table below).
+  - (b) removal: (phi, phi_t) -> (1 - s c) (phi, phi_t), c = 1 to 1 hw, taper to 0 at 1.5 hw, phase 0. Distinct from (a): both components are scaled (independent of the phase) and only the core is cut, so the profile is dented rather than rescaled. s is the fraction by which phi and phi_t are scaled in the core, not a fraction of N. The ball r < 1.5 hw holds most of N, so Delta N / N is close to -(2 s - s^2) x 0.76 (s = 0.2 removes 28% of N; table below).
   - (c) ingoing Gaussian packet built with Omega = sqrt(m^2 - d_r^2) by FFT: the exact ingoing solution of the linear u-equation. Slow: k0 = 0.3, sigma = 20 (k0 sigma = 6). Third harmonic: k0 = k3 = sqrt(9 omega_s^2 - 1) (2.530, 2.539, 2.751), sigma = 5. Launch R0 = rN + 10 + 4 sigma. The slow packet needs a larger box: scale 2.25 at beta = 4/3, 1.25 at beta = 5 (`packet_scale`). Scan variable: efrac = E_packet / E(r < rN).
 - **N estimators.** N_inst (instantaneous) and N per period (= (1/2 pi) times the time integral of int w phi_t^2 over one period between upward zero crossings of phi(0), the Session 2 estimator <int phi_t^2>/omega), for the whole box, the ball rN and the ball 3 hw. The t = 0 table uses N_inst at the disturbance phase; the runs report the period N against the control.
 - **E + absorbed:** the sponge dissipation 4 pi dr sum sigma v^2 is integrated with the RK4 stage weights.
@@ -92,15 +92,15 @@ Reference values at t_s: N_inst(ball rN) 2977.7 / 2845.6 / 6380.6 and N per peri
 - (c) at t = 0: the packet sits outside the ball, so Delta N / N is below 1e-7 by construction (5e-8 slow, 8e-14 k3, measured); its size is efrac = E_p / E(r < rN). What N the lump loses or gains is read after the packet has passed (section 5).
 - For orientation, not a prediction: with the Session 2 N/N_min (1.83, 1.73, 1.97 for dip, primary, b5), a Delta N / N of -0.45, -0.42 and -0.49 would put N at N_min (profile N; the period estimator reads 1.3%, 1.1% and 0.3% higher at the three starts).
 
-**How the t = 0 numbers relate to what the lump keeps.** The kick's N is the instantaneous N; the lump then sheds part of it. At the dip, field kicks: Delta N / N at t = 0 is 1.986 eps; averaged over t_d + 50 to 250 against the control it is 1.908 eps (linearity.json); the first whole period after the kick agrees with t = 0 to 1e-3 (field +0.1: 0.2085 against 0.2087). The omega shift is -0.117 eps (dip), so a 1% field kick moves omega by -0.00117 (Session 2's estimate was about -0.0013).
+**How the t = 0 numbers relate to what the lump keeps.** The kick's N is the instantaneous N; the lump then sheds part of it. At the dip, field kicks: Delta N / N at t = 0 is 1.986 eps; averaged over t_d + 50 to 250 against the control it is 1.908 eps (linearity.json); the first whole period after the kick agrees with t = 0 to 1e-3 for the dip field kick +0.1 only (0.2085 against 0.2087). Elsewhere it differs by 1% to 30% (first-period Delta N / N over the t = 0 value, minus 1: velocity +0.1: +0.31 dip, +0.29 primary, +0.04 b5; field +0.1: -0.01 primary, +0.13 b5; removal 0.2: +0.06 dip, +0.05 primary, -0.01 b5; `demos_summary.json`), so the t = 0 instantaneous N is a guide to size, not the N the lump carries in its first period. The removal amplitude s is the fraction by which phi and phi_t are scaled in the core, not a fraction of N: s = 0.2 removes 28% of N (table above). The omega shift is -0.117 eps (dip), so a 1% field kick moves omega by -0.00117 (Session 2's estimate was about -0.0013).
 
 ## 5. Demo runs (one per disturbance type per start, T = 2000)
 
 `outputs/session3/wpL/demos_summary.json` (each against its control, with the free-packet passage time for packets and the linear twin at T = 500). Field and velocity eps = +0.1, removal s = 0.2, packets efrac = 0.05.
 
-Windows are times after t_d; packets are read from the free packet's passage time t_pass (the time after launch at which E(r < rN + 5) of the packet alone falls below 1e-4 of E_p: 817 slow and 83 k3 at beta = 4/3, 966 and 110 at beta = 5). Gamma: loss rate of E(r < 3 hw) over t_s + 1750 to 2250.
+Windows are times after t_d; packets are read from the free packet's passage time t_pass (the time after launch at which E(r < rN + 5) of the packet alone falls below 1e-4 of E_p: 817 slow and 83 k3 at beta = 4/3, 966 and 110 at beta = 5). Gamma: loss rate of E(r < 3 hw) in the last of the three windows t_s + 250, + 750, + 1250 (each 500 long), that is t_s + 1250 to 1750. These rates are still falling, so they are transient values, not settled loss rates (dip field +0.1: 4.8e-5, 3.5e-5, 2.7e-5 in the three windows).
 
-| run | t0 dN/N | dN/N vs control (50-250 / 250-750) | d omega (50-250) | min frac in 2000 (control) | broken | Gamma (control) | omega/m after | E + abs. after |
+| run | t0 dN/N | dN/N vs control (50-250 / 250-750) | d omega (50-250) | min frac in 2000 (control) | broken | Gamma, t_s + 1250 to 1750, transient (control) | omega/m after | E + abs. after |
 |---|---|---|---|---|---|---|---|---|
 | dip field +0.1 | +0.2085 | +0.1926 / +0.1686 | -0.0101 | 1.000 (1.000) | no | 2.7e-5 (6e-9) | 0.895 | 3.2e-8 |
 | dip velocity +0.1 | +0.2086 | +0.2052 / +0.1781 | -0.0106 | 1.105 (0.999) | no | 2.9e-5 (6e-9) | 0.876 | 3.4e-8 |
@@ -200,7 +200,7 @@ No rented compute is needed. The 30,000 runs checkpoint every 1000 time units an
 
 **Deviations from the brief.**
 1. The velocity kick is applied at phase 90, k90 steps (1.6 to 1.7 time units) after t_s, not at t_s: at t_s (a maximum of phi(0)) phi_t is nearly zero and the kick would do almost nothing. The control is the same trajectory, so the comparison is unaffected. Any kick can be put at either phase (`phase`).
-2. The t = 0 Delta N is the instantaneous N_inst at the disturbance phase. The period-averaged N needs evolution; the runs give it against the control (first whole period after the kick, and windows). They agree to about 1e-3 in the first period; afterwards the lump sheds part of the change (section 4).
+2. The t = 0 Delta N is the instantaneous N_inst at the disturbance phase. The period-averaged N needs evolution; the runs give it against the control (first whole period after the kick, and windows). They agree to 1e-3 in the first period only for the dip field kick +0.1; for the other demos the first period is 1% to 30% off (section 4), and afterwards the lump sheds part of the change.
 3. The radial-against-3D N check is read from t = 300 on (3.4e-5); at t = 100 the two whole boxes hold different start-up radiation (1.2e-3, explained in section 3).
 4. The random multiplier is centred and normalised with the N density (Delta N / N = a^2). A plain unit-rms multiplier made a 3.3% change in N at a = 0.01, so it was mostly an amplitude kick.
 5. The gate ran on the existing WP-E test source (the primary, omega 0.9091, dx = 0.8), not on the dip start or at dx = 0.55. No settled 3D source exists for the dip or beta = 5 starts (section 6 has the (d) values for the primary only).
@@ -218,6 +218,6 @@ No rented compute is needed. The 30,000 runs checkpoint every 1000 time units an
 
 **Seen in the demos (single runs, not results of the scan).**
 - No demo broke outright. Minimum frac over 2000: field +0.1 1.000, velocity +0.1 1.10 to 1.21 (energy added), removal 0.2: 0.659 (dip), 0.667 (primary), 0.718 (b5); the removal's own energy cut is 0.24 to 0.27, so most of that drop is the cut itself.
-- Loss rate over t_s + 1750 to 2250 (W = 500) against the control: dip, field +0.1: 2.7e-5 against 6e-9 (control, within error); dip, removal 0.2: 6.2e-5; primary, field +0.1: 1.8e-5 against 4.2e-6; b5, all kicks: 1e-8 or below.
+- Loss rate over t_s + 1250 to 1750 (W = 500; still falling, transient) against the control: dip, field +0.1: 2.7e-5 against 6e-9 (control, within error); dip, removal 0.2: 6.2e-5; primary, field +0.1: 1.8e-5 against 4.2e-6; b5, all kicks: 1e-8 or below.
 - Packets of 5% of E(r < rN) change N after they pass by: slow, -0.15% (dip), -0.10% (primary), +0.13% (b5); k3, -0.32% (dip), -0.70% (primary), -0.57% (b5).
 - Linear twins disperse: frac at t_d + 100 is 0.017 to 0.025 at beta = 4/3 and 0.38 to 0.58 at beta = 5, 0.04 to 0.05 at +300.
