@@ -205,3 +205,24 @@ def test_estimator_vs_3d_recorded():
         pytest.skip("A9 3D run not available")
     print("\nradial vs 3D whole-box N: %s" % [(x["t"], "%.2e" % x["rel_diff"]) for x in r["rows"]])
     assert r["max_abs_rel_diff_t_ge_300"] < 1e-4
+
+
+def test_code_hash_refuses_stale_checkpoint(tmp_path, monkeypatch):
+    """The code hash is part of the checkpoint and settle-cache keys: a checkpoint written by other code is
+    refused, and a settled state cached by other code is not reused."""
+    spec = dict(start="dip", kind="field", eps=0.05, T=20.0)
+    ck = str(tmp_path / "c.npz")
+    assert wpl.run_one(spec, ckpt=ck, ckpt_every=10.0, stop_after=10.0)["partial"]
+    monkeypatch.setattr(wpl, "CODE_HASH", "0" * 16)
+    with pytest.raises(RuntimeError):
+        wpl.run_one(spec, ckpt=ck)
+    cache = str(tmp_path / "settle")
+    monkeypatch.setattr(wpl, "CODE_HASH", "1" * 16)
+    wpl.settle("dip", cache_dir=cache, save_json=False)
+    path = os.path.join(cache, "settled_dip_s1_T%g.npz" % wpl.T_SETTLE)
+    key1 = str(np.load(path)["pkey"])
+    monkeypatch.setattr(wpl, "CODE_HASH", "2" * 16)
+    wpl.settle("dip", cache_dir=cache, save_json=False)
+    key2 = str(np.load(path)["pkey"])
+    print("\ncheckpoint from other code refused; settle keys %s -> %s" % (key1[-30:], key2[-30:]))
+    assert '"1111111111111111"' in key1 and '"2222222222222222"' in key2

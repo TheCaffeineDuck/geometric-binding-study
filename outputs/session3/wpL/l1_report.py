@@ -103,7 +103,7 @@ def plot_rates():
         fam = [r for r in lt if abs(r["beta"] - beta) < 1e-3 and r.get("Gamma_last_window") is not None
                and r["Gamma_last_window"] > 0]
         ax.plot([r["N_over_Nmin"] / nm - 1 for r in fam], [r["Gamma_last_window"] for r in fam], "k^", ms=6, mfc="none",
-                label="Session 2 family (last window)")
+                label="Session 2 family (last 1000-unit window, t about 29,000 to 30,000)")
         for kind, mk, c in (("field", "o", COL[0]), ("velocity", "s", COL[1]), ("removal", "D", COL[2]), ("packet", "x", COL[3])):
             rr = [r for r in ROWS if r["T"] == 30000.0 and r["start"] == st and r["kind"] == kind and r["scale"] in (1.0, 2.25, 1.25)
                   and r.get("Gamma_500_2000")]
@@ -176,7 +176,7 @@ def write_md():
           "Packets (both wavenumbers, efrac up to 2) and positive velocity kicks up to +1.0 never broke outright within 2000.", ""]
     for st in ("dip", "primary", "b5"):
         L += ["## T = 30,000 runs, %s" % st, "",
-              "| disturbance | amp | dN/N t0 | dN/N settled | domega | Gamma t_d+500..2000 | control | late Gamma (alive) | control late | frac at 30k | death (t-t_d) | family N/Nmin (eff -> nearest) | family Gamma |",
+              "| disturbance | amp | dN/N t0 | dN/N settled | domega | Gamma t_d+500..2000 (packets from t_pass+200) | control | late Gamma (alive) | control late | frac at 30k | death (t-t_d) | family N/Nmin (eff -> nearest) | family Gamma vs run, same elapsed window (the run's last alive window) |",
               "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for r in sorted([r for r in ROWS if r["T"] == 30000.0 and r["start"] == st and r["scale"] in (1.0, 2.25, 1.25)],
                         key=lambda r: (r["kind"], r["packet"] or "", r["amp"])):
@@ -187,14 +187,14 @@ def write_md():
                 fmt(r["Gamma_500_2000_control"], "%.2e"), fmt(r.get("Gamma_late_alive_mean"), "%.2e"),
                 fmt(r.get("Gamma_late_alive_mean_control"), "%.2e"), r["frac_end"], fmt(r["death_time_full"], "%.0f"),
                 ("%.3f -> %.3f%s" % (f["N_over_Nmin_eff"], f["N_over_Nmin"], "" if f["comparable"] else " (not within 1%)")) if f else "-",
-                fmt(f and f["Gamma_last_window"], "%.1e")))
+                ("%s vs run %s" % (fmt(f["Gamma_family_same_elapsed"], "%.1e"), fmt(f["Gamma_run_same_window"], "%.1e"))) if f else "-"))
         L.append("")
     L += ["## Linear twins (frac = E(r<3hw) over its value before the kick)", "",
           "| start | disturbance | amp | frac at t_d+100 | +300 | +500 | +1000 |", "|---|---|---|---|---|---|---|"]
     for t in D["linear_twins"]:
-        L.append("| %s | %s | %g | %.4f | %.4f | %.4f | %s |" % (t["start"], t["kind"] + (" " + t["packet"] if t["packet"] else ""),
-                                                               t["amp"], t["frac_at_100"], t["frac_at_300"], t["frac_at_500"],
-                                                               fmt(t["frac_at_1000"], "%.4f")))
+        L.append("| %s | %s | %g | %s | %s | %s | %s |" % (t["start"], t["kind"] + (" " + t["packet"] if t["packet"] else ""),
+                                                         t["amp"], fmt(t["frac_at_100"], "%.4f"), fmt(t["frac_at_300"], "%.4f"),
+                                                         fmt(t["frac_at_500"], "%.4f"), fmt(t["frac_at_1000"], "%.4f")))
     L += ["", "## Doubled box (T = 30,000, scale 2 against scale 1)", ""]
     for x in D["doubled_box"]:
         L.append("- %s %s %g: t0 dN/N %s; settled dN/N %s; Gamma(500..2000) %s; death time %s; frac at 30k %s" % (

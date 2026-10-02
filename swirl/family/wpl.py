@@ -49,6 +49,7 @@ pre-disturbance value while the control's frac stays above 0.9), windowed loss r
 against the control, Delta N / N and Delta E / E against the control.
 """
 
+import hashlib
 import json
 import multiprocessing as mp
 import os
@@ -64,6 +65,20 @@ from swirl.family.wpa_run import (G4, M, _schmitt, energy_parts, grid_for, nonli
                                   window_fits, write_json)
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+
+def _code_hash():
+    """sha256 (first 16 hex) of the modules that determine a run. It is part of every checkpoint and settle-cache
+    key, so a code change never resumes from, or reuses, a state made by older code."""
+    h = hashlib.sha256()
+    here = os.path.dirname(os.path.abspath(__file__))
+    for name in ("wpl.py", "radial.py", "profile.py", "wpa_run.py"):
+        with open(os.path.join(here, name), "rb") as f:
+            h.update(f.read())
+    return h.hexdigest()[:16]
+
+
+CODE_HASH = _code_hash()
 OUT = os.path.join(ROOT, "outputs", "session3", "wpL")
 CKPT = os.path.join(ROOT, "checkpoints", "session3", "wpL")
 
@@ -368,7 +383,7 @@ def settle(start, scale=1.0, t_settle=T_SETTLE, cache_dir=None, save_json=True):
     grid = _grid(beta, scale)
     params = dict(start=start, beta=beta, omega_profile=omega, scale=float(scale), t_settle=float(t_settle),
                   sample_dt=SAMPLE_DT, **grid, **{k: float(v) for k, v in nums.items()})
-    pkey = json.dumps(params, sort_keys=True)
+    pkey = json.dumps(dict(params, code_hash=CODE_HASH), sort_keys=True)
     path = os.path.join(cache_dir, "settled_%s_s%g_T%g.npz" % (start, scale, t_settle))
     if os.path.exists(path):
         with np.load(path, allow_pickle=False) as z:
@@ -596,7 +611,7 @@ def run_one(spec, ckpt=None, ckpt_every=1000.0, stop_after=None, return_state=Fa
                   g4_run=0.0 if p["linear"] else G4, g6_run=0.0 if p["linear"] else beta * G4 ** 2,
                   grid=grid, numbers=nums, t_s=settled["t_s"], k_s=settled["k_s"], k90=settled["k90"],
                   omega_s=settled["omega_s"], kick_ball_hw=list(KICK_BALL), core_hw=list(CORE),
-                  ball_taper=BALL_TAPER)
+                  ball_taper=BALL_TAPER, code_hash=CODE_HASH)
     pkey = json.dumps(params, sort_keys=True, default=float)
     if p["kind"] == "packet":
         pk = p["packet"]
@@ -724,8 +739,10 @@ def _per_series(res):
     return np.asarray(p["t"]), np.asarray(p["N_rN"]), np.asarray(p["omega"])
 
 
-def compare(res, ctrl, horizon=BROKEN_HORIZON, windows=((50, 250), (250, 750), (750, 2000)), nwin=4):
-    """Broken outright, Delta N / N, Delta E / E, omega shift and loss rate against the control."""
+def compare(res, ctrl, horizon=BROKEN_HORIZON, windows=((50, 250), (250, 750), (750, 2000)), nwin=4, tol=None):
+    """Broken outright, Delta N / N, Delta E / E, omega shift and loss rate against the control.
+    A window whose end lies past the last sample by at most `tol` (default half a sample step) is kept and
+    read to the last sample (`window_used`): the last sample of a T-long run falls just short of t_d + T."""
     t = np.asarray(res["series"]["t"])
     tc = np.asarray(ctrl["series"]["t"])
     if t.size != tc.size or np.max(np.abs(t - tc)) > 1e-9:
@@ -747,16 +764,19 @@ def compare(res, ctrl, horizon=BROKEN_HORIZON, windows=((50, 250), (250, 750), (
     tr, Nr, wr = _per_series(res)
     tcc, Nc, wc = _per_series(ctrl)
     rows = []
+    if tol is None:
+        tol = 0.5 * float(np.median(np.diff(t))) if t.size > 1 else 0.0
     for a, b in windows:
         lo, hi = t_d + a, t_d + b
-        if hi > t[-1]:
+        if hi > t[-1] + tol:
             continue
+        hi = min(hi, float(t[-1]))
         xr = np.asarray(res["crossings"])
         xcc = np.asarray(ctrl["crossings"])
         Nw, ww = window_N(xr, lo, hi, 1)
         Nwc, wwc = window_N(xcc, lo, hi, 1)
         sel = (t >= lo) & (t <= hi)
-        rows.append(dict(window=[a, b], N=Nw, N_control=Nwc, dN_over_N=(Nw / Nwc - 1) if Nw and Nwc else None,
+        rows.append(dict(window=[a, b], window_used=[a, round(hi - t_d, 6)], N=Nw, N_control=Nwc, dN_over_N=(Nw / Nwc - 1) if Nw and Nwc else None,
                          omega=ww, omega_control=wwc, domega=(ww - wwc) if ww and wwc else None,
                          EN_over_control=float(np.mean(np.asarray(res["series"]["EN"])[sel])
                                                / np.mean(np.asarray(ctrl["series"]["EN"])[sel]) - 1),
