@@ -80,11 +80,17 @@ def build_initial(coords, L, init, info=None, threads=4):
     pi = np.zeros((N, N, N))
     if init.get("snapshot"):
         from swirl.engine.snapshot import place
-        ps, vs, inf = place(init["snapshot"], coords, L, threads=threads)
-        phi += ps
-        pi += vs
+        snaps = init["snapshot"]
+        # a list of entries (one per source, e.g. lumps of different N; WP-P3) is summed; a single dict is the
+        # original form and is handled exactly as before
+        infs = []
+        for sn in (snaps if isinstance(snaps, list) else [snaps]):
+            ps, vs, inf = place(sn, coords, L, threads=threads)
+            phi += ps
+            pi += vs
+            infs.append(inf)
         if info is not None:
-            info["snapshot"] = inf
+            info["snapshot"] = infs if isinstance(snaps, list) else infs[0]
     for g in init.get("gaussians", []):
         dx, dy, dz = _offsets(coords, L, g.get("center", (0, 0, 0)))
         prof = g["amp"] * np.exp(-(dx ** 2 + dy ** 2 + dz ** 2) / (2 * g["R"] ** 2))

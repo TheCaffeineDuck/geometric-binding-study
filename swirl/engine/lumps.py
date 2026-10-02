@@ -108,7 +108,9 @@ def check_lumps(init, L, absorber, sponge_tol=SPONGE_TOL):
     out = []
     if init.get("snapshot"):
         from swirl.engine.snapshot import check
-        out.append({"snapshot": check(init["snapshot"], L, absorber, sponge_tol)})
+        snaps = init["snapshot"]
+        for sn in (snaps if isinstance(snaps, list) else [snaps]):     # a list: one entry per source (WP-P3)
+            out.append({"snapshot": check(sn, L, absorber, sponge_tol)})
     for p in init.get("radial", []):
         g = radial_checks(p, L)
         c = np.asarray(p.get("center", (0, 0, 0)), float)
