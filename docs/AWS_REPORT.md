@@ -64,3 +64,7 @@ Read-only calls only (profile `swirl`, us-east-2; freetier call via us-east-1 en
 - Plan state: PAID, ACTIVE. Remaining credits: **120.00 USD** (unchanged, nothing spent).
 - Leftover resources in us-east-2: instances 0, EBS volumes 0, snapshots (self-owned) 0, Elastic IPs 0, S3 buckets 0 (account-wide list).
 - At 64 vCPUs, one 16xlarge (64 vCPUs) fits; two 8xlarge would also fit.
+
+## Spend limit, 2026-10-02 (Session 2)
+- Aaron reports that he set the AWS spend limit to **50 USD** (about 07:50 +07). Not verified from the session: the `swirl` sign-in had lapsed again at the time.
+- This matches the 50 USD working budget in `CLAUDE.md`. Spent so far by the ledger: 9.69 USD (`docs/CLOUD_LEDGER.md`), computed from hours and list prices, not billed amounts.
