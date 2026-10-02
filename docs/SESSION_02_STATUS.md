@@ -2,7 +2,7 @@
 
 Resume file. Updated by the orchestrator after each package. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`.
 
-Last update: 2026-10-02 06:05 (+07). All batches done; AWS clean. Running: E11 second run on the Mac; reviewer on the arrangement outcomes. Remaining: ledger entries for WP-E, novelty check, final report sections (verdict, WP-E, workers, deviations, Step 4 proposals), report review, pytest on main.
+Last update: 2026-10-02 07:20 (+07). Everything is done and committed except the E11 second runs and the beta = 5 3D confirmation (both running on the Mac) and the report lines that depend on them.
 
 **Stop-condition note (plan section 4).** The phase control missed at theta = 90 only. The plan's control is over the phases used, and the redesigned batch uses none that fails, so I read the stop as not triggered; the 3D gate (G1, G2 in the predictions file) must pass before pair runs start. WP-D and WP-E go ahead only if the gate passes and the measured force agrees with the derivation in sign. This reading is flagged to Aaron and goes in the report as a deviation.
 
@@ -24,10 +24,10 @@ WP-A sweep command (resumes if rerun), from the repo root:
 
 ## Running now
 
-Checked 2026-10-02 06:05 (+07).
-- **Mac:** a runner is making the two E11 reruns (`E11L_ring6_c_R15.77_T1200`, `E11F_ring6_c_R15.77_dx0.393_T1000`) into `outputs/session2/wpE/results/`, then rerunning `outputs/session2/wpE/postprocess.py`. Resumable with `outputs/session2/wpE/run_one.sh <name>`.
-- **Reviewer:** recomputing every arrangement outcome from the saved results.
-- WP-B, the A9 confirmation, the pair batch, the -theta singles and the WP-D rerun with the measured law are all done and committed.
+Checked 2026-10-02 07:20 (+07). All on the Mac; AWS is empty and its sign-in has lapsed again (not needed).
+- **E11 second runs** (`E11L_ring6_c_R15.77_T1200` at t = 900 of 1200; `E11F_ring6_c_R15.77_dx0.393_T1000` at t = 300 of 1000, expected about 10:00), a runner is driving them and will rerun `outputs/session2/wpE/postprocess.py` and a point-model seed scan (`outputs/session2/wpD_measured/e11_seed_scan.py`). Resume a run with `outputs/session2/wpE/run_one.sh <name>`.
+- **A10, beta = 5 in 3D** (`outputs/session2/wpA/confirm3d_beta5/`, T = 1000; prediction Block 1d), a second runner.
+- **Report:** `docs/SESSION_02_REPORT.md` is complete except for the placeholders `{{...}}` for the E11 second run and A10. pytest on main: 130 passed, 4 xfailed (in the report).
 
 ## Rented compute
 
