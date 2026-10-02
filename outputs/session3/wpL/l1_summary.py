@@ -14,6 +14,7 @@ from swirl.family import wpl  # noqa: E402
 from swirl.family.wpa_run import write_json  # noqa: E402
 
 LT = "/Users/aaronramos/Desktop/SWIRL/outputs/session2/wpA/lifetime_table_v2.json"
+WPA = "/Users/aaronramos/Desktop/SWIRL/outputs/session2/wpA/"
 WINDOWS = ((50, 250), (250, 750), (750, 2000), (1000, 2000))
 INSTANT = 7.0  # about one oscillation period (2 pi / omega ~ 7)
 BETA = {"dip": 4.0 / 3, "primary": 4.0 / 3, "b5": 5.0}
@@ -76,8 +77,11 @@ def build():
         nmin[st] = dict(N_profile=nums["N_profile"], family_omega_start=r0["omega_start"],
                         omega_profile=om, omega_mismatch=r0["omega_start"] - om, N_over_Nmin_table=r0["N_over_Nmin"],
                         group=r0.get("group"))
-        if st == "primary":  # no table row at omega 0.9091 (nearest 0.9075, N/Nmin 1.80): use the build notes' 1.73
-            nmin[st].update(N_over_Nmin_table=1.73, source="WPL_BUILD_NOTES section 4 (Session 2 N/N_min 1.73); not in lifetime_table_v2 at omega 0.9091")
+        if st == "primary":  # no table row at omega 0.9091: N_profile / N_min, N_min from the dip row (same beta)
+            n_min = nmin["dip"]["N_profile"] / nmin["dip"]["N_over_Nmin_table"]
+            nmin[st].update(N_over_Nmin_table=nums["N_profile"] / n_min, N_min=n_min,
+                            source="N_profile / N_min with N_min = %.3f from the dip row of lifetime_table_v2 (same beta); "
+                                   "the earlier 1.73 was wrong (summary fix a)" % n_min)
     rows, twins = [], []
     tpass = {}
 
@@ -93,10 +97,17 @@ def build():
         if p["linear"]:
             fr = np.asarray(r["series"]["frac"])
             t = np.asarray(r["series"]["t"]) - r["t_d"]
-            ie = lambda tt: float(np.interp(tt, t, fr))
+            step = float(np.median(np.diff(t)))
+            short = (r["t_d"] - p["t_s"]) + step     # a phase-90 kick starts t_d - t_s after the run start
+
+            def ie(tt):
+                if tt <= t[-1]:
+                    return float(np.interp(tt, t, fr))
+                return float(fr[-1]) if tt - t[-1] <= short else None
+
             twins.append(dict(start=p["start"], kind=p["kind"], amp=amp(p), packet=packet_name(p), params=p,
-                              T=p["T"], frac_at_100=ie(100), frac_at_300=ie(300), frac_at_500=ie(min(500, t[-1])),
-                              frac_at_1000=ie(1000) if t[-1] >= 999 else None, t0=r.get("t0"), file=r["_file"]))
+                              T=p["T"], frac_at_100=ie(100), frac_at_300=ie(300), frac_at_500=ie(500),
+                              frac_at_1000=ie(1000), t_last_rel=float(t[-1]), t0=r.get("t0"), file=r["_file"]))
             continue
         if p["kind"] == "none":
             continue
@@ -109,7 +120,8 @@ def build():
         if p["kind"] == "packet":
             tp_ = t_pass(p)
             win = win + ((tp_, tp_ + 200), (tp_ + 200, 2000))
-        cm = wpl.compare(r, c, windows=win)
+        step_ = float(np.median(np.diff(r["series"]["t"])))
+        cm = wpl.compare(r, c, windows=win, tol=0.5 * step_ + (r["t_d"] - p["t_s"]))
         t_d = r["t_d"]
         t_end = t_d + p["T"]
         row = dict(start=p["start"], kind=p["kind"], amp=amp(p), packet=packet_name(p), T=p["T"], scale=p["scale"],
@@ -124,14 +136,17 @@ def build():
                                            if tp_ is not None else None),
                    window_after_packet=([tp_ + 200, 2000] if tp_ is not None else None),
                    window_settled=[750, 2000],
+                   window_settled_used=next((w["window_used"] for w in cm["windows"] if w["window"] == [750, 2000]), None),
                    domega_after=next((w["domega"] for w in cm["windows"] if w["window"] == [750, 2000]), None),
                    frac_end=cm["frac_end"], frac_end_control=cm["frac_end_control"],
                    regime=r["regime"], wall_s=r["wall_s"])
         b = row["broken"]
         row["break_class"] = (None if not b["broken_outright"] else
                               "instantaneous" if b["first_below_half"] <= INSTANT else "dynamic")
-        row["Gamma_500_2000"] = fit_rate(r, t_d + 500, t_d + 2000)
-        row["Gamma_500_2000_control"] = fit_rate(c, t_d + 500, t_d + 2000)
+        g_lo = 500.0 if tp_ is None else max(500.0, tp_ + 200.0)    # packets: after passage (summary fix d)
+        row["Gamma_early_window"] = [g_lo, 2000.0]
+        row["Gamma_500_2000"] = fit_rate(r, t_d + g_lo, t_d + 2000)
+        row["Gamma_500_2000_control"] = fit_rate(c, t_d + g_lo, t_d + 2000)
         gw = cm["gamma"]
         gwr = []
         for i, g in enumerate(gw):
@@ -181,10 +196,22 @@ def build():
                 cand = [f for f in fam if abs(f["beta"] - BETA[st]) < 1e-3 and f.get("Gamma_last_window") is not None]
                 if cand:
                     f = min(cand, key=lambda f: abs(f["N_over_Nmin"] / ratio - 1))
+                    fam_run = json.load(open(os.path.join(WPA, f["file"])))
+                    # like windows (summary fix c): the run's last alive window [a, b] after t_d, and the family
+                    # start over the same elapsed time [a, b] after its own start; one estimator (linear fit of
+                    # ln E(r < 3 hw)) for both
+                    wr = row["last_alive_window_rel"]
+                    g_fam = g_run = None
+                    if wr:
+                        ft, ff = np.asarray(fam_run["series"]["t"]), np.asarray(fam_run["series"]["frac"])
+                        m = (ft >= wr[0]) & (ft <= wr[1]) & (ff > 0)
+                        g_fam = float(-np.polyfit(ft[m], np.log(ff[m]), 1)[0]) if m.sum() >= 20 else None
+                        g_run = fit_rate(r, t_d + wr[0], t_d + wr[1])
                     row["family"] = dict(N_over_Nmin_eff=ratio, settled_ratio=1 + row["dN_over_N_settled"],
                                          window=[750, 2000], first_period_ratio=(1 + row["first_period_dN_over_N"]) if row["first_period_dN_over_N"] is not None else None,
                                          omega_start=f["omega_start"], N_over_Nmin=f["N_over_Nmin"],
-                                         Gamma_last_window=f["Gamma_last_window"], alive_at_end=f.get("alive_at_end"),
+                                         elapsed_window=wr, Gamma_family_same_elapsed=g_fam, Gamma_run_same_window=g_run,
+                                         family_T_end=fam_run["T_end"], alive_at_end=f.get("alive_at_end"),
                                          match_rel=f["N_over_Nmin"] / ratio - 1,
                                          comparable=bool(abs(f["N_over_Nmin"] / ratio - 1) <= 0.01), group=f.get("group"))
         stp = 20 if p["T"] < 2500 else 100  # samples are 0.5 apart: every 10 (T = 2000) or 50 (T = 30,000) time units
