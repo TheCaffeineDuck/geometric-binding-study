@@ -1,0 +1,83 @@
+{
+ "description": "Radial whole-box N (per-period records, mean over the periods inside [t - 20, t]) against the 3D A9 run's whole-box N (run.window_averages, W = 20, N = 128, L = 70), same start (dip), both from the single-frequency profile at t = 0.",
+ "rows": [
+  {
+   "t": 50.0,
+   "N_radial": NaN,
+   "N_3d": 3029.657675403408,
+   "rel_diff": NaN
+  },
+  {
+   "t": 100.0,
+   "N_radial": 3032.8929221145268,
+   "N_3d": 3029.2569991910477,
+   "rel_diff": 0.0012002688858852029
+  },
+  {
+   "t": 200.0,
+   "N_radial": 3029.3698648892064,
+   "N_3d": 3029.021454089446,
+   "rel_diff": 0.0001150242099772214
+  },
+  {
+   "t": 300.0,
+   "N_radial": 3029.3053985855618,
+   "N_3d": 3029.24727539568,
+   "rel_diff": 1.918733751260504e-05
+  },
+  {
+   "t": 500.0,
+   "N_radial": 3029.269138451165,
+   "N_3d": 3029.1661456928123,
+   "rel_diff": 3.400036623912861e-05
+  },
+  {
+   "t": 700.0,
+   "N_radial": 3029.258712475099,
+   "N_3d": 3029.218822398797,
+   "rel_diff": 1.3168436696409103e-05
+  },
+  {
+   "t": 1000.0,
+   "N_radial": 3029.2463235277028,
+   "N_3d": 3029.1984662477753,
+   "rel_diff": 1.579866108492034e-05
+  }
+ ],
+ "max_abs_rel_diff_t_ge_100": 0.0012002688858852029,
+ "max_abs_rel_diff_t_ge_300": 3.400036623912861e-05,
+ "radiation_share_of_box_N_radial": {
+  "100.0": 0.0013280570917524326,
+  "200.0": 0.0001583577336032871,
+  "300.0": 0.0001357285562717525,
+  "1000.0": 0.00012058294773331646
+ },
+ "note": "Before t of about 300 the whole-box N depends on the box: start-up radiation in transit is counted until the sponge takes it (radial sponge from r = 100, 3D from r = 23). The radial box holds 1.3e-3 of N outside rN at t = 100 and 1.2e-4 from t = 300 on (radiation_share_of_box_N_radial), which accounts for the t = 100 difference. The check is t >= 300.",
+ "jitter": {
+  "window": "t = 300 to 1000, per-period N in the ball rN, dip start",
+  "rel_std_about_linear_trend": 8.216762373249926e-07,
+  "rel_max_about_linear_trend": 2.4094370913451568e-06,
+  "trend_rel_per_1000": -3.4784642743051614e-06
+ },
+ "jitter_dip": {
+  "rel_std": 5.352677891550481e-07,
+  "rel_max": 1.1910724522541755e-06,
+  "N_settled_rN": 3028.8837820560843,
+  "N_profile": 2988.6326863755316,
+  "N_period_over_N_profile": 1.0134680637952092
+ },
+ "jitter_primary": {
+  "rel_std": 4.607600481392832e-06,
+  "rel_max": 1.0170074486349776e-05,
+  "N_settled_rN": 2897.117848761839,
+  "N_profile": 2865.545211117668,
+  "N_period_over_N_profile": 1.0110180211157291
+ },
+ "jitter_b5": {
+  "rel_std": 4.541631339304025e-07,
+  "rel_max": 9.040361477348311e-07,
+  "N_settled_rN": 6403.429460131338,
+  "N_profile": 6381.612413043774,
+  "N_period_over_N_profile": 1.0034187358422098
+ }
+}

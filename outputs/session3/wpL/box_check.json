@@ -1,0 +1,30 @@
+{
+ "spec": "dip, field eps = +0.1, T = 2000, scale 1 (R_box 200) against scale 2 (R_box 400)",
+ "max_abs_frac_diff": 9.564811372486659e-06,
+ "t_of_max": 1454.9,
+ "frac_end": [
+  1.1024769697626844,
+  1.102476838835128
+ ],
+ "dN_over_N_windows": [
+  [
+   0.192613774604542,
+   0.16864531694628337
+  ],
+  [
+   0.1926139296444469,
+   0.168645338413552
+  ]
+ ],
+ "domega_windows": [
+  [
+   -0.010069269885052856,
+   -0.008973445991560913
+  ],
+  [
+   -0.010069298173675856,
+   -0.008973441330419218
+  ]
+ ],
+ "note": "each box settles its own start from t = 0; times compared relative to t_d"
+}

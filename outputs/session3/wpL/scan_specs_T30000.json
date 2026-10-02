@@ -1,0 +1,593 @@
+[
+ {
+  "start": "dip",
+  "kind": "none",
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": -0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": -0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": -0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": -0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": 0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "field",
+  "eps": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": -0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": -0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": -0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": -0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": 0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "velocity",
+  "eps": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "removal",
+  "s": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "removal",
+  "s": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "removal",
+  "s": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "removal",
+  "s": 0.2,
+  "T": 30000.0
+ },
+ {
+  "start": "dip",
+  "kind": "none",
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "dip",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.05
+  },
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "dip",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.2
+  },
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "dip",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.5
+  },
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "dip",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.530209420127502,
+   "sigma": 5.0,
+   "efrac": 0.05
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "dip",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.530209420127502,
+   "sigma": 5.0,
+   "efrac": 0.2
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "dip",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.530209420127502,
+   "sigma": 5.0,
+   "efrac": 0.5
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "primary",
+  "kind": "none",
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": -0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": -0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": -0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": -0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": 0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "field",
+  "eps": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": -0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": -0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": -0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": -0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": 0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "velocity",
+  "eps": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "removal",
+  "s": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "removal",
+  "s": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "removal",
+  "s": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "removal",
+  "s": 0.2,
+  "T": 30000.0
+ },
+ {
+  "start": "primary",
+  "kind": "none",
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "primary",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.05
+  },
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "primary",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.2
+  },
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "primary",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.5
+  },
+  "T": 30000.0,
+  "scale": 2.25
+ },
+ {
+  "start": "primary",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.539136129431606,
+   "sigma": 5.0,
+   "efrac": 0.05
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "primary",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.539136129431606,
+   "sigma": 5.0,
+   "efrac": 0.2
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "primary",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.539136129431606,
+   "sigma": 5.0,
+   "efrac": 0.5
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "b5",
+  "kind": "none",
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": -0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": -0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": -0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": -0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": 0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": -0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": -0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": -0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": -0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": 0.01,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "removal",
+  "s": 0.02,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "removal",
+  "s": 0.05,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "removal",
+  "s": 0.1,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "removal",
+  "s": 0.2,
+  "T": 30000.0
+ },
+ {
+  "start": "b5",
+  "kind": "none",
+  "T": 30000.0,
+  "scale": 1.25
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.05
+  },
+  "T": 30000.0,
+  "scale": 1.25
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.2
+  },
+  "T": 30000.0,
+  "scale": 1.25
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.5
+  },
+  "T": 30000.0,
+  "scale": 1.25
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.7506683966540195,
+   "sigma": 5.0,
+   "efrac": 0.05
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.7506683966540195,
+   "sigma": 5.0,
+   "efrac": 0.2
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.7506683966540195,
+   "sigma": 5.0,
+   "efrac": 0.5
+  },
+  "T": 30000.0,
+  "scale": 1.0
+ }
+]

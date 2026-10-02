@@ -113,6 +113,9 @@ def check_lumps(init, L, absorber, sponge_tol=SPONGE_TOL):
     if init.get("snapshot"):
         from swirl.engine.snapshot import check
         out.append({"snapshot": check(init["snapshot"], L, absorber, sponge_tol)})
+    if init.get("wpl"):
+        from swirl.engine.boost import check_wpl
+        out.append({"wpl": check_wpl(init["wpl"], L, absorber, sponge_tol)})
     for p in init.get("radial", []):
         g = radial_checks(p, L)
         c = np.asarray(p.get("center", (0, 0, 0)), float)
