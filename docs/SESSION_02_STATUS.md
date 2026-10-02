@@ -2,7 +2,7 @@
 
 Resume file. Plan: `docs/SESSION_02_PLAN.md`. Predictions: `docs/SESSION_02_PREDICTIONS.md`. Report: `docs/SESSION_02_REPORT.md`.
 
-Last update: 2026-10-02 10:10 (+07). **Session 2 is complete.** Every package WP0 to WP-F is done and committed; every planned run has finished; nothing is running on the Mac or on AWS; pytest on main: 130 passed, 4 xfailed. Step 4 has not been started. The table below is the record of each package; the sections after it are kept for history.
+Last update: 2026-10-02 10:05 (+07). **Session 2 is complete.** Every package WP0 to WP-F is done and committed; every planned run has finished; nothing is running on the Mac or on AWS; pytest on main: 130 passed, 4 xfailed. Step 4 has not been started. The table below is the record of each package; the sections after it are kept for history.
 
 **For the next session:** read the report's Verdict, section 12 (deviations, including the stop-condition reading that Aaron has not yet ruled on) and section 13 (proposals for Step 4).
 
@@ -21,7 +21,7 @@ Last update: 2026-10-02 10:10 (+07). **Session 2 is complete.** Every package WP
 
 ## Running now
 
-Nothing. Checked 2026-10-02 10:10 (+07): no engine, batch or test processes on the Mac.
+Nothing. Checked 2026-10-02 10:05 (+07): no engine, batch or test processes on the Mac.
 
 ## Rented compute
 
