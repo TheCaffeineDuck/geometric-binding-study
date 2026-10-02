@@ -145,6 +145,68 @@ def guard_motion(j):
             raise ValueError("%s: a lump reaches the sponge during the run" % j["name"])
 
 
+B5_D_KEEP = ("control", "q0.2", "r0.1_s1", "r0.15_s1")
+DIP_3S_KEEP = ("r0.1_s2", "r0.1_s3", "r0.15_s2", "r0.15_s3")
+
+
+def keep(j):
+    """The budget trim (coordinator, Session 3): no b5 collisions (4b); b5 (d) only control, stretch 0.2,
+    random 0.1 and 0.15 (seed 1); seeds 2 and 3 only at the dip for a = 0.1 and 0.15; the resolution check
+    only for the v = 0.2 collision."""
+    if j["stage"] == "4b":
+        return False
+    if j["name"].startswith("d_b5_") and j.get("variant") not in B5_D_KEEP:
+        return False
+    if j["stage"] == "3s" and not (j["start"] == "dip" and j.get("variant") in DIP_3S_KEEP):
+        return False
+    return j["name"] != "res_coll_dip_p0_v%g" % SPEEDS[0]
+
+
+def roles_of(j):
+    """Instance roles. A: dip gates, gate check, collisions and their checks. B: primary (shipped source).
+    C: dip (d), seeds, spot checks and the (d) twin. D: b5. The dip source is built on A and on C (each from the
+    same config; the hashes are recorded in each source result)."""
+    if j["name"] == "src_dip":
+        return ["A", "C"]
+    if j["start"] == "primary":
+        return ["B"]
+    if j["start"] == "b5":
+        return ["D"]
+    if j["name"].startswith(("gate", "coll_", "box_coll", "res_coll", "twin_coll")):
+        return ["A"]
+    return ["C"]
+
+
+# Slots per instance: WP-L workers, and the slots left to the P3 jobs (run by their own driver) with the job-hours
+# planned on each P3 slot in sequence: 2 candidates (~12 h), 3 single-lump runs (~7 h), control 3.3 h, twin 1.7 h.
+WPL_WORKERS = {"A": 6, "B": 7, "C": 8, "D": 6}
+P3_SLOTS = {"A": [[12.0], [12.0]], "B": [[7.0]], "C": [], "D": [[7.0, 3.3], [7.0, 1.7]]}
+
+
+def pack(J, slots=8, extra=None):
+    """Longest-ready-job-first schedule of one instance (dependencies within the instance); extra: job-hours of
+    independent jobs (the P3 allowance). Returns the wall hours and the free slot-hours left before the wall."""
+    names = {j["name"] for j in J}
+    jobs_ = [dict(name=j["name"], h=j["job_hours"], deps=[d for d in j["deps"] if d in names]) for j in J]
+    jobs_ += [dict(name="P3_%d" % i, h=h, deps=[]) for i, h in enumerate(extra or [])]
+    end, free_at, pending = {}, [0.0] * slots, list(jobs_)
+    while pending:
+        t = min(free_at)
+        ready = [x for x in pending if all(d in end and end[d] <= t + 1e-12 for d in x["deps"])]
+        if not ready:
+            later = [end[d] for x in pending for d in x["deps"] if d in end and end[d] > t]
+            i = int(np.argmin(free_at))
+            free_at[i] = min(later) if later else t + 1e-3
+            continue
+        x = max(ready, key=lambda y: y["h"])
+        i = int(np.argmin(free_at))
+        end[x["name"]] = free_at[i] + x["h"]
+        free_at[i] = end[x["name"]]
+        pending.remove(x)
+    wall = max(end.values())
+    return wall, wall * slots - sum(x["h"] for x in jobs_)
+
+
 def contact_time(start, v):
     hw = numbers(start)[3]["hw"]
     return (COLL[start]["d"] - 2 * hw) / (2 * v)
@@ -258,6 +320,9 @@ def jobs():
         dt=cfg["dt"], T=500.0, base=b["name"])
     for j in J:
         guard_motion(j)
+    J = [j for j in J if keep(j)]
+    for j in J:
+        j["roles"] = roles_of(j)
     for j in J:
         j.update(cost(j))
     return J
@@ -291,24 +356,22 @@ def schedule(J, slots, stages=None, starts=None):
 
 
 def cost_table(J):
-    rows = {}
-    for s in ("1", "2", "3", "3s", "4", "5", "6", "4b"):
-        sel = [j for j in J if j["stage"] == s]
-        rows[s] = dict(jobs=len(sel), job_hours=sum(j["job_hours"] for j in sel))
-    core = [s for s in ("1", "2", "3", "3s", "4", "5", "6")]
-    tot = sum(rows[s]["job_hours"] for s in core)
     out = dict(rate_model="steps/s per 2-thread job = %.3f x (160^3 ln 160)/(N^3 ln N) (33.5 steps/s for 8 N = 160 "
                           "jobs on c8g.4xlarge, Session 2, less 15%% for diagnostics)" % RATE_N160,
-               stages=rows, job_hours_core=tot, instance_hours_core=tot / 8, usd_core=tot / 8 * USD_PER_H,
-               job_hours_4b=rows["4b"]["job_hours"], instance_hours_4b=rows["4b"]["job_hours"] / 8,
-               usd_4b=rows["4b"]["job_hours"] / 8 * USD_PER_H)
-    out["wall_h_core_1_instance"] = schedule(J, 8, core)
-    out["usd_core_1_instance"] = out["wall_h_core_1_instance"] * USD_PER_H
-    wa = schedule(J, 8, core, ["dip", "primary"])
-    wb = schedule(J, 8, core, ["b5"])
-    wb4 = schedule(J, 8, core + ["4b"], ["b5"])
-    out["packing_2_instances"] = dict(A_dip_primary_wall_h=wa, B_b5_wall_h=wb, B_b5_with_4b_wall_h=wb4,
-                                      usd_core=(wa + wb) * USD_PER_H, usd_with_4b=(wa + wb4) * USD_PER_H)
+               stages={s_: dict(jobs=len([j for j in J if j["stage"] == s_]),
+                                job_hours=sum(j["job_hours"] for j in J if j["stage"] == s_))
+                       for s_ in sorted({j["stage"] for j in J})},
+               job_hours_wpl=sum(j["job_hours"] for j in J), wpl_workers=WPL_WORKERS, P3_slots=P3_SLOTS,
+               job_hours_P3=sum(sum(c) for v in P3_SLOTS.values() for c in v), roles={})
+    for r in ("A", "B", "C", "D"):
+        Jr = [j for j in J if r in j["roles"]]
+        w0, _ = pack(Jr, slots=WPL_WORKERS[r])
+        w = max([w0] + [sum(c) for c in P3_SLOTS[r]])
+        out["roles"][r] = dict(jobs=[j["name"] for j in Jr], job_hours=sum(j["job_hours"] for j in Jr),
+                               wpl_workers=WPL_WORKERS[r], wall_h_wpl=w0, P3_slots=P3_SLOTS[r], wall_h=w,
+                               usd=w * USD_PER_H)
+    out["usd_total_with_P3"] = sum(v["usd"] for v in out["roles"].values())
+    out["instance_hours_total"] = sum(v["wall_h"] for v in out["roles"].values())
     return out
 
 
@@ -378,7 +441,7 @@ def run_job(j, out=None, ckpt=None):
         return j["name"], "failed: %r" % (e,), time.time() - t0
 
 
-def run_jobs(jobs_file, workers=8, threads=2, stages=None, starts=None, poll=10.0):
+def run_jobs(jobs_file, workers=8, threads=2, stages=None, starts=None, role=None, poll=10.0):
     os.environ["NUMBA_NUM_THREADS"] = str(threads)
     J = json.load(open(jobs_file))
     for j in J:
@@ -386,7 +449,9 @@ def run_jobs(jobs_file, workers=8, threads=2, stages=None, starts=None, poll=10.
             j["cfg"]["threads"] = threads
         elif j["kind"] == "source":
             j["cfg"]["threads"] = threads
-    sel = [j for j in J if (stages is None or j["stage"] in stages) and (starts is None or j["start"] in starts)]
+    sel = [j for j in J if (stages is None or j["stage"] in stages) and (starts is None or j["start"] in starts)
+           and (role is None or role in j.get("roles", [role]))]
+    sel.sort(key=lambda j: -j.get("job_hours", 0.0))            # longest ready job first
     names = {j["name"] for j in sel}
     done = {j["name"] for j in J if os.path.exists(result_path(j["name"]))}
     failed, pending, running = set(), [j for j in sel if j["name"] not in done], {}
@@ -646,6 +711,7 @@ def main():
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--stages", default=None)
     ap.add_argument("--starts", default=None)
+    ap.add_argument("--role", default=None)
     ap.add_argument("--radial", default=None)
     a = ap.parse_args()
     if a.cmd == "jobs":
@@ -658,7 +724,7 @@ def main():
         print(json.dumps(ct, indent=1))
     elif a.cmd == "run":
         failed = run_jobs(a.jobs, a.workers, a.threads, a.stages.split(",") if a.stages else None,
-                          a.starts.split(",") if a.starts else None)
+                          a.starts.split(",") if a.starts else None, a.role)
         raise SystemExit(1 if failed else 0)
     else:
         post(a.jobs, a.radial)
