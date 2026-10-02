@@ -1,0 +1,61 @@
+[
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": -0.1,
+  "T": 1000.0,
+  "linear": true
+ },
+ {
+  "start": "b5",
+  "kind": "field",
+  "eps": 0.1,
+  "T": 1000.0,
+  "linear": true
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": -0.1,
+  "T": 1000.0,
+  "linear": true
+ },
+ {
+  "start": "b5",
+  "kind": "velocity",
+  "eps": 0.1,
+  "T": 1000.0,
+  "linear": true
+ },
+ {
+  "start": "b5",
+  "kind": "removal",
+  "s": 0.2,
+  "T": 1000.0,
+  "linear": true
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 0.3,
+   "sigma": 20.0,
+   "efrac": 0.05
+  },
+  "T": 1000.0,
+  "scale": 1.25,
+  "linear": true
+ },
+ {
+  "start": "b5",
+  "kind": "packet",
+  "packet": {
+   "k0": 2.7506683966540195,
+   "sigma": 5.0,
+   "efrac": 0.05
+  },
+  "T": 1000.0,
+  "scale": 1.0,
+  "linear": true
+ }
+]

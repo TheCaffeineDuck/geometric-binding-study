@@ -1,0 +1,35 @@
+[
+ {
+  "start": "dip",
+  "T": 30000.0,
+  "scale": 2.0,
+  "kind": "field",
+  "eps": -0.02
+ },
+ {
+  "start": "dip",
+  "T": 30000.0,
+  "scale": 2.0,
+  "kind": "removal",
+  "s": 0.1
+ },
+ {
+  "start": "b5",
+  "T": 30000.0,
+  "scale": 2.0,
+  "kind": "field",
+  "eps": -0.05
+ },
+ {
+  "start": "dip",
+  "kind": "none",
+  "T": 30000.0,
+  "scale": 2.0
+ },
+ {
+  "start": "b5",
+  "kind": "none",
+  "T": 30000.0,
+  "scale": 2.0
+ }
+]
