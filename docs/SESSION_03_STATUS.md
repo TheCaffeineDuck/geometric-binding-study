@@ -11,12 +11,14 @@ Last update: 2026-10-02 (+07), after WP-S. WP0 and WP-S done; WP-L build and WP-
 | WP0 housekeeping | runner | **done** (2effa98; FINDINGS.md written by the orchestrator, because the harness stops subagents from creating report files). Corrected bonded rule: E14 gives "no interaction", E11 first run "not bonded". Lump-finder floor 0.05 of the first window's maximum: E3, E7, E4 now read "merged"; E1, E2, E14, lone lump unchanged. Changed `outputs/session2/wpE/postprocess.py` (E_residence_end) sits on the external drive, not in git. Runner model Sonnet 5.5, effort not visible; matches CLAUDE.md as far as visible | `docs/FINDINGS.md`, `swirl/engine/bonded.py`, `swirl/engine/lumps.py`, `tests/engine/test_bonded.py`, `tests/engine/test_lump_floor.py`, `docs/SESSION_03_PREDICTIONS.md` (definitions) |
 | WP-S prior-art brief | scholar | **done**. No published break threshold for a real 3D oscillon; derived ceiling on the N removal that can break a lump: 1 - N_min/N = 0.45, 0.42, 0.49 for the three starts (N31). Kick sign matters at a dip (N32). Unequal frequencies: first-order force averages to zero (published), but a second-order phase-independent attraction binds or spirals NLS pairs; the point model lacks it (N34). No real-field orbiting pair published. Slow identical collisions: in phase merges, anti-phase bounces (published). Scholar model Sonnet 5.5, effort value 30 visible (mapping unconfirmed) | `docs/PRIOR_ART.md` lines 1127 to 1352, "Session 3 brief" (T0 to T11, N31 to N35, searches 120 to 151) |
 | WP-L lone-lump break test | numerics build; runner or cloud runs | L1/L2 build running | |
-| WP-P binding search, unequal lumps and orbits | numerics | P1 build running | |
+| WP-P binding search, unequal lumps and orbits | numerics | **P1 built** (branch worktree-agent-a8f6bbfab55407fab, 1e378b0; 27 tests pass). Every rotating balance of equal lumps at 3.6 to 8 hw has an unstable mode with e-fold 0.001 to 0.14 orbital periods; circular orbits under the tail law radially unstable for kappa d > 1.62 (whole valid range). Unequal: phase beats at omega_1 - omega_2; model lacks the phase-independent second-order attraction (N34). Regression d20_45 at 1.80x target (a miss within 3x), d16_90 1.28x. Block P predictions committed (88ce5e0). **P2 scan running** (1822 runs, 2 workers, about 30 to 60 min). Reviewer checking the P1 diff. Not yet merged to main | worktree `outputs/session3/wpP/`, `docs/WPP_BUILD_NOTES.md` |
 | WP-F review and report | reviewer, scholar, orchestrator | waits for all | |
 
 ## Running now
 
-Nothing.
+- P2 point-model scan (numerics, its worktree).
+- WP-L build's own validation runs (numerics, its worktree).
+- Reviewer: WP-P1 diff.
 
 ## Rented compute
 
