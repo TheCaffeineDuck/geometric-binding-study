@@ -78,19 +78,26 @@ def build_initial(coords, L, init, info=None, threads=4):
     N = coords.size
     phi = np.zeros((N, N, N))
     pi = np.zeros((N, N, N))
-    if init.get("snapshot"):
+    if init.get("snapshots"):
+        # WP-P3: a list of snapshot entries, one per source (lumps of different N), summed; each entry is placed
+        # exactly as a single init["snapshot"] entry is
         from swirl.engine.snapshot import place
-        snaps = init["snapshot"]
-        # a list of entries (one per source, e.g. lumps of different N; WP-P3) is summed; a single dict is the
-        # original form and is handled exactly as before
         infs = []
-        for sn in (snaps if isinstance(snaps, list) else [snaps]):
+        for sn in init["snapshots"]:
             ps, vs, inf = place(sn, coords, L, threads=threads)
             phi += ps
             pi += vs
             infs.append(inf)
         if info is not None:
-            info["snapshot"] = infs if isinstance(snaps, list) else infs[0]
+            info["snapshots"] = infs
+
+    if init.get("snapshot"):
+        from swirl.engine.snapshot import place
+        ps, vs, inf = place(init["snapshot"], coords, L, threads=threads)
+        phi += ps
+        pi += vs
+        if info is not None:
+            info["snapshot"] = inf
     for g in init.get("gaussians", []):
         dx, dy, dz = _offsets(coords, L, g.get("center", (0, 0, 0)))
         prof = g["amp"] * np.exp(-(dx ** 2 + dy ** 2 + dz ** 2) / (2 * g["R"] ** 2))

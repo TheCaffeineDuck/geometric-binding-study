@@ -1,4 +1,4 @@
-"""A list of snapshot entries (one per source; WP-P3 unequal pairs) is the sum of the entries placed one by one,
+"""init["snapshots"], a list of snapshot entries (one per source; WP-P3 unequal pairs) is the sum of the entries placed one by one,
 and a one-entry list equals the original dict form bit for bit. Uses the Session 2 test source (N = 80, L = 64);
 skipped when it is not on disk (it is never committed)."""
 import os
@@ -26,10 +26,10 @@ def test_snapshot_list_is_sum_of_entries():
     pa, va = build_initial(coords, L, {"snapshot": a}, threads=2)
     pb, vb = build_initial(coords, L, {"snapshot": b}, threads=2)
     info = {}
-    p1, v1 = build_initial(coords, L, {"snapshot": [a]}, threads=2)
-    p2, v2 = build_initial(coords, L, {"snapshot": [a, b]}, info=info, threads=2)
+    p1, v1 = build_initial(coords, L, {"snapshots": [a]}, threads=2)
+    p2, v2 = build_initial(coords, L, {"snapshots": [a, b]}, info=info, threads=2)
     assert np.array_equal(p1, pa) and np.array_equal(v1, va)
     assert np.max(np.abs(p2 - (pa + pb))) < 1e-13 and np.max(np.abs(v2 - (va + vb))) < 1e-13
-    assert isinstance(info["snapshot"], list) and len(info["snapshot"]) == 2
-    g = check_lumps({"snapshot": [a, b]}, L, None)
+    assert len(info["snapshots"]) == 2
+    g = check_lumps({"snapshots": [a, b]}, L, None)
     assert len(g) == 2

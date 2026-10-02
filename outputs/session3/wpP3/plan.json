@@ -1,150 +1,344 @@
 {
- "runs": {
-  "P3_c0230": {
-   "role": "candidate p2_0230",
-   "lumps": [
-    [
-     "N100",
-     0.0
-    ],
-    [
-     "N175",
-     0.0
-    ]
-   ],
-   "d": 24.077074922077355,
-   "d_over_hw0": 7.2,
-   "N": 160,
-   "L": 88.0,
-   "dx": 0.55,
-   "dt": 0.04,
-   "T": 7500.0,
-   "steps": 187500,
-   "est_steps_per_s_per_job": 4.1875,
-   "est_job_hours": 12.437810945273633
+ "T_cap": {
+  "phase1_sources_and_stage_A": {
+   "jobs": {
+    "P3_inphase": {
+     "role": "in-phase control (equal lumps): its contact time is the interaction unit",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N100",
+       0.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 2000.0,
+     "steps": 50000,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 3.316749585406302
+    },
+    "P3_c0230_lin": {
+     "role": "linear twin of P3_c0230",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N175",
+       0.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 1000.0,
+     "steps": 25000,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 1.658374792703151
+    },
+    "src_p3_N175": {
+     "est_job_hours": 0.5041459369817579,
+     "N": 160,
+     "steps": 7600
+    },
+    "src_p3_N250": {
+     "est_job_hours": 0.5041459369817579,
+     "N": 160,
+     "steps": 7600
+    }
+   },
+   "slots_used": 4,
+   "slots_spare": 4,
+   "wall_hours": 3.316749585406302
   },
-  "P3_c0242": {
-   "role": "candidate p2_0242",
-   "lumps": [
-    [
-     "N100",
-     0.0
-    ],
-    [
-     "N250",
-     90.0
-    ]
-   ],
-   "d": 24.077074922077355,
-   "d_over_hw0": 7.2,
-   "N": 160,
-   "L": 88.0,
-   "dx": 0.55,
-   "dt": 0.04,
-   "T": 7500.0,
-   "steps": 187500,
-   "est_steps_per_s_per_job": 4.1875,
-   "est_job_hours": 12.437810945273633
+  "phase2_stage_B": {
+   "jobs": {
+    "P3_c0230": {
+     "role": "candidate p2_0230",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N175",
+       0.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 7500.0,
+     "steps": 187500,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 12.437810945273633
+    },
+    "P3_c0242": {
+     "role": "candidate p2_0242",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N250",
+       90.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 7500.0,
+     "steps": 187500,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 12.437810945273633
+    },
+    "P3_iso_N100": {
+     "role": "isolated N0 lump (control source)",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       0
+      ]
+     ],
+     "d": 0.0,
+     "N": 120,
+     "L": 66.0,
+     "T": 7500.0,
+     "steps": 187500,
+     "est_steps_per_s_per_job": 9.925925925925924,
+     "est_job_hours": 5.2472014925373145
+    },
+    "P3_iso_N175": {
+     "role": "isolated 1.75 N0 lump (control source)",
+     "lumps": [
+      [
+       "N175",
+       0.0,
+       0
+      ]
+     ],
+     "d": 0.0,
+     "N": 120,
+     "L": 66.0,
+     "T": 7500.0,
+     "steps": 187500,
+     "est_steps_per_s_per_job": 9.925925925925924,
+     "est_job_hours": 5.2472014925373145
+    },
+    "P3_iso_N250": {
+     "role": "isolated 2.5 N0 lump (control source)",
+     "lumps": [
+      [
+       "N250",
+       0.0,
+       0
+      ]
+     ],
+     "d": 0.0,
+     "N": 120,
+     "L": 66.0,
+     "T": 7500.0,
+     "steps": 187500,
+     "est_steps_per_s_per_job": 9.925925925925924,
+     "est_job_hours": 5.2472014925373145
+    }
+   },
+   "slots_used": 5,
+   "slots_spare": 3,
+   "wall_hours": 12.437810945273633,
+   "T": 7500.0
   },
-  "P3_c0230_far": {
-   "role": "far-apart control of P3_c0230",
-   "lumps": [
-    [
-     "N100",
-     0.0
-    ],
-    [
-     "N175",
-     0.0
-    ]
-   ],
-   "d": 45.0,
-   "d_over_hw0": 13.456784142118103,
-   "N": 200,
-   "L": 110.0,
-   "dx": 0.55,
-   "dt": 0.04,
-   "T": 7500.0,
-   "steps": 187500,
-   "est_steps_per_s_per_job": 2.1440000000000006,
-   "est_job_hours": 24.29259950248756
-  },
-  "P3_c0242_far": {
-   "role": "far-apart control of P3_c0242",
-   "lumps": [
-    [
-     "N100",
-     0.0
-    ],
-    [
-     "N250",
-     90.0
-    ]
-   ],
-   "d": 45.0,
-   "d_over_hw0": 13.456784142118103,
-   "N": 200,
-   "L": 110.0,
-   "dx": 0.55,
-   "dt": 0.04,
-   "T": 7500.0,
-   "steps": 187500,
-   "est_steps_per_s_per_job": 2.1440000000000006,
-   "est_job_hours": 24.29259950248756
-  },
-  "P3_inphase": {
-   "role": "in-phase control (equal lumps): contact time = interaction unit",
-   "lumps": [
-    [
-     "N100",
-     0.0
-    ],
-    [
-     "N100",
-     0.0
-    ]
-   ],
-   "d": 24.077074922077355,
-   "d_over_hw0": 7.2,
-   "N": 160,
-   "L": 88.0,
-   "dx": 0.55,
-   "dt": 0.04,
-   "T": 2000.0,
-   "steps": 50000,
-   "est_steps_per_s_per_job": 4.1875,
-   "est_job_hours": 3.316749585406302
-  },
-  "P3_c0230_lin": {
-   "role": "linear twin of P3_c0230",
-   "lumps": [
-    [
-     "N100",
-     0.0
-    ],
-    [
-     "N175",
-     0.0
-    ]
-   ],
-   "d": 24.077074922077355,
-   "d_over_hw0": 7.2,
-   "N": 160,
-   "L": 88.0,
-   "dx": 0.55,
-   "dt": 0.04,
-   "T": 1000.0,
-   "steps": 25000,
-   "est_steps_per_s_per_job": 4.1875,
-   "est_job_hours": 1.658374792703151
-  }
+  "total_job_hours": 46.60064262023218,
+  "usd_share_of_packed_instance": 3.7035860722429526,
+  "standalone_wall_hours": 15.754560530679935,
+  "standalone_usd": 10.016749585406304,
+  "basis": "c8g.4xlarge 0.6358 USD/h, 8 jobs x 2 threads; 4.19 steps/s per job at N = 160 (Session 2), scaled as N^-3; a packed job's cost share is its hours / 8 x 0.6358"
  },
- "jobs": 6,
- "total_job_hours": 78.43594527363184,
- "longest_job_hours": 24.29259950248756,
- "instance": "c8g.4xlarge, 8 jobs x 2 threads",
- "instance_hours_one_instance": 24.29259950248756,
- "usd_at_0.6358_per_h": 15.44523476368159,
- "rate_basis": "Session 2: 33.5 steps/s total at N = 160, 8 jobs x 2 threads; scaled as N^-3",
- "sources_first": "src_p3_N175 and src_p3_N250 (make_sources.py): about 7,600 steps each at N = 160 (about 0.5 h per source on 2 threads); N0 reuses Session 2's src_prod_N160_L88"
+ "T_from_point_model_unit_921": {
+  "phase1_sources_and_stage_A": {
+   "jobs": {
+    "P3_inphase": {
+     "role": "in-phase control (equal lumps): its contact time is the interaction unit",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N100",
+       0.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 2000.0,
+     "steps": 50000,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 3.316749585406302
+    },
+    "P3_c0230_lin": {
+     "role": "linear twin of P3_c0230",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N175",
+       0.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 1000.0,
+     "steps": 25000,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 1.658374792703151
+    },
+    "src_p3_N175": {
+     "est_job_hours": 0.5041459369817579,
+     "N": 160,
+     "steps": 7600
+    },
+    "src_p3_N250": {
+     "est_job_hours": 0.5041459369817579,
+     "N": 160,
+     "steps": 7600
+    }
+   },
+   "slots_used": 4,
+   "slots_spare": 4,
+   "wall_hours": 3.316749585406302
+  },
+  "phase2_stage_B": {
+   "jobs": {
+    "P3_c0230": {
+     "role": "candidate p2_0230",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N175",
+       0.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 4605.0,
+     "steps": 115125,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 7.63681592039801
+    },
+    "P3_c0242": {
+     "role": "candidate p2_0242",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       -1
+      ],
+      [
+       "N250",
+       90.0,
+       1
+      ]
+     ],
+     "d": 24.077074922077355,
+     "N": 160,
+     "L": 88.0,
+     "T": 4605.0,
+     "steps": 115125,
+     "est_steps_per_s_per_job": 4.1875,
+     "est_job_hours": 7.63681592039801
+    },
+    "P3_iso_N100": {
+     "role": "isolated N0 lump (control source)",
+     "lumps": [
+      [
+       "N100",
+       0.0,
+       0
+      ]
+     ],
+     "d": 0.0,
+     "N": 120,
+     "L": 66.0,
+     "T": 4605.0,
+     "steps": 115125,
+     "est_steps_per_s_per_job": 9.925925925925924,
+     "est_job_hours": 3.2217817164179112
+    },
+    "P3_iso_N175": {
+     "role": "isolated 1.75 N0 lump (control source)",
+     "lumps": [
+      [
+       "N175",
+       0.0,
+       0
+      ]
+     ],
+     "d": 0.0,
+     "N": 120,
+     "L": 66.0,
+     "T": 4605.0,
+     "steps": 115125,
+     "est_steps_per_s_per_job": 9.925925925925924,
+     "est_job_hours": 3.2217817164179112
+    },
+    "P3_iso_N250": {
+     "role": "isolated 2.5 N0 lump (control source)",
+     "lumps": [
+      [
+       "N250",
+       0.0,
+       0
+      ]
+     ],
+     "d": 0.0,
+     "N": 120,
+     "L": 66.0,
+     "T": 4605.0,
+     "steps": 115125,
+     "est_steps_per_s_per_job": 9.925925925925924,
+     "est_job_hours": 3.2217817164179112
+    }
+   },
+   "slots_used": 5,
+   "slots_spare": 3,
+   "wall_hours": 7.63681592039801,
+   "T": 4605.0
+  },
+  "total_job_hours": 30.92239324212272,
+  "usd_share_of_packed_instance": 2.457557202917703,
+  "standalone_wall_hours": 10.953565505804312,
+  "standalone_usd": 6.964276948590381,
+  "basis": "c8g.4xlarge 0.6358 USD/h, 8 jobs x 2 threads; 4.19 steps/s per job at N = 160 (Session 2), scaled as N^-3; a packed job's cost share is its hours / 8 x 0.6358"
+ }
 }
