@@ -42,10 +42,24 @@ L_group_sphere, L_axis_box, L_axis_sphere). Absent = off (WP-C configs unchanged
 Lump count (standard 8, from coordinates): every `count_every` time units the
 energy density is averaged over `count_periods` nominal periods with Hann weights
 (suppresses the 2 omega oscillation); maxima of that average above
-count_threshold * max, at least count_min_sep apart, are the lumps. For each pair
+max(count_threshold * max, floor), at least count_min_sep apart, are the lumps (the floor is
+absolute, see "Absolute floor" below). For each pair
 of maxima the minimum of the averaged density along the segment between them,
 over the smaller peak, is the saddle ratio; count_distinct joins maxima whose saddle
 ratio is >= saddle_merge (default 0.9).
+
+Absolute floor (Session 3, WP0; F-018): the relative threshold alone counts debris once the field has
+emptied, because "1% of the current maximum" is a tiny number when the maximum is a few per cent of a lump
+(Session 2: E3, E7 and the E3 checks were counted as "flew apart" or as 6 distinct debris maxima after two
+lumps had left the box). The floor is count_floor_frac (default 0.05) times a reference density: cfg
+"count_floor_ref" if given, else the maximum of the first count window (the initial lump scale; for
+well-separated lumps it is the single-lump peak of the period-averaged density). It is not applied to the
+first window itself (no reference yet) and the reference is read back from counts[0]["max"], so it needs
+no extra checkpoint state. Why 0.05: in the 20 stored Session 2 arrangement runs the largest debris maximum
+on an emptied field is 0.0073 of the first-window maximum (twin of E1) and the smallest maximum of anything
+that is plainly a lump is 0.29 (a remnant leaving through the sponge); 0.05 sits 7 times above the first and
+6 times below the second. count_floor_frac = 0 switches the floor off (the Session 2 behaviour). Each stored
+count entry records "abs_floor". refloor() applies a floor to a stored entry, to recount saved results.
 
 Period averages (post-processing, `summarize`): every per-lump series is averaged
 over whole periods of that lump's phi(c_i, t), between zero crossings, by exact
@@ -68,6 +82,7 @@ LUMP_DEFAULTS = {
     "centers": None, "R_ball": 10.0, "taper": 2.0, "split_width": 1.0, "every": 5,
     "count_every": 25.0, "count_periods": 3, "omega_nominal": 0.909,
     "count_threshold": 0.01, "count_min_sep": 1.0, "saddle_merge": 0.9, "avg_window": 20.0,
+    "count_floor_frac": 0.05, "count_floor_ref": None,
     "sponge_tol": SPONGE_TOL, "planes": [], "axes": [],
 }
 
@@ -215,15 +230,29 @@ def _interp_periodic(f, coords, L, dx, pts):
     return np.array(out)
 
 
-def find_lumps(eavg, coords, L, dx, threshold=0.01, min_sep=1.0, saddle_merge=0.9):
+def _join_labels(n, pairs, saddle_merge):
+    """Union of maxima 0..n-1 whose saddle ratio is >= saddle_merge; returns the label list."""
+    lab = list(range(n))
+    for pr in pairs:
+        if pr["saddle_ratio"] >= saddle_merge:
+            la, lb = lab[pr["pair"][0]], lab[pr["pair"][1]]
+            lab = [la if x == lb else x for x in lab]
+    return lab
+
+
+def find_lumps(eavg, coords, L, dx, threshold=0.01, min_sep=1.0, saddle_merge=0.9, abs_floor=0.0):
     """Maxima of a (period-averaged) energy density, from coordinates only.
 
-    count: maxima above threshold * max, at least min_sep apart (min_sep only removes
-    duplicates of one maximum on neighbouring grid points). count_distinct: maxima
+    count: maxima above max(threshold * max(eavg), abs_floor), at least min_sep apart (min_sep only
+    removes duplicates of one maximum on neighbouring grid points). count_distinct: maxima
     joined when the density along the segment between them never drops below
-    saddle_merge times the smaller peak (a dimpled single lump counts once)."""
+    saddle_merge times the smaller peak (a dimpled single lump counts once).
+
+    abs_floor (default 0 = off): an absolute density below which a maximum is debris, not a lump. The
+    relative threshold alone counts debris on a nearly empty field (F-018). LumpDiagnostics sets it to
+    count_floor_frac (0.05) times the initial lump scale; see the module docstring for the reason."""
     mx = float(eavg.max())
-    loc = (maximum_filter(eavg, size=3, mode="wrap") == eavg) & (eavg >= threshold * mx)
+    loc = (maximum_filter(eavg, size=3, mode="wrap") == eavg) & (eavg >= max(threshold * mx, abs_floor))
     cand = np.argwhere(loc)
     vals = eavg[loc]
     order = np.argsort(-vals)
@@ -253,14 +282,30 @@ def find_lumps(eavg, coords, L, dx, threshold=0.01, min_sep=1.0, saddle_merge=0.
             line = _interp_periodic(eavg, coords, L, dx, pts)
             pairs.append({"pair": [a, b], "distance": float(np.linalg.norm(dv)),
                           "saddle_ratio": float(line.min() / min(peaks[a]["value"], peaks[b]["value"]))})
-    lab = list(range(len(peaks)))
-    for pr in pairs:
-        if pr["saddle_ratio"] >= saddle_merge:
-            la, lb = lab[pr["pair"][0]], lab[pr["pair"][1]]
-            lab = [la if x == lb else x for x in lab]
+    lab = _join_labels(len(peaks), pairs, saddle_merge)
     return {"count": len(peaks), "count_distinct": len(set(lab)), "labels": lab,
             "peaks": [{"pos": p["pos"].tolist(), "value": p["value"]} for p in peaks],
-            "pairs": pairs, "max": mx, "threshold": threshold, "min_sep": min_sep, "saddle_merge": saddle_merge}
+            "pairs": pairs, "max": mx, "threshold": threshold, "min_sep": min_sep, "saddle_merge": saddle_merge,
+            "abs_floor": float(abs_floor)}
+
+
+def refloor(entry, abs_floor):
+    """Recount a stored find_lumps entry with an absolute floor (post-processing of saved results).
+
+    Keeps the maxima at or above max(abs_floor, threshold * max), the same cut find_lumps applies, and
+    recomputes labels and count_distinct from the stored saddle ratios (a saddle ratio belongs to the
+    pair, so the others are unchanged). Exact: the stored maxima are a superset of what any cut at or
+    above entry["threshold"] * entry["max"] keeps. Returns a new entry; the input is not modified."""
+    cut = max(float(abs_floor), entry["threshold"] * entry["max"])
+    keep = [i for i, p in enumerate(entry["peaks"]) if p["value"] >= cut]
+    new_idx = {old: new for new, old in enumerate(keep)}
+    pairs = [{**pr, "pair": [new_idx[pr["pair"][0]], new_idx[pr["pair"][1]]]} for pr in entry["pairs"]
+             if pr["pair"][0] in new_idx and pr["pair"][1] in new_idx]
+    lab = _join_labels(len(keep), pairs, entry["saddle_merge"])
+    out = dict(entry)
+    out.update(count=len(keep), count_distinct=len(set(lab)), labels=lab,
+               peaks=[entry["peaks"][i] for i in keep], pairs=pairs, abs_floor=float(abs_floor))
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -336,6 +381,16 @@ class LumpDiagnostics:
             self._wcache = out
         return self._wcache
 
+    def count_floor(self):
+        """Absolute floor for the lump finder: count_floor_frac * reference density. The reference is
+        cfg["count_floor_ref"], else the maximum of the first count window (read from counts[0]); 0 until
+        a reference exists (the first window), and 0 when count_floor_frac is 0."""
+        frac = float(self.cfg.get("count_floor_frac") or 0.0)
+        ref = self.cfg.get("count_floor_ref")
+        if ref is None and self.counts:
+            ref = self.counts[0]["max"]
+        return frac * float(ref) if (frac > 0 and ref) else 0.0
+
     # -- every step ------------------------------------------------------------
     def read_points(self, t):
         phi = self.ev.phi
@@ -399,7 +454,8 @@ class LumpDiagnostics:
             else:
                 if self.acc is not None and self.acc_w > 0:
                     res = find_lumps(self.acc / self.acc_w, ev.coords, L, dx,
-                                     cfg["count_threshold"], cfg["count_min_sep"], cfg["saddle_merge"])
+                                     cfg["count_threshold"], cfg["count_min_sep"], cfg["saddle_merge"],
+                                     abs_floor=self.count_floor())
                     res["t_mid"] = self.win_start + 0.5 * self.win_len
                     self.counts.append(res)
                 self.acc = None
