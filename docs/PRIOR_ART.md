@@ -1350,3 +1350,73 @@ Nothing is claimed as new. Where a line above says "no source found", the suppor
 - Not resolved: the reference Amin & Mou cite for small relative phase differences (the reference list did not extract); the speed that separates merger from scattering in Hindmarsh & Salmi 2008 (not given); the number of revolutions in Buryak et al. Fig. 1; the dependence of any published threshold on the potential.
 - Open for the project: a measured break threshold of a real 3D lump, in fractional Delta N or Delta E; the response of a lump to a wave tuned to its 3 omega and 2 omega wavenumbers; collisions of real 3D lumps of the sextic family against phase and speed; real unequal-frequency pairs with separated cores; an orbiting real-field pair or ring; whether a real two-field model has stepped-phase clusters while its lone lumps stay metastable.
 - The figure readings used (Ibe Gamma peaks, Li Fig. 2 and Fig. 3) are those of Sessions 1 and 2 and carry their stated errors; I did not re-read any figure in this round.
+
+---
+
+## Addendum G (2026-10-02, Session 3, after the WP-P1 review): the Yukawa circular-orbit criterion, and the literature check for F-020 to F-022 (searches 152 to 166)
+
+Scope: one source request from the WP-P1 review (`WPP_BUILD_NOTES.md` section 10, first row: "for the scholar to source") and the literature checks for the P2 and P4 misses recorded in `FAILURES.md` F-020 to F-022. Model claude-sonnet-5-5; a "reasoning_effort" value of 30 is visible in my context (CLAUDE.md lists xhigh for this worker; the mapping is not visible). Tags as above. The tool is web search and page fetch: "no source found" means these queries and the pages opened returned nothing. Sources tagged `READ` were converted to text locally (PDFKit) and the passage was read there; the Session 2 and 3 extractions of Axenides, Battye & Sutcliffe, Al Khawaja, Buryak, Xue and Campos were searched again for the passages used in F-020 and F-021. No git commands, no simulations, nothing written outside `docs/` (extracted texts stayed in the session scratchpad). Paraphrase only.
+
+### G1. Circular orbits in a Yukawa potential: unstable beyond kappa r = (1 + sqrt 5)/2
+
+| Statement | Source | Tag |
+|---|---|---|
+| For a central attractive force F(r), a circular orbit at r0 is stable against radial perturbation if F'(r0)/F(r0) + 3/r0 is positive (their sign convention, F negative for attraction): the familiar non-relativistic condition, their eq. (25), attributed there to Marion's textbook | [Aguirregabiria, Hernandez, Rivas, arXiv:physics/0407049](https://arxiv.org/abs/physics/0407049) (arXiv preprint of 12 July 2004, physics.ed-ph; the listing shows no journal reference), sec. III | READ |
+| For the Yukawa potential V = -(k/r) exp(-r/a) the non-relativistic condition reduces to a^2 + a r - r^2 > 0 (their eq. 30); the relativistic condition (their eq. 29) is more restrictive | same paper, sec. IV | READ |
+| Stability of circular orbits in the Yukawa potential holds for rho at most 1.62 a (the commutative limit of their noncommutative condition, their eq. 34 and the sentence after it); the authors call this result well known from classical mechanics | [Nozari & Akhshabi, arXiv:gr-qc/0608076](https://arxiv.org/abs/gr-qc/0608076), sec. 3.3 (listed as Chaos, Solitons & Fractals 37, 324, 2008, per the arXiv page). The footnote there ties the number to the golden mean through a numerology framework that I do not use | READ |
+| The textbook treatment: Marion, Classical Dynamics of Particles and Systems, 2nd ed. (Academic Press, 1970), sec. 8.11, cited by Aguirregabiria et al. for the condition | not opened | SECONDHAND |
+| The closed form: solving a^2 + a r - r^2 > 0 with x = r/a gives x^2 - x - 1 < 0, so stable for x below (1 + sqrt 5)/2 = 1.618 and unstable above. With kappa = 1/a this is the statement in the review request, kappa r above (1 + sqrt 5)/2 unstable | my one-line solution of the READ inequality | DERIVED |
+
+Notes for use (DERIVED unless marked).
+- The same condition follows from d ln |F| / d ln r > -3 with |F| = k e^{-kappa r} (1 + kappa r) / r^2, which is a check on the algebra, not an extra source.
+- The relative coordinate of two bodies in a central pair potential obeys the one-body problem with the reduced mass, so the criterion applies to the separation d. This is standard and I did not source it.
+- For the project's lumps kappa = sqrt(1 - omega^2) = 0.4165 at omega = 0.909149, so the threshold is d = 1.618 / 0.4165 = 3.885, which is 1.16 hw (hw = 24.077 / 7.2 = 3.344). This matches the "d > 3.9 = 1.16 hw" in `WPP_BUILD_NOTES.md` section 0.
+- What the sources do not cover: both treat a point particle in a static Yukawa potential. The project's equal-lump law has the Yukawa form U = -2 pi A^2 cos D exp(-kappa d)/d only for frozen phases; the unequal-lump law is a sum of two exponentials, and the P1 build's linearization finds phase and N modes in addition. The Yukawa criterion is the radial-mode statement only, and the build's "radial e-fold / T_orb" column is the corresponding model result. The relativistic correction (more restrictive in Aguirregabiria et al.) is of order v^2 at the project's circular speeds of 0.003 to 0.16.
+- No source found for a statement of this criterion applied to a pair of solitons or oscillons.
+
+### G2. What Addendum G adds to the Session 3 brief
+
+| Item | Where used | Tag and note |
+|---|---|---|
+| [Campos, Manton, Mohammadi 2026](https://arxiv.org/abs/2605.12633), sec. IV (the inter-oscillon force) | F-020, F-021 | READ (the brief had it as read in the collision section only, T11). Two unequal small-amplitude 1+1D oscillons, omega_i = 1 - eps_i^2: the force has a sum-frequency term that averages away and a slowly varying term proportional to cos(delta - eps_bar Delta-eps t) exp(-2 a eps_bar) (eqs. IV.11 to IV.14). This is the real-field first-order beat law in 1+1D; it adds a real-field source to the T9 row "first-order force averages to zero for unequal frequencies" (which cited complex fields and NLS). No static unequal-pair run in the sections read |
+| [Arenas et al. 2008](https://arxiv.org/abs/0805.2976), sec. 3.1.1 (Kuramoto model; Physics Reports 469, 93, per the search listing) | F-020, F-021 | READ. Oscillators whose detuning is within the mean-field coupling lock; the rest drift. Used for the reading of "beating" as the generic unlocked state of weakly coupled oscillators |
+| [Blaschke, Romanczukiewicz, Slawinska, Wereszczynski 2025](https://arxiv.org/abs/2502.09136) | F-020 | ABSTRACT. Excited oscillons in 1+1D read as bound states of two oscillons with amplitude modulation; co-located, not separated lumps |
+| [Turaev, Vladimirov, Zelik 2012](https://cris.bgu.ac.il/en/publications/long-range-interaction-and-synchronization-of-oscillating-dissipa-2/) and [WIAS preprint 1659](https://www.wias-berlin.de/preprint/1659/wias_preprints_1659.pdf) | F-020 | ABSTRACT. Oscillating localized structures in driven dissipative systems bind through weakly decaying waves by synchronization; a different class (context only) |
+| Phase at contact = frequency difference times collision time: [Battye & Sutcliffe 2000](https://arxiv.org/abs/hep-th/0003252) sec. 3.4; [Xue et al. 2025](https://arxiv.org/abs/2510.01597) secs. V and VI | F-021 | READ. The published form of the "interaction time over beat period" idea is the phase accumulated before contact; neither paper states a criterion in terms of the ratio |
+| Unequal Q-balls held for long times | F-020 | [Axenides et al. 2000](https://arxiv.org/abs/hep-ph/9910388) secs. III and V (breathing at the difference frequency with a slow outward drift); Battye & Sutcliffe sec. 3.4 (repulsion, no charge transfer, to t = 450); [Al Khawaja 2010](https://arxiv.org/abs/1004.3000) (a bond forms at short separation); READ, details in F-020 |
+
+Wording the record supports (T9 style; nothing is claimed as new).
+
+| Possible statement in the report | Published | So the wording is | Searches |
+|---|---|---|---|
+| A pair of unequal lumps that has not merged after five contact times, in a point model | no source found for the real 3D case; neighbouring complex and NLS systems breathe, repel or bind at short range (F-020) | "in the point model, at 7.2 hw, for the runs scored"; not a 3D statement and not a binding statement (F-020, D1, D2) | 156 to 160, 162 to 165 |
+| The outcome of an unequal-pair encounter is set by the relative phase at contact, which is the frequency difference times the time to contact | Battye & Sutcliffe 2000 (1D complex); Xue et al. 2025 (3D real, qualitative) | not new as a mechanism; "no source found" for a criterion in terms of the contact time over the beat period, or for a measured delay against that ratio (F-021) | 163, 166 |
+| Circular orbits of lumps under a Yukawa-form pair law are radially unstable for kappa d above 1.618 | the classical criterion, G1; not applied to solitons in any source found | "classical result (Aguirregabiria et al. 2004, Nozari & Akhshabi 2008) applied to the point model"; the 3D statement is untested | 152 to 155 |
+
+### G3. Search log (continues from 151; web search, 2026-10-02)
+
+| # | Search | Result |
+|---|---|---|
+| 152 | circular orbits Yukawa potential stability condition golden ratio kappa r (1+sqrt5)/2 unstable | Aguirregabiria et al. physics/0407049 (read), Nozari & Akhshabi gr-qc/0608076 (read); titles only: arXiv:1407.5951, 1103.3338, course sheets (Oregon State, MSU exams) |
+| 153 | stable circular orbits in a Yukawa potential critical radius arXiv | the same two; titles only: gr-qc/0602098 and 2510.22761, 2601.02904 (Maxwell-Yukawa black holes, a different system) |
+| 154 | Bertrand theorem stability of circular orbits central force 3F + rF' > 0 Yukawa screened Coulomb | physics/0407049 again; titles only: arXiv:1011.4037, 1103.3338, quant-ph/9812077, a LibreTexts page |
+| 155 | Yukawa circular orbit stable only if r < 1.618 a, Marion, Goldstein | the same two papers; an Oregon State problem sheet (one page, extracted: asks where stable circular orbits exist for two screening lengths, gives no number); a search summary's pointer to a Goldstein problem was not verified |
+| 156 | two solitons unequal amplitudes relative phase rotates, average force zero, weak interaction, long-lived quasi-bound | Al Khawaja 1004.3000 (re-read); titles only: arXiv:1410.0662, 2602.07762; nothing for a static unequal pair at large separation |
+| 157 | oscillon pair quasi-bound long-lived without merging different frequencies relative phase beat | Xue et al. 2510.01597 (re-read); Blaschke et al. arXiv:2403.00443 and 2502.09136 (abstract pages: co-located bound states, amplitude modulation); arXiv:1201.1934 (abstract page, not about pairs) |
+| 158 | Karpman Solov'ev perturbative approach two-soliton system different amplitudes | search summaries only (a method for nearly equal amplitudes and velocities, SECONDHAND, not opened); titles only: arXiv:nlin/0104022, 2007.10959, a lecture PDF; the originals are still not obtained (T11) |
+| 159 | frequency locking synchronization of two oscillons or Q-balls, detuning, relative phase drift | generic synchronization and quantum-synchronization titles (arXiv:2609.14375, 1312.3630); nothing for solitons of a real field |
+| 160 | Turaev Vladimirov Zelik oscillating dissipative solitons synchronization | BGU record and WIAS preprint 1659 (abstracts); title only: arXiv:2111.09712 |
+| 161 | Arenas et al., Kuramoto, two-oscillator locking condition | Arenas et al. arXiv:0805.2976 (read, sec. 3.1.1) |
+| 162 | bright solitons Gross-Pitaevskii unequal norms, collision, relative phase, weakly bound, nonintegrable | Parker et al. 0712.3002 (earlier); titles only: arXiv:0709.2004, 1203.3080, a Durham thesis; nothing on an unequal-norm pair at rest |
+| 163 | force between two separated oscillons, phase dependence, unequal amplitude, lattice, 2025 to 2026 | Campos et al. 2605.12633 (sec. IV read); titles only: arXiv:2504.17382, 2507.13276, 2406.00108, 2010.07789 |
+| 164 | second-order time-averaged attraction between solitons with different frequencies, incoherent attraction, quartic cross term | titles only: arXiv:nlin/0410055, Segev-group PDFs, arXiv:2012.13409, 1107.3135; no real-field mean-force source |
+| 165 | oscillon molecules, bound states of separated oscillons, weak attraction | arXiv:2303.16072 and patt-sol/9804005 (earlier), hep-th/0203072, 2502.09136 (abstract); no unequal separated real-field pair |
+| 166 | relative phase at collision equals frequency difference times collision time, charge transfer, Q-ball collisions | Kinach & Choptuik 2404.04323, 2408.07561, Multamaki & Vilja hep-ph/0003270 and hep-ph/0010202, Zhou 2411.16604 (all earlier); the Battye & Sutcliffe sec. 3.4 statement (re-read) is the closest |
+
+Fetches without a search number: abstract pages arXiv:physics/0407049, gr-qc/0608076, 2403.00443, 2502.09136, 1201.1934; the BGU record and the TIB record of Turaev et al.; full texts read: physics/0407049, gr-qc/0608076, 0805.2976.
+
+### G4. Not read, open
+
+- Marion 1970 sec. 8.11 (the textbook source of the Yukawa condition); Goldstein (a pointer in a search summary only); the originals of Gordon 1983 and Karpman & Solov'ev 1981 (still not obtained).
+- Campos et al. 2026: sec. IV and the collision sections were read; the appendices were not. Turaev et al., Blaschke et al. 2025: abstracts only.
+- No source found for: a static unequal pair of real-field lumps in 3D over several interaction times; a measured mean force between unequal real lumps; a contact or merger time in units of the beat period; the Yukawa criterion applied to solitons.
