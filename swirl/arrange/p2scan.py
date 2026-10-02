@@ -249,10 +249,13 @@ def series(m, sol, n, edges):
             "steps": wrap(np.array(raw).T), "steps_eff": wrap(np.array(eff).T), "dmin": Dm.min((1, 2))}
 
 
-def run_spec(spec, control=False):
-    """Integrate one spec. Returns (result dict, series dict)."""
+def run_spec(spec, control=False, T_override=None, model_wrap=None):
+    """Integrate one spec. Returns (result dict, series dict). T_override and model_wrap (a function of the
+    Model returning an object with .rhs, used for diagnostic variants) are not used by the scan."""
     F = fam()
     m, z0, ref, d = setup(spec)
+    if model_wrap is not None:
+        m = model_wrap(m, z0)
     K = spec["K"]
     tc = contact_time_equal_in_phase(K, d)
     T = T_MAX if tc is None else min(T_MAX, 5 * tc)
@@ -260,6 +263,8 @@ def run_spec(spec, control=False):
         T = min(T_MAX, max(T, 3 * ref["T_orb"]))
     if control:
         T = spec["T_control"]
+    elif T_override is not None:
+        T = float(T_override)
     t_eval = np.linspace(0, T, N_SAMPLES + 1)
     far = max(3 * d, d + 40.0)
     i, j = np.triu_indices(K, 1)
@@ -387,9 +392,9 @@ def label(rule, lock, ctl_lock, unequal, flagged, steps_tol=0.25):
     return lab, info
 
 
-def run_with_rule(spec):
+def run_with_rule(spec, T_override=None, model_wrap=None):
     from swirl.engine.bonded import bonded_rule
-    res, S = run_spec(spec)
+    res, S = run_spec(spec, T_override=T_override, model_wrap=model_wrap)
     K = spec["K"]
     ctrl_spec = dict(spec, spacing_hw=D_FAR / HW0, speed_frac=0.0, family="static", T_control=res["T"])
     cres, CS = run_spec(ctrl_spec, control=True)
