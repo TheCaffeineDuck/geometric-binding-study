@@ -1,0 +1,473 @@
+{
+ "description": "WP-L1 bisection of outright-break thresholds, T = 2000",
+ "results": [
+  {
+   "start": "dip",
+   "kind": "field",
+   "side": "neg",
+   "unbroken_amp": -0.26875,
+   "unbroken_t0_dN_over_N": -0.4620663803914685,
+   "broken_amp": -0.275,
+   "broken_t0_dN_over_N": -0.4711089748895625,
+   "broken_time": 106.39999999999998,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.00904259449809397,
+   "history": [
+    {
+     "amp": -0.275,
+     "broken": true,
+     "t_first": 106.39999999999998,
+     "dN": -0.4711089748895625
+    },
+    {
+     "amp": -0.2625,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.4529463706534447
+    },
+    {
+     "amp": -0.26875,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.4620663803914685
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "dip",
+   "kind": "velocity",
+   "side": "neg",
+   "unbroken_amp": -0.23125,
+   "unbroken_t0_dN_over_N": -0.40643465894064273,
+   "broken_amp": -0.2375,
+   "broken_t0_dN_over_N": -0.41594731262851037,
+   "broken_time": 120.66249999999991,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.009512653687867634,
+   "history": [
+    {
+     "amp": -0.225,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.3968445280515099
+    },
+    {
+     "amp": -0.2375,
+     "broken": true,
+     "t_first": 120.66249999999991,
+     "dN": -0.41594731262851037
+    },
+    {
+     "amp": -0.23125,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.40643465894064273
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "dip",
+   "kind": "removal",
+   "side": "pos",
+   "unbroken_amp": 0.3625,
+   "unbroken_t0_dN_over_N": -0.46565195432086015,
+   "broken_amp": 0.36875,
+   "broken_t0_dN_over_N": -0.47194766772404084,
+   "broken_time": 1346.4,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.006295713403180692,
+   "history": [
+    {
+     "amp": 0.375,
+     "broken": true,
+     "t_first": 135.89999999999998,
+     "dN": -0.4781846432096666
+    },
+    {
+     "amp": 0.3625,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.46565195432086015
+    },
+    {
+     "amp": 0.36875,
+     "broken": true,
+     "t_first": 1346.4,
+     "dN": -0.47194766772404084
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "dip",
+   "kind": "field",
+   "side": "pos",
+   "unbroken_amp": 0.804688,
+   "unbroken_t0_dN_over_N": 2.239448841523221,
+   "broken_amp": 0.806641,
+   "broken_t0_dN_over_N": 2.24644510346076,
+   "broken_time": 149.89999999999998,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.0069962619375387725,
+   "history": [
+    {
+     "amp": 0.875,
+     "broken": true,
+     "t_first": 47.89999999999998,
+     "dN": 2.496091392214886
+    },
+    {
+     "amp": 0.8125,
+     "broken": true,
+     "t_first": 105.39999999999998,
+     "dN": 2.2674792439595666
+    },
+    {
+     "amp": 0.78125,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.156076241329268
+    },
+    {
+     "amp": 0.796875,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.2115358200196384
+    },
+    {
+     "amp": 0.804688,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.239448841523221
+    },
+    {
+     "amp": 0.808594,
+     "broken": true,
+     "t_first": 127.39999999999998,
+     "dN": 2.2534489245126643
+    },
+    {
+     "amp": 0.806641,
+     "broken": true,
+     "t_first": 149.89999999999998,
+     "dN": 2.24644510346076
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "primary",
+   "kind": "field",
+   "side": "neg",
+   "unbroken_amp": -0.25,
+   "unbroken_t0_dN_over_N": -0.4340029101919715,
+   "broken_amp": -0.25625,
+   "broken_t0_dN_over_N": -0.4432681221497418,
+   "broken_time": 118.86249999999995,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.009265211957770303,
+   "history": [
+    {
+     "amp": -0.275,
+     "broken": true,
+     "t_first": 67.86249999999995,
+     "dN": -0.4705998963263613
+    },
+    {
+     "amp": -0.2625,
+     "broken": true,
+     "t_first": 92.86249999999995,
+     "dN": -0.4524560238247301
+    },
+    {
+     "amp": -0.25625,
+     "broken": true,
+     "t_first": 118.86249999999995,
+     "dN": -0.4432681221497418
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "primary",
+   "kind": "velocity",
+   "side": "neg",
+   "unbroken_amp": -0.2125,
+   "unbroken_t0_dN_over_N": -0.37706531630220513,
+   "broken_amp": -0.21875,
+   "broken_t0_dN_over_N": -0.38680120425403813,
+   "broken_time": 204.125,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.009735887951833,
+   "history": [
+    {
+     "amp": -0.225,
+     "broken": true,
+     "t_first": 107.625,
+     "dN": -0.3964597054395858
+    },
+    {
+     "amp": -0.2125,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.37706531630220513
+    },
+    {
+     "amp": -0.21875,
+     "broken": true,
+     "t_first": 204.125,
+     "dN": -0.38680120425403813
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "primary",
+   "kind": "removal",
+   "side": "pos",
+   "unbroken_amp": 0.34375,
+   "unbroken_t0_dN_over_N": -0.44146191215818126,
+   "broken_amp": 0.35,
+   "broken_t0_dN_over_N": -0.44786350181027396,
+   "broken_time": 211.86249999999995,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.0064015896520926985,
+   "history": [
+    {
+     "amp": 0.325,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.42190893093712456
+    },
+    {
+     "amp": 0.3375,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.43500228712862543
+    },
+    {
+     "amp": 0.34375,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.44146191215818126
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "primary",
+   "kind": "field",
+   "side": "pos",
+   "unbroken_amp": 0.828125,
+   "unbroken_t0_dN_over_N": 2.3211462154278353,
+   "broken_amp": 0.830078,
+   "broken_t0_dN_over_N": 2.328224502962693,
+   "broken_time": 162.36249999999995,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.007078287534857619,
+   "history": [
+    {
+     "amp": 0.875,
+     "broken": true,
+     "t_first": 60.362499999999955,
+     "dN": 2.4931197487238714
+    },
+    {
+     "amp": 0.8125,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.2647880828639293
+    },
+    {
+     "amp": 0.84375,
+     "broken": true,
+     "t_first": 89.36249999999995,
+     "dN": 2.3779875372591266
+    },
+    {
+     "amp": 0.828125,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.3211462154278353
+    },
+    {
+     "amp": 0.835938,
+     "broken": true,
+     "t_first": 110.86249999999995,
+     "dN": 2.349508296607603
+    },
+    {
+     "amp": 0.832032,
+     "broken": true,
+     "t_first": 133.86249999999995,
+     "dN": 2.3353139694775726
+    },
+    {
+     "amp": 0.830078,
+     "broken": true,
+     "t_first": 162.36249999999995,
+     "dN": 2.328224502962693
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "b5",
+   "kind": "field",
+   "side": "neg",
+   "unbroken_amp": -0.28125,
+   "unbroken_t0_dN_over_N": -0.48039120194228213,
+   "broken_amp": -0.2875,
+   "broken_t0_dN_over_N": -0.4892845002913499,
+   "broken_time": 209.3125,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.008893298349067769,
+   "history": [
+    {
+     "amp": -0.275,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.4714204226499929
+    },
+    {
+     "amp": -0.2875,
+     "broken": true,
+     "t_first": 209.3125,
+     "dN": -0.4892845002913499
+    },
+    {
+     "amp": -0.28125,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.48039120194228213
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "b5",
+   "kind": "velocity",
+   "side": "neg",
+   "unbroken_amp": -0.26875,
+   "unbroken_t0_dN_over_N": -0.4624346053735068,
+   "broken_amp": -0.275,
+   "broken_t0_dN_over_N": -0.4714840170068418,
+   "broken_time": 299.19999999999993,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.009049411633335003,
+   "history": [
+    {
+     "amp": -0.275,
+     "broken": true,
+     "t_first": 299.19999999999993,
+     "dN": -0.4714840170068418
+    },
+    {
+     "amp": -0.2625,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.4533076991258584
+    },
+    {
+     "amp": -0.26875,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.4624346053735068
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "b5",
+   "kind": "removal",
+   "side": "pos",
+   "unbroken_amp": 0.375,
+   "unbroken_t0_dN_over_N": -0.4832942514226388,
+   "broken_amp": 0.38125,
+   "broken_t0_dN_over_N": -0.4895365635687089,
+   "broken_time": 291.3125,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.0062423121460700726,
+   "history": [
+    {
+     "amp": 0.375,
+     "broken": false,
+     "t_first": null,
+     "dN": -0.4832942514226388
+    },
+    {
+     "amp": 0.3875,
+     "broken": true,
+     "t_first": 177.3125,
+     "dN": -0.49571944646742483
+    },
+    {
+     "amp": 0.38125,
+     "broken": true,
+     "t_first": 291.3125,
+     "dN": -0.4895365635687089
+    }
+   ],
+   "T": 2000.0
+  },
+  {
+   "start": "b5",
+   "kind": "field",
+   "side": "pos",
+   "unbroken_amp": 0.931641,
+   "unbroken_t0_dN_over_N": 2.7119600170951847,
+   "broken_amp": 0.933594,
+   "broken_t0_dN_over_N": 2.71945337956305,
+   "broken_time": 947.8125,
+   "broken_class": "dynamic",
+   "width_dN_over_N": 0.00749336246786525,
+   "history": [
+    {
+     "amp": 0.875,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.497928620760823
+    },
+    {
+     "amp": 0.9375,
+     "broken": true,
+     "t_first": 400.3125,
+     "dN": 2.7344628010884207
+    },
+    {
+     "amp": 0.90625,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.615227199134354
+    },
+    {
+     "amp": 0.921875,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.6746028721638204
+    },
+    {
+     "amp": 0.929688,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.704474220157202
+    },
+    {
+     "amp": 0.933594,
+     "broken": true,
+     "t_first": 947.8125,
+     "dN": 2.71945337956305
+    },
+    {
+     "amp": 0.931641,
+     "broken": false,
+     "t_first": null,
+     "dN": 2.7119600170951847
+    }
+   ],
+   "T": 2000.0
+  }
+ ]
+}
