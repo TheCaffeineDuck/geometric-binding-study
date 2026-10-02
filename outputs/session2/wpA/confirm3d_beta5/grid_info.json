@@ -1,0 +1,22 @@
+{
+ "N": 216,
+ "L": 118.80000000000001,
+ "dx": 0.55,
+ "r_max_table": 87.03,
+ "sponge_inner": 47.400000000000006,
+ "tail_at_sponge_inner": 1.1022168722837876e-05,
+ "tail_at_face": 6.309528535180953e-07,
+ "points_per_half_width": 12.041455388071414,
+ "three_hw": 19.868401390317835,
+ "guards": {
+  "Phi0": 3.5833970288330796,
+  "r_max": 87.03,
+  "r_face": 59.400000000000006,
+  "Phi_rmax_over_Phi0": 9.987367244240443e-10,
+  "max_Phi_beyond_r_face_over_Phi0": 6.294630615814745e-07
+ },
+ "E_table_quadrature": 6333.526365758135,
+ "E_family": 6333.526538290584,
+ "N_table_quadrature": 6381.612413043774,
+ "N_family": 6381.612413043774
+}
