@@ -58,3 +58,20 @@ Nothing running on AWS. Ledger total 9.69 USD of 50 at the start of the session 
 - **Ledger F-023 to F-026** (L1-1, L1-5, L1-8, L1-9) and PRIOR_ART Addendum H (searches 167 to 178). L1-1 reads as an energy threshold: in t = 0 dE/E the three kick kinds agree to 4.5%, and the last unbroken lumps sit at settled E/(mN) 1.013 to 1.016 (4/3), with omega within 1.2% of the N-minimum omega. Scoring reported two ways: miss as written; within 3x of the target for L1-1, L1-9 and the dip and b5 clauses of L1-8 (CLAUDE.md tolerance rule). The primary clause of L1-8 (45x) and the L1-5 packet runs are beyond 3x.
 - **Mac L3 (reduced set), started 17:42 (+07).** Primary gate on the production grid passed (speed error at most 4e-4, E/(gamma E0) at most 2.3e-5, omega at most 3.6e-6, at v = 0.02 and 0.2, phases 0 and 90; collision cross terms at most 4.8e-5). Running: primary collisions (v = 0.02 phases 0, 180, 90; v = 0.2 phases 0, 180, 90), then src_dip and dip (d) runs (control, random 0.15 and 0.1, stretch 0.2 and 0.1), plus linear twins of a (d) run and of a primary collision. Expected end about 10:00 to 11:00 on 2026-10-03. Log `.claude/worktrees/integration/logs/wpl3_mac.log`. Resume: `nohup caffeinate -ims outputs/session3/wpL3/mac_entry.sh &` from that worktree. Pending unless the cloud batch is approved: dip collisions, b5 (d) runs, 3D spot checks, box and resolution checks of collisions, and all of P3.
 - **WP-L1 summary fixes and code hash merged** (96d2324; main 95936fb). The checkpoint and cache keys carry a code hash (stale states are refused). Summary regenerated: primary N/N_min 1.754; settled values for all 342 rows; family compared over the same elapsed window; slow-packet early window after passage (rates fall 1 to 2 orders). Brackets unchanged. Block L1 scores unchanged (the reviewer's numbers, used for scoring, already had these corrections).
+
+## Rented batch approved by Aaron (in chat), estimates before launch
+
+Aaron approved renting for the pending 3D batch within the 50 USD total, in this priority order: (1) P3; (2) b5 distortions; (3) 3D spot checks of L1 points; (4) the dip collision set with its box and resolution checks, as a set or not at all. Rule: an item that would take the total past 50 USD is left pending with every item below it.
+
+**Ledger total before launch: 9.87 USD** (40.13 USD remaining). Estimates by the cloud worker at the measured rates (0.81 of the assumed rate for WP-L jobs, 0.86 for P3), at 0.6424 USD per instance-hour (c8g.4xlarge plus 60 GB gp3), with bootstrap and one test run included. No AWS calls were made for this table.
+
+| # | Item | Slot-hours | Alone (USD) | Marginal in packed plan (USD) | Cumulative batch (USD) | Ledger total after (USD) |
+|---|---|---|---|---|---|---|
+| 1 | P3: 2 candidates, 3 isolated lumps, in-phase control, linear twin; T = 7500 | 55.7 | 9.82 | 9.82 | 9.82 | 19.69 |
+| 2 | b5 distortions: src_b5, control, stretch 0.2, random 0.1 and 0.15 | 53.6 | 10.45 | 0.63 | 10.45 | 20.32 |
+| 3 | Spot checks: dip field -0.1, dip removal 0.2, b5 field +0.1 (src_dip built) | 22.5 | 10.45 | 4.28 | 14.73 | 24.60 |
+| 4 | Dip collision set: src_dip, gates and gate check, 6 collisions, collision twin, 1.5x box at both speeds, resolution at v = 0.2 | 75.4 | 10.27 | 5.83 | 20.56 | 30.43 |
+
+All four items fit (the allowance is 38.63 after a 1.5 USD margin for collection and clean-up). Plan: 2 c8g.4xlarge instances, about 16.0 h each (X: P3 candidates, b5 runs and spot checks, dip spot checks; Z: dip collision set, P3 isolated runs, in-phase control and twin, tests). Dead-man timers at wall + 2 h (1081 and 1079 min). A 12 GB swapfile on each (peak memory about 22.5 and 24.6 GB of 30). Scheduling-only edit to the job list (roles and one ordering dependency); no job, config or horizon changed. A further 15% slowdown would add about 3 USD.
+
+Not in any item and so pending: the b5 1.5x box check (standard 4 for the b5 runs; on X it would push the wall to about 21 h), the dip-(d) twin and the extra random seeds on the cloud (the dip (d) runs and the primary collisions run on the Mac).
