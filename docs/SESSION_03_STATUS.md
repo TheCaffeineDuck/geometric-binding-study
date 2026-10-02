@@ -32,3 +32,11 @@ Nothing running on AWS. Ledger total 9.69 USD of 50 at the start of the session 
 - Never run `git add -A`, `git add .` or `git commit -a` in the main checkout: that would commit the deletion of every tracked result. Stage explicit paths only.
 - New result JSON and plots written under `outputs/` land on the SSD and cannot be committed while the link stays. Asked Aaron; until he answers, results stay on the SSD and their paths are listed in the report (deviation from the CLAUDE.md rule "commit result JSON and plots").
 - numerics worktrees have their own real `outputs/` directory from git; results made there are committed on the worktree branch as usual.
+
+## Decisions and deviations so far
+
+- **Collision speeds (WP-L3):** per lump 0.02 and 0.2. The builder proposed 0.05 and 0.2; the reviewer pointed out that the published slow collisions use 0.01 to 0.04 per lump (Xue 2025), so 0.02 connects to them. The plan fixes only "two speeds".
+- **L1 scoring:** breaks are split into instantaneous (the kick alone puts the energy inside 3 hw below half) and dynamic, with thresholds given both ways. The family comparison uses the settled N ratio to the control on one estimator, because the period-averaged N sits 1.35% above the profile N at the dip, comparable to the dip's width.
+- **Gate before collisions:** repeated on the production source and grid, at phases 0 and 90, at both speeds, on the instance before any collision starts (reviewer: the first gate ran at dx 0.8 on a test source).
+- **Worker effort:** the reviewer and scholar see a reasoning-effort value of 30 and numerics sees 15; the named levels in CLAUDE.md (xhigh, high) cannot be confirmed from inside.
+- **Reviews:** WP-L1/L2 build reviewed. Nothing blocks L1; fixes to the notes, a code hash for the checkpoint key, decimation of the 30,000-unit series before commit, and more box checks are requested before merging.
