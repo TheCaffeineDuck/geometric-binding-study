@@ -95,3 +95,8 @@ Not in any item and so pending: the b5 1.5x box check (standard 4 for the b5 run
 2. Collect `out/X/session3/wpL3`, `out/Z/session3/wpL3` and `out/Z/session3/wpP3` (results, logs, source metas; no npz) into the integration worktree. Run `python -m swirl.engine.l3 post` on the merged L3 results (Mac and cloud) and score P3_inphase.
 3. Delete the bucket, role swirl-batch3-role (inline policy and SSM attachment), profile swirl-batch3-profile and security group sg-0a7678933c595a7a4. Verify nothing is left, and finish the ledger row with the actual hours.
 4. Reviewer: the L3 outcomes recomputed from the saved data. Then score Block L3 and P3-1, ledger entries for any misses, and the final report, FINDINGS, pytest on main.
+
+## Cloud stop and resume (2026-10-03)
+
+- **Both instances stopped at about 19:35Z on 2026-10-02 (02:35 +07)**, about 4.9 h (X) and 4.0 h (Z2) after launch. State reason "Client.UserInitiatedShutdown"; no StopInstances event in CloudTrail; memory 20 GB used of 30, no swap; shutdown behaviour terminate (so an OS shutdown would have terminated them). Cause not identified. Progress at the stop: X: b5 runs at t = 250 of 2000, spot_dip_field-0.1 near its end; Z2: dip collisions at t = 600 of 2080, the gate check passed, P3_iso_N100 finished. Spend to the stop about 6.8 USD (ledger about 16.7).
+- **Aaron chose to resume from checkpoints (07:50 +07).** Started both at 00:47:55Z; over SSM, new timers (shutdown at 16:54Z, systemd poweroff 5 min later) and the batch script re-run (resumable: done jobs skipped, others resume from on-disk checkpoints). Expected end about 22:00 +07. Further cost at most about 20.6 USD (2 x 16 h), ledger at most about 37.
