@@ -439,6 +439,8 @@ Every worker stated its model from its own context; all match `CLAUDE.md`. No wo
 - I wrote L1-1's basis with the sign of the post-kick N change wrong for two of three kick types, although the build numbers in hand already showed it.
 - I wrote L3-2 and L3-3 bands that ignored that a distortion changes N, and that frac counts the energy kept.
 - I wrote L3-7 from the tail law at contact, where it is not valid.
+- I wrote "a third" for 116/186 (0.62) in Block L3's basis.
+- I did not run the cheap diagnostics the ledger proposed until the report review pointed out that CLAUDE.md asks for them; they were then run (section 7).
 - I wrote P2's mechanism ("drift together on the beat-averaged attraction") from a held-position average that the reviewer showed is not a predictor.
 - I overstated the P3 premise ("these lumps decay in 3D") before the radial check, and the dip result ("a 2 to 4% loss ends its life") before the -2% runs were read. The scholar caught both.
 - Git, around the `outputs/` link:
