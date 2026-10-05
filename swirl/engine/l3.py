@@ -441,8 +441,14 @@ def run_job(j, out=None, ckpt=None):
         return j["name"], "failed: %r" % (e,), time.time() - t0
 
 
-def run_jobs(jobs_file, workers=8, threads=2, stages=None, starts=None, role=None, poll=10.0):
+def _init_worker(threads):
+    """Pool initializer: the worker's numba thread count, set in the worker before it imports numba (this
+    module does not import numba at top level). The parent's environment is left alone: changing
+    NUMBA_NUM_THREADS in a process whose numba threads are running makes its next compile fail."""
     os.environ["NUMBA_NUM_THREADS"] = str(threads)
+
+
+def run_jobs(jobs_file, workers=8, threads=2, stages=None, starts=None, role=None, poll=10.0):
     J = json.load(open(jobs_file))
     for j in J:
         if j["kind"] == "run":
@@ -457,7 +463,8 @@ def run_jobs(jobs_file, workers=8, threads=2, stages=None, starts=None, role=Non
     failed, pending, running = set(), [j for j in sel if j["name"] not in done], {}
     log = lambda *a: print(time.strftime("%H:%M:%S"), *a, flush=True)
     log("jobs: %d selected, %d already done, %d to run" % (len(sel), len(sel) - len(pending), len(pending)))
-    with mp.get_context("spawn").Pool(workers, maxtasksperchild=1) as pool:
+    with mp.get_context("spawn").Pool(workers, maxtasksperchild=1, initializer=_init_worker,
+                                      initargs=(threads,)) as pool:
         while pending or running:
             for j in list(pending):
                 deps = [d for d in j["deps"]]

@@ -47,7 +47,17 @@ def test_driver_smoke(tmp_path, monkeypatch):
         j.update(N=N, L=L, dt=0.0, T=T, steps=0, job_hours=0.0)
     path = str(tmp_path / "jobs.json")
     json.dump(J, open(path, "w"))
+    # launch this process's numba threads first, as earlier tests in a full run do
+    from swirl.engine.evolver import Evolver
+    ev = Evolver(16, 16.0, 1.0, 0.3, 0.12, threads=2)
+    ev.step(0.1)
+    env_before = os.environ.get("NUMBA_NUM_THREADS")
     failed = l3.run_jobs(path, workers=2, threads=1, poll=0.5)
+    # the driver sets the thread count in its workers only; a changed parent env made the next numba compile
+    # in this process fail ("Cannot set NUMBA_NUM_THREADS ... once the threads have been launched")
+    assert os.environ.get("NUMBA_NUM_THREADS") == env_before
+    import numba
+    numba.njit(lambda x: x + 1)(1)
     print("\nfailed:", failed)
     assert set(failed) <= {"gatecheck_primary"}
     for j in J:
