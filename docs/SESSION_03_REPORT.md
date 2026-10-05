@@ -1,6 +1,6 @@
 # Session 3 report
 
-Date: 2026-10-02 to 2026-10-05. Plan: `docs/SESSION_03_PLAN.md`, WP0 to WP-F. All work is on `main`; nothing has been pushed. **The SWIRL AWS project was closed on 2026-10-05; the last cloud batch's results were not copied before the closure and are lost** (section 12).
+Date: 2026-10-02 to 2026-10-05. Plan: `docs/SESSION_03_PLAN.md`, WP0 to WP-F. All work is on `main`; nothing has been pushed. **The SWIRL AWS project was closed on 2026-10-05; the last cloud batch's results were not copied before the closure and are lost to this repo** (section 12). **AWS reported about 125 USD of spend against the 50 USD budget; this ledger estimated 16.7 to 37.4 USD** (section 12).
 
 **Where things are recorded.**
 - **Predictions:** `docs/SESSION_03_PREDICTIONS.md`, Blocks P, L1, L3 and P3. Each block was committed before the runs it refers to, and its "What was known" paragraph says what was in hand.
@@ -28,10 +28,10 @@ Date: 2026-10-02 to 2026-10-05. Plan: `docs/SESSION_03_PLAN.md`, WP0 to WP-F. Al
 
 ## Verdict
 
-**A lone swirl takes a large disturbance to break outright: about 40% of its energy.**
+**In the radial (spherical) solver, a lone swirl takes a large disturbance to break outright: about 40% of its energy.**
 - In the radial solver, kicks, core removal and incoming radiation were scanned at three starts (384 runs, every threshold bisected).
 - A lump breaks within 2,000 time units only when the disturbance leaves it unable to settle at or above the bottom of its family.
-- **Measured in energy delivered, the three kick types agree to 4.5% or better:** 40 to 42% of the energy at the dip, 37 to 39% at the primary, 47% at beta = 5. Measured in charge they spread more: 38 to 49% of N removed.
+- **Measured in energy delivered, the three kick types agree to 4.5% or better:** 40 to 42% of the energy at the dip, 38 to 39% at the primary, 47% at beta = 5. Measured in charge they spread more: 38 to 49% of N removed. The energy reading was found after the scan (post hoc, F-023).
 - The last lump that survives settles near N_min, with omega within 1.2% of the omega at the family's minimum.
 - Kicks that add N break a lump only beyond a 3.2- to 3.7-fold increase of N. Velocity kicks up to +1.0, and spherical packets up to twice the lump's energy, broke none (these are the largest values tried, not thresholds).
 - These thresholds are radial (spherical) results. Their 3D spot checks were lost (section 5).
@@ -41,13 +41,13 @@ Date: 2026-10-02 to 2026-10-05. Plan: `docs/SESSION_03_PLAN.md`, WP0 to WP-F. Al
   - After a kick that removes 4% of its N, it dies at 25,023 (field) or 23,367 (velocity).
   - After 2%, it holds 0.69 (field) or 0.60 (velocity) of its energy at T = 30,000, still falling; it was not run to death.
   - Kicks that add 2% raise its loss rate 130 to 320 times at first, then recover toward the family's rate.
-- **The Session 1 primary can be improved by a kick:** +4% of N puts it at the dip's N and lowers its early loss rate 150-fold (velocity kick) or 34-fold (field kick). It stays 8 to 10 times above the dip start's own rate.
+- **The Session 1 primary can be improved by a kick:** +4% of N puts it at the dip's N and lowers its early loss rate 150-fold (velocity kick) or 34-fold (field kick). It then sits 8 to 10 times (velocity kick) or 38 to 69 times (field kick) above the dip start's own rate.
 - **At beta = 5**, no kick below the threshold raised the loss rate measurably above the noise floor late in the run, and no run died within 30,000.
 - **The family rule:**
-  - After relaxation, omega follows the family's d omega/dN to within 20% in 84 of 85 runs. In 3D it does so to 4% for the dip distortions.
-  - The loss rate follows the family's within 3x for 7 of 9 comparable kicks, but not after radiation packets.
+  - After relaxation, omega follows the family's d omega/dN to within 20% in 84 of 85 runs (reviewer's L1 recomputation; the exception is the b5 slow packet at 0.01 E, ratio 1.28, at the measurement floor). In 3D it does so to 4% for the dip distortions.
+  - The loss rate follows the family's within 3x for 7 of 9 comparable kicks in the early window (5 of 9 late; 78% early is under the 80% target even for kicks alone), and not after radiation packets. The family rate changes steeply near the dip, so a 1% N match is a loose test there (F-024).
 
-**In 3D at the dip start, non-spherical distortions relax:** no break, no growing shape mode to T = 2,000. A stretch with no change in N still sheds 0.5 to 1.8% of N. A random multiplier keeps about 37% of the N it adds. Both shift the lump along its family as the omega shift says.
+**In 3D at the dip start, non-spherical distortions of up to 2.4% of the energy relax:** no break, no growing shape mode to T = 2,000 (stretch and random multiplier only; no non-spherical threshold was measured). A stretch with no change in N still sheds 0.5 to 1.8% of N. A random multiplier keeps about 37% of the N it adds. Both shift the lump along its family as the omega shift says.
 
 **Collisions (3D, the primary start).** In phase, the lumps merge at both speeds tried, 0.02 and 0.2 per lump: one lump with 0.59 to 0.61 of the pair's energy, still shedding. Anti-phase they come out as two intact lumps. At 90 degrees N flows from the leading to the lagging lump, and two unequal lumps come out. Claude Desktop's "in phase absorbs, anti-phase bounces" holds at both speeds; my prediction that in-phase lumps would not merge at 0.2 was wrong.
 
@@ -57,13 +57,13 @@ Date: 2026-10-02 to 2026-10-05. Plan: `docs/SESSION_03_PLAN.md`, WP0 to WP-F. Al
   - The radial part follows from the classical Yukawa criterion: circular orbits are unstable for kappa d > 1.618, and kappa d is 5 or more there.
   - The phase and N modes grow in 0.1% to 14% of an orbital period.
 - **Unequal lumps beat:** their first-order force averages out.
-  - Three weakly interacting unequal pairs at 7.2 hw stayed "bounded, beating" for the run. Adding the omitted second-order force, or running longer, makes them drift together.
+  - Three weakly interacting unequal pairs at 7.2 hw stayed "bounded, beating" for the run. Adding the omitted second-order force makes them fail the trend clause; run three times longer they drift together by 1 to 10%, though two of them stayed between d = 22.2 and 24.1 to 60,000 in the reviewer's run (stored nowhere).
   - Their larger lumps (N/N_min 3.1 and 4.4) do not hold their N on the run's timescale. In the radial solver they fall below 0.90 of their energy at t = 330 and 558, and their 3D sources failed the settling guard.
   - So the candidates are not static unequal pairs, and they were not run in 3D.
 
 **Against the theory's first claim.**
 - **"A modest disturbance can dissipate a lone swirl"** is not supported for an outright break.
-- **It is supported in lifetime terms at beta = 4/3**, and strongly for a lump in a long-life dip, where losing a few percent of N ends a life of over 300,000 time units within about 25,000.
+- **It is supported in lifetime terms at beta = 4/3 (radial)**, strongly for a lump in a long-life dip: a 4% loss of N (or core removal s = 0.02, dN/N -3.1%) ends a life of over 300,000 time units by 23,000 to 29,000; a 2% loss leaves it at 0.60 to 0.69 of its energy at 30,000, still falling, not run to death.
 - **At beta = 5 it is not supported.**
 
 Section 10 has the details.
@@ -123,17 +123,17 @@ Section 10 has the details.
 | Unequal orbiting pairs | 252 | 7 | 240 | 5 | 0 | 0 | 0 |
 | Alternating-size rings | 336 | 50 | 271 | 12 | 3 | 0 | 0 |
 
-798 of the 1,822 runs come closer than 3.6 hw at some time, where the model is not valid (five more after the reviewer's dense-output reflag).
+798 of the 1,822 runs come closer than 3.6 hw at some time, where the model is not valid (this count includes the five added by the reviewer's dense-output reflag).
 
 ### Against the predictions (Block P)
 
 | # | Prediction | Measured | Outcome |
 |---|---|---|---|
 | P1 | Equal lumps in orbit: none bonded; at least 90% at 3.6 to 6 hw merge or fly apart within 2 orbital periods | none bonded; 418 of 448 (93.3%); the other 30 leave the family's range within 2 periods | hit |
-| P2 | Static unequal pairs and rings: none bonded or bounded-beating; at N ratio 1.5 and above, contact at least 3x later than equal in-phase pairs, or not within the cap | none bonded; 3 bounded-beating pairs at 7.2 hw; at 3.6 hw contact no later than for equal pairs (0.76 to 0.98 of it) | **miss** on both clauses (F-020, F-021) |
+| P2 | Static unequal pairs and rings: none bonded or bounded-beating; at N ratio 1.5 and above, contact at least 3x later than equal in-phase pairs, or not within the cap | none bonded; 3 bounded-beating pairs at 7.2 hw; at 3.6 hw contact no later than for equal pairs (0.76 to 0.97 of it) | **miss** on both clauses (F-020, F-021) |
 | P3 | Unequal orbiting pairs and alternating-size rings: none bonded or bounded-beating | none | hit |
 | P4 | Zero bonded and zero bounded-beating at 3.6 hw and above | 3 bounded-beating, all at 7.2 hw | **miss** (F-022; the same three runs as F-020) |
-| P-CD | Claude Desktop: unequal frequencies average the force to near zero, so unequal lumps neither bind nor merge quickly; orbital motion is the more likely route | first half holds; "neither merge quickly" fails at 3.6 hw; "orbital motion is the more likely route" fails in the model | half |
+| P-CD | Claude Desktop: unequal frequencies average the force to near zero, so unequal lumps neither bind nor merge quickly; orbital motion is the more likely route | first half holds; "neither merge quickly" fails at 3.6 hw (where contact is itself an extrapolation at the model's validity edge); "orbital motion is the more likely route" fails in the model | one clause of three |
 
 ### The misses
 
@@ -143,18 +143,19 @@ Section 10 has the details.
 - **Diagnostics run:**
   - D1: with the omitted phase-independent force added (as a diagnostic, not a model change), all three fail the trend clause by 4 to 6 times, closing by 0.65 to 0.87% over the run.
   - D2: run three times longer without it, they stay bounded but drift (p2_0242 by 10%).
-  - The reviewer ran them to 60,000: p2_0230 and p2_0234 swing between d = 22.2 and 24.1. p2_0242 closes to 19.4 and leaves the family's range at 17,419. Those runs printed their numbers and stored nothing, so they cannot be rechecked from files.
-- **Causes, ranked:**
-  1. These are runs where a start-phase-dependent mean drift happens to cancel. The scholar fitted the trend over its limit as |A + B sin(start phase)| for N ratios 1.75 to 2.5, predicting the 90-degree value to 2% (derived, untested).
-  2. The model omits the second-order force, which at 7.2 hw is as large as the model's own residual.
-- **Rules in:** "bounded, beating" in the point model is a run-length and model-content artefact at this spacing. **Rules out:** a point-model bound state of unequal lumps.
+  - The reviewer ran them to 60,000: p2_0230 and p2_0234 swing between d = 22.2 and 24.1. p2_0242 closes to 19.4 and then leaves the family's range. Those runs printed their numbers and stored nothing, so they cannot be rechecked from files.
+- **Causes, ranked as in the ledger:**
+  1. The run length: the label is a threshold crossing within a run of exactly five contact units; longer runs leave it.
+  2. The model omits the second-order force, which at 7.2 hw is as large as the model's own residual (D1).
+  3. A start-phase-dependent mean drift that happens to cancel: the scholar's fit |A + B sin(start phase)| predicts the 90-degree value to 2% for N ratios 1.75 to 2.5, but fails at 2.95 (0.9 predicted, 9.1 measured). Derived, untested.
+- **Rules in:** "bounded, beating" in the point model is a run-length and model-content artefact at this spacing. **Rules out:** the label as evidence of binding. It does not rule out binding in 3D; without N34, two of the pairs stay bounded to 60,000 in the model.
 - **3D:** the candidates' larger lumps do not hold their N on the run's timescale (radial and 3D), so the candidates were not run in 3D (section 6).
 
 **F-021: no delay of contact at 3.6 hw.**
 - **Expected:** for N ratio 1.5 and above, contact at least 3 times later than equal in-phase pairs.
-- **Measured:** 0.96 to 0.98 of it, and 0.76 to 0.88 at ratios 2.5 and 2.95.
+- **Measured:** 0.96 to 0.97 of it, and 0.76 to 0.88 at ratios 2.5 and 2.95. All 25 runs at 3.6 hw merge at the edge of the model's validity, so the contact time is itself an extrapolation (ledger cause 2).
 - **Diagnostic D3:** at 3.6 hw, contact takes 0.07 to 0.24 of a beat period. The relative phase has turned only 52 to 93 degrees by merger, so the pair merges like an equal in-phase pair.
-- At 4.2 and 4.8 hw, pairs with ratios 1.2 to 2 do not merge, but ratios 1.5 and 1.75 started in phase flew apart rather than drifting together. So the mechanism I wrote ("drifts together on the beat-averaged attraction") is wrong even where the outcome matched. The reviewer showed the held-position average is not a sound predictor: free dynamics can push the pair apart.
+- At 4.2 and 4.8 hw, pairs with ratios 1.2 to 2 do not merge, but some started in phase flew apart rather than drifting together (ratio 1.5 at 4.8 hw; ratios 1.5 and 1.75 at 4.2 hw). So the mechanism I wrote ("drifts together on the beat-averaged attraction") is wrong even where the outcome matched. The reviewer showed the held-position average is not a sound predictor: free dynamics can push the pair apart.
 - **Rules in:** the ratio of interaction time to beat period decides whether unequal lumps behave as coherent. **Rules out:** a slow beat-averaged attraction as the general rule.
 - 3D does not test this: P3 runs at 7.2 hw only.
 
@@ -184,7 +185,7 @@ Numbers from `outputs/session3/wpL/scan_summary.json` as corrected, and the revi
   | primary | 0.910 | 0.35 | — |
   | b5 | 0.976 | 0.15 | 0.06 |
 
-  After field kicks the share reaches 0.48 (4/3) and 0.22 (b5).
+  After field kicks of +0.2 the share is 0.48 (4/3) and 0.22 (b5); at the positive break thresholds it is 0.75 (dip), 0.80 (primary) and 0.53 (b5), deep in the nonlinear regime.
 - **Linear twins:** energy inside 3 hw is 0.016 to 0.025 at t_d + 100 (4/3) and 0.0011 to 0.0016 at t_d + 1,000 (b5).
 
 ### Break thresholds (radial solver, spherical symmetry)
@@ -197,7 +198,7 @@ Bisected to a bracket width of 0.01 in dN/N or better. All dynamic: the first fa
 | primary | -0.253 (-0.439; -0.390) | -0.216 (-0.382) | 0.347 (-0.445; -0.377) | 1.01 to 1.02 |
 | b5 | -0.284 (-0.485; -0.472) | -0.272 (-0.467) | 0.378 (-0.486; -0.468) | 1.015 to 1.03 |
 
-- **Positive field kicks** break at eps of about +0.81 (dip), +0.83 (primary) and +0.93 (b5), that is dN/N +2.2 to +2.7 and dE/E +3.9 to +5.0.
+- **Positive field kicks** break at eps of about +0.81 (dip), +0.83 (primary) and +0.93 (b5), that is dN/N +2.2 to +2.7 and dE/E +3.9 to +5.1, deep in the nonlinear regime (share 0.53 to 0.80).
 - **Positive velocity kicks** up to +1.0 (dN/N +3.0) and **packets** up to twice the lump's energy never break a lump.
 
 ### Degradation (T = 30,000)
@@ -222,12 +223,12 @@ Bisected to a bracket width of 0.01 in dN/N or better. All dynamic: the first fa
 | L1-3 | No break from positive kicks up to +0.5 | none | hit |
 | L1-4 | No break from packets up to 0.5 E | none up to 2 E | hit |
 | L1-5 | Family rule, rate: at least 80% of comparable runs within 3x | 8 of 15 early, 7 of 15 late; kicks 7 of 9; packets mostly 4 to 31x | **miss** (F-024). The 1% N match allows up to about 190x at the dip, so the test is partly unsound as designed |
-| L1-6 | Family rule, omega: within 20% for \|dN/N\| up to 0.1 | 84 of 85 | hit |
-| L1-7 | Sign asymmetry at the dip: late rate after -0.01 and -0.02 at least 100x the control and at least 10x the matching positive kick | 188 to 1,830x the control early; late negative over positive 20 to 465 | hit as written. Early-window asymmetry 1.4 to 1.5: positive kicks degrade at first too |
+| L1-6 | Family rule, omega: within 20% for \|dN/N\| up to 0.1 | 84 of 85 (reviewer's recomputation; exception b5 slow packet at 0.01 E, 1.28, at the floor) | hit |
+| L1-7 | Sign asymmetry at the dip: late rate after -0.01 and -0.02 at least 100x the control and at least 10x the matching positive kick | late rate over the control 3,229 to 11,451 (reviewer, 1000-unit windows; 3,900 to 8,000 from the summary's late windows); late negative over positive 20 to 465 (reviewer, latest window with both alive) or 34 to 57 (summary's late windows) | hit as written. Early-window ratios to the control 188 to 1,830; early asymmetry only 1.4 to 1.5: positive kicks degrade at first too |
 | L1-8 | Ordering: dip 100 to 1e4; primary 0.3 to 30; b5 below 1e-7 absolute | dip 316 to 1.6e4; primary 0.0066 to 13.9; b5 kicks at most 5.4e-9, slow packet 1.5e-7 | **miss** (F-025). Dip and b5 within 3x of the target; the primary's lower edge 45x out |
 | L1-9 | k3 packets: primary/dip \|dN/N\| at least 2 | 36, 7.1, 2.6 at 0.01 to 0.05 E; 1.07 to 1.73 above | **miss** (F-026); within 1.9x of the target |
 | L1-10 | Linear twins disperse | yes | hit |
-| CD | Claude Desktop: the dip start is the most fragile in lifetime terms; b5 the most robust | dip: yes, a 2 to 4% loss of N ends its long life; b5: yes, no break below N_min and no measurable degradation from kicks | agrees |
+| CD | Claude Desktop: the dip start is the most fragile in lifetime terms; b5 the most robust | dip: yes in lifetime (radial): a 4% loss ends its life by about 25,000; 2% leaves 0.60 to 0.69 at 30,000; b5: yes, no break below N_min and no measurable degradation from kicks | agrees |
 
 ### The misses
 
@@ -254,14 +255,18 @@ Bisected to a bracket width of 0.01 in dN/N or better. All dynamic: the first fa
 
 **F-026 (L1-9): k3 packets.**
 - The dip's response grows as efrac^3 at small amplitude and efrac^1.3 at 0.2 to 0.5 E. The primary's grows as efrac^0.7 to efrac^1.3.
-- N33's argument (the dip's 3 omega source vanishes) holds while the packet's own dN stays inside the dip's width. Larger packets move the lump out of the dip.
+- N33's argument (the dip's 3 omega source vanishes) holds at small amplitude. That larger packets detune the lump out of the dip is the leading reading, untested (ledger F-026).
 - **Literature:** no source found for nonlinear absorption of a strong wave by an oscillon.
 
 ## 5. 3D: distortions, collisions, spot checks (WP-L3)
 
 **What ran.** Only the reduced set on the Mac (2026-10-02 17:42 to 2026-10-03 12:04): the primary gate on the production grid, six primary collisions, the dip source, five dip distortion runs (control, stretch eps = 0.1 and 0.2, random multiplier a = 0.1 and 0.15 with seed 1), and two linear twins.
 
-**What was lost** with the AWS closure (section 12): all β = 5 distortion runs; the three spot checks; the dip gates and six dip collisions with their twin, box and resolution checks; random seeds 2 and 3. Results: `outputs/session3/wpL3/results/` and `summary.json` (commit 977e1b2).
+**Lost to this repo** with the AWS closure (section 12): the four β = 5 distortion runs and the three spot checks (X); the dip gates, six dip collisions, their twin, box and resolution checks (Z2). The instances synced to S3 every 5 minutes; the bucket's state after the closure is unknown. **Never run** (dropped in the budget trim or not in Aaron's approved items): random seeds 2 and 3, stretch eps 0.05, random a = 0.02 and 0.05, all primary (d) runs, the b5 1.5x box check and the b5 collisions.
+
+**frac in 3D** is E(r < 3 hw) over the control's t = 0 sphere energy (README), so a run's delivered energy is included. Normalised by each run's own t = 0 energy, the differences from the control are stretch -6.0e-3 and -2.3e-2, random -6.5e-3 and -1.5e-2 (the random sign flips). The scores below use the definition as written.
+
+Results: `outputs/session3/wpL3/results/` and `summary.json` (commit 977e1b2).
 
 **Review.** The reviewer recomputed every outcome from the stored series (section 5 of the status file).
 - Every stored number is reproduced.
@@ -303,7 +308,9 @@ Notes on the table:
 - The stretch sheds 3.3 times the energy it delivers, by t = 300.
 - The random multiplier keeps 36 to 39% of the N it adds.
 
-**Regime.** At the start, omega/m is 0.906 to 0.908. The nonlinear share is 0.35 instantaneous, and its period mean is about 0.16.
+**Regime.** At the start, omega/m is 0.906 to 0.908. The nonlinear share is 0.36 instantaneous (0.34 to 0.35 for the random runs), and its period mean is 0.15.
+
+**Standards not met for the 3D runs:** no box doubling for any (d) run or collision; linear twins exist for one of the five (d) runs and one of the six collisions.
 
 ### Collisions at the primary start (d = 30)
 
@@ -325,7 +332,7 @@ Notes on the table:
 
 | # | Prediction | Measured | Outcome |
 |---|---|---|---|
-| L3-1 | No shape instability; a2 and a3 below t = 0 values or 1e-3; no break | dip: no break, a2 decays to 3e-5, random-run a3 to under 1e-4; stretch-run a3 is round-off rising from 3e-11 to 4e-10 (and 5e-10 to 3e-8) | hit at the dip, with a note on the literal a3 clause. The b5 and primary parts were lost |
+| L3-1 | No shape instability; a2 and a3 below t = 0 values or 1e-3; no break | dip: no break, a2 decays to 3e-5, random-run a3 to under 1e-4; stretch-run a3 is round-off rising from 3e-11 to 4e-10 (and 5e-10 to 3e-8) | **partial**: no break, a2 and the random-run a3 as predicted; the stretch a3 clause fails as written (round-off, read as numerical); b5 part lost; primary part never run |
 | L3-2 | Stretch: frac within 1e-3 (eps 0.1) and 1e-2 (eps 0.2) of the control | -4.4e-3 and -1.75e-2 | **miss** (F-027): eps 0.1 is 4.4x the target; eps 0.2 is 1.75x (a pass with a note by the 3x rule) |
 | L3-3 | Random multiplier at the dip: frac within 2e-3 of the control; omega shift to 30% | +2.9e-3 and +7.3e-3; omega to 4% | **miss** on frac (F-028): a = 0.15 is 3.7x the target; a = 0.1 is 1.45x (a pass with a note). Hit on omega |
 | L3-4 | Slow, phase 0: merged, contact before the free meeting time, remnant 0.6 to 0.85, omega below the start's | merged; 393.6 before 582.8; 0.614; 0.8967 against 0.9095 | hit (primary start, not dip) |
@@ -345,7 +352,7 @@ Notes on the table:
 - **Measured:** it sheds 3.3 times that, and 0.5 to 1.8% of N, within about 60 time units.
 - **Reading:** the lump does not return to the same family member; it settles lower in N.
 - **Rules in:** shape excitation costs N as well as energy.
-- **Rules out:** that a zero-dN distortion is free for a lump in a dip. Fragile lifetime is the cost: the late loss rate is 11 and 100 times the control's.
+- **Rules out:** that a zero-dN distortion is free for a lump in a dip. The late loss rates rise to 6.5e-8 and 6.1e-7 (11 and 100 times the control's), which still imply lives of order 1e6; the 3D control sits 0.6% below the radial dip start in N, so the radial lifetimes do not transfer directly.
 
 **F-028 (L3-3).**
 - **Expected:** frac within 2e-3 of the control.
@@ -384,7 +391,7 @@ Notes on the table:
 
 - **WP-P (Block P):** hits P1, P3. Misses P2 (both clauses; F-020, F-021) and P4 (F-022). Claude Desktop's guess holds by half.
 - **WP-L1 (Block L1):** hits L1-2, L1-3, L1-4, L1-6, L1-7 (as written; late window), L1-10. Misses L1-1 (F-023), L1-5 (F-024), L1-8 (F-025), L1-9 (F-026). L1-1, L1-9 and the dip and b5 clauses of L1-8 are within 3x of their targets (passes with a note by the CLAUDE.md tolerance rule). The primary clause of L1-8 (45x) and the L1-5 packet runs are not. Claude Desktop's fragility ordering agrees.
-- **WP-L3 (Block L3):** hits L3-1 (at the dip), L3-4, L3-5, L3-6, L3-9, L3-10. Misses L3-2 (F-027), L3-3 frac clause (F-028), L3-7 phase 0 (F-029). Lost L3-8, L3-11. Claude Desktop's collision guess agrees.
+- **WP-L3 (Block L3):** L3-1 partial; hits L3-4, L3-5, L3-6, L3-9, L3-10. Misses L3-2 (F-027), L3-3 frac clause (F-028), L3-7 phase 0 (F-029). Lost L3-8, L3-11. Claude Desktop's collision guess agrees.
 - **WP-P3 (Block P3):** P3-1 lost; P3-2 to P3-4 not run.
 - Every miss has a ledger entry with causes, diagnostics and a literature check.
 
@@ -394,9 +401,9 @@ The scholar checked each candidate statement (`PRIOR_ART.md` Addendum I, searche
 
 | Statement | Wording the record supports |
 |---|---|
-| Break threshold set by energy; survivor settles near the family's bottom | Partly published: decay on reaching the family's end is published (Saffin & Tranberg 2006; Salmi & Hindmarsh 2012; Ibe 2019). No source found for a kick or removal threshold of a settled real lump, or for the agreement of kick kinds in dE/E |
+| Radial: break threshold set by energy; survivor settles near the family's bottom | Partly published: decay on reaching the family's end is published (Saffin & Tranberg 2006; Salmi & Hindmarsh 2012; Ibe 2019). No source found for a kick or removal threshold of a settled real lump, or for the agreement of kick kinds in dE/E |
 | Positive kicks and packets up to 2 E do not break | Partly published, qualitatively (Multamaki 2001; Sakai & Tamaki 2012). No source found for the measured limits |
-| A few percent of N lost ends a dip lump's long life; adding N recovers | Partly published: lifetime sensitivity near dips for starts (Li 2025; Zhang 2020). No source found for a disturbance applied to a lump already in a dip |
+| Radial: a 4% loss of N ends a dip lump's long life by about 25,000; 2% leaves 0.60 to 0.69 at 30,000; adding N recovers | Partly published: lifetime sensitivity near dips for starts (Li 2025; Zhang 2020). No source found for a disturbance applied to a lump already in a dip |
 | A kick can move a lump into a dip | Partly published (mechanism). No source found for the measured effect |
 | omega follows the family after a disturbance | Published as the picture (Andersen & Tranberg 2012; Ibe 2019); measured here as a consistency check, not new |
 | No stable rotating balance in the point model | The radial part is the classical Yukawa criterion (Aguirregabiria et al. 2004); the phase instability of coherent pairs is published for NLS. No source found for the application to oscillon rings |
@@ -440,17 +447,17 @@ Claim 1 has two halves: "left alone a swirl persists" and "a modest disturbance 
   - This session adds the first non-spherical test of the long-lived dip start in 3D. Stretches and random perturbations of up to 2.4% of the energy relax without a growing shape mode to T = 2,000. They leave the lump shifted along its family, in N, omega and loss rate.
   - 3D still covers only 2,000 time units of lumps whose radial lives exceed 300,000.
 - **Dissipated by a modest disturbance.** It depends on what "dissipate" means.
-  - **As an outright break** (half the energy gone within 2,000), not supported. It takes about 40% of the lump's energy at beta = 4/3 and 47% at beta = 5. That is the amount needed to leave the lump unable to settle above the family's minimum. A 2.4% distortion, a 2E radiation packet and a tripling of N all leave it intact.
-  - **As a shortened life**, supported at beta = 4/3 and strongly so for a lump in a long-life dip. There, removing 4% of N turns a life of over 300,000 time units into about 25,000, and 2% turns it into one that has lost 31 to 40% of its energy by 30,000.
+  - **As an outright break** (half the energy gone within 2,000), not supported for spherical disturbances (radial): it takes about 40% of the lump's energy at beta = 4/3 and 47% at beta = 5, the amount that leaves the lump unable to settle above the family's minimum; a 2E radiation packet and a tripling of N leave it intact. Non-spherical disturbances were tested only to 2.4% of the energy and T = 2,000 in 3D, with no break.
+  - **As a shortened life**, supported at beta = 4/3 (radial) and strongly so for a lump in a long-life dip. There, removing 4% of N turns a life of over 300,000 time units into about 25,000, and 2% turns it into one that has lost 31 to 40% of its energy by 30,000, still falling. The 3D lifetime cost was not measured (the spot checks were lost; the 3D distortions ran 2,000 units).
   - **At beta = 5**, not supported in either sense within the runs made.
   - So at beta = 4/3 the theory's "modest disturbance" is true of lifetime, not of immediate destruction, and its size depends on where the lump sits relative to a dip.
 - **Collisions.** In-phase lumps absorb each other at both speeds tried. The result is one lump of about 0.6 of the pair's energy, still shedding, not a bigger stable lump. Anti-phase lumps repel or bounce intact. Collisions are the one disturbance tried that makes two swirls into one, as the theory's "absorption" expects.
 - **Claims 2 and 3** concern bonded groups. This session found none, in the point model with unequal lumps or orbital motion. Its candidates turned out to involve lumps that do not hold their N. The first-order exclusion of Session 2 (attraction needs a relative phase that is unstable), the classical instability of Yukawa orbits, and the beat of unequal lumps leave no route to a bonded group of distinct real-field swirls that this project has found. The routes not tested are second-order forces in a full treatment, unequal pairs made of two long-lived family members, and a second field.
 
 **Proposals for what to do next** (for Aaron and Claude Desktop; not decisions):
-1. **The 3D lifetime cost of disturbances at the dip**, on the Mac. Extend the five dip distortion runs from 2,000 to 30,000 or more, with their control, to see whether a 0.5 to 1.8% loss of N from a distortion ends the dip lump's long life as the radial kicks did. It is cheap at N = 160, and checkpoints exist on the external drive.
-2. **Unequal pairs built from long-lived lumps** (N/N_min 1.83 and 5.2 at beta = 4/3) in 3D at 6 to 7 hw, with isolated controls. This is the one binding route the model left open that this session could not test. Expect the first-order force to average out; the question is the second-order force.
-3. **Collision speed scan at phase 0** between 0.2 and 0.5 per lump, on the Mac, to find where merging stops. Also the lost dip collisions with box and resolution checks.
+1. **The 3D lifetime cost of disturbances at the dip**, on the Mac. Extend the four dip distortion runs and their control from 2,000 to 30,000, to see whether a 0.5 to 1.8% loss of N from a distortion shortens the dip lump's life as radial kicks of 2 to 4% did. Cost: about 31 to 36 h per run at 2 threads, about 170 to 190 job-hours for five runs, about 4 days on the Mac running 2 at a time. Checkpoints at T = 2,000 are in `.claude/worktrees/integration/checkpoints/session3/wpL3/` (not in git).
+2. **Unequal pairs built from long-lived lumps** (N/N_min 1.83 and 5.2 at beta = 4/3) in 3D at 6 to 7 hw, with isolated controls, on the Mac. This is the one binding route the model left open that this session could not test. The N/N_min 5.2 lump has hw 4.9, so it needs a larger box than N = 160, L = 88 (to be sized); at the measured Mac rate a T = 5,000 pair run is of order 50 to 100 h. Expect the first-order force to average out; the question is the second-order force.
+3. **Collision speed scan at phase 0** between 0.2 and 0.5 per lump, on the Mac, to find where merging stops (each short run about 0.5 to 1 h, T of about 200). Also the lost dip collisions with box and resolution checks (about 100 job-hours).
 4. **Decide the second-field question** in the light of the scholar's T6: a complex partner field would likely make lone lumps absolutely stable, against "metastable" in claim 1.
 5. **Bookkeeping:**
    - Restore a layout in which `outputs/` can be committed from the main checkout.
@@ -504,22 +511,23 @@ Claim 1 has two halves: "left alone a swirl persists" and "a modest disturbance 
 | Benchmark, 2026-10-02 07:50Z | 1 c8g.4xlarge | 0.27 | 0.18 | benchmark records |
 | Z attempt 1 (test gate failed) | 1 | 0.9 | 0.6 | test logs |
 | P (P3 sources) | 1 | 0.72 | 0.46 | source metadata and logs |
-| X and Z2, to the stop at 19:35Z | 2 | 4.9 + 4.0 | 6.3 | **none: lost** |
+| X and Z2, to the stop at 19:35Z | 2 | 4.9 + 4.0 | 5.7 | **none: lost** |
 | X and Z2, resumed 2026-10-03 00:48Z | 2 | unknown; at most 16.1 each to their timers | up to 20.7 | **none: lost** |
-| **Ledger estimate** | | | **16.7 to 37.4** | |
+| **Ledger estimate** | | | **16.6 to 37.3** (rows; the ledger quotes 16.7 to 37.4) | |
 
 - **AWS reported, per Aaron, 100.17 USD month-to-date, plus about 25 USD after a reactivation: about 125 USD.**
   - That is far above this ledger's estimate and above the 50 USD budget.
   - The difference is unexplained here (`docs/CLOUD_LEDGER.md`, Closure).
   - The ledger estimated from list prices and never read the billed amount. That was my process failure: the 40 USD notice and the 50 USD stop could not work on an estimate that was this far off.
-  - The 40 USD mark was passed, so this is the notice to Aaron that CLAUDE.md requires.
+  - By the AWS-reported figure the 40 USD mark and the 50 USD budget were both passed; by this ledger's estimate (at most 37.4) neither was. This is the notice to Aaron that CLAUDE.md requires at 40 USD.
+  - Resources left in the account by this session: bucket `swirl-batch3-156084119557-use2`, role `swirl-batch3-role` (inline policy `swirl-batch3-s3`, AmazonSSMManagedInstanceCore attached), instance profile `swirl-batch3-profile`, security group `sg-0a7678933c595a7a4`; possibly the stopped or running instances X and Z2 and their 60 GB volumes. Their state after the closure is unknown here.
 - **The project was closed on 2026-10-05.** Lost runs, by instance:
   - **X:** the four b5 distortions, spot_b5_field+0.1, spot_dip_field-0.1 (at t = 1,800 of 2,000 at the resume), spot_dip_removal+0.2, and both sources.
-  - **Z2:** the dip gates and gate check (passed), the six dip collisions and their twin, the box checks at both speeds, the resolution check, P3_iso_N100 (finished) and P3_inphase.
+  - **Z2:** the dip gates and gate check (passed, known only from the absence of a .fail file), the six dip collisions and their twin, the box checks at both speeds, the resolution check, P3_iso_N100 (finished) and P3_inphase (state at the stop unknown).
   - No results or checkpoints from X, Z2 or P were copied to the Mac before the closure.
 - **Other events.**
   - The permission system blocked the cloud worker twice ("Real-World Transactions"); it stopped each time.
-  - The sign-in lasted about 5 to 9 hours, not 12.
+  - The sign-in lasted about 9 hours the first time (12:46 to before 21:35 +07) and lapsed within about 2 hours the third time (07:47 to 09:59 +07); the second lapse time is not recorded.
   - Both instances stopped without explanation after about 5 hours. Aaron chose to resume them, and the sign-in expired again before collection.
 
 ## 13. Tests on main
