@@ -45,11 +45,11 @@ Date: 2026-10-02 to 2026-10-05. Plan: `docs/SESSION_03_PLAN.md`, WP0 to WP-F. Al
 - **At beta = 5**, no kick below the threshold raised the loss rate measurably above the noise floor late in the run, and no run died within 30,000.
 - **The family rule:**
   - After relaxation, omega follows the family's d omega/dN to within 20% in 84 of 85 runs (reviewer's L1 recomputation; the exception is the b5 slow packet at 0.01 E, ratio 1.28, at the measurement floor). In 3D it does so to 4% for the dip distortions.
-  - The loss rate follows the family's within 3x for 7 of 9 comparable kicks in the early window (5 of 9 late; 78% early is under the 80% target even for kicks alone), and not after radiation packets. The family rate changes steeply near the dip, so a 1% N match is a loose test there (F-024).
+  - The loss rate follows the family's within 3x for 7 of 9 comparable kicks in the early window (5 of 9 late; 78% early is under the 80% target even for kicks alone), and apparently not after radiation packets. A diagnostic with family starts matched to 0.33% in N removed that exception: the packet runs follow the family rate within 0.88 to 1.15 (F-024). The family rate changes 5-fold over 0.33% in N near the dip, so the 1% match in the prediction was too loose.
 
 **In 3D at the dip start, non-spherical distortions of up to 2.4% of the energy relax:** no break, no growing shape mode to T = 2,000 (stretch and random multiplier only; no non-spherical threshold was measured). A stretch with no change in N still sheds 0.5 to 1.8% of N. A random multiplier keeps about 37% of the N it adds. Both shift the lump along its family as the omega shift says.
 
-**Collisions (3D, the primary start).** In phase, the lumps merge at both speeds tried, 0.02 and 0.2 per lump: one lump with 0.59 to 0.61 of the pair's energy, still shedding. Anti-phase they come out as two intact lumps. At 90 degrees N flows from the leading to the lagging lump, and two unequal lumps come out. Claude Desktop's "in phase absorbs, anti-phase bounces" holds at both speeds; my prediction that in-phase lumps would not merge at 0.2 was wrong.
+**Collisions (3D, the primary start).** In phase, the lumps merge at both speeds tried, 0.02 and 0.2 per lump: one lump with 0.59 to 0.61 of the pair's energy, still shedding. Anti-phase they come out as two intact lumps. At 90 degrees N flows from the leading to the lagging lump, and two unequal lumps come out. Claude Desktop's "in phase absorbs, anti-phase bounces" holds at both speeds; my prediction that in-phase lumps would not merge at 0.2 was wrong. A diagnostic at 0.4 per lump (0.69c relative) also shows no pass-through to t = 150: the pair rebounds once and stays together, still shedding.
 
 **No group of distinct swirls is bonded in the point model with unequal lumps or orbital motion.**
 - 1,822 point-model runs: no group is bonded.
@@ -247,7 +247,7 @@ Bisected to a bracket width of 0.01 in dN/N or better. All dynamic: the first fa
   1. The packets' own N shifts (-0.07 to -0.45%) move the family rate 1.4 to 10x at the dip, where the family rate changes about 2x per 0.13% in N.
   2. A lasting internal excitation, of the kind published for Q-balls and 1+1D lumps (Ciurla 2024; Barashenkov & Oxtoby 2009).
 - The two are not separated. The late clause compared a path average with a point value.
-- **Proposed diagnostic, not run:** the same comparison with an N match of 0.1%, using family starts made for the purpose.
+- **Diagnostic run:** family starts at N/N_min 1.821, 1.824, 1.827. Against them the three packet runs are 0.88 to 1.15 of the family rate. The excess was the family flank at the packets' settled N (cause 1), not a lasting excitation. The miss is in the test's N matching.
 
 **F-025 (L1-8): ordering.**
 - The primary's lower edge: +0.02 kicks put it at N/N_min 1.831 to 1.839, the dip's centre. N32 was applied to the dip start only, though it applies to any start within a few percent of the dip.
@@ -255,7 +255,7 @@ Bisected to a bracket width of 0.01 in dN/N or better. All dynamic: the first fa
 
 **F-026 (L1-9): k3 packets.**
 - The dip's response grows as efrac^3 at small amplitude and efrac^1.3 at 0.2 to 0.5 E. The primary's grows as efrac^0.7 to efrac^1.3.
-- N33's argument (the dip's 3 omega source vanishes) holds at small amplitude. That larger packets detune the lump out of the dip is the leading reading, untested (ledger F-026).
+- N33's argument (the dip's 3 omega source vanishes) holds at small amplitude. **Diagnostic run:** packets at 0.03 to 0.3 E give primary/dip ratios 4.14, 3.10, 2.58, 2.06, 1.50, 1.27; the ratio crosses 2 at about 0.075 E, where the dip lump's own |dN/N| is about 40% of the dip's width. Consistent with self-detuning out of the dip; fixed packet energy and fixed |dN/N| are not separated.
 - **Literature:** no source found for nonlinear absorption of a strong wave by an oscillon.
 
 ## 5. 3D: distortions, collisions, spot checks (WP-L3)
@@ -364,7 +364,7 @@ Notes on the table:
 - **Expected:** at 0.2 per lump, in-phase lumps would not merge, because the kinetic energy (116) is comparable to the tail-law overlap energy at 2 hw (186). My prediction text says "a third": that is an arithmetic slip, as 116/186 = 0.62.
 - **Measured:** they merge, after radiating about 32% of the energy at the collision.
 - **Reading:** the tail law is not valid at contact. The relevant comparison is with the energy radiated in the collision, which is several times the kinetic energy.
-- **Rules in:** in-phase merger up to at least 0.4 relative speed, for this potential and this lump size.
+- **Rules in:** in-phase merger up to at least 0.4 relative speed, for this potential and this lump size. **Diagnostic run** at 0.4 per lump (0.69c relative): no pass-through to t = 150; the pair meets, rebounds to separation 10 and returns to 3.0 to 3.4, with 0.41 of the energy left in the group sphere and falling. One box, one resolution; the long-time remnant is not measured.
 - **Literature:** the energy criterion for merging leaves out the friction from radiation and excitation (Cotner 2016). Here the pair radiated about 1,850, which is 16 times the kinetic energy. The published merger statement ("up to 0.1c", Amin & Mou 2020) is the largest speed tried there, not a threshold. Our 0.385c relative is below every published pass-through speed (0.5 per lump in 2D; about 0.6c for 3D Q-balls). The remnant's energy is the same at both speeds (3,437 against 3,485): the extra kinetic energy is radiated (Addendum J).
 
 ## 6. 3D: unequal pairs (WP-P3)
@@ -394,6 +394,17 @@ Notes on the table:
 - **WP-L3 (Block L3):** L3-1 partial; hits L3-4, L3-5, L3-6, L3-9, L3-10. Misses L3-2 (F-027), L3-3 frac clause (F-028), L3-7 phase 0 (F-029). Lost L3-8, L3-11. Claude Desktop's collision guess agrees.
 - **WP-P3 (Block P3):** P3-1 lost; P3-2 to P3-4 not run.
 - Every miss has a ledger entry with causes, diagnostics and a literature check.
+
+**Cheap diagnostics run for the misses** (2026-10-05, `outputs/session3/diagnostics/`, commit 400d1ec; each is in its ledger entry):
+
+| Entry | Diagnostic | Result |
+|---|---|---|
+| F-023 | kick shape varied (phase 45 needs a code change; not run) | threshold in t = 0 dE/E -0.408 to -0.414 for six shape and kind combinations (1.5% spread); dN/N spreads 13%: energy is the common coordinate |
+| F-024 | family starts matched to 0.33% in N | packets 0.88 to 1.15 of the family rate: no lasting excitation; the miss was the test's N matching |
+| F-026 | k3 packets at five more energies | the ratio crosses 2 at about 0.075 E, at about 40% of the dip width in the lump's own dN/N |
+| F-027 | field at one point per axis, r = 25 (a shell needs a code change) | extra radiation at omega about 1.07, just above the gap; little at 3 omega |
+| F-028 | spectral share of the added N (calculation) | the kept 36 to 39% lies between the kappa and 2/hw cuts; the proposed 1/hw cut gives 5 to 10% |
+| F-029 | collision at 0.4 per lump after a gate | no pass-through to t = 150; the pair stays together |
 
 ## 8. Novelty
 
@@ -457,7 +468,7 @@ Claim 1 has two halves: "left alone a swirl persists" and "a modest disturbance 
 **Proposals for what to do next** (for Aaron and Claude Desktop; not decisions):
 1. **The 3D lifetime cost of disturbances at the dip**, on the Mac. Extend the four dip distortion runs and their control from 2,000 to 30,000, to see whether a 0.5 to 1.8% loss of N from a distortion shortens the dip lump's life as radial kicks of 2 to 4% did. Cost: about 31 to 36 h per run at 2 threads, about 170 to 190 job-hours for five runs, about 4 days on the Mac running 2 at a time. Checkpoints at T = 2,000 are in `.claude/worktrees/integration/checkpoints/session3/wpL3/` (not in git).
 2. **Unequal pairs built from long-lived lumps** (N/N_min 1.83 and 5.2 at beta = 4/3) in 3D at 6 to 7 hw, with isolated controls, on the Mac. This is the one binding route the model left open that this session could not test. The N/N_min 5.2 lump has hw 4.9, so it needs a larger box than N = 160, L = 88 (to be sized); at the measured Mac rate a T = 5,000 pair run is of order 50 to 100 h. Expect the first-order force to average out; the question is the second-order force.
-3. **Collision speed scan at phase 0** between 0.2 and 0.5 per lump, on the Mac, to find where merging stops (each short run about 0.5 to 1 h, T of about 200). Also the lost dip collisions with box and resolution checks (about 100 job-hours).
+3. **Collision speed scan at phase 0** from 0.4 per lump upward (0.4 does not pass through to t = 150), on the Mac, to find where merging stops, with longer runs to measure the remnant (each short run about 0.5 to 1 h). Also the lost dip collisions with box and resolution checks (about 100 job-hours).
 4. **Decide the second-field question** in the light of the scholar's T6: a complex partner field would likely make lone lumps absolutely stable, against "metastable" in claim 1.
 5. **Bookkeeping:**
    - Restore a layout in which `outputs/` can be committed from the main checkout.
@@ -491,6 +502,7 @@ Claim 1 has two halves: "left alone a swirl persists" and "a modest disturbance 
 **Open issues.**
 - `tests/family/test_profile.py::test_derrick_identity[1.0]` fails on aarch64 (Graviton) with a node in the continuation at omega 0.715. It passes on the Mac and is not used by any run here. Two attempts were not made; it is logged as open.
 - No box or resolution check of any 3D collision.
+- Two proposed diagnostics need code changes and were not run: a phase-45 kick (F-023) and a field record on a shell (F-027).
 - The cloud stop of 2026-10-02 19:35Z is unexplained (no stop call in CloudTrail).
 - The spend difference (section 12).
 - The AWS resources of the last batch were not deleted by this session.
