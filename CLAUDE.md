@@ -67,6 +67,7 @@ There are two kinds, and they are handled differently.
 
 ## Rented compute
 
+- **Unavailable until further notice.** Aaron closed the SWIRL AWS project on 2026-10-05. Do not run AWS commands and do not delegate to `cloud`. All work runs on the Mac. The rules below are kept for the record.
 - Available only once `docs/AWS_REPORT.md` exists. It names the AWS profile and shows the core quota.
 - Working budget: 50 US dollars in total, pre-approved. The orchestrator decides when renting is worth it and delegates to `cloud`. No approval is needed inside the budget.
 - Every dollar goes in `docs/CLOUD_LEDGER.md`. At 40 dollars spent, tell Aaron in the report. At 50, stop renting.

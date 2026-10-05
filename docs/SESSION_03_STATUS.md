@@ -100,3 +100,17 @@ Not in any item and so pending: the b5 1.5x box check (standard 4 for the b5 run
 
 - **Both instances stopped at about 19:35Z on 2026-10-02 (02:35 +07)**, about 4.9 h (X) and 4.0 h (Z2) after launch. State reason "Client.UserInitiatedShutdown"; no StopInstances event in CloudTrail; memory 20 GB used of 30, no swap; shutdown behaviour terminate (so an OS shutdown would have terminated them). Cause not identified. Progress at the stop: X: b5 runs at t = 250 of 2000, spot_dip_field-0.1 near its end; Z2: dip collisions at t = 600 of 2080, the gate check passed, P3_iso_N100 finished. Spend to the stop about 6.8 USD (ledger about 16.7).
 - **Aaron chose to resume from checkpoints (07:50 +07).** Started both at 00:47:55Z; over SSM, new timers (shutdown at 16:54Z, systemd poweroff 5 min later) and the batch script re-run (resumable: done jobs skipped, others resume from on-disk checkpoints). Expected end about 22:00 +07. Further cost at most about 20.6 USD (2 x 16 h), ledger at most about 37.
+
+## AWS closed (2026-10-05)
+
+Aaron closed the SWIRL AWS project. No AWS commands and no `cloud` worker from now on; CLAUDE.md marks rented compute unavailable. The ledger records the closure and AWS's reported spend (100.17 USD month-to-date plus about 25 USD after a reactivation) against this ledger's estimate of 16.7 to 37.4 USD.
+
+**Cloud data on the Mac, per run** (checked 2026-10-05 15:03 +07):
+- Aborted benchmark (2026-10-02): benchmark records copied (integration `outputs/session3/cloud_s3_aborted_bench/`).
+- Z attempt 1: test logs copied (scratchpad `cloud/ztests/`); no batch work was done on it.
+- P (P3 sources at t_s = 1500): source metadata and logs read and recorded here; the source fields were never on the Mac. No P3 job ran.
+- **X: lost.** d_b5_control, d_b5_q0.2, d_b5_r0.1_s1, d_b5_r0.15_s1, spot_b5_field+0.1, spot_dip_field-0.1, spot_dip_removal+0.2, src_b5, src_dip (X's copy). Only progress lines read during monitoring are recorded (spot_dip_field-0.1 at t = 1800 of 2000 at the resume).
+- **Z2: lost.** src_dip (Z2's copy), the 5 dip gates and gatecheck_dip (passed: the only result known), the 6 dip collisions, twin_coll_dip_p0_v0.02, box_coll_dip_p0_v0.02 and v0.2, res_coll_dip_p0_v0.2, P3_iso_N100 (finished on the instance), P3_inphase.
+- No results or checkpoints from X, Z2 or P were copied to the Mac before the closure.
+
+**Mac L3 set: complete** (2026-10-03 12:04 +07): primary gates and gate check, 6 primary collisions, src_dip, d_dip_control, random 0.15 and 0.1 (seed 1), stretch 0.2 and 0.1, twin_coll_primary_p0_v0.02, twin_d_dip_q0.1 (21 result files). Post-processing, review and scoring next.
