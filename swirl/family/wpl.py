@@ -884,11 +884,16 @@ def scan(specs, workers=2, out_dir=None, ckpt_dir=None):
     Settled states are made first, serially, so the workers only read them."""
     out_dir = out_dir or os.path.join(OUT, "runs")
     ckpt_dir = ckpt_dir or os.path.join(CKPT, "runs")
-    os.environ["NUMBA_NUM_THREADS"] = "1"
     for key in sorted({(s["start"], full_spec(s)["scale"]) for s in specs}):
         settle(key[0], key[1])
     args = [(s, out_dir, ckpt_dir) for s in specs]
     if workers <= 1:
         return [_scan_one(a) for a in args]
-    with mp.get_context("spawn").Pool(workers) as pool:
+    with mp.get_context("spawn").Pool(workers, initializer=_init_worker) as pool:
         return pool.map(_scan_one, args, chunksize=1)
+
+
+def _init_worker():
+    """Pool initializer: one numba thread in the worker. The parent's environment is left alone (changing
+    NUMBA_NUM_THREADS after a process has launched numba threads makes its next compile fail)."""
+    os.environ["NUMBA_NUM_THREADS"] = "1"
