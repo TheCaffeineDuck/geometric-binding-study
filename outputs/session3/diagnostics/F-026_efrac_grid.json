@@ -1,0 +1,228 @@
+{
+ "diagnostic": "F-026",
+ "status": "run as proposed, with a note",
+ "note": "The entry lists five dip efrac values (0.03, 0.04, 0.07, 0.15, 0.3) and says six runs. Ran those five at the dip and the same five at the primary (the ratio needs both): 10 new runs. The efrac 0.05 points are the existing runs (dip_pk_k2.53021_sig5_ef0.05 and primary), re-read; the other old grid points (0.01, 0.02, 0.1, 0.2, 0.5, 1, 2) are not in this worktree's wpL/runs (49 files), so the ratios for those are not recomputed here.",
+ "settings": {
+  "kind": "packet k3, sigma 5, k0 = 2.530209 (dip), 2.539136 (primary), R0 default, T = 2000, scale 1, efrac new = 0.03, 0.04, 0.07, 0.15, 0.3",
+  "windows": "dN/N of the period-averaged N against the same-start control: (250, 750); (750, 2000); (t_pass + 200, 2000) with t_pass = 83.0 (wpl.free_packet)",
+  "driver": "d026.py"
+ },
+ "rows": [
+  {
+   "start": "dip",
+   "efrac": 0.03,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.0011590399026555342,
+   "dN_750_2000": -0.0011652188623954007,
+   "dN_after_pass": -0.0011635344632285882,
+   "domega_750_2000": 7.131698950557652e-05,
+   "source": "new run",
+   "wall_s": 8.715289124986157
+  },
+  {
+   "start": "dip",
+   "efrac": 0.04,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.002065392106693986,
+   "dN_750_2000": -0.0020794543668163357,
+   "dN_after_pass": -0.0020756564564152757,
+   "domega_750_2000": 0.0001273746245264995,
+   "source": "new run",
+   "wall_s": 8.652165665989742
+  },
+  {
+   "start": "dip",
+   "efrac": 0.05,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.003167399087162126,
+   "dN_750_2000": -0.003194618855337783,
+   "dN_after_pass": -0.0031873039134698855,
+   "domega_750_2000": 0.0001958760466932441,
+   "source": "existing run file",
+   "wall_s": 8.009889750013826
+  },
+  {
+   "start": "dip",
+   "efrac": 0.07,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.005883017905305321,
+   "dN_750_2000": -0.0059597000547348955,
+   "dN_after_pass": -0.005939275193785898,
+   "domega_750_2000": 0.0003663164088443249,
+   "source": "new run",
+   "wall_s": 8.682058624981437
+  },
+  {
+   "start": "dip",
+   "efrac": 0.15,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.021764807648078643,
+   "dN_750_2000": -0.022606548265138193,
+   "dN_after_pass": -0.022383109811107027,
+   "domega_750_2000": 0.0014105478148841444,
+   "source": "new run",
+   "wall_s": 8.580547042016406
+  },
+  {
+   "start": "dip",
+   "efrac": 0.3,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.06159799348022654,
+   "dN_750_2000": -0.06780325311573221,
+   "dN_after_pass": -0.0661617674279924,
+   "domega_750_2000": 0.004414027369323725,
+   "source": "new run",
+   "wall_s": 8.811475374968722
+  },
+  {
+   "start": "primary",
+   "efrac": 0.03,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.004322325392313364,
+   "dN_750_2000": -0.004999427509538634,
+   "dN_after_pass": -0.004819056134156563,
+   "domega_750_2000": 0.0003195453320057329,
+   "source": "new run",
+   "wall_s": 8.367255249992013
+  },
+  {
+   "start": "primary",
+   "efrac": 0.04,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.005760269740462398,
+   "dN_750_2000": -0.006673836885921158,
+   "dN_after_pass": -0.0064304660341313324,
+   "domega_750_2000": 0.00042721748309171304,
+   "source": "new run",
+   "wall_s": 8.349754708004184
+  },
+  {
+   "start": "primary",
+   "efrac": 0.05,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.00734059129583664,
+   "dN_750_2000": -0.008541500519290923,
+   "dN_after_pass": -0.00822663255939926,
+   "domega_750_2000": 0.0005477078779123623,
+   "source": "existing run file",
+   "wall_s": 7.970656374993268
+  },
+  {
+   "start": "primary",
+   "efrac": 0.07,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.010905569259402226,
+   "dN_750_2000": -0.012733870667905656,
+   "dN_after_pass": -0.012252484198151947,
+   "domega_750_2000": 0.0008196674855640573,
+   "source": "new run",
+   "wall_s": 8.432705916988198
+  },
+  {
+   "start": "primary",
+   "efrac": 0.15,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.029400481815730184,
+   "dN_750_2000": -0.03498042481668695,
+   "dN_after_pass": -0.03346704828470559,
+   "domega_750_2000": 0.0022985800117799604,
+   "source": "new run",
+   "wall_s": 8.38298150000628
+  },
+  {
+   "start": "primary",
+   "efrac": 0.3,
+   "t_pass": 83.0,
+   "broken": false,
+   "dN_250_750": -0.07196231358056138,
+   "dN_750_2000": -0.08858244301258011,
+   "dN_after_pass": -0.08411569687759479,
+   "domega_750_2000": 0.006133382806148391,
+   "source": "new run",
+   "wall_s": 8.41159933299059
+  }
+ ],
+ "ratio_primary_over_dip_after_pass_window": {
+  "0.03": 4.141739060125983,
+  "0.04": 3.0980396655990705,
+  "0.05": 2.5810631125047836,
+  "0.07": 2.06295950236005,
+  "0.15": 1.4951920696961623,
+  "0.3": 1.2713641147682861
+ },
+ "ratios_all_windows": [
+  {
+   "efrac": 0.03,
+   "ratio_dN_250_750": 3.7292291511364435,
+   "ratio_dN_750_2000": 4.290548042846691,
+   "ratio_dN_after_pass": 4.141739060125983
+  },
+  {
+   "efrac": 0.04,
+   "ratio_dN_250_750": 2.788947300511716,
+   "ratio_dN_750_2000": 3.20941733197967,
+   "ratio_dN_after_pass": 3.0980396655990705
+  },
+  {
+   "efrac": 0.05,
+   "ratio_dN_250_750": 2.3175454351770814,
+   "ratio_dN_750_2000": 2.673715052116221,
+   "ratio_dN_after_pass": 2.5810631125047836
+  },
+  {
+   "efrac": 0.07,
+   "ratio_dN_250_750": 1.8537372204098774,
+   "ratio_dN_750_2000": 2.136663011721333,
+   "ratio_dN_after_pass": 2.06295950236005
+  },
+  {
+   "efrac": 0.15,
+   "ratio_dN_250_750": 1.3508266321997844,
+   "ratio_dN_750_2000": 1.547358066628449,
+   "ratio_dN_after_pass": 1.4951920696961623
+  },
+  {
+   "efrac": 0.3,
+   "ratio_dN_250_750": 1.1682574303927913,
+   "ratio_dN_750_2000": 1.3064630226720872,
+   "ratio_dN_after_pass": 1.2713641147682861
+  }
+ ],
+ "check_against_ledger": "efrac 0.05: ratio 2.581 (t_pass+200..2000), 2.318 (250..750); ledger: reviewer 2.58, scholar 2.3 (250..750)",
+ "summary": {
+  "efrac_where_ratio_passes_2": 0.07533023208960618,
+  "dip_abs_dN_over_N_there": 0.006748610572215621,
+  "primary_abs_dN_over_N_there": 0.013497221144431241,
+  "dip_response_exponent_between_points": {
+   "0.03-0.04": 2.0119958801211624,
+   "0.04-0.05": 1.9220717808605852,
+   "0.05-0.07": 1.8498159600977186,
+   "0.07-0.15": 1.740781815502194,
+   "0.15-0.3": 1.5635872828372008
+  },
+  "primary_response_exponent_between_points": {
+   "0.03-0.04": 1.0027351553712307,
+   "0.04-0.05": 1.1039071004047056,
+   "0.05-0.07": 1.1839073193585445,
+   "0.07-0.15": 1.3184356479338668,
+   "0.15-0.3": 1.3296337334270867
+  },
+  "any_broken": false
+ },
+ "ledger_causes_reading": [
+  "Cause 1 (decoupled while the packet's own dN stays inside the dip width, coupling of the primary above): the ratio falls through 2 at efrac about 0.075 where the dip's |dN/N| is 0.0067 (about 40% of the 1.7% dip width in N); the data are consistent with a crossover at about a third of the width. A fixed efrac against a fixed |dN/N| is not separated here (at the dip they are tied; the b5 comparison would separate them, not run).",
+  "Cause 2 (the dip's response is steeply superlinear at small amplitude): the dip's exponent in efrac is [np.float64(2.01), np.float64(1.92), np.float64(1.85), np.float64(1.74), np.float64(1.56)], falling toward the primary's [np.float64(1.0), np.float64(1.1), np.float64(1.18), np.float64(1.32), np.float64(1.33)].",
+  "Cause 3 (ratio of 36 at 0.01 rests on an estimator near its floor): not tested by this grid (0.01 not rerun); the ratio at 0.03 is 4.14."
+ ]
+}

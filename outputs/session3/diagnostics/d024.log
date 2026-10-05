@@ -1,0 +1,8 @@
+{'N_over_Nmin': 1.821, 'omega': 0.9067937496623225, 'N_profile': 2974.73322924355, 'omega_s': 0.9071699480761176, 'wall_s': 125.98309995798627, 'early_500_2000': 5.9479454878369585e-08, 'late_alive_mean': 8.563192789718808e-08, 'n_late_windows': 55, 'frac_end': 0.9982597185979109, 'death_time': None}
+{'N_over_Nmin': 1.824, 'omega': 0.9066915053340688, 'N_profile': 2979.633942965532, 'omega_s': 0.9070686374127213, 'wall_s': 125.4285975000239, 'early_500_2000': 3.123265562695775e-08, 'late_alive_mean': 3.8954899882932604e-08, 'n_late_windows': 55, 'frac_end': 0.9988990200638344, 'death_time': None}
+{'N_over_Nmin': 1.827, 'omega': 0.9065895471556908, 'N_profile': 2984.5346566875137, 'omega_s': 0.9069681540987412, 'wall_s': 125.68940924998606, 'early_500_2000': 1.1996866643197119e-08, 'late_alive_mean': 1.3241469227113859e-08, 'n_late_windows': 55, 'frac_end': 0.9996085638568004, 'death_time': None}
+Traceback (most recent call last):
+  File "/Users/aaronramos/Desktop/SWIRL/.claude/worktrees/integration/outputs/session3/diagnostics/d024.py", line 59, in <module>
+    out["packet_rows"] = [dict(kind=x["kind"], packet=x["packet"]["k0"], efrac=x["packet"]["efrac"], dN_settled=x["dN_over_N_settled"],
+                                                      ~~~~~~~~~~~^^^^^^
+TypeError: string indices must be integers, not 'str'

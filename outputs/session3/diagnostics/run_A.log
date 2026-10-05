@@ -1,0 +1,9 @@
+16:35:46 jobs: 2 selected, 0 already done, 2 to run
+16:35:46 start gate_primary_v0.4_th0 (0.1 job-h estimated)
+16:35:46 start gate_primary_v0.4_th90 (0.1 job-h estimated)
+step 1250/1500 t=50.00 E=3096.624161 absorbed=0.3228
+step 1250/1500 t=50.00 E=3096.686985 absorbed=0.3223
+16:40:16 gate_primary_v0.4_th0 done after 262 s
+16:40:16 gate_primary_v0.4_th90 done after 262 s
+16:40:26 finished: 2 done, 0 failed
+failed: []

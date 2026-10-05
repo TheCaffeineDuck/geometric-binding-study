@@ -1,0 +1,158 @@
+{
+ "diagnostic": "F-023",
+ "status": "run, with a substitution (see substitution)",
+ "substitution": "Phase 45 was NOT run: wpl.run_one and t0_values support phase 0 and 90 only (the 'phase' spec key is read as 90 or not-90), so a 45 degree kick needs a code change. Instead the kick's dE/dN ratio was varied through the kick's radial shape (spec key 'ball', a configuration key that wpl.disturb already reads), for the field kick (phase 0) and the velocity kick (phase 90). Same question: is the t = 0 dE/E at the break threshold the same whatever the kick.",
+ "settings": {
+  "start": "dip (beta 4/3, omega 0.906505)",
+  "T": 2000.0,
+  "scale": 1.0,
+  "side": "negative eps",
+  "control": "outputs/session3/wpL/runs/dip_control_T2000_s1.json",
+  "break_criterion": "wpl.compare()['broken']['broken_outright'] (E3 below half within 2000 of the kick)",
+  "balls_hw": [
+   [
+    2,
+    3
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "bracket_stop": "width in t = 0 dE/E <= 0.004",
+  "drivers": "d023.py field; d023.py velocity"
+ },
+ "results": [
+  {
+   "kind": "field",
+   "phase": 0,
+   "ball": [
+    2.0,
+    3.0
+   ],
+   "eps_bracket": [
+    -0.26875,
+    -0.270312
+   ],
+   "t0_dE_over_E_threshold": -0.4123876185280687,
+   "t0_dN_over_N_threshold": -0.46319997106504573,
+   "bracket_width_dE": 0.002115171154033868,
+   "t_first_below_half_of_broken_run": 154.39999999999998,
+   "n_runs": 9
+  },
+  {
+   "kind": "field",
+   "phase": 0,
+   "ball": [
+    1.0,
+    2.0
+   ],
+   "eps_bracket": [
+    -0.3125,
+    -0.315625
+   ],
+   "t0_dE_over_E_threshold": -0.4132092996323189,
+   "t0_dN_over_N_threshold": -0.4679571316968071,
+   "bracket_width_dE": 0.0035770956478520244,
+   "t_first_below_half_of_broken_run": 1955.4,
+   "n_runs": 9
+  },
+  {
+   "kind": "field",
+   "phase": 0,
+   "ball": [
+    3.0,
+    4.0
+   ],
+   "eps_bracket": [
+    -0.264062,
+    -0.265625
+   ],
+   "t0_dE_over_E_threshold": -0.4090134390993317,
+   "t0_dN_over_N_threshold": -0.4594054522343487,
+   "bracket_width_dE": 0.002139789697725103,
+   "t_first_below_half_of_broken_run": 150.89999999999998,
+   "n_runs": 9
+  },
+  {
+   "kind": "velocity",
+   "phase": 90,
+   "ball": [
+    2.0,
+    3.0
+   ],
+   "eps_bracket": [
+    -0.232813,
+    -0.234375
+   ],
+   "t0_dE_over_E_threshold": -0.4099841770794428,
+   "t0_dN_over_N_threshold": -0.410010759423277,
+   "bracket_width_dE": 0.002379667731239321,
+   "t_first_below_half_of_broken_run": 185.1624999999999,
+   "n_runs": 9
+  },
+  {
+   "kind": "velocity",
+   "phase": 90,
+   "ball": [
+    1.0,
+    2.0
+   ],
+   "eps_bracket": [
+    -0.267188,
+    -0.26875
+   ],
+   "t0_dE_over_E_threshold": -0.4137526538892221,
+   "t0_dN_over_N_threshold": -0.4137794805716233,
+   "bracket_width_dE": 0.002052435876559622,
+   "t_first_below_half_of_broken_run": 1793.6625,
+   "n_runs": 9
+  },
+  {
+   "kind": "velocity",
+   "phase": 90,
+   "ball": [
+    3.0,
+    4.0
+   ],
+   "eps_bracket": [
+    -0.229687,
+    -0.23125
+   ],
+   "t0_dE_over_E_threshold": -0.4076888332975579,
+   "t0_dN_over_N_threshold": -0.40771504039429873,
+   "bracket_width_dE": 0.00240481848222579,
+   "t_first_below_half_of_broken_run": 165.6624999999999,
+   "n_runs": 9
+  }
+ ],
+ "summary": {
+  "dE_over_E_threshold_mean": -0.41100600358765704,
+  "dE_over_E_min": -0.4137526538892221,
+  "dE_over_E_max": -0.4076888332975579,
+  "dE_spread_over_smallest": 0.014873648960697542,
+  "within_pm_0p01_of_minus_0p41": true,
+  "dN_over_N_threshold_field": [
+   -0.46319997106504573,
+   -0.4679571316968071,
+   -0.4594054522343487
+  ],
+  "dN_over_N_threshold_velocity": [
+   -0.410010759423277,
+   -0.4137794805716233,
+   -0.40771504039429873
+  ],
+  "dN_spread_over_smallest": 0.14775538141602182,
+  "ledger_standard_ball_values": "field -0.4155, velocity -0.4112 (scan_summary bracket midpoints); this run's standard ball: field -0.4124, velocity -0.4100"
+ },
+ "ledger_causes_reading": [
+  "Cause 2 (wrong coordinate: E, not N, is the threshold coordinate): all six thresholds sit at dE/E -0.4077 to -0.4138, inside the prediction's -0.41 +- 0.01, while dN/N at threshold runs -0.408 to -0.468 (13% spread).",
+  "Cause 3 (N is only an adiabatic invariant): the field-kick dN/N thresholds exceed the velocity ones by 0.05 (dN/N != dE/E at phase 0), no universal dN/N; consistent, not separated from cause 2 by this test.",
+  "Cause 1 (relaxation sheds more N, threshold inside the N31 ceiling): not tested here; no result bears on it.",
+  "Caveat: the narrow-ball (1, 2 hw) breaks occur at 1794 to 1955 after the kick, close to the 2000 horizon, so those two thresholds depend on the horizon."
+ ]
+}

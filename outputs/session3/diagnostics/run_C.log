@@ -1,0 +1,11 @@
+16:53:09 jobs: 2 selected, 0 already done, 2 to run
+16:53:09 start f027_q0.1_x (0.3 job-h estimated)
+16:53:09 start f027_control_x (0.3 job-h estimated)
+step 1250/3750 t=50.00 E=2952.617156 absorbed=0.0004326
+step 1250/3750 t=50.00 E=2957.557604 absorbed=0.3721
+step 2500/3750 t=100.00 E=2952.616139 absorbed=0.001009
+step 2500/3750 t=100.00 E=2952.34503 absorbed=5.584
+17:02:20 f027_q0.1_x done after 546 s
+17:02:20 f027_control_x done after 543 s
+17:02:30 finished: 2 done, 0 failed
+failed: []

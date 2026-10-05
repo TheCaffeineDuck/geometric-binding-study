@@ -1,0 +1,53 @@
+{
+ "start": "primary",
+ "speed": 0.4,
+ "T": 60.0,
+ "t_from": 20.0,
+ "targets": {
+  "speed_rel_err": 0.01,
+  "E_ratio_vs_E0ref_err": 0.0001,
+  "omega_ratio_err": 0.0001,
+  "E_ball_drift_minus_rest": 0.001
+ },
+ "pass_rule": "each within 3x its target",
+ "ok": true,
+ "why": [],
+ "results": {
+  "v0.4_th0": {
+   "v": 0.4,
+   "gamma": 1.0910894511799618,
+   "speed_measured": 0.3999896136577502,
+   "speed_rel_err": -2.5965855624532352e-05,
+   "E_ratio_vs_E0ref_err": 8.003818570356813e-06,
+   "E_ratio_vs_rest_run_err": -1.914884764531166e-06,
+   "omega_ratio": 0.9165888042073629,
+   "omega_ratio_err": 8.037534030913562e-05,
+   "E_ball_drift_minus_rest": 1.1046649686985432e-05,
+   "contraction_Ixx_over_Iyy_first": 0.8578794055524022,
+   "contraction_drift": 0.00018093812355446381,
+   "one_over_gamma_sq": 0.8400000000000002
+  },
+  "v0.4_th90": {
+   "v": 0.4,
+   "gamma": 1.0910894511799618,
+   "speed_measured": 0.3999888228571804,
+   "speed_rel_err": -2.7942857048990355e-05,
+   "E_ratio_vs_E0ref_err": 2.8106888960932608e-05,
+   "E_ratio_vs_rest_run_err": 1.8187986231321673e-05,
+   "omega_ratio": 0.9164143690451627,
+   "omega_ratio_err": -0.0001099490250824342,
+   "E_ball_drift_minus_rest": 1.1083450798365924e-05,
+   "contraction_Ixx_over_Iyy_first": 0.8579447802450346,
+   "contraction_drift": 5.4626508575017496e-05,
+   "one_over_gamma_sq": 0.8400000000000002
+  }
+ },
+ "rest_reference": {
+  "E0": 2838.3771277211536,
+  "E_min": 2838.3482856708074,
+  "E_max": 2838.4052807966186,
+  "N0": 2899.9198908203034,
+  "N_min": 2813.516708300115,
+  "N_max": 3120.544258628986
+ }
+}

@@ -1,0 +1,11 @@
+16:41:09 jobs: 2 selected, 0 already done, 2 to run
+16:41:09 start coll_primary_p0_v0.4 (0.3 job-h estimated)
+16:41:09 start f027_q0.1_z (0.3 job-h estimated)
+step 1250/3750 t=50.00 E=2957.557604 absorbed=0.3721
+step 1250/3750 t=50.00 E=6193.425744 absorbed=0.5024
+step 2500/3750 t=100.00 E=2952.34503 absorbed=5.584
+step 2500/3750 t=100.00 E=5574.858373 absorbed=619.1
+16:50:09 f027_q0.1_z done after 530 s
+16:52:50 coll_primary_p0_v0.4 done after 700 s
+16:53:00 finished: 2 done, 0 failed
+failed: []

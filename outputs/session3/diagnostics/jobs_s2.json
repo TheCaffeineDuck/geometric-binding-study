@@ -1,0 +1,491 @@
+[
+ {
+  "name": "f027_q0.1_z",
+  "stage": "B",
+  "kind": "run",
+  "start": "dip",
+  "deps": [],
+  "cfg": {
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "t_end": 150.0,
+   "init": {
+    "wpl": {
+     "source": "outputs/session3/wpL3/sources/src_dip_N160_L88.npz",
+     "window": [
+      26.0,
+      30.0
+     ],
+     "M": 32,
+     "lumps": [
+      {
+       "center": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "phase": 0.0,
+       "v": 0.0,
+       "quad_eps": 0.1
+      }
+     ]
+    }
+   },
+   "absorber": true,
+   "center": [
+    0.0,
+    0.0,
+    25.0
+   ],
+   "r_c": [
+    10.17908796375798,
+    14.288439281754066
+   ],
+   "sample_every": 1.0,
+   "point_every": 1,
+   "avg_window": 20.0,
+   "checkpoint_every": 50.0,
+   "threads": 2,
+   "lumps": {
+    "centers": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "R_ball": 10.0,
+    "taper": 2.0,
+    "every": 5,
+    "count_every": 25.0,
+    "omega_nominal": 0.9065045072253043,
+    "it_every_step": true
+   },
+   "m": 1.0,
+   "g4": 0.3,
+   "g6": 0.12,
+   "shape": {
+    "every": 1.0,
+    "R": 10.17908796375798
+   }
+  },
+  "N": 160,
+  "L": 88.0,
+  "dt": 0.04,
+  "T": 150.0,
+  "variant": "q0.1_z",
+  "job_hours": 0.3,
+  "note": "phi recorded at the point [0.0, 0.0, 25.0] (radius 25 from the lump) every step"
+ },
+ {
+  "name": "f027_q0.1_x",
+  "stage": "C",
+  "kind": "run",
+  "start": "dip",
+  "deps": [],
+  "cfg": {
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "t_end": 150.0,
+   "init": {
+    "wpl": {
+     "source": "outputs/session3/wpL3/sources/src_dip_N160_L88.npz",
+     "window": [
+      26.0,
+      30.0
+     ],
+     "M": 32,
+     "lumps": [
+      {
+       "center": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "phase": 0.0,
+       "v": 0.0,
+       "quad_eps": 0.1
+      }
+     ]
+    }
+   },
+   "absorber": true,
+   "center": [
+    25.0,
+    0.0,
+    0.0
+   ],
+   "r_c": [
+    10.17908796375798,
+    14.288439281754066
+   ],
+   "sample_every": 1.0,
+   "point_every": 1,
+   "avg_window": 20.0,
+   "checkpoint_every": 50.0,
+   "threads": 2,
+   "lumps": {
+    "centers": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "R_ball": 10.0,
+    "taper": 2.0,
+    "every": 5,
+    "count_every": 25.0,
+    "omega_nominal": 0.9065045072253043,
+    "it_every_step": true
+   },
+   "m": 1.0,
+   "g4": 0.3,
+   "g6": 0.12,
+   "shape": {
+    "every": 1.0,
+    "R": 10.17908796375798
+   }
+  },
+  "N": 160,
+  "L": 88.0,
+  "dt": 0.04,
+  "T": 150.0,
+  "variant": "q0.1_x",
+  "job_hours": 0.3,
+  "note": "phi recorded at the point [25.0, 0.0, 0.0] (radius 25 from the lump) every step"
+ },
+ {
+  "name": "f027_control_x",
+  "stage": "C",
+  "kind": "run",
+  "start": "dip",
+  "deps": [],
+  "cfg": {
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "t_end": 150.0,
+   "init": {
+    "wpl": {
+     "source": "outputs/session3/wpL3/sources/src_dip_N160_L88.npz",
+     "window": [
+      26.0,
+      30.0
+     ],
+     "M": 32,
+     "lumps": [
+      {
+       "center": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "phase": 0.0,
+       "v": 0.0
+      }
+     ]
+    }
+   },
+   "absorber": true,
+   "center": [
+    25.0,
+    0.0,
+    0.0
+   ],
+   "r_c": [
+    10.17908796375798,
+    14.288439281754066
+   ],
+   "sample_every": 1.0,
+   "point_every": 1,
+   "avg_window": 20.0,
+   "checkpoint_every": 50.0,
+   "threads": 2,
+   "lumps": {
+    "centers": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "R_ball": 10.0,
+    "taper": 2.0,
+    "every": 5,
+    "count_every": 25.0,
+    "omega_nominal": 0.9065045072253043,
+    "it_every_step": true
+   },
+   "m": 1.0,
+   "g4": 0.3,
+   "g6": 0.12,
+   "shape": {
+    "every": 1.0,
+    "R": 10.17908796375798
+   }
+  },
+  "N": 160,
+  "L": 88.0,
+  "dt": 0.04,
+  "T": 150.0,
+  "variant": "control_x",
+  "job_hours": 0.3,
+  "note": "phi recorded at the point [25.0, 0.0, 0.0] (radius 25 from the lump) every step"
+ },
+ {
+  "name": "gate_primary_v0.4_th0",
+  "stage": "A",
+  "kind": "run",
+  "start": "primary",
+  "deps": [],
+  "cfg": {
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "t_end": 60.0,
+   "init": {
+    "wpl": {
+     "source": "outputs/session2/wpE/source/src_prod_N160_L88.npz",
+     "window": [
+      26.0,
+      30.0
+     ],
+     "M": 32,
+     "lumps": [
+      {
+       "center": [
+        -12.0,
+        0.0,
+        0.0
+       ],
+       "phase": 0.0,
+       "v": 0.4
+      }
+     ]
+    }
+   },
+   "absorber": true,
+   "center": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_c": [
+    10.032114550865565,
+    14.389241187283481
+   ],
+   "sample_every": 1.0,
+   "point_every": 1,
+   "avg_window": 20.0,
+   "checkpoint_every": 50.0,
+   "threads": 2,
+   "lumps": {
+    "centers": [
+     [
+      -12.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "R_ball": 10.0,
+    "taper": 2.0,
+    "every": 5,
+    "count_every": 25.0,
+    "omega_nominal": 0.909149280617113
+   },
+   "m": 1.0,
+   "g4": 0.3,
+   "g6": 0.12,
+   "shape": {
+    "every": 0.4,
+    "R": 10.032114550865565
+   }
+  },
+  "v": 0.4,
+  "theta": 0.0,
+  "N": 160,
+  "L": 88.0,
+  "dt": 0.04,
+  "T": 60.0,
+  "job_hours": 0.15
+ },
+ {
+  "name": "gate_primary_v0.4_th90",
+  "stage": "A",
+  "kind": "run",
+  "start": "primary",
+  "deps": [],
+  "cfg": {
+   "N": 160,
+   "L": 88.0,
+   "dt": 0.04,
+   "t_end": 60.0,
+   "init": {
+    "wpl": {
+     "source": "outputs/session2/wpE/source/src_prod_N160_L88.npz",
+     "window": [
+      26.0,
+      30.0
+     ],
+     "M": 32,
+     "lumps": [
+      {
+       "center": [
+        -12.0,
+        0.0,
+        0.0
+       ],
+       "phase": 1.5707963267948966,
+       "v": 0.4
+      }
+     ]
+    }
+   },
+   "absorber": true,
+   "center": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_c": [
+    10.032114550865565,
+    14.389241187283481
+   ],
+   "sample_every": 1.0,
+   "point_every": 1,
+   "avg_window": 20.0,
+   "checkpoint_every": 50.0,
+   "threads": 2,
+   "lumps": {
+    "centers": [
+     [
+      -12.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "R_ball": 10.0,
+    "taper": 2.0,
+    "every": 5,
+    "count_every": 25.0,
+    "omega_nominal": 0.909149280617113
+   },
+   "m": 1.0,
+   "g4": 0.3,
+   "g6": 0.12,
+   "shape": {
+    "every": 0.4,
+    "R": 10.032114550865565
+   }
+  },
+  "v": 0.4,
+  "theta": 90.0,
+  "N": 160,
+  "L": 88.0,
+  "dt": 0.04,
+  "T": 60.0,
+  "job_hours": 0.15
+ },
+ {
+  "name": "coll_primary_p0_v0.4",
+  "stage": "B",
+  "kind": "run",
+  "start": "primary",
+  "deps": [],
+  "cfg": {
+   "N": 180,
+   "L": 99.0,
+   "dt": 0.04,
+   "t_end": 150.0,
+   "init": {
+    "wpl": {
+     "source": "outputs/session2/wpE/source/src_prod_N160_L88.npz",
+     "window": [
+      26.0,
+      30.0
+     ],
+     "M": 32,
+     "lumps": [
+      {
+       "center": [
+        -15.0,
+        0.0,
+        0.0
+       ],
+       "phase": 0.0,
+       "v": 0.4
+      },
+      {
+       "center": [
+        15.0,
+        0.0,
+        0.0
+       ],
+       "phase": 0.0,
+       "v": -0.4
+      }
+     ]
+    }
+   },
+   "absorber": true,
+   "center": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_c": [
+    10.032114550865565,
+    14.389241187283481
+   ],
+   "sample_every": 1.0,
+   "point_every": 1,
+   "avg_window": 20.0,
+   "checkpoint_every": 50.0,
+   "threads": 2,
+   "lumps": {
+    "centers": [
+     [
+      -15.0,
+      0.0,
+      0.0
+     ],
+     [
+      15.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "R_ball": 10.0,
+    "taper": 2.0,
+    "every": 5,
+    "count_every": 25.0,
+    "omega_nominal": 0.909149280617113,
+    "group": {
+     "R": 12.032114550865565,
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "m": 1.0,
+   "g4": 0.3,
+   "g6": 0.12
+  },
+  "v": 0.4,
+  "phase": 0.0,
+  "d": 30.0,
+  "N": 180,
+  "L": 99.0,
+  "dt": 0.04,
+  "T": 150.0,
+  "t_contact": 29.139904540945363,
+  "t_sponge": 76.77980908189072,
+  "phase_label": "relative phase of lump B (x > 0) minus lump A (x < 0) at the meeting point x = 0, exact there at every t by symmetry; at offset x in the overlap it is label + 2 omega gamma v x",
+  "job_hours": 0.35
+ }
+]

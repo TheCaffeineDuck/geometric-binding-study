@@ -1,0 +1,346 @@
+{
+ "diagnostic": "F-029",
+ "status": "run as proposed (gate passed, then the collision)",
+ "settings": {
+  "start": "primary (source outputs/session2/wpE/source/src_prod_N160_L88.npz, window [26, 30], omega 0.909532 source)",
+  "v_per_lump": 0.4,
+  "closing_speed": {
+   "galilean": 0.8,
+   "relativistic": 0.6897
+  },
+  "gamma": 1.0911,
+  "phase_label_deg": 0.0,
+  "d": 30.0,
+  "gate": {
+   "N": 160,
+   "L": 88.0,
+   "T": 60.0,
+   "theta": [
+    0,
+    90
+   ],
+   "t_from": 20.0,
+   "x0": -12.0,
+   "note": "T = 60 not 80: a gate at x0 = -16 failed the box-face tail guard (l3 run_job: max tail beyond r_face / Phi0 1.27e-6) and was not run; the earlier v = 0.2 gate used x0 = -12"
+  },
+  "collision": {
+   "N": 180,
+   "L": 99.0,
+   "dx": 0.55,
+   "dt": 0.04,
+   "T": 150.0,
+   "group_R": 12.178999999999998,
+   "absorber": "default sponge",
+   "t_contact_estimate": 29.14,
+   "t_sponge_estimate": 76.78,
+   "job": "coll_primary_p0_v0.4"
+  },
+  "drivers": "make_jobs_s2.py, run_s2.py A / B, gate_s2.py, d029_post.py"
+ },
+ "gate": {
+  "start": "primary",
+  "speed": 0.4,
+  "T": 60.0,
+  "t_from": 20.0,
+  "targets": {
+   "speed_rel_err": 0.01,
+   "E_ratio_vs_E0ref_err": 0.0001,
+   "omega_ratio_err": 0.0001,
+   "E_ball_drift_minus_rest": 0.001
+  },
+  "pass_rule": "each within 3x its target",
+  "ok": true,
+  "why": [],
+  "results": {
+   "v0.4_th0": {
+    "v": 0.4,
+    "gamma": 1.0910894511799618,
+    "speed_measured": 0.3999896136577502,
+    "speed_rel_err": -2.5965855624532352e-05,
+    "E_ratio_vs_E0ref_err": 8.003818570356813e-06,
+    "E_ratio_vs_rest_run_err": -1.914884764531166e-06,
+    "omega_ratio": 0.9165888042073629,
+    "omega_ratio_err": 8.037534030913562e-05,
+    "E_ball_drift_minus_rest": 1.1046649686985432e-05,
+    "contraction_Ixx_over_Iyy_first": 0.8578794055524022,
+    "contraction_drift": 0.00018093812355446381,
+    "one_over_gamma_sq": 0.8400000000000002
+   },
+   "v0.4_th90": {
+    "v": 0.4,
+    "gamma": 1.0910894511799618,
+    "speed_measured": 0.3999888228571804,
+    "speed_rel_err": -2.7942857048990355e-05,
+    "E_ratio_vs_E0ref_err": 2.8106888960932608e-05,
+    "E_ratio_vs_rest_run_err": 1.8187986231321673e-05,
+    "omega_ratio": 0.9164143690451627,
+    "omega_ratio_err": -0.0001099490250824342,
+    "E_ball_drift_minus_rest": 1.1083450798365924e-05,
+    "contraction_Ixx_over_Iyy_first": 0.8579447802450346,
+    "contraction_drift": 5.4626508575017496e-05,
+    "one_over_gamma_sq": 0.8400000000000002
+   }
+  },
+  "rest_reference": {
+   "E0": 2838.3771277211536,
+   "E_min": 2838.3482856708074,
+   "E_max": 2838.4052807966186,
+   "N0": 2899.9198908203034,
+   "N_min": 2813.516708300115,
+   "N_max": 3120.544258628986
+  }
+ },
+ "collision": {
+  "name": "coll_primary_p0_v0.4",
+  "settings": {
+   "start": "primary",
+   "v_per_lump": 0.4,
+   "closing_speed_galilean": 0.8,
+   "closing_speed_relativistic": 0.6896551724137931,
+   "phase_label_deg": 0.0,
+   "d": 30.0,
+   "N": 180,
+   "L": 99.0,
+   "dx": 0.55,
+   "dt": 0.04,
+   "T": 150.0,
+   "t_contact_estimate": 29.139904540945363,
+   "t_sponge_estimate": 76.77980908189072,
+   "source": "outputs/session2/wpE/source/src_prod_N160_L88.npz",
+   "absorber": "default sponge"
+  },
+  "E0": 6193.933686338381,
+  "summary": {
+   "outcome": "unsettled (counts [2, 1, 2])",
+   "outcome_end": "merge",
+   "outcome_before_sponge": "unsettled (counts [2, 1, 2])",
+   "t_sponge_estimate": 76.77980908189072,
+   "phase_label": "relative phase of lump B (x > 0) minus lump A (x < 0) at the meeting point x = 0, exact there at every t by symmetry; at offset x in the overlap it is label + 2 omega gamma v x",
+   "phase_deg": 0.0,
+   "t_contact_measured": 35.36659013179004,
+   "t_contact_estimate": 29.139904540945363,
+   "count_distinct_last": [
+    1,
+    1,
+    1
+   ],
+   "count_distinct_before_sponge": [
+    2,
+    1,
+    2
+   ],
+   "min_tracker_distance": 2.8444086543249276,
+   "remnant_E_group_over_E0": 0.6008359311498321,
+   "lump_E_over_E0_end": [
+    0.2014021778205449,
+    0.20140243333992805
+   ],
+   "omega_tracker0_end": 0.9047858664500336,
+   "speeds_end": [
+    0.053225903140537344,
+    -0.053224516486603764
+   ],
+   "E_plus_absorbed_rel_dev": 1.703830231892089e-06,
+   "absorbed_over_E0": 0.33829850230574193
+  },
+  "tracker_distance_min": 2.8444086543249276,
+  "tracker_x0_end": -1.6022718033207277,
+  "tracker_x1_end": 1.6025075731803473,
+  "counts": [
+   {
+    "t": 10.366590131790042,
+    "n": 2
+   },
+   {
+    "t": 35.36659013179004,
+    "n": 1
+   },
+   {
+    "t": 60.36659013179004,
+    "n": 2
+   },
+   {
+    "t": 85.36659013179005,
+    "n": 1
+   },
+   {
+    "t": 110.36659013179005,
+    "n": 1
+   },
+   {
+    "t": 135.36659013179005,
+    "n": 1
+   }
+  ],
+  "E_group_over_E0_at": {
+   "20": 0.9615765955114919,
+   "30": 0.9980434648417602,
+   "40": 0.9976166178225254,
+   "50": 0.8003465777080591,
+   "60": 0.6236700414963933,
+   "70": 0.573668094204959,
+   "80": 0.5538228831697387,
+   "100": 0.5260837644986115,
+   "120": 0.45839220168850126,
+   "150": 0.4108925694815205
+  },
+  "E_plus_absorbed_rel_dev": 1.703830231892089e-06,
+  "absorbed_over_E0_end": 0.33829850230574193,
+  "wall_s": 672.6188578750007,
+  "E_group_over_E0_since_free_contact_time": {
+   "v0.4_this_run (free contact 29.14)": {
+    "0": 0.9975621486058233,
+    "10": 0.9989909934560187,
+    "20": 0.8309083482133505,
+    "30": 0.6311382987482762,
+    "40": 0.5727282402094832,
+    "60": 0.5414015652167841,
+    "80": 0.492088517836113,
+    "100": 0.43684603014501483,
+    "115": 0.4137936533910345
+   },
+   "v0.2_existing (free contact 58.3)": {
+    "0": 0.9952828873644304,
+    "10": 0.9891767680926381,
+    "20": 0.9010423983401235,
+    "30": 0.7901103024787945,
+    "40": 0.7676246439149493,
+    "60": 0.7536109433758105,
+    "80": 0.7157365307035339,
+    "100": 0.7060843031783326,
+    "115": 0.6935804025523672
+   },
+   "v0.02_existing (free contact 582.8)": {
+    "0": 0.7404792778559174,
+    "10": 0.7373967427678079,
+    "20": 0.735071595390638,
+    "30": 0.7317730107092254,
+    "40": 0.7288175439514806,
+    "60": 0.7237388084223136,
+    "80": 0.7228690596082821,
+    "100": 0.716600763921652,
+    "115": 0.7157998872906104
+   },
+   "note": "group sphere radius 3 hw + 2 = 12.2 in all three runs (same run_config); times since the free estimate of contact"
+  },
+  "tracker_separation": {
+   "0": 29.99962345268003,
+   "10": 22.002750172911696,
+   "20": 13.997661162777671,
+   "30": 5.712740342035534,
+   "40": 4.044120521977977,
+   "50": 8.274782043739837,
+   "60": 9.849066165257327,
+   "70": 9.884853414227065,
+   "80": 8.578293172240002,
+   "90": 5.657913393531853,
+   "100": 3.5097233203403566,
+   "110": 4.261000809532357,
+   "120": 4.655232138175865,
+   "130": 3.8382799353204735,
+   "140": 3.2042419090448897,
+   "150": 3.204782869547455
+  },
+  "tracker_separation_extrema": {
+   "first_min": [
+    35.800000000000004,
+    2.8449853277771275
+   ],
+   "first_max": [
+    61.6,
+    10.175583909818418
+   ],
+   "second_min": [
+    101.0,
+    3.109385720949426
+   ]
+  },
+  "lump_E_over_E0_by_tracker_ball": {
+   "30": 0.4981864535111176,
+   "50": 0.4107063719222437,
+   "70": 0.3054937727720535,
+   "100": 0.25305948647956567,
+   "150": 0.2014021778205449
+  },
+  "note_remnant_E_group_over_E0": "summary.remnant_E_group_over_E0 averages over the last 300 time units, which here is the whole run (T = 150); use E_group_over_E0_at (value at t = 150 is the end state)"
+ },
+ "summary": {
+  "gate_ok": true,
+  "speed_error": [
+   -2.5965855624532352e-05,
+   -2.7942857048990355e-05
+  ],
+  "omega_ratio_err": [
+   8.037534030913562e-05,
+   -0.0001099490250824342
+  ],
+  "outcome_by_l3_rules": "unsettled (counts [2, 1, 2])",
+  "outcome_last_three_windows": "merge",
+  "count_windows": [
+   2,
+   1,
+   2,
+   1,
+   1,
+   1
+  ],
+  "tracker_separation_extrema": {
+   "first_min": [
+    35.800000000000004,
+    2.8449853277771275
+   ],
+   "first_max": [
+    61.6,
+    10.175583909818418
+   ],
+   "second_min": [
+    101.0,
+    3.109385720949426
+   ]
+  },
+  "E_group_over_E0_at_150": 0.4108925694815205,
+  "absorbed_over_E0": 0.33829850230574193,
+  "E_group_over_E0_since_free_contact": {
+   "v0.4_this_run (free contact 29.14)": {
+    "0": 0.9975621486058233,
+    "10": 0.9989909934560187,
+    "20": 0.8309083482133505,
+    "30": 0.6311382987482762,
+    "40": 0.5727282402094832,
+    "60": 0.5414015652167841,
+    "80": 0.492088517836113,
+    "100": 0.43684603014501483,
+    "115": 0.4137936533910345
+   },
+   "v0.2_existing (free contact 58.3)": {
+    "0": 0.9952828873644304,
+    "10": 0.9891767680926381,
+    "20": 0.9010423983401235,
+    "30": 0.7901103024787945,
+    "40": 0.7676246439149493,
+    "60": 0.7536109433758105,
+    "80": 0.7157365307035339,
+    "100": 0.7060843031783326,
+    "115": 0.6935804025523672
+   },
+   "v0.02_existing (free contact 582.8)": {
+    "0": 0.7404792778559174,
+    "10": 0.7373967427678079,
+    "20": 0.735071595390638,
+    "30": 0.7317730107092254,
+    "40": 0.7288175439514806,
+    "60": 0.7237388084223136,
+    "80": 0.7228690596082821,
+    "100": 0.716600763921652,
+    "115": 0.7157998872906104
+   },
+   "note": "group sphere radius 3 hw + 2 = 12.2 in all three runs (same run_config); times since the free estimate of contact"
+  }
+ },
+ "ledger_causes_reading": [
+  "Does the merger give way to two out by 0.4 per lump: not by T = 150. The pair meets (tracker separation 2.8 at t = 35), rebounds to separation 10 (t = 65, count 2 at t = 60), falls back to 3.4 (t = 100 to 105) and sits at 3.0 to 3.2 at t = 150 with the count at 1 in the last three windows; no two free outgoing lumps (end speeds 0.053 per tracker, ball energy 0.20 E0 each).",
+  "Cause 1 (dissipation about 30% of the pair, independent of speed): the energy in the group sphere (r < 12.2) is 0.41 E0 at T = 150 against 0.69 for the v = 0.2 run at the same time after the free contact (115), so this run has lost more by then, not the same; the run is 115 after contact and still falling (0.46 at 120, 0.41 at 150), so the long-time remnant is not measured.",
+  "Cause 2 (the passage is not sudden at 0.2): at 0.4 the passage through 2 hw takes about 8.5 time units (1.2 periods), and the pair still does not separate, so a slower passage is not what holds it.",
+  "Not tested: a speed above 0.4 per lump, the 1.5x box and resolution checks, the dip start; one run, one box, one resolution, T = 150."
+ ]
+}
