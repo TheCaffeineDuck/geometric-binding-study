@@ -1,0 +1,6 @@
+Mac projection (measured 2026-10-02, 2 concurrent jobs x 2 threads, 400 steps after compile):
+rate N=160 (gate job): 6.54 steps/s; N=180 (collision job): 5.40 steps/s (cloud model assumed 3.56 at N=160)
+job-hours: gates 1.02, collisions 14.04, src_dip 0.58, 5 dip (d) runs 10.62; total 26.26 job-h; on 2 workers about 13.1 h wall (plus ~0.3 h idle while src_dip builds alone)
+per job: gate 240/120 time units 0.9/0.45 h; collision v0.02 (52000 steps) 2.7 h, v0.2 (39000 steps) 2.0 h; (d) run (50000 steps) 2.1 h
+Not in the list: collision twin (needs dip gate check and dip collision; no primary twin job exists), d_dip_r0.1/q0.1 are in (last), twin_d_dip_q0.1 not requested.
+Update 17:44 after the gate phase: measured 5.2 to 5.4 steps/s per N=160 job under 2-job load (6000 steps in 1116 to 1164 s), 18 percent below the 6.54 of the calibration; scaled by 1.2 the whole list is about 15.9 h wall (collision v0.02 about 3.2 h, v0.2 about 2.4 h, d run about 2.6 h). Gates took 1.0 h wall.
