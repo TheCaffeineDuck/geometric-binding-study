@@ -532,6 +532,47 @@ Claim 1 has two halves: "left alone a swirl persists" and "a modest disturbance 
 
 ## 13. Tests on main
 
-`.venv/bin/python -m pytest` on `main` in the main checkout. The output follows.
+`.venv/bin/python -m pytest` on `main` at commit a38050d (after the merge of the thread fix), run in the main checkout on 2026-10-05. Every commit after it changes only `docs/` and files under `outputs/`.
 
-PYTEST_OUTPUT_HERE
+```
+collected 212 items
+tests/arrange/test_angular_momentum.py .                                 [  0%]
+tests/arrange/test_claude_desktop.py .                                   [  0%]
+tests/arrange/test_counting.py ...                                       [  2%]
+tests/arrange/test_dynamics.py ...                                       [  3%]
+tests/arrange/test_forces.py ...                                         [  5%]
+tests/arrange/test_p2_label.py .........                                 [  9%]
+tests/arrange/test_two_lump.py ...                                       [ 10%]
+tests/arrange/test_unequal.py .............                              [ 16%]
+tests/engine/test_bonded.py ...........                                  [ 22%]
+tests/engine/test_check1_linear_exact.py ..                              [ 23%]
+tests/engine/test_check2_energy.py ...                                   [ 24%]
+tests/engine/test_check3_ebind.py ......                                 [ 27%]
+tests/engine/test_check4_absorber.py .x....                              [ 30%]
+tests/engine/test_checkpoint_resume.py ...                               [ 31%]
+tests/engine/test_diagnostics.py .........                               [ 35%]
+tests/engine/test_lump_floor.py ..............                           [ 42%]
+tests/engine/test_lumps.py .............                                 [ 48%]
+tests/engine/test_lumps_k.py .............                               [ 54%]
+tests/engine/test_snapshot.py ..x.x.......                               [ 60%]
+tests/engine/test_snapshot_multi.py .                                    [ 60%]
+tests/engine/test_wpe_postprocess.py .........                           [ 65%]
+tests/engine/test_wpl3_driver.py .                                       [ 65%]
+tests/engine/test_wpl_initial.py ..........s..                           [ 71%]
+tests/family/test_profile.py .......................                     [ 82%]
+tests/family/test_radial.py ......                                       [ 85%]
+tests/family/test_wpa_pathintegral.py .......                            [ 88%]
+tests/family/test_wpa_run.py ......x                                     [ 91%]
+tests/family/test_wpl.py .............ss.                                [ 99%]
+tests/test_import.py .                                                   [100%]
+============ 205 passed, 3 skipped, 4 xfailed in 1698.29s (0:28:18) ============
+```
+
+- **The first full run, at 977e1b2, failed: 12 failed, 193 passed, 3 skipped, 4 xfailed.**
+  - All 12 failures were in `tests/family/test_wpl.py`, with the same numba error. `swirl/engine/l3.py` and `wpl.scan` set `NUMBA_NUM_THREADS` in the parent pytest process after numba had launched its threads, and the next compile raised.
+  - Fixed on the first attempt: the thread count is set only in worker processes (04b10b1). A regression check was added to `tests/engine/test_wpl3_driver.py`.
+- **The four expected failures are strict records of misses:** the Session 1 absorber check (F-001), the beta = 0.75 box doubling (F-008), and two WP-E tooling targets. If any of them ever passes, the suite fails.
+- **The three skips** are checks that read session3 records (`gate.json`, `box_check.json`, `estimator_check.json`). Those are in git, but not under the main checkout's `outputs/`, which is the external-drive link. In the integration worktree they run.
+- **Two open caveats:**
+  - `tests/family/test_profile.py::test_derrick_identity[1.0]` fails on aarch64 (Graviton); it passes here (section 11).
+  - The suite rewrites some small check records under `outputs/`; in the main checkout these land on the external drive.
