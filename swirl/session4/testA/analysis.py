@@ -18,6 +18,8 @@ is its own series. Singles are interpolated linearly in the lump-1 position betw
 sigma_VN = sqrt(sigma_omega^2 + V_shift^2): sigma_omega = the scatter of V_N over sliding whole-period
 sub-windows of [t1, t2] (length L_s = max(2 periods, (t2 - t1)/3), half-period steps), scaled by sqrt(L_s/(t2 - t1));
 V_shift = 2[(E_b - E_a) - omega (N_b - N_a)] between the box's two singles (the single against its own shifted copy).
+sigma_VN is a LOWER BOUND: it omits the drift of omega_pair - omega_single between windows (1.15e-4 to 1.5e-4 in
+the reviewer's anti-phase run) and the 3 omega-cloud systematic (+0.07 to +0.09 at r = 20, diag_surplus.json).
 
 V_F (headline, Addendum 2 item 1): d(t) on [t1, t2] fitted by c0 + c1 t + c2 t^2 on the Hann-smoothed separation;
 d'' = 2 c2; F = -(E_s/2) d'' with E_s the settled single's whole-period box energy (F > 0 attracts); F is labelled
@@ -38,7 +40,8 @@ least squares, reduced chi^2, AIC = chi^2 + 2p, BIC = chi^2 + p ln n, runs test.
 singular (e.g. C -> 0), the full-fit s.e. are NaN and reported as such, and sigma's s.e. is taken from the refit
 with k fixed (linear in V_inf, sigma, C), flagged "k_fixed".
 Verdicts: A3 (section 2) and A3' (Addendum 1), both with Addendum 2's corrections: grows-clause 2 holds on V and,
-for V_F, on |F|; grows-clause 3 also needs fit L to fit (reduced chi^2 <= 3, Addendum 2 item 5); a clause that
+for V_F, |F(r_hi)| resolved; grows-clause 3 also needs fit L to fit (reduced chi^2 <= 3; reviewer's fit-quality
+point on Addendum 2's corrections); a clause that
 cannot be evaluated (NaN s.e.) is None and the verdict is "undetermined" with the reason.
 Standard 1 per run: omega/m and the nonlinear share (t = 0 and window mean).
 """
@@ -264,7 +267,7 @@ def _model(form, r, q, s):
     if form == "E2":
         return s * np.exp(q[0] - q[1] * r) / r
     if form == "G":
-        return s * np.exp(q[0] - (r / q[1]) ** 2)
+        return s * np.exp(np.minimum(q[0] - (r / q[1]) ** 2, 700.0))
     if form == "P":
         return s * np.exp(q[0] - q[1] * np.log(r))
     if form == "L":
@@ -353,6 +356,7 @@ def fit_form(form, r, V, sig, k_ref=None):
                 starts.append([pk["V_inf"], pk["sigma"], pk["C"], k0 * kf])
     np_ = len(starts[0])
     best = None
+    err = np.seterr(over="ignore", invalid="ignore", divide="ignore")   # rejected trial steps may overflow
     for q0 in starts:
         try:
             f = lambda q: (_model(form, r, q, s) - V) / sig
@@ -372,6 +376,7 @@ def fit_form(form, r, V, sig, k_ref=None):
             continue
         if best is None or sol.cost < best.cost:
             best = sol
+    np.seterr(**err)
     if best is None:
         return dict(form=form, ok=False)
     q = best.x
@@ -433,11 +438,13 @@ def _not_decreasing_last3(x, s):
 
 
 def _grows2(VV, ss, F, sF):
-    """Grows-clause 2 (Addendum 2): on V, and on |F| when the force is given."""
+    """Grows-clause 2 (Addendum 2 item 2): on V (resolved and not decreasing over the last three points), and,
+    when the force is given, |F(r_hi)| > 3 sigma_F (no monotone test on F: for sigma + Yukawa |F| falls toward
+    sigma, so a monotone test would block exactly the confining case)."""
     gV = bool(abs(VV[-1]) > 3 * ss[-1] and _not_decreasing_last3(VV, ss))
     if F is None:
         return gV, dict(on_V=gV)
-    gF = bool(abs(F[-1]) > 3 * sF[-1] and _not_decreasing_last3(F, sF))
+    gF = bool(abs(F[-1]) > 3 * sF[-1])          # on F: resolved at r_hi only (|F| of sigma + Yukawa falls toward sigma)
     return gV and gF, dict(on_V=gV, on_F=gF)
 
 
@@ -521,7 +528,8 @@ def verdict_prime(r, V, sig, F16, r_lo=A3P_DECIDING_R_LO, F=None, sF=None):
     (reaching the floor is reported, not required); (2) the 3-s.e. upper bound on |sigma| (fit L) < 1% |F(16)|;
     (3) some decaying form has reduced chi^2 <= 3 under sigma_eff.
     Grows: (1) sigma confining (> 0), > 5 s.e., and |sigma| > 1% |F(16)|; (2) grows-clause 2 (V, and |F|);
-    (3) L beats every decaying form by Delta AIC > 10 and fits (reduced chi^2 <= 3). Undetermined otherwise.
+    (3) L beats every decaying form by Delta AIC > 10 and fits (reduced chi^2 <= 3, a fit-quality guard added with
+    Addendum 2's corrections). Undetermined otherwise.
     Form preference among E1, E2, G, P only (> 10)."""
     r, V, sig = (np.asarray(x, float) for x in (r, V, sig))
     rng, res = resolved_range(r, V, sig, r_lo)
@@ -627,37 +635,51 @@ def integrate_force(r, F):
 
 
 def fit_force_tail(r, F, sF):
-    """Fit F = sigma + Yukawa force (-C e^{-kr}(k/r + 1/r^2)) to the given points; sigma kept only if > 5 s.e.
-    Returns the tail V(r_max) = sigma r_max + C e^{-k r_max}/r_max and the fit."""
+    """Fit F = sigma + Yukawa force C_F e^{-kr}(k/r + 1/r^2) (free-sign C_F, k bounded to [0.01, 3], multi-start
+    from k-fixed linear solutions) to the given points; sigma kept only if > 5 s.e. Returns the tail
+    V(r_max) = sigma r_max + C e^{-k r_max}/r_max (C = -C_F, so dV/dr = F) and the fit."""
     r, F, sF = (np.asarray(x, float) for x in (r, F, sF))
-    s = float(np.sign(F[np.argmax(np.abs(F))])) or 1.0
-    c = _ln_guess(r, np.log(np.maximum(np.abs(F), 1e-300)), np.ones_like(r))
-
-    def yuk(q):            # q = (ln|C|, k); F_yuk = s |C| e^{-kr}(k/r + 1/r^2), C (in U) = -s |C|
-        return s * np.exp(q[0] - q[1] * r) * (q[1] / r + 1 / r ** 2)
+    shape = lambda k: np.exp(-k * r) * (k / r + 1 / r ** 2)
     best = {}
     for with_sigma in (False, True):
         if with_sigma and r.size < 4:
             continue
-        q0 = [c[0] + np.log(max(r.mean(), 1.0)), max(-c[1], 1e-3)] + ([0.0] if with_sigma else [])
-        f = (lambda q: (yuk(q[:2]) + q[2] - F) / sF) if with_sigma else (lambda q: (yuk(q) - F) / sF)
-        try:
-            sol = least_squares(f, q0, method="lm", max_nfev=20000)
-        except Exception:
+        sols = []
+        for k0 in (0.05, 0.1, 0.2, 0.4, 0.8, 1.6):
+            cols = [shape(k0)] + ([np.ones_like(r)] if with_sigma else [])
+            Am = np.stack(cols, axis=1) / sF[:, None]
+            c0, *_ = np.linalg.lstsq(Am, F / sF, rcond=None)
+            q0 = [c0[0] * np.exp(-k0 * r.min()), k0] + ([c0[1]] if with_sigma else [])
+
+            def f(q, ws=with_sigma):          # amplitude at r_min for conditioning: C_F = q0 e^{k r_min}
+                m = q[0] * np.exp(-q[1] * (r - r.min())) * (q[1] / r + 1 / r ** 2)
+                return (m + (q[2] if ws else 0.0) - F) / sF
+            lo = [-np.inf, 0.01] + ([-np.inf] if with_sigma else [])
+            hi = [np.inf, 3.0] + ([np.inf] if with_sigma else [])
+            try:
+                sol = least_squares(f, q0, bounds=(lo, hi), method="trf", x_scale="jac", max_nfev=5000)
+            except Exception:
+                continue
+            if np.all(np.isfinite(sol.fun)):
+                sols.append(sol)
+        if not sols:
             continue
+        sol = min(sols, key=lambda z: z.cost)
         cov, _ = _cov(sol.jac)
-        se = np.sqrt(np.abs(np.diag(cov))) if cov is not None else np.full(len(q0), np.nan)
+        se = np.sqrt(np.abs(np.diag(cov))) if cov is not None else np.full(len(sol.x), np.nan)
         best[with_sigma] = (sol, se)
     if not best:
         return 0.0, dict(ok=False)
     use_sigma = True in best and np.isfinite(best[True][1][2]) and abs(best[True][0].x[2]) > 5 * best[True][1][2]
     sol, se = best[True] if use_sigma else best[False]
     q = sol.x
-    C_U = -s * np.exp(q[0])
+    k = float(q[1])
+    C_F = float(q[0] * np.exp(k * r.min()))
+    C_U = -C_F
     sigma = float(q[2]) if use_sigma else 0.0
     rm = r.max()
-    tail = sigma * rm + C_U * np.exp(-q[1] * rm) / rm
-    return float(tail), dict(ok=True, C=float(C_U), k=float(q[1]), sigma=sigma, sigma_used=bool(use_sigma),
+    tail = sigma * rm + q[0] * -1.0 * np.exp(-k * (rm - r.min())) / rm
+    return float(tail), dict(ok=True, C=C_U, k=k, sigma=sigma, sigma_used=bool(use_sigma),
                              sigma_fit=(float(best[True][0].x[2]) if True in best else None),
                              sigma_fit_se=(float(best[True][1][2]) if True in best else None),
                              chi2=float(np.sum(sol.fun ** 2)), n=int(r.size))
@@ -722,7 +744,10 @@ def sigma_omega_VN(res, singles, t1, t2, x1, domega_dN, P):
         return dict(n_sub=len(vals), sigma_V_N=None, sigma_V_N_box=None)
     a = np.array(vals)
     f = np.sqrt(Ls / L)
-    return dict(n_sub=len(vals), sub_length=Ls, sigma_V_N=float(np.std(a[:, 0]) * f),
+    return dict(n_sub=len(vals), sub_length=Ls, lower_bound=True,
+                note="omits the omega_pair - omega_single drift between windows and the 3 omega-cloud systematic "
+                     "(+0.07 to +0.09 at r = 20)",
+                sigma_V_N=float(np.std(a[:, 0]) * f),
                 sigma_V_N_box=float(np.std(a[:, 1]) * f), eps_scatter=float(np.std(a[:, 2])),
                 eps_range=[float(a[:, 2].min()), float(a[:, 2].max())])
 

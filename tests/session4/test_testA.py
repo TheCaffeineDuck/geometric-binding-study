@@ -371,6 +371,48 @@ def test_constant_force_reads_grows_through_V_F():
     assert out["yukawa"][1] == "decays to zero"
 
 
+def _vf_trial(truth, f0, phase=0):
+    """Force data truth + f0 * deterministic noise (|.| <= 1) on the production in-phase grid; V_F block."""
+    r = PROD_R["in phase"]
+    F16 = AMP * np.exp(-KAP * 16) * (KAP / 16 + 1 / 256)
+    nz = np.sin(2.39996 * (np.arange(1, r.size + 1) + phase) ** 1.3)
+    sF = f0 * np.ones_like(r)
+    return A._vf_block(r, truth(r) + f0 * nz, sF, F16)
+
+
+F16_T = AMP * np.exp(-KAP * 16) * (KAP / 16 + 1 / 256)
+FY = lambda r: AMP * np.exp(-KAP * r) * (KAP / r + 1 / r ** 2)
+
+
+@pytest.mark.parametrize("f0", [1e-5, 1e-4])
+@pytest.mark.parametrize("sign", [1, -1], ids=["attractive", "repulsive"])
+def test_A3prime_grows_for_yukawa_plus_2pct_constant(sign, f0):
+    """Attractive and repulsive Yukawa force plus a constant confining force of 2% of F(16): A3' reads 'grows'
+    (reviewer's points A and B: clause 2 on |F| is 'resolved' only; the tail fit survives a sign change)."""
+    out = []
+    for ph in range(4):
+        blk, v = _vf_trial(lambda r: sign * FY(r) + 0.02 * F16_T, f0, ph)
+        out.append(v["A3prime"]["verdict"])
+        assert blk["tail"]["ok"] and blk["tail"]["sigma_used"] and 0.01 <= blk["tail"]["k"] <= 3.0
+    print(sign, f0, out)
+    assert out == ["grows"] * 4
+
+
+@pytest.mark.parametrize("sign", [1, -1], ids=["attractive", "repulsive"])
+def test_A3prime_pure_yukawa_decays(sign):
+    out = [_vf_trial(lambda r: sign * FY(r), 1e-5, ph)[1]["A3prime"]["verdict"] for ph in range(4)]
+    print(sign, out)
+    assert out == ["decays to zero"] * 4
+
+
+def test_A3prime_small_constant_not_grows():
+    """Yukawa plus 0.3% of F(16) (below A3' grows-clause 1's 1%): never 'grows'."""
+    for f0 in (1e-5, 1e-4):
+        out = [_vf_trial(lambda r: FY(r) + 0.003 * F16_T, f0, ph)[1]["A3prime"]["verdict"] for ph in range(4)]
+        print(f0, out)
+        assert "grows" not in out
+
+
 def test_L_singular_covariance_guard():
     """Data that is exactly V_inf + sigma r (C -> 0): the full L covariance is singular; the s.e. are reported
     NaN, and sigma's s.e. comes from the k-fixed refit (flagged), so a confining sigma is still read."""
