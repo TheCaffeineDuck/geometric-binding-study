@@ -157,3 +157,38 @@ Merge: code, result JSON and plots are committed on the test branches after thei
 - If the isolated-single control drifts in position or in N by more than 10% of the smallest resolved pair signal, the Test A dynamical runs wait; the static part and Test B continue.
 - If B1 finds a threshold that is not m, Test B stops after B1 and the finding is reported before any spectrum is interpreted.
 - No change to the equations of the model.
+
+## Addendum 1 (2026-11-09 12:05 +07): written after the Test A static results and before any production pair run
+
+**What was known when this was written.** The static potentials (no PDE) for the primary, b5 and the unequal pair, the numerics smoke run at r = 20 in phase, and the Test B smoke run. No production pair run had started. The dynamical results are unknown. Section 2's criteria stay on record and are scored as written. The rules below are scored next to them, and the report gives both.
+
+**1. Unequal pair (A1).** No pair with N ratio 1.3 to 1.6 has both members passing the settling guard: on the beta = 4/3 family, only omega 0.9025 to 0.9115 and 0.855 to 0.8585 pass (`outputs/session4/testA/unequal_choice.json`). The pair used is the two long-lived dip lumps, omega 0.9065045 (N 2988.6, A 60.07, kappa 0.4222, hw 3.39) and 0.8573703 (N 8512.4, A 264.61, kappa 0.5147, hw 4.93). This is Session 3's proposal 2. N ratio 2.84, settled Delta omega 0.0478, beat period 131.6, so the window 40 to 400 holds 2.7 beats. **Headline for the unequal channel: the force amplitude (V_F route).** The V_N amplitude is dominated by the beating overlap charge (10 to 35 times U_amp), so it is reported but does not decide.
+
+**2. Why A3 needs a second reading.** On the static potentials, which are exact to a quadrature floor near 1e-11, A3 misfires in three ways:
+- the floor is never reached, so decays-clause 1 fails;
+- every form has reduced chi-squared 1e15 or more, because the residual is model departure (U_static/U_tail = 1.106 at r = 12), not noise;
+- fit L's sigma takes up that departure at a formal 1e18 standard errors, so grows-clauses 1 and 3 pass on a potential that plainly decays. Only grows-clause 2 blocks it.
+
+A-P1's "E2 preferred by Delta AIC > 10" also cannot happen, because L contains E2: on Yukawa data L trails E2 by at most Delta AIC = 4.
+
+**A3' (scored alongside A3, for every channel, static and dynamical).**
+- **Weights:** sigma_eff(r) = sqrt(sigma_V(r)^2 + (0.02 V(r))^2). The 2% term is the size of the tail law's departure at r = 16 in the static quadrature and the Session 2 force agreement. It was chosen from the static data, not from the dynamical data.
+- **Fit range:** r_lo = 16 (4.8 hw) as well as 12. Both are reported; 16 decides.
+- **Decays to zero:**
+  1. |V| falls by at least a factor 100 over [r_lo, r_hi] and is still falling over the last three resolved points. Reaching the floor is reported but not required.
+  2. The 3-standard-error upper bound on |sigma| from fit L is below 1% of |F(16)|.
+  3. At least one decaying form has reduced chi-squared at most 3 under sigma_eff.
+- **Grows:**
+  1. sigma has the confining sign, exceeds 5 standard errors, and |sigma| is above 1% of |F(16)|.
+  2. A3 grows-clause 2, unchanged.
+  3. L beats every decaying form by Delta AIC > 10.
+- **Undetermined:** otherwise.
+- **Form preference:** among the non-nested decaying forms E1, E2, G and P only, the winner must lead by Delta AIC > 10. L is judged by its sigma clause alone.
+
+**3. V_N bookkeeping.** Both are reported: V_N with "E + absorbed" and box N (the plan's version, the headline), and V_N_box, which numerics expects to be less exposed to coherent 3 omega interference. A difference larger than their joint floor is reported as a finding.
+
+**4. Window.** The smoke run shows the in-phase pair at r = 20 is already "moving" (t2 = 73). So the dynamical long-range fits rest on r of about 22 and above in phase. This is expected under A0's rule and is not changed.
+
+**5. A-P2 as written refers to the dynamical potentials and is scored on them.** The static quadrature already shows that U_static exceeds the tail law inside r = 12 in phase (1.106 at 12), while the mid-plane flux falls below it (0.907). My premise ("falls below") was taken from the flux and is wrong for the energy. That is recorded as a miss of the static reading now, before the dynamics.
+
+**6. Not added:** a dense r grid at r >= 30 to resolve the possible 3 omega interference term of period 2.48 (PRIOR_ART N40). It goes in the parking lot.
