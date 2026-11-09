@@ -51,13 +51,16 @@ RUNS = {
     "b1_primary": dict(start="primary", T=20000.0),
     "b2_dip": dict(start="dip", T=20000.0),
     "b1_linear": dict(start="primary", T=20000.0, linear=True),
-    "b1_box2": dict(start="primary", T=5000.0, R_sponge=400.0, R_box=800.0),
+    # Orchestrator, 2026-11-09, before production: doubled boxes cover the full window,
+    # and the dip run gets one too, so a later-epoch line can be checked against the box.
+    "b1_box2": dict(start="primary", T=20000.0, R_sponge=400.0, R_box=800.0),
+    "b2_box2": dict(start="dip", T=20000.0, R_sponge=400.0, R_box=800.0),
     "b1_half_dr": dict(start="primary", T=2000.0, dr=0.025, dt=0.00625),
     "b1_smoke": dict(start="primary", T=2000.0),
 }
 
 
-PRODUCTION = ["b1_primary", "b2_dip", "b1_linear", "b1_box2", "b1_half_dr"]
+PRODUCTION = ["b1_primary", "b2_dip", "b1_linear", "b1_box2", "b2_box2", "b1_half_dr"]
 
 
 def start_profile(start):
