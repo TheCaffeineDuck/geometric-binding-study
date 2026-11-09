@@ -1,0 +1,11 @@
+{
+ "what": "measured full-diagnostic step time, Test A smoke run (pair and single, N = 144, dt 0.04, lumps every 5 steps, per-step ball and half-space It), one thread per process",
+ "measured_s_per_step": 0.12410940515860566,
+ "N": 144,
+ "processes_running_during_timing": 3,
+ "c_per_point_log": 8.363289759430015e-09,
+ "contention": 1.15,
+ "contention_note": "x1.15 assumed for 4 workers plus Test B (1 process) on 4 performance cores (timing was with 3 processes)",
+ "bare_step_s_N144_one_process": 0.1,
+ "setup_seconds_per_run_estimate": 60
+}
