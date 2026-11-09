@@ -192,3 +192,29 @@ A-P1's "E2 preferred by Delta AIC > 10" also cannot happen, because L contains E
 **5. A-P2 as written refers to the dynamical potentials and is scored on them.** The static quadrature already shows that U_static exceeds the tail law inside r = 12 in phase (1.106 at 12), while the mid-plane flux falls below it (0.907). My premise ("falls below") was taken from the flux and is wrong for the energy. That is recorded as a miss of the static reading now, before the dynamics.
 
 **6. Not added:** a dense r grid at r >= 30 to resolve the possible 3 omega interference term of period 2.48 (PRIOR_ART N40). It goes in the parking lot.
+
+## Addendum 2 (2026-11-09 13:06 +07): written after the reviewer's bookkeeping check of the Test A analysis code, before any production result was read
+
+**What was known.** The production runs are in progress (started 12:24). No production result has been opened or analysed by me or any worker. What I had: the static results, the two smoke runs (r = 20 in phase, equal and unequal), and the reviewer's own r = 20 anti-phase test run (made outside production).
+
+**1. Headline route: V_F, the force route, for every channel.**
+- **Why not V_N.** E + absorbed and total N are conserved, so V_N is close to a t = 0 quantity, and its time dependence is measurement error. It is limited by the omega_pair estimate: dV_N/d(eps) = -I_pair, about 5300, so resolving 3e-3 needs eps to 6e-7. In the reviewer's anti-phase run the code gave +190% at r = 20.
+- **What V_N still does.** V_N_box (box E and box N, whole-period averages) and V_N(E + absorbed) are reported, with their difference as its own series, as a consistency check on V_F and U_static. V_N alone decides nothing.
+- **The headline verdict per channel** is V_F's verdict. U_static's verdict is reported beside it. If the two disagree, that is a finding, not a reason to read "undetermined". The A3 and A3' clauses are applied to V_F as amended in item 2. This replaces section 2's "the headline verdict uses V_N and V_F".
+
+**2. Corrections that bring the analysis to section 2 and Addendum 1 as intended.** These are bug fixes, not new criteria.
+- **Averages.** N, I and E use whole-period averages bounded by each run's own zero crossings, as A0 says.
+- **The omega estimator's scatter** over sliding whole-period windows enters sigma for V_N.
+- **Grows-clause 2** ("not decreasing over the last three resolved points") is applied to |F| and to V_F computed with the fitted tail beyond r_max, not to a V_F pinned to 0 at r_max.
+- **Floors** for V_F and V_N come from the isolated-single controls (centroid acceleration and the shifted single), which cannot contain an interaction. They do not come from the value at r_max.
+- **Fit L** guards against a singular covariance: a NaN standard error is reported, never silently read as "not significant".
+- **F** is labelled with the window-mean separation, not the nominal r. The inertia is the settled single's E, not the profile's.
+- **V_F integration** is exact for a piecewise exponential, e.g. log-linear interpolation of |F|. It is tested on Yukawa data at the production spacing to 1%.
+- **Unequal channel:** the "moving" filter and the half-beat rule of A1 are applied, and a mean-force term is added to the fit.
+- **Standard 1** (omega/m and the nonlinear share) is recorded per run.
+
+**3. Diagnostics before scoring.**
+- (a) The engine's t = 0 cross energy for snapshot starts exceeds the family quadrature by an almost r-independent +0.7 (8.527 against 7.757 at r = 20; 2.228 against 1.533 at r = 24). Compare the settled source's angular-average profile at r = 12 to 26 with A e^(-kappa r)/r, and find what cross term is not evanescent (radiation cloud of the source run, or tail excess).
+- (b) An anti-phase whole-period V_N at r = 20 against U_static, as a regression check of item 2.
+
+**4. Predictions are unchanged.** A-P7 (floor reached at r = 28 to 34) referred to V_N and is scored as written.
