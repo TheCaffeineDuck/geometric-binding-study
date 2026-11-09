@@ -1,0 +1,58 @@
+{
+ "params": {
+  "name": "db2_w0.9025",
+  "start": "omega=0.9025",
+  "T": 5000.0,
+  "linear": false,
+  "m": 1.0,
+  "beta": 1.3333333333333333,
+  "g4_run": 0.3,
+  "g6_run": 0.12,
+  "probes": [
+   0.0,
+   10.0,
+   15.0,
+   20.0,
+   30.0,
+   45.0,
+   60.0,
+   80.0,
+   120.0
+  ],
+  "rec_dt": 0.2,
+  "energy_dt": 1.0,
+  "nl_dt": 10.0,
+  "r_c": 10.417202331281317,
+  "initial_data": "phi = Phi(r), phi_t = 0",
+  "profile": {
+   "omega_profile": 0.9025,
+   "half_width": 3.472400777093772,
+   "A": 65.75494575247154,
+   "kappa": 0.43068985360697787,
+   "source": "solve_profile(0.9025, 1, 1, 4/3, tol=1e-10) / sqrt(g4)"
+  },
+  "sigma_profile": "sigma_max((r-R_sponge)/(R_box-R_sponge))^2",
+  "scheme": "swirl.family.radial.Radial: u=r phi, 4th-order FD, odd reflection at r=0 and r=R_box, RK4",
+  "dr": 0.05,
+  "dt": 0.0125,
+  "R_sponge": 200.0,
+  "R_box": 400.0,
+  "sigma_max": 1.0
+ },
+ "wall_s": 36.31227517127991,
+ "wall_s_per_time_unit": 0.007262455034255982,
+ "E0": 3141.008213716796,
+ "Eh0": 3141.075282627149,
+ "series_file": "outputs/session4/testB/db2_w0.9025_series.npz",
+ "series_bytes": 4334910,
+ "regime": {
+  "omega_over_m_settled_50_150": 0.9030304852964934,
+  "omega_over_m_end_last100": 0.9044439450173556,
+  "nonlinear_share_t0_signed": -0.33318461563277796,
+  "nonlinear_share_mean_signed": -0.13748756810374507
+ },
+ "frac_end": 0.9748643562878421,
+ "absorbed_end": 73.29392424668958,
+ "E_h_rise_max_rel": 2.4925348540235265e-10,
+ "probe_storage": "phi float64; phi_t, phi_r float32 (relative precision 6e-8, used only for flux)"
+}

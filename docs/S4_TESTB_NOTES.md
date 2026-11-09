@@ -310,3 +310,82 @@ Flux outside every band: at most 2.4e-4 of the total at r >= 30 for the primary;
 No verdict changed: b1_primary, b2_dip, b1_box2, b2_box2 and b1_half_dr "Emission only above
 threshold" in every epoch; b1_linear "Undetermined" in every epoch (no lump, so criterion 3 has
 no meaning there).
+
+## 9. Diagnostics D-B1 to D-B3 (PRIOR_ART.md, "Session 4, Test B against the literature", V5)
+
+Code `swirl/session4/testB/diagnostics.py`; results in `outputs/session4/testB/diagnostics/`
+(`db1_harmonic_amplitudes.json`, `db2_sidebands.json`, `db3_fold_kinematics.json`). D-B2 runs
+`db2_w0.857370`, `db2_w0.9025`, `db2_w0.9115` (`run.py`, same grid and recording as B-run 1,
+T = 5000, 35 s each, one process); their series are not committed.
+
+### D-B1: harmonic amplitudes from the profile (no PDE)
+
+Projecting the equation of motion on cos 3wt and cos 5wt with phi = psi cos wt + ... gives
+(-lap + m^2 - n^2 w^2 + U) phi_n = S_n, S_3 = (g4/24) psi^3 - (g6/384) psi^5,
+S_5 = -(g6/1920) psi^5, U = -(g4/4) psi^2 + (g6/64) psi^4. Level (i), the literature's form
+(Born, U = 0): r a_n = |int S_n r sin(k_n r)/k_n dr|. Level (ii): with U (outgoing radial ODE;
+with U = 0 it reproduces (i) to 1e-3). Level (iii), 5 omega only: (ii) plus the second-order
+source (g4/8 psi^2 - g6/96 psi^4) phi_3.
+
+| | omega | r a_3 (i) | (ii) | measured | r a_5 (i) | (ii) | (iii) | measured |
+|---|---|---|---|---|---|---|---|---|
+| primary, profile | 0.909149 | 0.01555 (0.93x) | 0.0325 (1.94x) | 0.0167 | 5.55e-4 (2.2x) | 3.44e-4 (1.38x) | 1.16e-3 (4.6x) | 2.49e-4 |
+| primary, measured | 0.9100 | 0.00921 (0.55x) | 0.0353 (2.1x) | 0.0167 | 5.46e-4 (2.2x) | 3.27e-4 (1.31x) | 1.14e-3 (4.6x) | 2.49e-4 |
+| dip, profile | 0.906505 | 0.0368 (98x) | 0.0223 (60x) | 3.74e-4 | 5.62e-4 (3.6x) | 3.90e-4 (2.5x) | 1.19e-3 (7.6x) | 1.575e-4 |
+| dip, measured | 0.906836 | 0.0340 (91x) | 0.0237 (63x) | 3.74e-4 | 5.63e-4 (3.6x) | 3.85e-4 (2.4x) | 1.19e-3 (7.6x) | 1.575e-4 |
+
+Zero of the 3 omega source: the Born amplitude changes sign at omega = 0.9113 (0.0045 above the
+dip, 0.0013 above the primary's measured 0.9100); with U, |a_3| has its minimum at 0.9020
+(0.0048 below the dip). The measured suppression (primary over dip, 45x) sits between the two
+and is reproduced by neither: at the measured frequencies level (i) gives the dip 3.7 times the
+primary, level (ii) 0.67 times. The core (near-field) harmonics are reproduced: phi_3(0) 0.475
+to 0.484 against 0.4535 measured at the primary (r = 0, epoch 0) and 0.507 to 0.511 against
+0.4826 at the dip; phi_5(0) 0.096 to 0.098 against 0.0908 and 0.103 against 0.0966 (5% to 7%).
+Reading: the radiated amplitude is a small residue of a near cancellation in the sine transform,
+so where the near field is right to 6% the far field is off by factors 1.3 to 8, and the
+location of the 3 omega zero moves by about 0.005 between the two levels of treatment.
+
+### D-B2: sideband spacing against the gap m - omega
+
+One Hann window of 4000 (resolution 0.00157), sidebands = unidentified lines 0.02 to 0.25 from an
+odd harmonic, spacing nu = median |omega_sb - omega_harmonic| over r = 0, 10, 30, 120.
+
+| Run, window | omega_core | m - omega | nu | nu - (m - omega) | omega + nu | near-threshold peak, r = 10 |
+|---|---|---|---|---|---|---|
+| db2 0.857370, [1000, 5000] | 0.85899 | 0.14101 | 0.14813 | +0.0071 | 1.00711 | none |
+| db2 0.9025, [1000, 5000] | 0.90402 | 0.09598 | 0.10336 | +0.0074 | 1.00738 | none |
+| db2 0.9115, [1000, 5000] | 0.91467 | 0.08533 | 0.09139 | +0.0061 | 1.00606 | none |
+| dip, [1000, 5000] | 0.90691 | 0.09309 | 0.10027 | +0.0072 | 1.00718 | none |
+| dip, [5000, 9000] | 0.90691 | 0.09309 | 0.09518 | +0.0021 | 1.00209 | 1.00205 |
+| dip, [10000, 14000] | 0.90691 | 0.09309 | 0.09417 | +0.0011 | 1.00108 | 1.00102 |
+| dip, [16000, 20000] | 0.90691 | 0.09309 | 0.09540 | +0.0023 | 1.00231 | 1.00249 |
+| dip doubled box, [1000, 5000] | 0.90691 | 0.09309 | 0.09316 | +0.0001 | 1.00007 | 0.99996 |
+| dip doubled box, [16000, 20000] | 0.90691 | 0.09309 | 0.09427 | +0.0012 | 1.00118 | 1.00117 |
+| primary, [1000, 5000] | 0.91023 | 0.08977 | 0.09726 | +0.0075 | 1.00749 | none |
+| primary, [5000, 9000] | 0.91214 | 0.08786 | 0.08996 | +0.0021 | 1.00210 | 1.00206 |
+
+nu follows the gap (0.148 at gap 0.141, 0.094 to 0.100 at gap 0.093), so it is not a fixed
+property of the shape. It is always a little above m - omega: omega_core + nu lies just above
+threshold, and where the near-threshold band is resolved at r = 10 it equals that band's peak to
+0.0002. omega_core + nu depends on time and box, not on omega: 1.006 to 1.0075 for all four
+starts in [1000, 5000] in R_box = 400, but 1.00007 in the doubled box; 1.0023 against 1.0012 at
+[16000, 20000]. So the sidebands are the lump's harmonics mixed with the near-threshold field at
+the core (mixing products n omega +- (omega_nt - omega)), and the frequency of that
+field is set by slow near-threshold waves (group velocity about 0.1) that come back from the
+sponge region, which absorbs long wavelengths poorly: the round trip to R_s = 200 at v_g 0.12
+(omega 1.007) is about 3400. Sideband amplitudes are 1e-5 to 2e-3 of their harmonic. The primary
+shows them too in 4000-unit windows (1e-5 to 2e-4 of the harmonic).
+
+### D-B3: fold kinematics
+
+omega(t) = E_family^-1(E_family(omega_anchor) + E_in(3 hw, t) - E_in(3 hw, t_anchor)), anchor
+the first window (t = 1000, omega 0.90965), family table `outputs/family/family_beta1.3333.json`
+(fold at omega 0.96915). Window by window, family against measured: within 1e-4 to t = 9000,
+within 0.0010 to t = 14,000, then the family runs ahead (t = 16,000: 0.9432 against 0.9413;
+t = 19,000: 0.9608 against 0.9551). Epoch means: 0.9101, 0.9129, 0.9238, 0.9520 against 0.9100,
+0.9126, 0.9198, 0.9521; steps 0.0028, 0.0109, 0.0282 against 0.0026, 0.0072, 0.0323. Local
+rates d omega/dt = L/|dE/domega| against the slope of the window values: 3.05e-7 against
+2.89e-7, 8.86e-7 against 8.26e-7, 3.66e-6 against 3.93e-6, 5.99e-6 against 4.59e-6 (ratios
+1.05, 1.07, 0.93, 1.30). The energy to the fold (1125) is used up at t = 19,853 by this
+accounting (Session 1's death time in the R_s = 100 box: about 22,932). The late excess is
+probably the fixed r_c = 3 hw(t = 0) missing the lump as it widens toward the fold (untested).

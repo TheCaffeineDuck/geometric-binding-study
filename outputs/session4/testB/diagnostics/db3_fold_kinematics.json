@@ -1,0 +1,166 @@
+{
+ "method": "omega(t) = E_family^-1(E_family(omega_anchor) + E_in(3hw, t) - E_in(3hw, t_anchor)); anchor: first window omega at t = 1000; family table outputs/family/family_beta1.3333.json (Set-B units, rows omega 0.85 to the fold)",
+ "omega_fold": 0.9691493285973163,
+ "E_fold": 1657.1889563242419,
+ "anchor": {
+  "t": 1000.0,
+  "omega": 0.9096505039714997,
+  "E_family": 2782.257617344405,
+  "E_in": 2825.8346462602585
+ },
+ "windows": [
+  {
+   "t_mid": 1000.0,
+   "omega_measured": 0.9096505039714997,
+   "omega_family_from_E": 0.9096559537182352
+  },
+  {
+   "t_mid": 2000.0,
+   "omega_measured": 0.9098773827119887,
+   "omega_family_from_E": 0.9099001924883192
+  },
+  {
+   "t_mid": 3000.0,
+   "omega_measured": 0.9101623657073693,
+   "omega_family_from_E": 0.9102042311550772
+  },
+  {
+   "t_mid": 4000.0,
+   "omega_measured": 0.9105201252950564,
+   "omega_family_from_E": 0.9105813843550733
+  },
+  {
+   "t_mid": 6000.0,
+   "omega_measured": 0.9115195909354271,
+   "omega_family_from_E": 0.9115869907096428
+  },
+  {
+   "t_mid": 7000.0,
+   "omega_measured": 0.912177700511196,
+   "omega_family_from_E": 0.9122686696694758
+  },
+  {
+   "t_mid": 8000.0,
+   "omega_measured": 0.9129207031331238,
+   "omega_family_from_E": 0.9131258991642303
+  },
+  {
+   "t_mid": 9000.0,
+   "omega_measured": 0.9140243110755809,
+   "omega_family_from_E": 0.9142314502722915
+  },
+  {
+   "t_mid": 11000.0,
+   "omega_measured": 0.9175062257668675,
+   "omega_family_from_E": 0.9178945118102644
+  },
+  {
+   "t_mid": 12000.0,
+   "omega_measured": 0.9203026053465126,
+   "omega_family_from_E": 0.920863550474838
+  },
+  {
+   "t_mid": 13000.0,
+   "omega_measured": 0.9241922697383437,
+   "omega_family_from_E": 0.9249749690680632
+  },
+  {
+   "t_mid": 14000.0,
+   "omega_measured": 0.9293172516250644,
+   "omega_family_from_E": 0.930315231604556
+  },
+  {
+   "t_mid": 16000.0,
+   "omega_measured": 0.9413205976086864,
+   "omega_family_from_E": 0.9432289490741215
+  },
+  {
+   "t_mid": 17000.0,
+   "omega_measured": 0.9467019297082262,
+   "omega_family_from_E": 0.9494478763955999
+  },
+  {
+   "t_mid": 18000.0,
+   "omega_measured": 0.9513008469227763,
+   "omega_family_from_E": 0.9551793010554104
+  },
+  {
+   "t_mid": 19000.0,
+   "omega_measured": 0.9550970038309798,
+   "omega_family_from_E": 0.9607935302479417
+  }
+ ],
+ "epochs": {
+  "measured": [
+   0.9100460205720897,
+   0.9126208543081157,
+   0.9198042965048199,
+   0.9521448451322378
+  ],
+  "predicted": [
+   0.9101015199906834,
+   0.9128567677156195,
+   0.9238057223910122,
+   0.9519777541228103
+  ],
+  "steps_measured": [
+   0.002574833736025961,
+   0.007183442196704193,
+   0.032340548627417975
+  ],
+  "steps_predicted": [
+   0.002755247724936072,
+   0.010948954675392697,
+   0.028172031731798053
+  ]
+ },
+ "local_rates": [
+  {
+   "t": [
+    0.0,
+    5000.0
+   ],
+   "omega_core": 0.9100460205720897,
+   "loss_rate": 0.012191062822074552,
+   "dE_domega": -39985.46376125176,
+   "domega_dt_pred": 3.048873684413384e-07,
+   "domega_dt_measured_window_slope": 2.8938469660512045e-07
+  },
+  {
+   "t": [
+    5000.0,
+    10000.0
+   ],
+   "omega_core": 0.9126208543081157,
+   "loss_rate": 0.03319003022678741,
+   "dE_domega": -37473.365622454374,
+   "domega_dt_pred": 8.856965387410959e-07,
+   "domega_dt_measured_window_slope": 8.257163042389167e-07
+  },
+  {
+   "t": [
+    10000.0,
+    15000.0
+   ],
+   "omega_core": 0.9198042965048199,
+   "loss_rate": 0.11376440950876895,
+   "dE_domega": -31053.342886109727,
+   "domega_dt_pred": 3.6635157099191467e-06,
+   "domega_dt_measured_window_slope": 3.9322741966422395e-06
+  },
+  {
+   "t": [
+    15000.0,
+    20000.0
+   ],
+   "omega_core": 0.9521448451322378,
+   "loss_rate": 0.06741689083517743,
+   "dE_domega": -11252.354140542315,
+   "domega_dt_pred": 5.991358785293993e-06,
+   "domega_dt_measured_window_slope": 4.5928135881431325e-06
+  }
+ ],
+ "fold_reached_at_t": 19853.0,
+ "energy_to_fold": 1125.068661020163,
+ "energy_dropped_by_T": 1128.0051598286964
+}

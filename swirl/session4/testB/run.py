@@ -57,6 +57,10 @@ RUNS = {
     "b2_box2": dict(start="dip", T=20000.0, R_sponge=400.0, R_box=800.0),
     "b1_half_dr": dict(start="primary", T=2000.0, dr=0.025, dt=0.00625),
     "b1_smoke": dict(start="primary", T=2000.0),
+    # D-B2 (sideband spacing against the gap m - omega): other long-lived beta = 4/3 starts
+    "db2_w0.857370": dict(start="omega=0.85737", T=5000.0),
+    "db2_w0.9025": dict(start="omega=0.9025", T=5000.0),
+    "db2_w0.9115": dict(start="omega=0.9115", T=5000.0),
 }
 
 
@@ -77,6 +81,12 @@ def start_profile(start):
         info = dict(omega_profile=OMEGA_DIP, half_width=p["half_width"], A=p["A"] / np.sqrt(G4),
                     kappa=p["kappa"], source="solve_profile(%.16g, 1, 1, 4/3, tol=1e-10) / sqrt(g4), "
                     "as swirl.family.wpa_run" % OMEGA_DIP)
+        return (lambda x: profile_curve(p, x) / np.sqrt(G4)), info
+    if start.startswith("omega="):
+        w = float(start[6:])
+        p = solve_profile(w, 1.0, 1.0, BETA, tol=1e-10)
+        info = dict(omega_profile=w, half_width=p["half_width"], A=p["A"] / np.sqrt(G4), kappa=p["kappa"],
+                    source="solve_profile(%.16g, 1, 1, 4/3, tol=1e-10) / sqrt(g4)" % w)
         return (lambda x: profile_curve(p, x) / np.sqrt(G4)), info
     raise ValueError(start)
 
