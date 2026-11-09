@@ -1,0 +1,58 @@
+{
+ "params": {
+  "name": "b1_half_dr",
+  "start": "primary",
+  "T": 2000.0,
+  "linear": false,
+  "m": 1.0,
+  "beta": 1.3333333333333333,
+  "g4_run": 0.3,
+  "g6_run": 0.12,
+  "probes": [
+   0.0,
+   10.0,
+   15.0,
+   20.0,
+   30.0,
+   45.0,
+   60.0,
+   80.0,
+   120.0
+  ],
+  "rec_dt": 0.2,
+  "energy_dt": 1.0,
+  "nl_dt": 10.0,
+  "r_c": 10.032114550865565,
+  "initial_data": "phi = Phi(r), phi_t = 0",
+  "profile": {
+   "omega_profile": 0.909149280617113,
+   "half_width": 3.344038183621855,
+   "A": 56.700456391543426,
+   "kappa": 0.41647038976785133,
+   "source": "outputs/step2/profiles/profile_beta1.3333_w0.9091.json (np.interp, right=0), as outputs/step2/diagnostics/primary_lifetime.py"
+  },
+  "sigma_profile": "sigma_max((r-R_sponge)/(R_box-R_sponge))^2",
+  "scheme": "swirl.family.radial.Radial: u=r phi, 4th-order FD, odd reflection at r=0 and r=R_box, RK4",
+  "dr": 0.025,
+  "dt": 0.00625,
+  "R_sponge": 200.0,
+  "R_box": 400.0,
+  "sigma_max": 1.0
+ },
+ "wall_s": 48.25616216659546,
+ "wall_s_per_time_unit": 0.02412808108329773,
+ "E0": 2843.8158571170957,
+ "Eh0": 2843.8299406714596,
+ "series_file": "outputs/session4/testB/b1_half_dr_series.npz",
+ "series_bytes": 1738426,
+ "regime": {
+  "omega_over_m_settled_50_150": 0.9094739627737942,
+  "omega_over_m_end_last100": 0.9099009858486073,
+  "nonlinear_share_t0_signed": -0.3155954845915625,
+  "nonlinear_share_mean_signed": -0.13021364659837192
+ },
+ "frac_end": 0.9897943470178445,
+ "absorbed_end": 19.32895626231857,
+ "E_h_rise_max_rel": 1.5141082030812294e-11,
+ "probe_storage": "phi float64; phi_t, phi_r float32 (relative precision 6e-8, used only for flux)"
+}
