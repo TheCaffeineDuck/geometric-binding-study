@@ -181,6 +181,83 @@ def test_window_rule_and_acceleration():
         assert abs(2 * c[2] / a - 1) < 1e-6
 
 
+def fake_full(name, r, a, x=None, T=100.0, omega=0.9095, dt=0.2, dtheta=0, typ="primary", E=100.0):
+    """A full result-like dict for pair_equal / pair_unequal: d = r + a t^2 / 2 for a pair (x None), a fixed lump at
+    x for a single; phi = cos(omega t) at each lump centre, I = 10 omega^2 sin^2(omega t), constant energies."""
+    t = np.arange(0.0, T + 1e-9, dt)
+    nl = 1 if x is not None else 2
+    X = np.zeros((t.size, nl, 3))
+    if nl == 2:
+        d = r + 0.5 * a * t * t
+        X[:, 0, 0], X[:, 1, 0] = -d / 2, d / 2
+        cen = [[-r / 2, 0.0, 0.0], [r / 2, 0.0, 0.0]]
+    else:
+        X[:, 0, 0] = x
+        cen = [[x, 0.0, 0.0]]
+    phi = np.cos(omega * t)
+    I = 10 * omega ** 2 * np.sin(omega * t) ** 2 * nl
+    C = np.concatenate([[0.0], np.cumsum(0.5 * (I[1:] + I[:-1]) * dt)])
+    Es = np.full(t.size, E * nl)
+    return {"t": T, "job": {"name": name, "r": r, "dtheta": dtheta, "types": [typ] * nl, "box": 128},
+            "params": {"m": 1.0, "lumps": {"centers": cen}},
+            "summary": {"nonlinear_share_0": 0.1},
+            "point": {"t": t.tolist(), "phi": phi.tolist(), "C": C.tolist(), "I": I.tolist()},
+            "series": {"t": t.tolist(), "E_plus_absorbed": Es.tolist(), "E_total": Es.tolist(),
+                       "absorbed": np.zeros(t.size).tolist(), "nonlinear_share": np.full(t.size, 0.1).tolist()},
+            "lumps": {"raw": {"series": {"t": t.tolist(), "X": X.tolist()},
+                              "point": {"t": t.tolist(), "phi": np.stack([phi] * nl, axis=1).tolist(),
+                                        "It_half": (0.5 * I)[:, None].tolist()}}}}
+
+
+def test_pair_equal_no_window_is_flagged_not_a_crash():
+    """Near-overlap production case (pA_r07..r13, T = 100): the 3-period smoothed d(t) starts at 1.5 P = 10.4 and is
+    already past kappa |d - r| = 0.10 there, so t2 = t_hit = t_d[0] and [t1, t2] holds < 6 smoothed samples. The row
+    comes back with F = None and a reason; the slow case still gives F = -(E_s/2) d'' exactly."""
+    kap, om = 0.41647, 0.9095
+    P = 2 * np.pi / om
+    singles = [A.single_record(fake_full("s1", 0.0, 0.0, x=-3.5)), A.single_record(fake_full("s2", 0.0, 0.0, x=-12.0))]
+    fast = A.pair_equal(fake_full("fast", 7.0, -0.05), singles, kap, om, -2.2e-5)
+    print("fast: window", fast["window"], "reason", fast["force_reason"])
+    assert fast["force_excluded"] and fast["F"] is None and fast["sigma_F"] is None and fast["F_se"] is None
+    assert abs(fast["window"]["t_hit"] - 1.5 * P) < 0.3 and fast["window"]["moving"]
+    assert "fewer than 6" in fast["force_reason"] and set(fast["d_raw"]) == {"0", "5", "10", "20", "40"}
+    assert np.isfinite(fast["V_N"])                         # V_N still reported (moving: out of the verdict fits)
+    a = -1.26e-5
+    slow = A.pair_equal(fake_full("slow", 24.0, a, T=400.0), singles, kap, om, -2.2e-5)
+    print("slow: F %.6e expected %.6e" % (slow["F"], -0.5 * 100.0 * a))
+    assert not slow["force_excluded"] and slow["force_reason"] is None
+    assert abs(slow["F"] / (-0.5 * 100.0 * a) - 1) < 1e-6
+
+
+def test_pair_unequal_no_window_is_flagged_not_a_crash():
+    lump1, lump2 = dict(omega=0.9065, kappa=0.4222), dict(omega=0.8574, kappa=0.5147)
+    s1 = [A.single_record(fake_full("d1", 0.0, 0.0, x=-5.0, typ="dip", omega=0.9065))]
+    s2 = [A.single_record(fake_full("b1", 0.0, 0.0, x=5.0, typ="big", omega=0.8574))]
+    row = A.pair_unequal(fake_full("fast", 10.0, -0.05, omega=0.9065), s1, s2, lump1, lump2)
+    print("unequal fast:", row["force_reason"])
+    assert row["force_excluded"] and row["F_amp"] is None and row["sigma_F_amp"] is None and not row["use_in_fits"]
+    assert row["V_N_amp_cos"] is None
+
+
+PROD = os.environ.get("SWIRL_TESTA_RESULTS", os.path.join(ROOT, A.OUT, "results"))
+
+
+@pytest.mark.skipif(not os.path.exists(os.path.join(PROD, "pA_r07_p000.json")),
+                    reason="production Test A results not present (set SWIRL_TESTA_RESULTS)")
+def test_analysis_all_on_production(tmp_path):
+    """End to end on the production results: runs, and every row without a force is listed and kept out of the
+    force route."""
+    rec = A.analyze_all(results=PROD, out=str(tmp_path / "analysis.json"))
+    for sec in ("primary", "unequal"):
+        for lab, ch in rec[sec]["channels"].items():
+            ex = {e["name"] for e in ch["force_excluded"]}
+            names = (ch["F"] if "F" in ch else ch["F_amp"])["names"]
+            print(sec, lab, "excluded", sorted(ex))
+            assert ex.isdisjoint(names)
+            assert all(q["force_reason"] for q in ch["rows"] if q["name"] in ex)
+    assert "pA_r07_p000" in {e["name"] for e in rec["primary"]["channels"]["p000"]["force_excluded"]}
+
+
 # ------------------------------------------------------------------------------------------- fits and verdict
 R_FIT = np.arange(12.0, 40.01, 2.0)
 KAP, AMP = 0.41647, 2 * np.pi * 56.7 ** 2

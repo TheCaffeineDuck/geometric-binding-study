@@ -30,6 +30,9 @@ V_F(r) = V_tail(r_max) - int_r^{r_max} F dr', the integral exact for log-linear 
 (trapezoid otherwise); V_tail(r_max) from a fit of F = sigma + Yukawa force [-C e^{-kr}(k/r + 1/r^2)] to the
 resolved points (sigma kept only if > 5 s.e.), V_tail = sigma r_max + C e^{-k r_max}/r_max. The no-tail V_F is
 also reported.
+No force: when [t1, t2] holds fewer than 6 smoothed d samples (the smoothed series starts at 1.5 P, and near overlap
+kappa |d - r| >= 0.10 is reached there, t2 = t_hit = 1.5 P), the row carries F = None, force_excluded and the reason;
+such rows are left out of the force route (F, V_F, force signs, F16) and listed per channel under force_excluded.
 Unequal lumps (A1, Addendum 2): d(t) = c0 + c1 t + c2 G(t) + c3 t^2, G'' = cos(dphi(t)) with dphi the measured
 relative phase: F_amp = -c2 / (1/E_1 + 1/E_2) and the mean force F_mean = -2 c3 / (1/E_1 + 1/E_2); rows that are
 "moving" or whose window holds less than half a beat (and Delta omega t2 >= 0.3) are excluded from the fits.
@@ -779,18 +782,33 @@ def pair_equal(res, singles, kappa, omega, domega_dN):
     td, d = w["t_d"], w["d"]
     c, se, rms = accel_fit(td, d, t1, t2, P)
     E_s = si["E_box"]
-    a_rel, a_se = 2 * float(c[2]), 2 * float(se[2])
-    F, F_se = -0.5 * E_s * a_rel, 0.5 * E_s * a_se
-    ctrl = [centroid_accel(s["res"], t1, t2, omega) for s in singles]
-    a_ctrl = max((abs(a) + s_ for a, s_ in ctrl if a is not None), default=0.0)
-    F_floor = 0.5 * E_s * np.sqrt(2.0) * a_ctrl
     sel = (td >= t1) & (td <= t2)
-    r_eff = float(np.mean(d[sel]))
+    r_eff = float(np.mean(d[sel])) if sel.any() else None
+    if c is None:
+        # no force: the 3-period Hann-smoothed d(t) starts at t_d[0] = 1.5 P, and kappa |d - r| >= 0.10 already
+        # there (t2 = t_hit = t_d[0]), so [t1, t2] holds fewer than 6 smoothed samples
+        t_raw, X_raw = separation(res)
+        d_raw = np.linalg.norm(X_raw[:, 1, :] - X_raw[:, 0, :], axis=1)
+        frc = dict(accel=None, accel_se=None, F=None, F_se=None, F_floor_control=None, sigma_F=None, d_fit_rms=None,
+                   force_excluded=True,
+                   force_reason="fewer than 6 smoothed d samples in [t1, t2] (%d): the 3-period smoothed separation "
+                                "starts at t = %.2f and reaches kappa|d - r| >= %.2f at t_hit = %s"
+                                % (int(sel.sum()), float(td[0]), KAPPA_SHIFT, w["t_hit"]),
+                   d_raw={"%g" % tt: float(np.interp(tt, t_raw, d_raw)) for tt in (0.0, 5.0, 10.0, 20.0, 40.0)
+                          if tt <= t_raw[-1]})
+    else:
+        a_rel, a_se = 2 * float(c[2]), 2 * float(se[2])
+        F, F_se = -0.5 * E_s * a_rel, 0.5 * E_s * a_se
+        ctrl = [centroid_accel(s["res"], t1, t2, omega) for s in singles]
+        a_ctrl = max((abs(a) + s_ for a, s_ in ctrl if a is not None), default=0.0)
+        F_floor = 0.5 * E_s * np.sqrt(2.0) * a_ctrl
+        frc = dict(accel=a_rel, accel_se=a_se, F=F, F_se=F_se, F_floor_control=F_floor,
+                   sigma_F=float(np.sqrt(F_se ** 2 + F_floor ** 2)), d_fit_rms=rms, force_excluded=False,
+                   force_reason=None)
     return dict(name=j["name"], r=r, r_eff=r_eff, dtheta=j["dtheta"],
                 window=dict(t1=t1, t2=t2, moving=w["moving"], t_hit=w["t_hit"]), pair=pv, single=si, **vn,
                 sigma_V_N=sig["V_N"], sigma_V_N_box=sig["V_N_box"], sigma_omega=so, shift=shift,
-                accel=a_rel, accel_se=a_se, E_inertia=E_s, F=F, F_se=F_se, F_floor_control=F_floor,
-                sigma_F=float(np.sqrt(F_se ** 2 + F_floor ** 2)), d_fit_rms=rms,
+                E_inertia=E_s, **frc,
                 standard1=dict(pair=standard1(res, t1, t2, pv["omega"]),
                                single_omega_over_m=si["omega"] / res["params"]["m"]),
                 stopped_early=res.get("stopped_early"), t_end=res["t"])
@@ -846,7 +864,11 @@ def pair_unequal(res, singles1, singles2, lump1, lump2):
     ts, VNs = hann_smooth(tp[:n], VN, 3 * P)
     cph, sph = np.cos(np.interp(ts, tph, dphi)), np.sin(np.interp(ts, tph, dphi))
     sel = (ts >= t1) & (ts <= t2)
-    cf, *_ = np.linalg.lstsq(np.stack([np.ones(sel.sum()), cph[sel], sph[sel]], axis=1), VNs[sel], rcond=None)
+    if sel.sum() >= 6:
+        cf, *_ = np.linalg.lstsq(np.stack([np.ones(sel.sum()), cph[sel], sph[sel]], axis=1), VNs[sel], rcond=None)
+        cf = [float(x) for x in cf]
+    else:                       # no window for the smoothed series (see the force below)
+        cf = [None, None, None]
     # force: d(t) = c0 + c1 t + c3 t^2 + c2 G(t), G'' = cos(dphi(t))
     td, d = w["t_d"], w["d"]
     g = np.cos(np.interp(td, tph, dphi))
@@ -854,19 +876,33 @@ def pair_unequal(res, singles1, singles2, lump1, lump2):
     G1 = np.concatenate([[0.0], np.cumsum(0.5 * (g[1:] + g[:-1]) * dt)])
     G = np.concatenate([[0.0], np.cumsum(0.5 * (G1[1:] + G1[:-1]) * dt)])
     c, se, rms = accel_fit(td, d, t1, t2, P, extra=[G])
-    F_amp, F_amp_se = -float(c[3]) / inv_m, float(se[3]) / inv_m
-    F_mean, F_mean_se = -2 * float(c[2]) / inv_m, 2 * float(se[2]) / inv_m
-    a1 = centroid_accel(s1["res"], t1, t2, om1)
-    a2 = centroid_accel(s2["res"], t1, t2, om1)
-    a_ctrl = np.sqrt(sum((abs(a) + s_) ** 2 for a, s_ in (a1, a2) if a is not None))
-    F_floor = a_ctrl / inv_m
     seld = (td >= t1) & (td <= t2)
-    return dict(name=j["name"], r=r, r_eff=float(np.mean(d[seld])), dtheta=j["dtheta"],
-                window=dict(t1=t1, t2=t2, moving=w["moving"]), delta_omega_measured=dom, beats_in_window=beats,
-                half_beat_ok=half_beat_ok, use_in_fits=unequal_usable(w["moving"], t1, t2, dom),
-                inertia=dict(E1=E1l, E2=E2l), F_amp=F_amp, F_amp_se=F_amp_se, F_mean=F_mean, F_mean_se=F_mean_se,
-                F_floor_control=float(F_floor), sigma_F_amp=float(np.sqrt(F_amp_se ** 2 + F_floor ** 2)),
-                d_fit_rms=rms, V_N_amp_cos=float(cf[1]), V_N_amp_sin=float(cf[2]), V_N_mean=float(cf[0]),
+    if c is None:
+        # as pair_equal: the smoothed d(t) starts at t_d[0] = 1.5 P and has already moved past the threshold
+        t_raw, X_raw = separation(res)
+        d_raw = np.linalg.norm(X_raw[:, 1, :] - X_raw[:, 0, :], axis=1)
+        frc = dict(F_amp=None, F_amp_se=None, F_mean=None, F_mean_se=None, F_floor_control=None, sigma_F_amp=None,
+                   d_fit_rms=None, force_excluded=True,
+                   force_reason="fewer than 6 smoothed d samples in [t1, t2] (%d): the 3-period smoothed separation "
+                                "starts at t = %.2f and reaches kappa|d - r| >= %.2f at t_hit = %s"
+                                % (int(seld.sum()), float(td[0]), KAPPA_SHIFT, w["t_hit"]),
+                   d_raw={"%g" % tt: float(np.interp(tt, t_raw, d_raw)) for tt in (0.0, 5.0, 10.0, 20.0, 40.0)
+                          if tt <= t_raw[-1]})
+    else:
+        F_amp, F_amp_se = -float(c[3]) / inv_m, float(se[3]) / inv_m
+        F_mean, F_mean_se = -2 * float(c[2]) / inv_m, 2 * float(se[2]) / inv_m
+        a1 = centroid_accel(s1["res"], t1, t2, om1)
+        a2 = centroid_accel(s2["res"], t1, t2, om1)
+        a_ctrl = np.sqrt(sum((abs(a) + s_) ** 2 for a, s_ in (a1, a2) if a is not None))
+        F_floor = a_ctrl / inv_m
+        frc = dict(F_amp=F_amp, F_amp_se=F_amp_se, F_mean=F_mean, F_mean_se=F_mean_se,
+                   F_floor_control=float(F_floor), sigma_F_amp=float(np.sqrt(F_amp_se ** 2 + F_floor ** 2)),
+                   d_fit_rms=rms, force_excluded=False, force_reason=None)
+    return dict(name=j["name"], r=r, r_eff=(float(np.mean(d[seld])) if seld.any() else None), dtheta=j["dtheta"],
+                window=dict(t1=t1, t2=t2, moving=w["moving"], t_hit=w["t_hit"]), delta_omega_measured=dom,
+                beats_in_window=beats, half_beat_ok=half_beat_ok,
+                use_in_fits=bool(unequal_usable(w["moving"], t1, t2, dom) and not frc["force_excluded"]),
+                inertia=dict(E1=E1l, E2=E2l), **frc, V_N_amp_cos=cf[1], V_N_amp_sin=cf[2], V_N_mean=cf[0],
                 standard1=dict(pair=standard1(res, t1, t2, v1["omega"]), omega_over_m_singles=[v1["omega"], v2["omega"]]))
 
 
@@ -926,23 +962,30 @@ def analyze_equal(prefix, t, results, J, static_file, chans=(0, 180)):
         rows.sort(key=lambda q: q["r"])
         if not rows:
             continue
-        r = np.array([q["r"] for q in rows])
-        reff = np.array([q["r_eff"] for q in rows])
-        moving = np.array([q["window"]["moving"] for q in rows])
+        r_all = np.array([q["r"] for q in rows])
+        moving_all = np.array([q["window"]["moving"] for q in rows])
         ch = dict(rows=rows)
         for key in ("V_N", "V_N_box"):
-            ch[key] = dict(r=r.tolist(), V=[q[key] for q in rows], sigma=[q["sigma_" + key] for q in rows])
-        ch["V_N_minus_box"] = dict(r=r.tolist(), V=[q["V_N_minus_box"] for q in rows],
+            ch[key] = dict(r=r_all.tolist(), V=[q[key] for q in rows], sigma=[q["sigma_" + key] for q in rows])
+        ch["V_N_minus_box"] = dict(r=r_all.tolist(), V=[q["V_N_minus_box"] for q in rows],
                                    joint_floor=[float(np.hypot(q["sigma_V_N"], q["sigma_V_N_box"])) for q in rows])
-        F = np.array([q["F"] for q in rows])
-        sF = np.array([q["sigma_F"] for q in rows])
-        ch["F"] = dict(r_eff=reff.tolist(), r=r.tolist(), F=F.tolist(), sigma=sF.tolist(), moving=moving.tolist())
+        # force route: rows without a force (no window, force_excluded) are left out and recorded
+        frows = [q for q in rows if not q["force_excluded"]]
+        ch["force_excluded"] = [dict(name=q["name"], r=q["r"], reason=q["force_reason"]) for q in rows
+                                if q["force_excluded"]]
+        r = np.array([q["r"] for q in frows])
+        reff = np.array([q["r_eff"] for q in frows])
+        moving = np.array([q["window"]["moving"] for q in frows], bool)
+        F = np.array([q["F"] for q in frows], float)
+        sF = np.array([q["sigma_F"] for q in frows], float)
+        ch["F"] = dict(r_eff=reff.tolist(), r=r.tolist(), F=F.tolist(), sigma=sF.tolist(), moving=moving.tolist(),
+                       names=[q["name"] for q in frows])
         ch["force_signs_dynamic"] = force_signs(reff, F, sF)
-        F16 = float(np.interp(16.0, reff, F)) if reff.min() <= 16 <= reff.max() else np.nan
+        F16 = float(np.interp(16.0, reff, F)) if reff.size and reff.min() <= 16 <= reff.max() else np.nan
         verd = {}
         for key in ("V_N", "V_N_box"):
-            m = ~moving
-            verd[key] = verdicts_both(r[m], np.array(ch[key]["V"])[m], np.array(ch[key]["sigma"])[m], F16)
+            m = ~moving_all
+            verd[key] = verdicts_both(r_all[m], np.array(ch[key]["V"])[m], np.array(ch[key]["sigma"])[m], F16)
         keep = ~moving & (r >= R_LO - 1e-9)
         if keep.sum() >= 3:
             ch["V_F"], verd["V_F"] = _vf_block(reff[keep], F[keep], sF[keep], F16)
@@ -980,12 +1023,16 @@ def analyze_unequal(prefix, t1, t2, results, J, static_file):
         rows.sort(key=lambda q: q["r"])
         if not rows:
             continue
-        use = np.array([q["use_in_fits"] for q in rows]) & (np.array([q["r"] for q in rows]) >= R_LO - 1e-9)
-        reff = np.array([q["r_eff"] for q in rows])
-        F = np.array([q["F_amp"] for q in rows])
-        sF = np.array([q["sigma_F_amp"] for q in rows])
-        ch = dict(rows=rows, used_in_fits=[q["name"] for q, u in zip(rows, use) if u],
-                  F_amp=dict(r_eff=reff.tolist(), F=F.tolist(), sigma=sF.tolist(), used=use.tolist()),
+        # force route: rows without a force (no window, force_excluded) are left out and recorded
+        excluded = [dict(name=q["name"], r=q["r"], reason=q["force_reason"]) for q in rows if q["force_excluded"]]
+        rows_all, rows = rows, [q for q in rows if not q["force_excluded"]]
+        use = np.array([q["use_in_fits"] for q in rows], bool) & (np.array([q["r"] for q in rows]) >= R_LO - 1e-9)
+        reff = np.array([q["r_eff"] for q in rows], float)
+        F = np.array([q["F_amp"] for q in rows], float)
+        sF = np.array([q["sigma_F_amp"] for q in rows], float)
+        ch = dict(rows=rows_all, force_excluded=excluded, used_in_fits=[q["name"] for q, u in zip(rows, use) if u],
+                  F_amp=dict(r_eff=reff.tolist(), F=F.tolist(), sigma=sF.tolist(), used=use.tolist(),
+                             names=[q["name"] for q in rows]),
                   F_mean=dict(r_eff=reff.tolist(), F=[q["F_mean"] for q in rows], se=[q["F_mean_se"] for q in rows]),
                   force_signs_dynamic=force_signs(reff[use], F[use], sF[use]) if use.any() else None)
         verd = {}
