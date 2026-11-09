@@ -1,0 +1,47 @@
+{
+ "what": "Addendum 2 item 3(b): reviewer anti-phase run r = 20, T = 100, N = 144 (scratchpad rev_A), new whole-period analysis",
+ "source_files": [
+  "/private/tmp/claude-501/-Users-aaronramos-Desktop-SWIRL/75137964-7412-4d7b-8a4f-f30ea86fe714/scratchpad/rev_A/res_pair180.json",
+  "/private/tmp/claude-501/-Users-aaronramos-Desktop-SWIRL/75137964-7412-4d7b-8a4f-f30ea86fe714/scratchpad/rev_A/res_single.json"
+ ],
+ "r_eff": 20.151811191072067,
+ "window": {
+  "t1": 40.0,
+  "t2": 74.4,
+  "moving": true,
+  "t_hit": 74.4
+ },
+ "V_N": 0.3323240383899709,
+ "V_N_box": 0.3632900412878833,
+ "V_N_minus_box": -0.030966002897912404,
+ "sigma_V_N": 0.02722268151047146,
+ "sigma_V_N_box": 0.02716176335590107,
+ "sigma_omega": {
+  "n_sub": 6,
+  "sub_length": 13.81614861544235,
+  "sigma_V_N": 0.02722268151047146,
+  "sigma_V_N_box": 0.02716176335590107,
+  "eps_scatter": 3.3238272451223284e-06,
+  "eps_range": [
+   0.00011189235400488329,
+   0.0001211898634095876
+  ]
+ },
+ "dN": -10.237699418348711,
+ "F": -0.11258878271316432,
+ "F_se": 0.0008239291819302027,
+ "F_floor_control": 0.00047334083620258574,
+ "sigma_F": 0.0009502162091088197,
+ "E_inertia": 2837.969984224115,
+ "standard1": {
+  "pair": {
+   "omega_over_m": 0.9096459381852279,
+   "nonlinear_share_t0": 7.684493451098009e-10,
+   "nonlinear_share_window_mean": 0.15087055099851857
+  },
+  "single_omega_over_m": 0.9095291388810545
+ },
+ "U_static_20": 0.24276386305021602,
+ "F_static_at_r_eff": -0.10525836963853233,
+ "old_hann_V_N": 0.701
+}

@@ -32,7 +32,11 @@ checkpoint. Subsets: `--group primary controls` (sources always included), `--on
 ## 3. Analysis
 
     $PY -m swirl.session4.testA.analysis static      # A3 verdicts for the static potentials
-    $PY -m swirl.session4.testA.analysis all         # V_N, V_F, fits, verdicts, controls -> analysis.json
+    $PY -m swirl.session4.testA.analysis all         # V_F (headline), V_N, fits, A3 and A3' verdicts, controls,
+                                                     # standard 1 -> outputs/session4/testA/analysis.json
+
+Run the analysis in the worktree whose `outputs/session4/testA/results/` holds the production results
+(read-only on the results; it writes only analysis.json).
 
 ## Notes
 

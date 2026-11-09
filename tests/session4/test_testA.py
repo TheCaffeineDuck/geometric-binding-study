@@ -113,12 +113,20 @@ def test_V_N_equal_zero_for_two_singles():
 
 
 def test_V_N_equal_superposition_algebra():
-    """Pair = 2 singles + (U + omega dN) in E and + dN in N: V_N = U - (domega/dN) dN^2/4 exactly."""
-    s = dict(E=2838.4, E_box=2838.4, N=2860.3, omega=0.9095)
-    U, dN, w = -0.25, 10.6, -2.228e-5
-    p = dict(E=2 * s["E"] + U + s["omega"] * dN, E_box=2 * s["E"] + U + s["omega"] * dN, N=2 * s["N"] + dN)
-    v = A.V_N_equal(p, s, w)
-    assert abs(v["V_N"] - (U - w * dN * dN / 4)) < 1e-9
+    """Non-circular: lumps on a family E(N) = E0 + w0 (N - N0) + w1 (N - N0)^2 / 2 (w1 = d omega/dN). The pair holds
+    2 N_s + dN and energy 2 E(N_s + dN/2) + U; the single sits at N_s with omega_s = dE/dN(N_s). V_N must return U
+    to O(dN^3); a sign error in the omega or in the second-order term would miss by > 1e-3."""
+    E0, w0, w1, N0 = 2838.4, 0.9095, -2.228e-5, 2860.3
+    E = lambda N: E0 + w0 * (N - N0) + 0.5 * w1 * (N - N0) ** 2
+    Ns = N0 + 7.0
+    s = dict(E=E(Ns), E_box=E(Ns), N=Ns, omega=w0 + w1 * (Ns - N0))
+    for U, dN in ((-0.25, 10.6), (0.243, -9.4), (-11.4, 300.0)):
+        Ep = 2 * E(Ns + dN / 2) + U
+        p = dict(E=Ep, E_box=Ep, N=2 * Ns + dN)
+        v = A.V_N_equal(p, s, w1)
+        print("U %.4f V_N %.10f" % (U, v["V_N"]))
+        assert abs(v["V_N"] - U) < 1e-9
+        assert v["V_N_minus_box"] == 0.0
 
 
 def test_V_N_single_against_shifted_copy_pde():
@@ -169,8 +177,8 @@ def test_window_rule_and_acceleration():
         print("r=%g t2 %.2f expected %.2f moving %s" % (r, w["t2"], exp_t2, w["moving"]))
         assert abs(w["t2"] - exp_t2) < 1.0
         assert w["moving"] == ((exp_t2 - 40.0) < 35.0)
-        c2, se, rms = A.accel_fit(w["t_d"], w["d"], w["t1"], w["t2"], P)
-        assert abs(2 * c2 / a - 1) < 1e-6
+        c, se, rms = A.accel_fit(w["t_d"], w["d"], w["t1"], w["t2"], P)
+        assert abs(2 * c[2] / a - 1) < 1e-6
 
 
 # ------------------------------------------------------------------------------------------- fits and verdict
@@ -318,15 +326,112 @@ def test_runs_test_and_force_signs():
     assert fs["sign_changes"][0]["kind"] == "minimum" and abs(fs["sign_changes"][0]["r_zero"] - (12 + 2 * 0.5 / 0.9)) < 1e-12
 
 
-def test_V_F_integration_exact_for_tail_law():
-    """V_F = -int F dr of the tail-law force reproduces U_tail(r) - U_tail(r_max) to the trapezoid error."""
-    r = np.arange(12.0, 40.01, 0.25)
+PROD_R = {"in phase": np.array([22, 24, 26, 28, 30, 32, 34, 36, 40.]),
+          "anti phase": np.array([12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 40.])}
+
+
+@pytest.mark.parametrize("grid", list(PROD_R))
+def test_V_F_integration_yukawa_production_spacing(grid):
+    """V_F from the tail-law force at the production spacing: exact to 1% (Addendum 2), without tail against
+    U - U(r_max), with the fitted tail against U itself."""
+    r = PROD_R[grid]
     F = AMP * np.exp(-KAP * r) * (KAP / r + 1 / r ** 2)
-    rr, V, s = A.V_F_from_force(r, F, 0 * F)
-    U = -AMP * np.exp(-KAP * rr) / rr
-    err = np.max(np.abs((V - (U - U[-1])) / U))
-    print("V_F trapezoid rel err %.2e" % err)
-    assert err < 2e-3
+    U = -AMP * np.exp(-KAP * r) / r
+    rr, V0, s, _ = A.V_F_from_force(r, F, 1e-3 * F, tail=None)
+    e0 = np.max(np.abs((V0[:-1] - (U[:-1] - U[-1])) / U[:-1]))
+    rr, V, s, tail = A.V_F_from_force(r, F, 1e-3 * F, tail=True)
+    e1 = np.max(np.abs(V / U - 1))
+    print("%s: no tail max rel err %.2e; with fitted tail %.2e (tail %.3e vs U(r_max) %.3e, sigma used %s)"
+          % (grid, e0, e1, tail and A.fit_force_tail(r, F, 1e-3 * F)[0], U[-1], tail["sigma_used"]))
+    assert e0 < 0.01 and e1 < 0.01
+
+
+def test_constant_force_reads_grows_through_V_F():
+    """End to end through V_F: tail-law force plus a constant confining force (5% of F(16)) at the production
+    in-phase spacing: V_F (fitted tail) reads 'grows' under A3' and meets every A3 grows clause; without the
+    constant it reads 'decays to zero' under A3'."""
+    r = PROD_R["in phase"]
+    F16 = AMP * np.exp(-KAP * 16) * (KAP / 16 + 1 / 256)
+    Fy = AMP * np.exp(-KAP * r) * (KAP / r + 1 / r ** 2)
+    out = {}
+    for lab, sc, fl in (("confining", 0.05 * F16, 1e-3), ("yukawa", 0.0, 1e-6)):
+        F = Fy + sc
+        sF = fl * F16 * np.ones_like(r) + 0.02 * np.abs(Fy)
+        blk, v = A._vf_block(r, F, sF, F16)
+        out[lab] = (v["A3"]["verdict"], v["A3prime"]["verdict"])
+        out[lab + "_A3_reason"] = v["A3"].get("reason")
+        out[lab + "_A3_grows"] = (v["A3"].get("clauses") or {}).get("grows")
+        print(lab, out[lab], v["A3prime"]["r_lo_16"].get("clauses", v["A3prime"]["r_lo_16"].get("reason")))
+    assert out["confining"][1] == "grows"
+    # A3 as written: every grows clause holds, but "fewer than two decades of resolved |V|" (sigma r over r = 22..40
+    # spans a factor ~2) makes it undetermined -- a structural limit of A3, reported, not changed
+    g = out["confining_A3_grows"]
+    assert out["confining"][0] == "undetermined" and out["confining_A3_reason"] == "fewer than two decades of resolved |V|"
+    assert g["sigma_confining_gt_5se"] and g["V_hi_resolved_and_not_decreasing"] and g["L_beats_decaying_by_dAIC_10_and_L_chi2red_le_3"]
+    assert out["yukawa"][1] == "decays to zero"
+
+
+def test_L_singular_covariance_guard():
+    """Data that is exactly V_inf + sigma r (C -> 0): the full L covariance is singular; the s.e. are reported
+    NaN, and sigma's s.e. comes from the k-fixed refit (flagged), so a confining sigma is still read."""
+    r = np.arange(16.0, 40.01, 2.0)
+    V = -0.3 + 0.01 * r
+    sig = 1e-4 * np.ones_like(r)
+    L = A.fit_form("L", r, V, sig, k_ref=0.4165)
+    print({k: L.get(k) for k in ("cov_singular", "cond", "k_fixed")}, L["se"], L.get("se_full"))
+    assert L.get("cov_singular") is True
+    assert np.isnan(list(L["se_full"].values())).any()
+    assert np.isfinite(L["se"]["sigma"]) and abs(L["params"]["sigma"] - 0.01) < 5 * L["se"]["sigma"] + 1e-6
+
+
+def fake_osc_run(I0, theta, E_tot, omega=0.9095, amp=0.3, T=100.0, dt=0.04, absorbed=0.0):
+    """Result-like dict: phi(centre) = cos(omega t + theta), I(t) = I0 (1 + amp cos(2 omega t + 2 theta)) per step,
+    C its exact integral; E series constant."""
+    t = np.arange(0.0, T + 1e-9, dt)
+    I = I0 * (1 + amp * np.cos(2 * omega * t + 2 * theta))
+    C = I0 * (t + amp * (np.sin(2 * omega * t + 2 * theta) - np.sin(2 * theta)) / (2 * omega))
+    ts = np.arange(0.0, T + 1e-9, 1.0)
+    return {"point": {"t": t.tolist(), "phi": np.cos(omega * t + theta).tolist(), "C": C.tolist(), "I": I.tolist()},
+            "series": {"t": ts.tolist(), "E_plus_absorbed": [E_tot] * ts.size, "E_total": [E_tot - absorbed] * ts.size,
+                       "absorbed": [absorbed] * ts.size},
+            "lumps": {"raw": {"point": {}}}}
+
+
+def test_V_N_anti_phase_whole_period_regression():
+    """Anti-phase start (lump 1 at -90 deg) against a single at 0 deg: the 2 omega modulation of I has opposite
+    signs. Whole-period averages recover V_N = U to 1e-6; the old Hann average misses by > 1e-2 (the bug)."""
+    om, w1 = 0.9095, -2.228e-5
+    Is, U, dN = 2600.0, 0.2428, -9.6
+    Ns = Is / om
+    Es = 2838.4
+    pair = fake_osc_run(om * (2 * Ns + dN), -np.pi / 2, 2 * Es + U + om * dN + w1 * dN * dN / 4)
+    single = fake_osc_run(Is, 0.0, Es)
+    pv, sv = A.run_values(pair, 40.0, 90.0), A.run_values(single, 40.0, 90.0)
+    v = A.V_N_equal(pv, sv, w1)
+    hp = A.hann_avg(pair["point"]["t"], pair["point"]["I"], 40.0, 74.4) / om
+    hs = A.hann_avg(single["point"]["t"], single["point"]["I"], 40.0, 74.4) / om
+    v_hann = (U + om * dN + w1 * dN * dN / 4) - om * (hp - 2 * hs) - w1 * (hp - 2 * hs) ** 2 / 4
+    print("whole-period V_N %.8f (U %.4f); Hann-window V_N %.4f" % (v["V_N"], U, v_hann))
+    assert abs(v["V_N"] - U) < 1e-6
+    assert abs(v_hann - U) > 1e-2
+
+
+def test_unequal_filters():
+    """Half-beat rule and moving filter (A1, Addendum 2); the T = 100 unequal smoke run is excluded."""
+    assert A.half_beat_rule(40.0, 400.0, 0.0479) and not A.half_beat_rule(40.0, 89.6, 0.0482)
+    assert A.half_beat_rule(40.0, 60.0, 1e-3)                      # Delta omega t2 < 0.3
+    assert not A.unequal_usable(True, 40.0, 400.0, 0.0479)
+    assert A.unequal_usable(False, 40.0, 400.0, 0.0479)
+    p = os.path.join(ROOT, A.OUT, "results", "smoke_uA_r20_p000.json")
+    if not os.path.exists(p):
+        pytest.skip("unequal smoke results not present")
+    from swirl.session4.testA import driver as D
+    res = A.load("smoke_uA_r20_p000")
+    s1 = A.single_record(A.load("smoke_uA_single_dip_N144_x-10.0"))
+    s2 = A.single_record(A.load("smoke_uA_single_big_N144_x+10.0"))
+    q = A.pair_unequal(res, [s1], [s2], D.numbers("dip"), D.numbers("big"))
+    print({k: q[k] for k in ("beats_in_window", "half_beat_ok", "use_in_fits", "F_amp", "F_mean")})
+    assert q["half_beat_ok"] is False and q["use_in_fits"] is False
 
 
 # ------------------------------------------------------------------------------------------- driver
