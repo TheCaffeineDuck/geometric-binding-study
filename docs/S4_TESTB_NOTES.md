@@ -245,6 +245,68 @@ nonlinear share -0.316 at t = 0 (signed) and -0.130 on average. E0 = 2843.77 (Se
 - B-run 2 has no doubled box in the plan; a strong 1/r sub-threshold line there could only read
   "Undetermined".
 - The leakage floor is biased high by up to about 7 (section 5).
-- Line bands widen with the in-epoch drift (W = 3 + ceil(n drift / 2 bins)); at late epochs of
-  the primary (drift up to about 0.01 per 5000) the 5 omega band reaches about 11 bins.
-  Identification stays at the plan's 2 bins about the epoch-mean n omega_core.
+- Superseded by section 8: the fixed line bands of width 3 + ceil(n drift / 2 bins).
+
+## 8. Fixes after the production runs (reviewer's defects, 2026-11-09)
+
+The production runs (s4-testB, a68b0ab) were analysed with the code above. The reviewer found
+the following, fixed on top of a68b0ab; the six analyses were rerun with the same options from
+the same series files (code for the runs unchanged).
+
+1. **Line bands overlapped or left gaps.** Bands of +-(3 + n drift) bins about each peak overlapped
+   when the in-epoch drift split a line into sub-peaks (b1_primary [15000, 20000], r = 30: the
+   3 omega bands [896,903], [901,908], [898,919] counted 10 bins twice; line flux 0.1116 against
+   0.0646 in their union) and left gaps elsewhere (epoch 2, r = 45 and 60: 28% of the flux outside
+   every band). Now (`line_bands`): bands are grown strongest first and never share a bin; a
+   band covers its hump down to max(1e-4 of its peak, the local background: the median 10 to 40
+   bins away), crossing valleys only while they stay above 1e-2 of its peak, so the sub-peaks of a
+   drift-split line belong to it while a weak neighbour behind a deep valley stays separate
+   (the 2.6255 and 2.8158 lines at the dip keep their own bands); touching bands with a shallow
+   junction merge. Line flux is the band sum, so the line fluxes add up exactly to the in-band
+   flux; the rest is reported (`flux_outside_bands_m1`). Labels use the band centroid, with
+   omega_core over its in-epoch per-window range (2 bins about n omega_core when the drift is 0).
+   Method 2 uses the centroid frequency.
+2. **Doubled box epochs.** `verdict()` compared only box2 epoch 0. The doubled boxes now run to
+   20,000, so each epoch is confirmed against the box2 epoch with the same [t0, t1]
+   (`box2_epoch_matched` in each epoch row; all four matched for both runs).
+3. **Near-threshold content** (peaks from 1.0004 to 1.0077, within about 3 bins of omega_th) is the
+   spectrum edge plus the shed transient, not a line: peaks or centroids in
+   [omega_cut, omega_th + 3 bins] are labelled "near-threshold band". They stay in the
+   above-threshold flux (they are above threshold). `flux_above_harmonics_m1` (the n omega lines
+   only) is reported beside `flux_above_m1`.
+4. **Test** `test_drifting_and_split_lines_flux_adds_up`: 3 omega drifting by 0.04 (13 bins) and 5
+   omega by 0.067 in the epoch, two tones 4 bins apart, and a near-threshold chirp. The bands are
+   disjoint, each drifting line is one line, the two tones are one line with two merged peaks, and
+   the summed line flux equals the total flux to 1.3e-5 at r = 30 and 120 (target 1e-3).
+5. **Absorbed energy in the radial runs is not an independent check.** `run.py` stores
+   `absorbed = E_h(0) - E_h(t)` by construction, so "E + absorbed conserved" is a tautology
+   there. The real check is that E_h, which the semi-discrete system conserves exactly without
+   the sponge, never rises with the sponge on (the sponge only removes energy). Measured, largest
+   rise between consecutive 1.0-spaced samples, relative to E_h(0): b1_primary 2.39e-10,
+   b2_dip 2.44e-10, b1_box2 2.39e-10, b2_box2 2.45e-10, b1_half_dr 1.51e-11 (dt halved: about 16x
+   smaller, as an O(dt^4) RK4 error), b1_linear never rises (-8.8e-12). The rises are RK4 error on
+   the nonlinear core, about 7e-7 in absolute energy per sample, against absorbed totals of 1117
+   (primary) and 3.5 (dip) over 20,000.
+
+Flux over loss rate (method 1, above-threshold bands), as-run -> fixed:
+
+| Run | Epoch | r = 30 | r = 120 | Verdict (as-run -> fixed) |
+|---|---|---|---|---|
+| b1_primary | [0, 5000] | 0.996 -> 0.996 | 0.980 -> 0.980 | only above -> only above |
+| b1_primary | [5000, 10000] | 0.994 -> 0.993 | 0.971 -> 0.971 | only above -> only above |
+| b1_primary | [10000, 15000] | 0.926 -> 0.992 | 1.149 -> 0.977 | only above -> only above |
+| b1_primary | [15000, 20000] | 1.657 -> 0.971 | 1.647 -> 1.003 | only above -> only above |
+| b2_dip | [0, 5000] | 1.004 -> 1.005 | 1.197 -> 1.401 | only above -> only above |
+| b2_dip | [5000, 10000] | 0.997 -> 0.997 | 0.997 -> 0.997 | only above -> only above |
+| b2_dip | [10000, 15000] | 0.997 -> 0.997 | 0.997 -> 0.997 | only above -> only above |
+| b2_dip | [15000, 20000] | 0.997 -> 0.997 | 0.997 -> 0.996 | only above -> only above |
+
+The dip's first epoch at r = 120 rises because the near-threshold band now holds its whole hump
+(flux 3.7e-6 against 1.8e-6 in the old +-3 bins), against a loss rate of only 9.2e-6: the start
+transient passing r = 120 is comparable to the dip's steady emission. With the harmonic lines
+only the ratio is 0.997 there; with them only, every epoch of both runs lies in 0.971 to 1.003.
+Flux outside every band: at most 2.4e-4 of the total at r >= 30 for the primary; for the dip
+1.6e-5 except epoch [0, 5000], where it reaches 16% at r = 120 (the broadband transient).
+No verdict changed: b1_primary, b2_dip, b1_box2, b2_box2 and b1_half_dr "Emission only above
+threshold" in every epoch; b1_linear "Undetermined" in every epoch (no lump, so criterion 3 has
+no meaning there).

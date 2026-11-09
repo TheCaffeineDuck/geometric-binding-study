@@ -181,7 +181,7 @@ def test_welch_normalisation_and_lines():
     om, P, _, nseg = A.welch(x, dt, 0, T)
     assert nseg == 4
     assert abs(np.sum(P) / np.mean(x[:-1] ** 2) - 1) < 2e-3
-    lines = A.lines_in(om, P, wc, 0.0)
+    lines = A.lines_in(om, P, wc)
     got = {d["label"]: d for d in lines}
     rows = []
     for n, a, _ in comps:
@@ -199,6 +199,7 @@ def test_welch_normalisation_and_lines():
     wn = np.pi / dt
     assert A.label(2 * wn - 19 * wc, wc, A.DOMEGA, wn)[1] == "19 omega aliased"
     assert A.label(1.0011, wc, A.DOMEGA, wn)[1] == "unidentified"
+    assert A.label(1.0011, wc, A.DOMEGA, wn, near=(1 - 3 * A.DOMEGA, 1 + 3 * A.DOMEGA))[1] == "near-threshold band"
     record("synthetic_lines", rows)
 
 
@@ -236,7 +237,7 @@ def test_flux_formula_on_analytic_outgoing_spherical_wave():
         exact = 2 * np.pi * a * a * w * k
         om, P, _, _ = A.welch(phi, dt, 0, T)
         _, _, C, _ = A.welch(phit, dt, 0, T, y=phir)
-        d = A.lines_in(om, P, w, 0.0, C=C)[0]
+        d = A.lines_in(om, P, w, C=C)[0]
         m1 = -4 * np.pi * r * r * d["cross"]
         m2 = 2 * np.pi * (r * d["amp"]) ** 2 * w * k
         direct = 4 * np.pi * r * r * np.mean(-phit * phir)
@@ -249,6 +250,48 @@ def test_flux_formula_on_analytic_outgoing_spherical_wave():
     st_r = (k * np.cos(k * r) / r - np.sin(k * r) / r**2) * np.cos(w * t)
     assert abs(np.mean(st_t * st_r)) * 4 * np.pi * r * r < 1e-4 * 2 * np.pi * w * k   # finite-record residual ~ 1/(2 w T)
     record("flux_formula", rows)
+
+
+def test_drifting_and_split_lines_flux_adds_up():
+    """Lines drifting within the epoch (3 omega by 0.04, 13 bins; 5 omega by 0.067), a line
+    split into two tones 4 bins apart, and a near-threshold chirp: the bands are disjoint,
+    each drifting line is one line, and the summed line flux equals the total flux to 1e-3."""
+    dt, T = 0.2, 5000.0
+    t = dt * np.arange(int(T / dt) + 1)
+    wc0, wc1 = 0.9198, 0.9332                 # core omega drifting across the epoch
+    wct = wc0 + (wc1 - wc0) * t / T
+    ph_c = wc0 * t + 0.5 * (wc1 - wc0) * t * t / T
+    comps = [(3, 1.5e-2, 3 * ph_c, 3 * wct), (5, 2.3e-4, 5 * ph_c, 5 * wct),
+             ("split_a", 1e-4, 1.8 * t, 1.8 + 0 * t), ("split_b", 1e-4, (1.8 + 4 * A.DOMEGA) * t + 1.0,
+                                                        1.8 + 4 * A.DOMEGA + 0 * t),
+             ("near", 3e-3, 1.008 * t - 0.5 * 0.0075 * t * t / T, 1.008 - 0.0075 * t / T)]
+    rows = []
+    for r in (30.0, 120.0):
+        phi = np.zeros_like(t)
+        pt = np.zeros_like(t)
+        pr = np.zeros_like(t)
+        for _, a, ph, w in comps:
+            k = math.sqrt(np.mean(w) ** 2 - 1)
+            phi += a / r * np.cos(ph - k * r)
+            pt += -a / r * w * np.sin(ph - k * r)
+            pr += a / r * k * np.sin(ph - k * r) - a / r**2 * np.cos(ph - k * r)
+        om, P, _, _ = A.welch(phi, dt, 0, T)
+        _, _, C, _ = A.welch(pt, dt, 0, T, y=pr)
+        lines = A.lines_in(om, P, 0.5 * (wc0 + wc1), (wc0, wc1), C=C,
+                           near=(1 - 3 * A.DOMEGA, 1 + 3 * A.DOMEGA))
+        bands = sorted(tuple(d["band"]) for d in lines)
+        assert all(b[1] <= c[0] for b, c in zip(bands, bands[1:]))          # disjoint
+        total = -4 * np.pi * r * r * float(np.sum(C))
+        in_lines = -4 * np.pi * r * r * sum(d["cross"] for d in lines)
+        labels = [d["label"] for d in lines]
+        assert labels.count("3 omega") == 1 and labels.count("5 omega") == 1
+        assert labels.count("near-threshold band") == 1
+        split = [d for d in lines if abs(d["omega_centroid"] - (1.8 + 2 * A.DOMEGA)) < 3 * A.DOMEGA]
+        assert len(split) == 1 and len(split[0]["merged_peaks"]) == 2
+        rows.append(dict(r=r, total=total, in_lines=in_lines, rel=in_lines / total - 1, labels=labels,
+                         bands=bands))
+        assert abs(in_lines / total - 1) < 1e-3
+    record("drifting_split_lines", rows)
 
 
 # ------------------------------------------------------------------ verdict on synthetic data

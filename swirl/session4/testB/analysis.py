@@ -8,10 +8,18 @@ d_omega = 2 pi / TWIN = 0.00314.
 
 Lines: bins that are the maximum over +-3 bins and at least CONTRAST times the median
 power 10 to 40 bins away (Hann sidelobes fall monotonically, so they are never a +-3-bin
-maximum). Frequency by parabolic interpolation of log P. A line is labelled n omega_core
-when |omega - n omega_core| <= 2 bins (n >= 1), else "unidentified" (nearest n and offset
-kept). Line power = sum of P over +-W bins, W = 3 + ceil(n * drift / (2 d_omega)) with
-drift the spread of the per-window core omega in the epoch (W = 3 if unidentified).
+maximum). Each line owns a band of bins (line_bands): bands are grown strongest first and
+never share a bin, a band covers the line's whole hump down to BAND_FRAC = 1e-4 of its peak
+or the local background, whichever is higher
+(across valleys no deeper than SPLIT_FRAC = 1e-2 of it, so the sub-peaks of a line split by
+the in-epoch drift belong to one line), and touching bands with a shallow junction merge.
+Line power, flux and amplitude are sums over the band, so the line fluxes add up exactly to
+the flux in the bands; the flux outside every band is reported (flux_outside_bands_m1).
+omega = refined strongest peak, omega_centroid = power-weighted band mean. Labels: n omega_core
+when the centroid (or the peak) is within 2 bins of n omega_core, with omega_core over its
+in-epoch per-window range (the plan's 2 bins when the drift is zero); "near-threshold band"
+for a peak or centroid in [omega_cut, omega_th + 3 bins] (the spectrum edge plus the shed
+transient: above threshold, kept in the flux, not a line); otherwise "unidentified".
 Amplitude a = sqrt(2 P_line); outgoing amplitude a_n = r a.
 
 Threshold omega_th from B1 (RK4 at the run's dt); cut omega_cut = omega_th - delta,
@@ -60,6 +68,8 @@ DELTA_BINS = 3
 ID_BINS = 2
 CONTRAST = 30.0
 HALF = 3
+BAND_FRAC = 1e-4
+SPLIT_FRAC = 1e-2
 R_FAR = 30.0
 FOUR_PI = 4 * np.pi
 SYNTH_OMEGA = 1.005
@@ -137,12 +147,19 @@ def find_peaks(P, contrast=CONTRAST, half=HALF):
     return out
 
 
-def label(omega, omega_c, dom=DOMEGA, omega_nyq=None):
+def label(omega, omega_c, dom=DOMEGA, omega_nyq=None, wc_range=None, near=None):
+    """n omega_core when omega is within ID_BINS bins of n omega_core, omega_core taken over
+    its in-epoch range wc_range = (min, max) of the per-window values (the plan's 2 bins about
+    a single omega_core when the range is empty); "near-threshold band" inside near = (lo, hi);
+    first-fold aliases of harmonics above the probe Nyquist frequency; else "unidentified"."""
+    lo_c, hi_c = (omega_c, omega_c) if wc_range is None else (min(wc_range[0], omega_c), max(wc_range[1], omega_c))
     n = int(round(omega / omega_c))
-    if n >= 1 and abs(omega - n * omega_c) <= ID_BINS * dom:
+    if n >= 1 and n * lo_c - ID_BINS * dom <= omega <= n * hi_c + ID_BINS * dom:
         return n, "%d omega" % n
     if n == 0 and omega <= ID_BINS * dom:
         return 0, "static"
+    if near is not None and near[0] <= omega <= near[1]:
+        return n, "near-threshold band"
     if omega_nyq is not None:
         # first fold only: omega_nyq < m omega_c <= 2 omega_nyq (alias 2 omega_nyq - m omega_c)
         for m in range(int(omega_nyq / omega_c) + 1, int(2 * omega_nyq / omega_c) + 1):
@@ -152,28 +169,79 @@ def label(omega, omega_c, dom=DOMEGA, omega_nyq=None):
     return n, "unidentified"
 
 
-def lines_in(om, P, omega_c, drift, C=None, max_lines=25):
-    """Identified spectral lines, strongest first, without double counting."""
-    dom = om[1] - om[0]
-    cand = sorted(find_peaks(P), key=lambda j: -P[j])
-    taken = np.zeros(len(P), bool)
-    out = []
-    for j in cand:
-        if taken[j]:
+def line_bands(P, peaks):
+    """Disjoint bands [lo, hi) about the peaks, strongest first. A band grows into unassigned
+    neighbouring bins while P >= max(BAND_FRAC x its peak power, the local background: the
+    median 10 to 40 bins away, as in find_peaks) and P <= its peak power; it may
+    climb out of a valley only while the valley is at least SPLIT_FRAC x its peak (so the
+    sub-peaks of one drift-split line join it, but a weak neighbour behind a deep valley
+    does not). It always takes its +-HALF bins if they are unassigned. Touching bands whose
+    junction is at least SPLIT_FRAC x the larger peak are then merged."""
+    n = len(P)
+    owner = -np.ones(n, int)
+    bands = []
+    for j in sorted(peaks, key=lambda j: -P[j]):
+        if owner[j] >= 0:
+            bands[owner[j]]["peaks"].append(j)       # a sub-peak inside a stronger line's band
             continue
+        pk = P[j]
+        bg = np.concatenate([P[max(0, j - 40):max(0, j - 9)], P[min(n, j + 10):min(n, j + 41)]])
+        floor = max(BAND_FRAC * pk, float(np.median(bg)) if bg.size else 0.0)
+        k = len(bands)
+        owner[j] = k
+        lo, hi = j, j + 1
+        for step in (-1, 1):
+            cur = j
+            while True:
+                nxt = cur + step
+                if nxt < 0 or nxt >= n or owner[nxt] >= 0:
+                    break
+                ok = abs(nxt - j) <= HALF or (
+                    floor <= P[nxt] <= pk and (P[nxt] <= P[cur] or P[cur] >= SPLIT_FRAC * pk))
+                if not ok:
+                    break
+                owner[nxt] = k
+                cur = nxt
+            if step < 0:
+                lo = cur
+            else:
+                hi = cur + 1
+        bands.append(dict(lo=lo, hi=hi, peaks=[j]))
+    # merge touching bands across shallow junctions
+    bands.sort(key=lambda b: b["lo"])
+    out = []
+    for b in bands:
+        if out and out[-1]["hi"] == b["lo"]:
+            a = out[-1]
+            junction = min(P[a["hi"] - 1], P[b["lo"]])
+            if junction >= SPLIT_FRAC * max(P[a["peaks"][0]], P[b["peaks"][0]]):
+                a["hi"] = b["hi"]
+                a["peaks"] = sorted(a["peaks"] + b["peaks"], key=lambda j: -P[j])
+                continue
+        out.append(dict(lo=b["lo"], hi=b["hi"], peaks=list(b["peaks"])))
+    return out
+
+
+def lines_in(om, P, omega_c, wc_range=None, C=None, max_lines=40, near=None):
+    """Spectral lines on disjoint bands (line_bands), strongest first. omega is the refined
+    strongest peak in the band, omega_centroid the power-weighted mean frequency; the label
+    uses the centroid (and the peak if the centroid does not match)."""
+    dom = om[1] - om[0]
+    out = []
+    for b in sorted(line_bands(P, find_peaks(P)), key=lambda b: -P[b["peaks"][0]])[:max_lines]:
+        lo, hi, j = b["lo"], b["hi"], b["peaks"][0]
         w = refine(P, j) * dom
-        n, lab = label(w, omega_c, dom, omega_nyq=om[-1])
-        W = HALF + (int(math.ceil(n * drift / (2 * dom))) if lab.endswith("omega") else 0)
-        lo, hi = max(0, j - W), min(len(P), j + W + 1)
-        taken[lo:hi] = True
         pw = float(np.sum(P[lo:hi]))
-        d = dict(omega=w, n=n, label=lab, offset_from_n_omega=w - n * omega_c, power=pw,
-                 amp=math.sqrt(2 * pw), band=[int(lo), int(hi)], peak_bin_power=float(P[j]))
+        wcen = float(np.sum(om[lo:hi] * P[lo:hi]) / pw) if pw > 0 else w
+        n, lab = label(wcen, omega_c, dom, om[-1], wc_range, near)
+        if lab == "unidentified":
+            n, lab = label(w, omega_c, dom, om[-1], wc_range, near)
+        d = dict(omega=w, omega_centroid=wcen, n=n, label=lab, offset_from_n_omega=wcen - n * omega_c,
+                 power=pw, amp=math.sqrt(2 * pw), band=[int(lo), int(hi)], peak_bin_power=float(P[j]),
+                 merged_peaks=[float(refine(P, q) * dom) for q in b["peaks"]])
         if C is not None:
             d["cross"] = float(np.sum(C[lo:hi]))
         out.append(d)
-        if len(out) >= max_lines:
-            break
     return out
 
 
@@ -304,7 +372,9 @@ def analyse(name, series_dir=OUT):
                 np.sum(Ps[(o2 < w_cut) & (np.abs(o2 - wc) > 3 * DOMEGA)]) / tot)
         ep["core_line_leakage"] = dict(amp_r0=a0, drift_rate=slope, **core_leak)
         # core spectrum
-        ep["core_lines"] = lines_in(om, P0, wc, drift, max_lines=30)
+        wrange = (min(wseg), max(wseg))
+        near = (w_cut, w_th + DELTA_BINS * DOMEGA)
+        ep["core_lines"] = lines_in(om, P0, wc, wrange, max_lines=40, near=near)
         # probes
         probes = []
         for ip, r in enumerate(radii):
@@ -312,7 +382,7 @@ def analyse(name, series_dir=OUT):
             _, Pt, C, _ = welch(phit[:, ip], dt, t0, t1, y=phir[:, ip])
             tot = float(np.sum(P))
             sub = float(np.sum(P[om < w_cut]))
-            lines = lines_in(om, P, wc, drift, C=C)
+            lines = lines_in(om, P, wc, wrange, C=C, near=near)
             i0, i1 = int(round(t0 / dt)), min(int(round(t1 / dt)), nmax)
             flux_direct = float(FOUR_PI * r * r * np.mean(-phit[i0:i1, ip] * phir[i0:i1, ip]))
             harm_bands = np.zeros(len(P), bool)
@@ -320,11 +390,12 @@ def analyse(name, series_dir=OUT):
             for d in lines:
                 d["above"] = bool(d["omega"] >= w_cut)
                 d["a_n"] = r * d["amp"]
-                k = math.sqrt(max(d["omega"] ** 2 - 1.0, 0.0))
-                d["k"] = k
-                # method 1 per line: band of the phi_t / phi_r cross spectrum (same bins)
+                # method 1 per line: the phi_t / phi_r cross spectrum over the line's band (bands
+                # are disjoint, so the line fluxes add up to the in-band total)
                 d["flux_m1"] = float(-FOUR_PI * r * r * d.pop("cross"))
-                d["flux_m2"] = float(2 * np.pi * d["a_n"] ** 2 * d["omega"] * k)
+                # method 2 at the band centroid
+                d["k"] = math.sqrt(max(d["omega_centroid"] ** 2 - 1.0, 0.0))
+                d["flux_m2"] = float(2 * np.pi * d["a_n"] ** 2 * d["omega_centroid"] * d["k"])
                 if d["above"] and d["label"].endswith("omega"):
                     # stable harmonic lines: resynthesised as pure lines through the pipeline
                     harm_bands[d["band"][0]:d["band"][1]] = True
@@ -343,6 +414,10 @@ def analyse(name, series_dir=OUT):
                 flux_above_m1=float(sum(d["flux_m1"] for d in lines if d["above"])),
                 flux_above_m2=float(sum(d["flux_m2"] for d in lines if d["above"])),
                 flux_sub_m1=float(-FOUR_PI * r * r * np.sum(C[om < w_cut])),
+                flux_above_harmonics_m1=float(sum(d["flux_m1"] for d in lines
+                                                  if d["above"] and d["label"].endswith("omega"))),
+                flux_in_bands_m1=float(sum(d["flux_m1"] for d in lines)),
+                flux_outside_bands_m1=float(-FOUR_PI * r * r * np.sum(C)) - float(sum(d["flux_m1"] for d in lines)),
                 lines=lines))
         ep["probes"] = probes
         # energy
@@ -497,10 +572,14 @@ def verdict_epoch(ep, box2_ep=None):
 
 
 def verdict(an, box2_an=None):
-    """B4 per epoch; the doubled box (T = 5000) supplies its first epoch for confirmation.
+    """B4 per epoch; each epoch is confirmed against the doubled-box epoch with the same
+    [t0, t1] (None, so unconfirmed, if the doubled box has no such epoch).
     Overall: "present" if any epoch is, "only above" if every epoch is, else "undetermined"."""
-    b2 = box2_an["epochs"][0] if box2_an is not None else None
-    per = [dict(t0=ep["t0"], t1=ep["t1"], **verdict_epoch(ep, b2)) for ep in an["epochs"]]
+    b2 = {}
+    if box2_an is not None:
+        b2 = {(e["t0"], e["t1"]): e for e in box2_an["epochs"]}
+    per = [dict(t0=ep["t0"], t1=ep["t1"], box2_epoch_matched=(ep["t0"], ep["t1"]) in b2,
+                **verdict_epoch(ep, b2.get((ep["t0"], ep["t1"])))) for ep in an["epochs"]]
     vs = [p["verdict"] for p in per]
     if "Sub-threshold emission present" in vs:
         overall = "Sub-threshold emission present"
