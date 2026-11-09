@@ -1,0 +1,42 @@
+{
+ "pair": {
+  "name": "smoke_uA_r20_p000",
+  "r": 20.0,
+  "dtheta": 0,
+  "window": {
+   "t1": 40.0,
+   "t2": 89.60316480982821,
+   "moving": false
+  },
+  "delta_omega_measured": -0.048178627922966774,
+  "V_N_amp_cos": 0.4477110197245336,
+  "V_N_amp_sin": 0.017704275293350478,
+  "V_N_mean": 0.4102880073085854,
+  "F_amp": 0.1475067829623327,
+  "F_amp_se": 0.00027556458074616877,
+  "d_fit_rms": 2.8826363086621422e-05,
+  "beats_in_window": 0.3878947172186138
+ },
+ "U_amp_static": -0.5163463711680274,
+ "U_law": -0.5163467811711775,
+ "F_amp_static": 0.25306277837445806,
+ "omega_N_cross_amp_static": 11.875986198049992,
+ "t0": {
+  "E_engine": 10703.919191939585,
+  "E_independent": 10703.919191951049,
+  "rel_diff": 1.070921129553426e-12,
+  "target": 1e-10,
+  "note": "independent: complex FFT gradient incl. Nyquist (the engine uses the rfft K^2 sum)",
+  "E_copy1": 2952.6237776761354,
+  "E_copy2": 7740.693932329197,
+  "E_cross_engine": 10.60148193425266,
+  "E_cross_independent": 10.601481940729556,
+  "cross_abs_diff": -6.4768954644023324e-09,
+  "cross_rel_diff": -6.109424607439944e-10,
+  "superposition_residual_max": 8.881784197001252e-16
+ },
+ "wall_seconds": 396.89357420799206,
+ "steps": 2500,
+ "E_plus_absorbed_max_rel_dev": 4.6107258456393404e-07,
+ "nonlinear_share_0": 0.4589295655022506
+}

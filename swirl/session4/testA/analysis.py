@@ -346,6 +346,74 @@ def verdict(r, V, sig, F16, r_lo=R_LO):
     return out
 
 
+A3P_MODEL_FRAC = 0.02
+A3P_R_LOS = (12.0, 16.0)
+A3P_DECIDING_R_LO = 16.0
+
+
+def verdict_prime(r, V, sig, F16, r_lo=A3P_DECIDING_R_LO):
+    """A3' (SESSION_04_PLAN Addendum 1 section 2), scored next to A3 (unchanged).
+
+    sigma_eff = sqrt(sigma_V^2 + (0.02 V)^2) weights the fits; "resolved" is still |V| > 3 sigma_V.
+    Decays: (1) |V| falls >= 100x over [r_lo, r_hi] and is still falling over the last three resolved points
+    (reaching the floor is reported, not required); (2) the 3-s.e. upper bound on |sigma| (fit L) < 1% |F(16)|;
+    (3) some decaying form has reduced chi^2 <= 3 under sigma_eff.
+    Grows: (1) sigma confining (> 0), > 5 s.e., and |sigma| > 1% |F(16)|; (2) A3 grows-clause 2; (3) L beats every
+    decaying form by Delta AIC > 10. Undetermined otherwise. Form preference among E1, E2, G, P only (> 10)."""
+    r, V, sig = (np.asarray(x, float) for x in (r, V, sig))
+    rng, res = resolved_range(r, V, sig, r_lo)
+    out = dict(rule="A3'", r_lo=r_lo, n_fit=int(rng.size), r_hi=(float(r[rng[-1]]) if rng.size else None),
+               model_frac=A3P_MODEL_FRAC)
+    if rng.size < 5:
+        out.update(verdict="undetermined", reason="fewer than 5 resolved points from r_lo", fits=None)
+        return out
+    rr, VV, ss = r[rng], V[rng], sig[rng]
+    se_eff = np.sqrt(ss ** 2 + (A3P_MODEL_FRAC * VV) ** 2)
+    fits = fit_all(rr, VV, se_eff)
+    fall = float(abs(VV[0]) / abs(VV[-1]))
+    last3 = np.abs(VV[-3:])
+    still_falling = bool(last3[0] > last3[1] > last3[2])
+    below = bool(np.any(np.abs(V) < 3 * sig))
+    L = fits["L"]
+    sg, se = (L["params"]["sigma"], L["se"]["sigma"]) if L.get("ok") else (np.nan, np.nan)
+    red = {f: fits[f].get("chi2_red") for f in DECAYING}
+    good = [f for f in DECAYING if red[f] is not None and red[f] <= 3.0]
+    aic = {f: fits[f]["AIC"] for f in fits if fits[f].get("ok")}
+    bound = abs(sg) + 3 * se if np.isfinite(sg) else np.inf
+    d1 = fall >= 100.0 and still_falling
+    d2 = bool(bound < 0.01 * abs(F16))
+    d3 = bool(good)
+    g1 = bool(np.isfinite(sg) and se > 0 and sg > 0 and abs(sg) > 5 * se and abs(sg) > 0.01 * abs(F16))
+    g2 = bool(abs(VV[-1]) > 3 * ss[-1] and last3[0] <= last3[1] <= last3[2])
+    g3 = bool("L" in aic and all(aic["L"] + 10.0 < aic[f] for f in DECAYING if f in aic))
+    v = "decays to zero" if (d1 and d2 and d3) else ("grows" if (g1 and g2 and g3) else "undetermined")
+    dec = sorted([f for f in DECAYING if f in aic], key=aic.get)
+    pref = dec[0] if len(dec) > 1 and aic[dec[0]] + 10.0 < aic[dec[1]] else None
+    for f in fits.values():
+        f.pop("residual_over_sigma", None)
+    out.update(verdict=v, clauses=dict(
+        decays=dict(fall_factor=fall, fall_ge_100=fall >= 100.0, still_falling_last3=still_falling,
+                    below_3sigma_somewhere_reported=below, L_sigma=sg, L_sigma_se=se, L_bound_3se=bound,
+                    one_pct_F16=0.01 * abs(F16), L_bound_below_1pct_F16=d2, decaying_forms_chi2red_le_3=good),
+        grows=dict(L_sigma_over_se=(sg / se if se else None), sigma_confining_5se_and_above_1pct_F16=g1,
+                   V_hi_resolved_and_not_decreasing=g2, L_beats_decaying_by_dAIC_10=g3)),
+        preferred_form=pref, decaying_AIC_order=dec, chi2_red=red,
+        k_fit={f: fits[f]["params"].get("k") for f in ("E1", "E2", "L") if fits[f].get("ok")}, fits=fits)
+    return out
+
+
+def verdicts_both(r, V, sig, F16):
+    """A3 (as written, r_lo = 12) and A3' (r_lo = 12 and 16; 16 decides) for one potential and channel."""
+    a3 = verdict(r, V, sig, F16, r_lo=R_LO)
+    for f in (a3.get("fits") or {}).values():
+        f.pop("residual_over_sigma", None)
+    for f in (a3.get("fits_full_range") or {}).values():
+        f.pop("residual_over_sigma", None)
+    ap = {"r_lo_%g" % rl: verdict_prime(r, V, sig, F16, r_lo=rl) for rl in A3P_R_LOS}
+    return {"A3": a3, "A3prime": dict(ap, verdict=ap["r_lo_%g" % A3P_DECIDING_R_LO]["verdict"],
+                                      deciding_r_lo=A3P_DECIDING_R_LO)}
+
+
 def force_signs(r, F, sF):
     """Per-r sign label and minima (sign change of F between resolved neighbours, linear interpolation)."""
     r, F, sF = (np.asarray(x, float) for x in (r, F, sF))
@@ -361,11 +429,14 @@ def force_signs(r, F, sF):
     return dict(r=r.tolist(), F=F.tolist(), sigma_F=sF.tolist(), label=lab, sign_changes=mins)
 
 
-def headline(verdicts):
-    """Channel headline: U_static, V_N and V_F must agree (A3: static and dynamical disagreeing ->
-    undetermined); V_raw does not enter."""
-    vs = [verdicts.get(k, {}).get("verdict") for k in ("U_static", "V_N", "V_F")]
-    return vs[0] if (vs[0] is not None and all(v == vs[0] for v in vs)) else "undetermined"
+def headline(verdicts, keys=("U_static", "V_N", "V_F")):
+    """Channel headline under A3 and under A3': the potentials in keys must agree (static and dynamical
+    disagreeing -> undetermined); V_raw does not enter. Unequal channel: keys = ("V_F",) (Addendum 1 s. 1)."""
+    out = {}
+    for rule in ("A3", "A3prime"):
+        vs = [verdicts.get(k, {}).get(rule, {}).get("verdict") for k in keys]
+        out[rule] = vs[0] if (vs[0] is not None and all(v == vs[0] for v in vs)) else "undetermined"
+    return out
 
 
 def V_F_from_force(r, F, sF, tail=None):
@@ -557,18 +628,18 @@ def analyze_equal(prefix, t, results, J, static_file, chans=(0, 180)):
         verd = {}
         for key in ("V_N", "V_N_box"):
             m = ~moving
-            verd[key] = verdict(r[m], np.array(ch[key]["V"])[m], np.array(ch[key]["sigma"])[m], F16)
+            verd[key] = verdicts_both(r[m], np.array(ch[key]["V"])[m], np.array(ch[key]["sigma"])[m], F16)
         if VF is not None:
             ch["V_F"] = dict(r=rv.tolist(), V=VF.tolist(), sigma=sVF.tolist(), tail="none")
             e2 = fit_form("E2", rv, VF, np.maximum(sVF, 1e-30)) if rv.size >= 3 else None
             if e2 and e2.get("ok"):
                 tail = e2["params"]["C"] * np.exp(-e2["params"]["k"] * rv[-1]) / rv[-1]
                 ch["V_F_with_tail"] = dict(V=(VF + tail).tolist(), tail_at_rmax=float(tail))
-            verd["V_F"] = verdict(rv[:-1], VF[:-1], sVF[:-1], F16)   # last point is 0 by construction
+            verd["V_F"] = verdicts_both(rv[:-1], VF[:-1], sVF[:-1], F16)   # last point is 0 by construction
         rs, Us, sUs, FUs = _static_channel(st, lab, "U_static")
-        verd["U_static"] = verdict(rs, Us, sUs, float(np.interp(16.0, rs, FUs)))
+        verd["U_static"] = verdicts_both(rs, Us, sUs, float(np.interp(16.0, rs, FUs)))
         rs, Vr, sVr, FVr = _static_channel(st, lab, "V_raw")
-        verd["V_raw"] = verdict(rs, Vr, sVr, float(np.interp(16.0, rs, FVr)))
+        verd["V_raw"] = verdicts_both(rs, Vr, sVr, float(np.interp(16.0, rs, FVr)))
         ch["force_signs_static"] = force_signs(rs, FUs, 3e-30 + 0 * FUs)
         ch["verdicts"] = verd
         ch["headline"] = headline(verd)
@@ -600,22 +671,25 @@ def analyze_unequal(prefix, t1, t2, results, J, static_file):
         r = np.array([q["r"] for q in rows])
         F = np.array([q["F_amp"] for q in rows])
         sF = np.maximum(np.array([q["F_amp_se"] for q in rows]), abs(F[-1]))
-        rv, VF, sVF = V_F_from_force(r, F, sF)
         ch = dict(rows=rows, F_amp=dict(r=r.tolist(), F=F.tolist(), sigma=sF.tolist()),
-                  V_F_amp=dict(r=rv.tolist(), V=VF.tolist(), sigma=sVF.tolist()),
                   force_signs_dynamic=force_signs(r, F, sF))
-        verd = {"V_F": verdict(rv[:-1], VF[:-1], sVF[:-1], float(np.interp(16.0, r, F)))}
-        VNa = np.array([q["V_N_amp_cos"] for q in rows])
-        verd["V_N"] = verdict(r, VNa, np.maximum(abs(VNa[-1]), 1e-30) + 0 * VNa, float(np.interp(16.0, r, F)))
+        verd = {}
+        F16 = float(np.interp(16.0, r, F))
+        if r.size >= 3:
+            rv, VF, sVF = V_F_from_force(r, F, sF)
+            ch["V_F_amp"] = dict(r=rv.tolist(), V=VF.tolist(), sigma=sVF.tolist())
+            verd["V_F"] = verdicts_both(rv[:-1], VF[:-1], sVF[:-1], F16)
+            VNa = np.array([q["V_N_amp_cos"] for q in rows])
+            verd["V_N"] = verdicts_both(r, VNa, np.maximum(abs(VNa[-1]), 1e-30) + 0 * VNa, F16)
         if st:
             rs, Us, sUs, FUs = _static_channel(st, "p%03d" % dth, "U_static")
-            verd["U_static"] = verdict(rs, Us, sUs, float(np.interp(16.0, rs, FUs)))
+            verd["U_static"] = verdicts_both(rs, Us, sUs, float(np.interp(16.0, rs, FUs)))
             ch["U_amp_static_at_r"] = [float(np.interp(x, rs, Us)) for x in r]
             ch["U_law_at_r"] = [float(np.interp(x, rs, [q["p%03d" % dth]["U_law"] for q in st["rows"]])) for x in r]
             ch["omega_N_cross_amp_static_at_r"] = [float(np.interp(x, rs, [n1["omega"] * n2["omega"] * q["moments"]["I_bil"]
                                                                       for q in st["rows"]])) for x in r]
         ch["verdicts"] = verd
-        ch["headline"] = headline(verd)
+        ch["headline"] = headline(verd, keys=("V_F",))
         ch["note"] = ("V_N amplitude against cos(dphi) contains the beating overlap charge (about omega_1 omega_2 "
                       "int f_1 f_2, see omega_N_cross_amp_static_at_r), which is not the interaction; V_F (force "
                       "amplitude) is the clean route")
@@ -687,11 +761,7 @@ def static_verdicts(names=("primary", "b5", "unequal_0.906505_0.857370"), out=OU
         for lab in ("p000", "p180"):
             for key in ("U_static", "V_raw"):
                 r, V, s, F = _static_channel(st, lab, key)
-                v = verdict(r, V, s, float(np.interp(16.0, r, F)))
-                for f in (v.get("fits") or {}).values():
-                    f.pop("residual_over_sigma", None)
-                for f in (v.get("fits_full_range") or {}).values():
-                    f.pop("residual_over_sigma", None)
+                v = verdicts_both(r, V, s, float(np.interp(16.0, r, F)))
                 rec[nm]["%s_%s" % (key, lab)] = v
     dump(rec, out)
     return rec

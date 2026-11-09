@@ -245,6 +245,71 @@ def test_verdict_undetermined_few_decades():
     assert v["verdict"] == "undetermined"
 
 
+# ------------------------------------------------------------------------------------------- A3' (Addendum 1)
+F16_TAIL = AMP * np.exp(-KAP * 16) * (KAP / 16 + 1 / 256)
+
+
+def yukawa_departure(frac=0.02, floor_rel=1e-9):
+    """Yukawa data with a smooth 2% model departure (as the static quadrature shows: exact data, residual is
+    model departure, not noise) and a quadrature-like floor."""
+    r = np.arange(12.0, 45.01, 0.5)
+    U = -AMP * np.exp(-KAP * r) / r
+    V = U * (1 + frac * np.exp(-(r - 12.0) / 6.0))
+    sig = floor_rel * np.abs(V) + 1e-14
+    return r, V, sig
+
+
+def test_A3prime_decays_on_yukawa_with_2pct_departure():
+    """Exact Yukawa data with a 2% model departure: A3' reads 'decays to zero' (not 'grows'); A3 does not decay."""
+    r, V, sig = yukawa_departure()
+    b = A.verdicts_both(r, V, sig, F16_TAIL)
+    a3, ap = b["A3"], b["A3prime"]
+    print("A3:", a3["verdict"], "A3' 12:", ap["r_lo_12"]["verdict"], "A3' 16:", ap["verdict"],
+          ap["r_lo_16"]["clauses"], ap["r_lo_16"]["preferred_form"])
+    assert ap["verdict"] == "decays to zero"
+    assert a3["verdict"] != "decays to zero"
+    assert ap["r_lo_16"]["preferred_form"] == "E2"
+
+
+def test_A3prime_grows_fires():
+    """Yukawa plus a confining linear rise (sigma = 1e-3 > 1% of |F(16)| = 5e-4): A3' reads 'grows'."""
+    r = np.arange(12.0, 40.01, 1.0)
+    V = -AMP * np.exp(-KAP * r) / r + 1e-3 * (r - 12.0)
+    sig = 1e-4 * np.ones_like(r)
+    V = V + 0.5 * sig * noise(r.size)
+    v = A.verdict_prime(r, V, sig, 0.05, r_lo=16.0)
+    print(v["verdict"], v["clauses"]["grows"])
+    assert v["verdict"] == "grows"
+
+
+def test_A3prime_small_sigma_below_1pct_is_not_growth():
+    """A significant but tiny linear term (|sigma| below 1% of |F(16)|) does not fire 'grows' under A3'."""
+    r = np.arange(12.0, 40.01, 1.0)
+    V = -AMP * np.exp(-KAP * r) / r + 1e-3 * (r - 12.0)
+    sig = 1e-4 * np.ones_like(r)
+    v = A.verdict_prime(r, V, sig, 1.0, r_lo=16.0)       # 1% of |F(16)| = 1e-2 > sigma = 1e-3
+    assert v["verdict"] != "grows"
+    assert v["clauses"]["grows"]["sigma_confining_5se_and_above_1pct_F16"] is False
+
+
+def test_A3prime_undetermined_cases():
+    """Not falling 100x (two decades missing) and too few resolved points: undetermined."""
+    r = np.arange(16.0, 24.01, 1.0)
+    V = -AMP * np.exp(-KAP * r) / r
+    v = A.verdict_prime(r, V, 1e-6 * np.abs(V), F16_TAIL)
+    assert v["verdict"] == "undetermined" and v["clauses"]["decays"]["fall_ge_100"] is False
+    r = np.arange(16.0, 19.01, 1.0)
+    v = A.verdict_prime(r, -AMP * np.exp(-KAP * r) / r, 1e-6 + 0 * r, F16_TAIL)
+    assert v["verdict"] == "undetermined" and v["n_fit"] < 5
+
+
+def test_A3prime_form_preference_ignores_L():
+    """On clean Yukawa data the A3' preference (E1, E2, G, P only) names E2."""
+    r, V, sig = synth("E2")
+    v = A.verdict_prime(r, V, sig, F16_TAIL, r_lo=16.0)
+    assert v["preferred_form"] == "E2"
+
+
 def test_runs_test_and_force_signs():
     assert A.runs_test(np.array([1, -1] * 10, float))["z"] > 3
     assert A.runs_test(np.array([1] * 10 + [-1] * 10, float))["z"] < -3

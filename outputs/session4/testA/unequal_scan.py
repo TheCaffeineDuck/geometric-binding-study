@@ -48,7 +48,7 @@ def one(om):
 
 if __name__ == "__main__":
     out, oms = sys.argv[1], [float(a) for a in sys.argv[2:]]
-    with get_context("spawn").Pool(3, initializer=_init) as p:
+    with get_context("spawn").Pool(min(3, len(oms)), initializer=_init) as p:
         rows = p.map(one, oms)
     res = dict(what="radial scan, beta 4/3, settling and loss of single-frequency starts", T=1500.0,
                grid="swirl.family.wpa_run.grid_for(4/3): dr 0.05, dt 0.0125, sponge 100 to 200",

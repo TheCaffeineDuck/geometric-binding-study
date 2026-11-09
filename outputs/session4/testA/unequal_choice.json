@@ -241,5 +241,99 @@
  "costs_of_A": [
   "the larger lump is wider (hw 4.92): boxes about 10 larger in L than primary pairs; its 3D source must be built (t_s 300 at dx 0.55)",
   "the N ratio leaves the plan range: A-P6 law check is unchanged, but the plan text says 1.3 to 1.6; the orchestrator records the deviation"
- ]
+ ],
+ "production": {
+  "note": "the driver uses the Session 2 starts of the recommended pair (dip 0.9065045, N/N_min 5.2 start 0.8573703), within 1.3e-4 in omega of the scanned members",
+  "dip": {
+   "omega_profile": 0.9065045072253043,
+   "N": 2988.6326863755316,
+   "N_over_Nmin": 1.8295089018937847,
+   "E": 2913.4239732259443,
+   "A": 60.070309938795454,
+   "kappa": 0.422196137334543,
+   "hw": 3.3930293212526594,
+   "Phi0": 6.923112586526455,
+   "D_sponge": 15.056087819835835,
+   "radial_omega_settled_t300": 0.9068840925399104,
+   "radial_drift_t300": 2.308530990258184e-06,
+   "radial_drift_t500": 9.248817932627773e-07,
+   "radial_loss_rate": 5.855994009254517e-07,
+   "source_3d": {
+    "omega": 0.9068730736474689,
+    "omega_drift": 3.834516628253848e-05,
+    "sha256": "23c9ddb76033632eef7c15fe801edf544d10bbbf46487c6956149df8d8c5b874",
+    "crop_loss_E_max": 1.0619401187295097e-06,
+    "crop_loss_N": 1.1231179637416489e-06,
+    "t_s": 300.0,
+    "nonlinear_share_ref": 0.35845453758699414,
+    "E_ref": 2952.6249275793266
+   }
+  },
+  "big": {
+   "omega_profile": 0.857370255463254,
+   "N": 8512.358465846184,
+   "N_over_Nmin": 5.210889802675356,
+   "E": 7750.217969591148,
+   "A": 264.6092031563637,
+   "kappa": 0.5147001506186633,
+   "hw": 4.928397627900812,
+   "Phi0": 7.143992421502243,
+   "D_sponge": 15.156938248811741,
+   "radial_omega_settled_t300": 0.8589968092134987,
+   "radial_drift_t300": 9.99337429030689e-07,
+   "radial_drift_t500": 2.2448459424673217e-07,
+   "radial_loss_rate": 5.921697366314168e-08,
+   "source_3d": {
+    "omega": 0.8589879041919078,
+    "omega_drift": 2.1098578033118542e-05,
+    "sha256": "dcbb5c7b65026a6594e606da841911ee2857befe2674969d60b26c737526f1cb",
+    "crop_loss_E_max": 1.445976668623672e-06,
+    "crop_loss_N": 1.552190719955604e-06,
+    "t_s": 300.0,
+    "nonlinear_share_ref": 0.4869147443513342,
+    "E_ref": 7740.70147059294
+   }
+  },
+  "N_ratio": 2.848245120469976,
+  "delta_omega_settled": 0.047885169455561094,
+  "beat_period": 131.21359658151727,
+  "beats_in_window_40_400": 2.7436181110724127,
+  "static_U_amp_vs_law": {
+   "10.0": {
+    "U_amp": -89.765323626352,
+    "U_law": -91.13641780246505,
+    "V_raw": 640.9330565745751
+   },
+   "12.0": {
+    "U_amp": -30.498227831932,
+    "U_law": -30.564224119736657,
+    "V_raw": 310.42060600745504
+   },
+   "16.0": {
+    "U_amp": -3.7963393035048267,
+    "U_law": -3.796493860375765,
+    "V_raw": 60.64623158383977
+   },
+   "20.0": {
+    "U_amp": -0.5163463711680274,
+    "U_law": -0.5163467811711775,
+    "V_raw": 10.678986800179896
+   },
+   "24.0": {
+    "U_amp": -0.07473390555505367,
+    "U_law": -0.07473390417615537,
+    "V_raw": 1.8237294071829409
+   },
+   "32.0": {
+    "U_amp": -0.0017707443126781857,
+    "U_law": -0.0017707442446595904,
+    "V_raw": 0.0520345670069574
+   },
+   "40.0": {
+    "U_amp": -4.649546836821715e-05,
+    "U_law": -4.649546648617158e-05,
+    "V_raw": 0.0014904337968148214
+   }
+  }
+ }
 }
