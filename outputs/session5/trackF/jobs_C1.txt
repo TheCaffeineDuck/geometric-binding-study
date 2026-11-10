@@ -1,0 +1,11 @@
+--model R --obj bump --start amp:0.2 --T 6600 --T-twin 6600 --tag B_R_bump_a0.2_T6600
+--model O --obj bump --start profile:0.909149280617113 --scale 0.99 --T 20000 --T-twin 20000 --tag C_O_bump_w0.91_x0.99
+--model O --obj bump --start profile:0.909149280617113 --scale 1.01 --T 20000 --T-twin 20000 --tag C_O_bump_w0.91_x1.01
+--model O --obj pinch --start profile:0.86 --scale 0.99 --T 20000 --T-twin 20000 --tag C_O_pinch_w0.86_x0.99
+--model O --obj pinch --start profile:0.86 --scale 1.01 --T 20000 --T-twin 20000 --tag C_O_pinch_w0.86_x1.01
+--model O --obj pinch --start profile:0.86 --T 100000 --no-twin --tag B_O_pinch_w0.86_T100k
+B5 --model R --obj bump --shape gauss --sigma 3 --A-lo 0.5 --A-hi 1.0 --rtol 0.01 --T 1000 --tag D_R_bump_gauss_s3
+B5 --model R --obj bump --shape gauss --sigma 2 --A-lo 0.3 --A-hi 1.5 --rtol 0.01 --T 1000 --tag D_R_bump_gauss_s2
+B5 --model R --obj bump --shape gauss --sigma 5 --A-lo 0.1 --A-hi 1.0 --rtol 0.01 --T 1000 --tag D_R_bump_gauss_s5
+B5 --model R --obj bump --shape shell --r0 10 --sigma 2 --v-in 0.0 --A-lo 0.2 --A-hi 1.5 --rtol 0.01 --T 1000 --tag D_R_bump_shell_r10_s2
+B5 --model R --obj pinch --shape gauss --sigma 3 --A-lo 0.3 --A-hi 1.5 --rtol 0.01 --T 1000 --tag D_R_pinch_gauss_s3

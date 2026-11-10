@@ -1,0 +1,5 @@
+B5 --model R --obj bump --shape gauss --sigma 3 --A-lo 0.5 --A-hi 1.0 --rtol 0.01 --T 1000 --tag D_R_bump_gauss_s3
+B5 --model R --obj bump --shape gauss --sigma 2 --A-lo 0.3 --A-hi 1.5 --rtol 0.01 --T 1000 --tag D_R_bump_gauss_s2
+B5 --model R --obj bump --shape gauss --sigma 5 --A-lo 0.1 --A-hi 1.0 --rtol 0.01 --T 1000 --tag D_R_bump_gauss_s5
+B5 --model R --obj bump --shape shell --r0 10 --sigma 2 --v-in 0.0 --A-lo 0.2 --A-hi 1.5 --rtol 0.01 --T 1000 --tag D_R_bump_shell_r10_s2
+B5 --model R --obj pinch --shape gauss --sigma 3 --A-lo 0.3 --A-hi 1.5 --rtol 0.01 --T 1000 --tag D_R_pinch_gauss_s3

@@ -1,0 +1,367 @@
+{
+ "D_R_bump_gauss_s2": {
+  "bracket": [
+   0.924387762495498,
+   0.9302175716871548
+  ],
+  "rel_width": 0.006306670672401029,
+  "low": "disperses",
+  "T_death_low": 62.5,
+  "high": "singular",
+  "trip_t": 6.5,
+  "steps": [
+   {
+    "A": 0.3,
+    "cls": "disperses",
+    "T_death": 63.0,
+    "trip": null
+   },
+   {
+    "A": 1.5,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 2.5
+   },
+   {
+    "A": 0.6708203932499369,
+    "cls": "disperses",
+    "T_death": 63.0,
+    "trip": null
+   },
+   {
+    "A": 1.003110457464633,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 4.0
+   },
+   {
+    "A": 0.8203090585563159,
+    "cls": "disperses",
+    "T_death": 63.0,
+    "trip": null
+   },
+   {
+    "A": 0.9071166380299771,
+    "cls": "disperses",
+    "T_death": 62.5,
+    "trip": null
+   },
+   {
+    "A": 0.9539068013952046,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 5.5
+   },
+   {
+    "A": 0.9302175716871548,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 6.5
+   },
+   {
+    "A": 0.9185944895683085,
+    "cls": "disperses",
+    "T_death": 62.5,
+    "trip": null
+   },
+   {
+    "A": 0.924387762495498,
+    "cls": "disperses",
+    "T_death": 62.5,
+    "trip": null
+   }
+  ]
+ },
+ "D_R_bump_gauss_s3": {
+  "bracket": [
+   0.8454623996346526,
+   0.8500531768592617
+  ],
+  "rel_width": 0.005429901112802769,
+  "low": "disperses",
+  "T_death_low": 64.5,
+  "high": "singular",
+  "trip_t": 13.0,
+  "steps": [
+   {
+    "A": 0.5,
+    "cls": "disperses",
+    "T_death": 64.0,
+    "trip": null
+   },
+   {
+    "A": 1.0,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 7.5
+   },
+   {
+    "A": 0.7071067811865476,
+    "cls": "disperses",
+    "T_death": 64.0,
+    "trip": null
+   },
+   {
+    "A": 0.8408964152537146,
+    "cls": "disperses",
+    "T_death": 64.5,
+    "trip": null
+   },
+   {
+    "A": 0.9170040432046712,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 7.5
+   },
+   {
+    "A": 0.8781260801866497,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 10.0
+   },
+   {
+    "A": 0.859309649061239,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 10.5
+   },
+   {
+    "A": 0.8500531768592617,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 13.0
+   },
+   {
+    "A": 0.8454623996346526,
+    "cls": "disperses",
+    "T_death": 64.5,
+    "trip": null
+   }
+  ]
+ },
+ "D_R_bump_gauss_s5": {
+  "bracket": [
+   0.6097562352214592,
+   0.6152654101490372
+  ],
+  "rel_width": 0.009035044841447471,
+  "low": "disperses",
+  "T_death_low": 147.5,
+  "high": "singular",
+  "trip_t": 45.0,
+  "steps": [
+   {
+    "A": 0.1,
+    "cls": "disperses",
+    "T_death": 86.5,
+    "trip": null
+   },
+   {
+    "A": 1.0,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 9.5
+   },
+   {
+    "A": 0.31622776601683794,
+    "cls": "disperses",
+    "T_death": 90.5,
+    "trip": null
+   },
+   {
+    "A": 0.5623413251903491,
+    "cls": "disperses",
+    "T_death": 118.0,
+    "trip": null
+   },
+   {
+    "A": 0.7498942093324559,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 14.5
+   },
+   {
+    "A": 0.6493816315762113,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 23.5
+   },
+   {
+    "A": 0.6042963902381329,
+    "cls": "disperses",
+    "T_death": 140.0,
+    "trip": null
+   },
+   {
+    "A": 0.6264335366568856,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 30.0
+   },
+   {
+    "A": 0.6152654101490372,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 45.0
+   },
+   {
+    "A": 0.6097562352214592,
+    "cls": "disperses",
+    "T_death": 147.5,
+    "trip": null
+   }
+  ]
+ },
+ "D_R_bump_shell_r10_s2": {
+  "bracket": [
+   0.2129980660178888,
+   0.2146811278362246
+  ],
+  "rel_width": 0.007901770423560786,
+  "low": "disperses",
+  "T_death_low": 129.0,
+  "high": "singular",
+  "trip_t": 34.0,
+  "steps": [
+   {
+    "A": 0.2,
+    "cls": "disperses",
+    "T_death": 130.5,
+    "trip": null
+   },
+   {
+    "A": 1.5,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 5.0
+   },
+   {
+    "A": 0.5477225575051662,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 16.5
+   },
+   {
+    "A": 0.33097509196468733,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 18.5
+   },
+   {
+    "A": 0.25728392564040503,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 21.0
+   },
+   {
+    "A": 0.22684088063680455,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 24.0
+   },
+   {
+    "A": 0.2129980660178888,
+    "cls": "disperses",
+    "T_death": 129.0,
+    "trip": null
+   },
+   {
+    "A": 0.21981052947808055,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 26.5
+   },
+   {
+    "A": 0.21637748882265753,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 29.5
+   },
+   {
+    "A": 0.2146811278362246,
+    "cls": "singular",
+    "T_death": null,
+    "trip": 34.0
+   }
+  ]
+ },
+ "D_R_pinch_gauss_s3_hi6": {
+  "bracket": [
+   1.7153840570467391,
+   1.7254502572384367
+  ],
+  "rel_width": 0.005868190362587297,
+  "low": "disperses",
+  "T_death_low": 97.5,
+  "high": "3D ill-posed",
+  "trip_t": 37.9125,
+  "steps": [
+   {
+    "A": 0.3,
+    "cls": "disperses",
+    "T_death": 59.5,
+    "trip": null
+   },
+   {
+    "A": 6.0,
+    "cls": "3D ill-posed",
+    "T_death": null,
+    "trip": 0.28750000000000003
+   },
+   {
+    "A": 1.3416407864998738,
+    "cls": "disperses",
+    "T_death": 62.0,
+    "trip": null
+   },
+   {
+    "A": 2.8372248270095275,
+    "cls": "3D ill-posed",
+    "T_death": null,
+    "trip": 2.8125
+   },
+   {
+    "A": 1.9510347378727093,
+    "cls": "3D ill-posed",
+    "T_death": null,
+    "trip": 11.1625
+   },
+   {
+    "A": 1.6178960968517468,
+    "cls": "disperses",
+    "T_death": 69.0,
+    "trip": null
+   },
+   {
+    "A": 1.776674277189386,
+    "cls": "3D ill-posed",
+    "T_death": null,
+    "trip": 18.5875
+   },
+   {
+    "A": 1.6954274913547929,
+    "cls": "disperses",
+    "T_death": 84.0,
+    "trip": null
+   },
+   {
+    "A": 1.735575527809087,
+    "cls": "3D ill-posed",
+    "T_death": null,
+    "trip": 28.1625
+   },
+   {
+    "A": 1.7153840570467391,
+    "cls": "disperses",
+    "T_death": 97.5,
+    "trip": null
+   },
+   {
+    "A": 1.7254502572384367,
+    "cls": "3D ill-posed",
+    "T_death": null,
+    "trip": 37.9125
+   }
+  ]
+ }
+}

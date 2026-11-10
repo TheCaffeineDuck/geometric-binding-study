@@ -1,0 +1,3 @@
+--model O --obj bump --start profile:0.909149280617113 --scale 1.02 --T 20000 --T-twin 2000 --tag C_O_bump_w0.91_x1.02
+--model O --obj bump --start profile:0.909149280617113 --scale 1.05 --T 20000 --T-twin 2000 --tag C_O_bump_w0.91_x1.05
+--model O --obj bump --start profile:0.909149280617113 --scale 0.98 --T 20000 --T-twin 2000 --tag C_O_bump_w0.91_x0.98
