@@ -132,3 +132,13 @@ Source: `docs/PRIOR_ART.md`, "Session 5 brief, Track C", and `docs/S5_SPS1992_PA
 - **C5's rule (loss per distance never decreases with speed) has no source;** exact moving breathers are reported to have resonance peaks. The rule stays as written. A non-monotone curve is a miss of my rule and is reported with the curve.
 - **Aaron's "narrow window":** the literature expects breathers at every rate above the band in the quartic chain, and for G1 the rate has no upper edge (it grows without bound as the stretch nears 1). The expected outcome under rule 2.5 is "not narrow in rate". The length range is still to be measured.
 - **C6 premise corrected:** published existence results rely on a bounded linear spectrum, not on a grid as such. C-smooth has a bounded spectrum and lies outside the class covered by the continuum non-existence theorems. No published breather and no published obstruction were found for it.
+
+## Block 6. Addendum after the solver reviews. Written 2026-11-10, before any production run
+
+What is known when this is written: the two solver builds' own check runs and first family tables, and the reviewer's checks of both diffs (status file). No production run has been made. The build results are not scored here; they are scored from the production runs.
+
+- **"Trapped" must not be passable by fine-tuning.** The reviewer found that equation R starts sit between dispersal (smaller) and a guard trip (about 10% larger), and that lifetime rises toward that boundary. A state balanced on an unstable boundary can be tuned to live arbitrarily long. So, for every model and object: a start counts as "trapped" under rule 2.1 only if the starts at 0.99 and 1.01 times its amplitude are also trapped. A lifetime that diverges at one tuned amplitude and falls on both sides is reported as "a boundary state, not a trap", with the curve.
+- **Ends of a run are classified** as: held; disperses; singular (centre collapse, with the time); 3D ill-posed (pinch transverse condition fails); unresolved (a trip that moves with h or dt). The last three are guard findings under plan section 8 and go to the failure ledger.
+- **F2** is judged on families continued through any fold in rate, parametrised by central amplitude.
+- **Rates and cycles** are taken from the late-time measured rate; cycle counts integrate the measured rate.
+- **C4 and leak floors:** anything below 1e-5 of E0 is unresolved unless the absorber is validated at the production parameters to better than that.
