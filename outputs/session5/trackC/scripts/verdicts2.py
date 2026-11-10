@@ -137,7 +137,7 @@ def v_O6(o6):
         fmt(w["max_shift_nonlinear_in_cells"]), w["tag"], w["h"],
         fmt(wt["max_shift_twin_in_cells"]) if wt else "n/a", wt["tag"] if wt else "", wt["h"] if wt else 0)
     return row("O6", "C-smooth: a jump in stretch stays where it was made, in the linear and the nonlinear medium",
-               "position of the largest jump (record peak-stretch sample) within one cell h of its start position over the whole run; up to 3 cells is a pass with note",
+               "distance from the centre of the largest jump (record peak-stretch sample; the S-bend has two jumps at +-x_s, so the sign is dropped) within one cell h of its start value over the whole run; up to 3 cells is a pass with note",
                meas, "<= 1 cell (<= 3 cells pass with note)", grade(wmax, 1.0),
                "the largest jump at a record is not necessarily the one made at t = 0: a shift can also mean that another jump became the largest",
                [d["source"] for d in o6])

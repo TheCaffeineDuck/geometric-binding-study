@@ -296,9 +296,16 @@ def tighter_faster_smooth(b6res):
 
 
 # ------------------------------------------------------------------ push, scheme
+def _unpushed(tag, ht, t):
+    base = {"gsbend": "B2_sbend_pk0.8_s0.5", "jsbend": "B3_jump_sbend_w1.5"}[tag] + "_" + ht
+    if not exists(base):
+        return None
+    return val_at_t(curves(J(base)), "fc", t)
+
+
 def b_push(tags=("gsbend", "jsbend"), hts=("h8", "h16")):
     out = []
-    lams = [0.1, 0.3, 1, 3, 10, 30]
+    lams = [0.03, 0.1, 0.15, 0.2, 0.3, 0.5, 0.7, 1, 3, 10, 30]
     for tag in tags:
         for ht in hts:
             rows = []
@@ -311,17 +318,20 @@ def b_push(tags=("gsbend", "jsbend"), hts=("h8", "h16")):
                 c = curves(res)
                 sm = res["summary"]
                 # distance travelled by the centroid and by the largest jump
-                jx = c["jump_x"]
+                jx = np.abs(c["jump_x"])
                 rows.append({"lambda": lam, "name": nm, "source": REL(path(nm)), "speed": ps["speed"],
                              "distance": ps["distance"], "loss_per_distance": ps["energy_lost_per_unit_distance"],
                              "broke": ps["broke"], "frac_comoving_end": ps["frac_comoving_end"],
                              "frac_fixed_end": sm["frac_end"], "guard": sm["guard"] is not None,
-                             "guard_label": (sm["guard"] or {}).get("rerun_half_dt", {}).get("label"),
+                             "guard_label": (sm["guard"] or {}).get("rerun_half_dt", {}).get("label"), "guard_t": (sm["guard"] or {}).get("t"),
                              "twin_frac_end": res["twin"]["frac_end"] if res.get("twin") else None,
                              "jump_x_start": float(jx[0]), "jump_x_end": float(jx[-1]),
                              "jump_x_shift": float(jx[-1] - jx[0]), "centroid_shift": float(c["cen"][-1] - c["cen"][0]),
                              "absorbed_over_E0": float(c["absorbed"][-1]), "t_end": sm["t_end"],
-                             "reached_sponge_possible": bool(ps["distance"] > 100)})
+                             "reached_sponge_possible": bool(ps["distance"] > 100),
+                             "dt4_rerun_guard_t": ((J(nm + "_dt4")["summary"]["guard"] or {}).get("t") if exists(nm + "_dt4") else None),
+                             "dt4_rerun_exists": exists(nm + "_dt4"),
+                             "unpushed_comoving_frac_at_same_time": _unpushed(tag, ht, sm["t_end"])})
             out.append({"tag": tag, "h": ht, "rows": rows})
     return out
 
@@ -426,14 +436,14 @@ def o6(rows, cv):
             if k not in cv:
                 continue
             c, tw = cv[k]
-            jx = c["jump_x"]
+            jx = np.abs(c["jump_x"])      # distance from the centre: the S-bend has two jumps at +-x_s and the detector picks either
             d = {"tag": tag, "h": h, "source": REL(path(k)), "jump_x_start": float(jx[0]),
                  "max_shift_nonlinear": float(np.nanmax(np.abs(jx - jx[0]))),
                  "jump_cells_start": float(c["jump_cells"][0]), "jump_max_start": float(c["jump_max"][0]),
                  "jump_max_end": float(c["jump_max"][-1])}
             d["max_shift_nonlinear_in_cells"] = d["max_shift_nonlinear"] / h
             if tw is not None:
-                jt = tw["jump_x"]
+                jt = np.abs(tw["jump_x"])
                 d["max_shift_twin"] = float(np.nanmax(np.abs(jt - jt[0])))
                 d["max_shift_twin_in_cells"] = d["max_shift_twin"] / h
                 d["twin_jump_max_start"], d["twin_jump_max_end"] = float(tw["jump_max"][0]), float(tw["jump_max"][-1])

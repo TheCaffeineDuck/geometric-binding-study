@@ -62,10 +62,10 @@ def expectations(A1, A2, A3, A4, A6, c5cases, brows, B7, c6, B6, TF):
     if A4 and A1 and e1.get("sbend", {}).get("trapped_rates"):
         edge = max(family_L_at(A1, "sbend", min(e1["sbend"]["trapped_rates"])),
                    family_L_at(A1, "bump", min(e1.get("bump", {}).get("trapped_rates") or e1["sbend"]["trapped_rates"])))
-        longer = [r for r in A4 if r["L_half_start"] > edge and r["frac_fixed_1000cyc"] is not None]
-        below = [r for r in longer if r["frac_fixed_1000cyc"] < 0.5]
+        longer = [r for r in A4 if r["L_half_start"] > edge and r["cycles_ref"] >= 900 and not r["guard"]]
+        below = [r for r in longer if r["frac_ref"] < 0.5]
         toolong = {"window_upper_edge_L_half": edge, "n_longer": len(longer), "n_below_half": len(below),
-                   "names": [(r["name"], r["L_half_start"], r["frac_fixed_1000cyc"]) for r in longer]}
+                   "names": [(r["name"], r["L_half_start"], r["frac_ref"], r["cycles_ref"]) for r in longer]}
         parts.append("starts longer than the window's upper edge (L_half > %s): %d of them, of which %d fall below frac 0.50 within 1,000 cycles" % (
             fmt(edge), len(longer), len(below)))
         srcs += [r["source"] for r in longer]

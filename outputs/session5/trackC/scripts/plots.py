@@ -191,7 +191,7 @@ def p_profiles(brows):
                 axs[jj, i].set(title="t = %g, |x| <= %g" % (t, w), xlabel="x", ylabel="stretch")
                 axs[jj, i].grid(alpha=0.3)
         axs[0, 0].legend(fontsize=7)
-        fig.suptitle("%s: stretch profile at three spacings (from field snapshots, not committed)" % title)
+        fig.suptitle("%s: stretch profile at three spacings at the same time (oscillation phases differ between h because the rates differ in the third digit; field snapshots not committed)" % title)
         if done:
             save(fig, "profiles_%s.png" % tag)
         else:

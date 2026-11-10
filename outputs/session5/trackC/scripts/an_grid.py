@@ -205,6 +205,10 @@ def a4():
                 res = J(nm)
                 row.update({"obj": obj, "env": env, "pk": pk})
                 row["cycles_1000_reached"] = row["frac_fixed_1000cyc"] is not None
+                row["frac_ref"] = row["frac_fixed_1000cyc"] if row["cycles_1000_reached"] else row["frac_end"]
+                row["frac_comoving_ref"] = row["frac_comoving_1000cyc"] if row["cycles_1000_reached"] else row["frac_comoving_end"]
+                row["twin_frac_ref"] = row["twin_frac_1000cyc"] if row["cycles_1000_reached"] else (res["twin"]["frac_end"] if res.get("twin") else None)
+                row["cycles_ref"] = 1000.0 if row["cycles_1000_reached"] else row["cycles_at_end"]
                 row["period_measured"] = res["start_info"].get("period_measured")
                 row["twin_frac_end"] = res["twin"]["frac_end"] if res.get("twin") else None
                 row["twin_frac_comoving_end"] = res["twin"]["frac_comoving_end"] if res.get("twin") else None
@@ -308,6 +312,7 @@ def a5():
                                    "max_overall": float(Q.max()), "max_overall_omega": float(om[np.argmax(Q)]),
                                    "df_resolution": float(dom), "u_rms": float(q.std())}
         d["far_probe_spectrum"] = spec
+    out["E0"] = J("A5_sbend_w2.5_closed")["summary"]["E0"]
     return out
 
 
@@ -323,13 +328,22 @@ def a6():
             if not exists(nm):
                 continue
             res = J(nm)
+            note = ""
+            nm_used = nm
+            g0 = res["summary"].get("guard")
+            if g0 and exists(nm + "_dt4") and g0.get("rerun_half_dt", {}).get("label", "").startswith("numerical"):
+                r4 = J(nm + "_dt4")
+                if r4["summary"].get("guard") is None:
+                    res, nm_used, note = r4, nm + "_dt4", "original tripped at t=%.4g (labelled numerical); this row is the dt/4 rerun" % g0["t"]
+                else:
+                    note = "original tripped at t=%.4g (numerical label); dt/4 rerun also tripped at t=%.4g" % (g0["t"], r4["summary"]["guard"]["t"])
             ps = D.push_summary(res, 100.0)
             c = curves(res)
             sm = res["summary"]
             ib = np.where(c["fc"] < 0.5)[0]
             dist_at_break = float(abs(c["cen"][ib[0]] - c["cen"][0])) if ib.size else None
             tw = res.get("twin") or {}
-            rows.append({"lambda": lam, "name": nm, "source": REL(path(nm)), "speed": ps["speed"],
+            rows.append({"lambda": lam, "name": nm_used, "note": note, "source": REL(path(nm_used)), "speed": ps["speed"],
                          "distance": ps["distance"], "loss_per_distance": ps["energy_lost_per_unit_distance"],
                          "broke": ps["broke"], "t_break": ps["t_break"], "distance_at_break": dist_at_break,
                          "crossed_100": ps["crossed_target"],
@@ -402,10 +416,12 @@ def a7():
         # fold onto distance: average of +x and -x (the object is odd/even about its centre, so
         # report |value| maxima and the signed mean at each distance)
         dist = np.arange(0, 61)
+        def binm(r):
+            return (np.abs(x) > r - 0.5) & (np.abs(x) <= r + 0.5)
         def fold(a):
-            return [float(np.mean(a[np.abs(np.abs(x) - r) < 0.5])) for r in dist]
+            return [float(np.mean(a[binm(r)])) if binm(r).any() else float("nan") for r in dist]
         def foldabs(a):
-            return [float(np.max(np.abs(a[np.abs(np.abs(x) - r) < 0.5]))) for r in dist]
+            return [float(np.max(np.abs(a[binm(r)]))) if binm(r).any() else float("nan") for r in dist]
         out.append({"name": nm, "source": REL(path(nm)), "obj": obj, "cycles": ncyc, "npf": npf,
                     "max_abs_mean_u_raw": float(np.abs(mu[m60]).max()),
                     "max_abs_mean_d_raw": float(np.abs(md[m60]).max()),

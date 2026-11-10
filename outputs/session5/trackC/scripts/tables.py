@@ -14,13 +14,21 @@ def md(headers, rows):
     return "\n".join(out)
 
 
+def lifetime_cells(r):
+    T90, Td = r["T_90"], r["T_death"]
+    return [(f(T90) if not isinstance(T90, str) else T90 + " (t=%s)" % f(r["cap_t"])),
+            (f(r["T_90_cycles"]) if r["T_90_cycles"] is not None else "-"),
+            (f(Td) if not isinstance(Td, str) else Td + " (t=%s)" % f(r["cap_t"])),
+            (f(r["T_death_cycles"]) if r["T_death_cycles"] is not None else "-")]
+
+
 def T(x, t_cap=None):
     if isinstance(x, str):
         return x
     return f(x)
 
 
-def tables_md(SUM, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B8, O5, O6, verdicts, c3cases, c5cases):
+def tables_md(SUM, B9, B10, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B8, O5, O6, verdicts, c3cases, c5cases):
     L = []
     add = L.append
     add("# WP-C tables (Track C, string, ceiling trap)\n")
@@ -120,7 +128,23 @@ def tables_md(SUM, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B
                          f(r["twin_frac_ref"]), str(r["trapped_2_1"]), "yes" if r["guard"] else "no"])
     add(md(["medium", "start", "rate late", "cap", "T_90 (t)", "T_90 (cycles)", "T_death (t)", "T_death (cycles)", "T_death co-moving (t)", "frac fixed at cap", "frac co-moving at cap", "frac fixed at 1,000 cycles", "twin frac (same time)", "trapped (2.1)", "guard"], rows))
     add("")
-    ext = [(t, r) for t, r in brows.items()]
+    if B9:
+        add("### C-smooth, the five longest-lived starts extended to 5,000 cycles (B9, h = 1/8)\n")
+        rows = []
+        for r in B9:
+            c = lifetime_cells(r)
+            s_ = r.get("probe_spectrum_split") or {}
+            rows.append([r["name"], f(r["rate_late"]), "%s (%s cycles)" % (f(r["cap_t"]), f(r["cycles_at_end"])), c[0], c[1], c[2], c[3], f(r["frac_fixed_1000cyc"]), f(r["frac_fixed_5000cyc"]), f(r["frac_comoving_5000cyc"]),
+                         f(r["frac_end"]), f(r["twin"]["frac_end"]) if r["twin"] else "-", f(r["L_half_late"]), f(r["rms_late"]), f(r["jump_max_end"]) if "jump_max_end" in r else "-", f(s_.get("power_above")), f(r["absorbed_over_E0"]), "yes" if r["guard"] else "no"])
+        add(md(["run", "rate late", "cap", "T_90 (t)", "T_90 (cycles)", "T_death (t)", "T_death (cycles)", "frac fixed at 1,000 cycles", "at 5,000 cycles", "co-moving at 5,000", "frac at end", "twin frac at end", "L_half late", "rms late", "largest jump (last record)", "far-probe power above rate 1", "absorbed / E0", "guard"], rows))
+        add("")
+    if B10:
+        add("### B10 surroundings of the best-held C-smooth states (time-averaged over the whole run, out to 20 units; h = 1/8)\n")
+        rows = []
+        for r in B10:
+            rows.append([r["name"], f(r["max_abs_mean_u"]), f(r["max_abs_mean_d"]), f(r["max_rms_u"]), " ".join(f(r["rms_u_by_distance"][i]) for i in (0, 1, 2, 5, 10, 15, 20)), " ".join(f(r["abs_mean_d_by_distance"][i]) for i in (0, 1, 2, 5, 10, 15, 20))])
+        add(md(["run", "max abs mean u", "max abs mean stretch", "max rms u", "rms u at distance 0,1,2,5,10,15,20", "abs mean stretch at 0,1,2,5,10,15,20"], rows))
+        add("")
     # ------------------------------------------------------------ (3) verdicts
     add("## (3) Rule-by-rule verdicts\n")
     add("Each row: the measured number beside the rule's threshold and the verdict the rule returns. Misses are listed again, separately, at the end.\n")
@@ -213,11 +237,11 @@ def tables_md(SUM, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B
     rows = []
     for r in A4:
         s = r.get("snapshot") or {}
-        rows.append([r["obj"], r["env"], r["pk"], f(r["L_half_start"]), f(r["frac_fixed_1000cyc"]) if r["frac_fixed_1000cyc"] is not None else "(not reached; end %s)" % f(r["frac_end"]),
-                     f(r["frac_comoving_1000cyc"]) if r["frac_comoving_1000cyc"] is not None else f(r["frac_comoving_end"]), f(r["twin_frac_1000cyc"]) if r["twin_frac_1000cyc"] is not None else f(r["twin_frac_end"]),
+        rows.append([r["obj"], r["env"], r["pk"], f(r["L_half_start"]), "%s (at %s cycles)" % (f(r["frac_ref"]), f(r["cycles_ref"])),
+                     f(r["frac_comoving_ref"]), f(r["twin_frac_ref"]),
                      f(r["rate_early"]), f(r["rate_late"]), f(r["L_half_late"]), s.get("n_lumps", "-"), f(s.get("frac_E_within_W")), f(s.get("frac_E_beyond_3W")),
                      f(r["centroid_shift_end"]), "yes" if r["guard"] else "no"])
-    add(md(["object", "envelope sigma", "peak stretch", "L_half start", "frac fixed (1,000 cyc)", "frac co-moving", "twin frac", "rate early", "rate late", "L_half late", "energy lumps in last snapshot", "E fraction in window", "E fraction beyond 3 W", "centroid shift", "guard"], rows))
+    add(md(["object", "envelope sigma", "peak stretch", "L_half start", "frac fixed (at 1,000 cycles, or at the end of the run if 1,000 were not reached)", "frac co-moving", "twin frac", "rate early", "rate late", "L_half late", "energy lumps in last snapshot", "E fraction in window", "E fraction beyond 3 W", "centroid shift", "guard"], rows))
     add("")
     if A5:
         add("### A5 (C4): S-bend exact start at rate 2.5, 10,000 cycles\n")
@@ -230,9 +254,9 @@ def tables_md(SUM, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B
         rows = []
         for tag in ("closed", "sponge"):
             d = A5[tag]
-            for L, sp in d["far_probe_spectrum"].items():
+            for Lp, sp in d["far_probe_spectrum"].items():
                 for nm, ln in sp["lines"].items():
-                    rows.append([tag, L, nm, f(ln["omega"]), f(ln["amp"]), f(ln["local_floor_median"]), f(ln["amp_over_floor"]), f(d["evanescent_level_exp_minus_kappa_L"].get(L)), f(sp["max_in_propagating_band_omega_lt_2"]), f(sp["u_rms"])])
+                    rows.append([tag, Lp, nm, f(ln["omega"]), f(ln["amp"]), f(ln["local_floor_median"]), f(ln["amp_over_floor"]), f(d["evanescent_level_exp_minus_kappa_L"].get(Lp)), f(sp["max_in_propagating_band_omega_lt_2"]), f(sp["u_rms"])])
         add(md(["run", "probe distance", "line", "omega", "amplitude", "local floor (median, +-0.1 to 0.5)", "amp / floor", "exp(-kappa L)", "max in omega < 2 band", "probe rms"], rows))
         add("")
     add("### A6 push (C5)\n")
@@ -270,8 +294,9 @@ def tables_md(SUM, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B
     for blk in B7:
         add("**%s, %s**\n" % (blk["tag"], blk["h"]))
         rows = [[f(r["lambda"]), f(r["speed"]), f(r["distance"]), f(r["loss_per_distance"]), "yes" if r["broke"] else "no", f(r["frac_comoving_end"]), f(r["twin_frac_end"]), f(r["jump_x_shift"]), f(r["centroid_shift"]), f(r["absorbed_over_E0"]),
-                 ("trip: %s" % r["guard_label"]) if r["guard"] else "-"] for r in blk["rows"]]
-        add(md(["lambda", "speed", "distance", "loss per unit distance", "broke", "co-moving frac end", "twin frac", "shift of the largest jump", "centroid shift", "absorbed / E0", "guard"], rows))
+                 ("trip t=%s: %s" % (f(r.get("guard_t")), r["guard_label"])) if r["guard"] else "-", f(r["unpushed_comoving_frac_at_same_time"]),
+                 (f(r["dt4_rerun_guard_t"]) if r["dt4_rerun_guard_t"] is not None else "no trip") if r["dt4_rerun_exists"] else "-"] for r in blk["rows"]]
+        add(md(["lambda", "speed", "distance", "loss per unit distance", "broke", "co-moving frac end", "twin frac", "shift of the largest jump (distance from centre)", "centroid shift", "absorbed / E0", "guard", "unpushed start: co-moving frac at the same time", "dt/4 rerun (trip time)"], rows))
         add("")
     add("### B8 scheme check: 'spectral' against 'fd' at h = 1/8, 300 cycles\n")
     rows = []

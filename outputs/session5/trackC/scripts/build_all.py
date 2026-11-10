@@ -84,6 +84,22 @@ def main():
                 c, tw = bc[nm]
                 o7.append({"tag": tag, "h": h, "source": lib.REL(lib.path(nm)),
                            "frac_nl": lib.val_at_t(c, "ff", 2000.0), "frac_tw": lib.val_at_t(tw, "ff", 2000.0) if tw else None})
+    B9, B10 = [], []
+    import glob as _g
+    for fn in sorted(_g.glob(os.path.join(lib.RUNS, "B9_*_h8.json"))):
+        nm = os.path.basename(fn)[:-5]
+        if nm.endswith("_twin"):
+            continue
+        row, c, tw = lib.lifetime_row(nm, (1000, 5000))
+        row["probe_spectrum_split"] = AS.probe_split(nm)
+        row["tail_kappa_measured"] = lib.J(nm)["summary"]["tail_kappa_at_late_rate"]
+        row["tail_kappa_O1"] = lib.J(nm)["summary"]["tail_kappa_O1_at_late_rate"]
+        B9.append(row)
+    for nm in ("B4_orbit_sbend_s0.5_pk0.8_h8", "B3_jump_sbend_w1.5_h8", "B3_jump_sbend_w2_h8"):
+        if lib.exists(nm):
+            B10.append(AS.b_surroundings(nm, 20.0))
+    SUM["B9"] = B9
+    SUM["B10"] = B10
     SUM["B_rows"] = brows
     SUM["B_C6"] = c6
     SUM["B_selection"] = sel
@@ -128,7 +144,7 @@ def main():
 
     # ---------------------------------------------------------------- tables
     import tables as TB
-    txt = TB.tables_md(SUM, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B8, O5, O6, verdicts, c3cases, c5cases)
+    txt = TB.tables_md(SUM, B9, B10, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B8, O5, O6, verdicts, c3cases, c5cases)
     open(os.path.join(TC, "TABLES.md"), "w").write(txt)
     json.dump(SUM, open(os.path.join(TC, "summary.json"), "w"), indent=1, default=lambda o: float(o) if isinstance(o, (np.floating, np.integer)) else (bool(o) if isinstance(o, np.bool_) else str(o)))
     # ---------------------------------------------------------------- plots

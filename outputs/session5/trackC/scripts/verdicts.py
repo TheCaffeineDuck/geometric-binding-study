@@ -90,9 +90,18 @@ def c3_cases(A1, A2):
             moves = sh >= 1.0 and cen["fc_min"] >= 0.90
             shifts_half = 0.5 <= sh < 1.0 and cen["fc_min"] >= 0.90
             dies = r["frac_comoving_end"] < 0.50
-            cls = ("unstable and moves" if (unstable and moves) else
-                   ("unstable, shifts to the S-bend position, does not travel (split)" if (unstable and shifts_half) else
-                    ("dies" if dies else "other")))
+            if unstable and moves:
+                cls = "unstable and moves"
+            elif unstable and shifts_half:
+                cls = "unstable, shifts to the S-bend position, does not travel (split)"
+            elif dies:
+                cls = "dies"
+            elif unstable and cen["fc_min"] < 0.90:
+                cls = "other: unstable, sheds energy (co-moving frac falls to %.3f), max shift %.2f" % (cen["fc_min"], sh)
+            elif unstable:
+                cls = "other: unstable, centroid shift under 0.5 (%.2f), co-moving frac stays >= 0.90" % sh
+            else:
+                cls = "other: multiplier %.1e above 1 is below 1e-3 (not 'unstable' by the rule); max shift %.3f" % (fq if fq is not None else float("nan"), sh)
             d.update({"max_shift": sh, "final_shift": cen["final_shift"], "fc_min": cen["fc_min"],
                       "unstable": bool(unstable), "class": cls,
                       "cycles_first_shift_0.5": cen["cycles_first_shift_0.5"],
@@ -133,22 +142,34 @@ def v_C4(a5):
     err = cl["closed_ring_conservation_error"]
     dr_s, dr_c = sp["fixed_window_drift_max"], cl["fixed_window_drift_max"]
     ratio_s, ratio_c = dr_s / err, dr_c / err
-    lines_bad = []
+    lines_bad, ratios_all, ratios_even = [], [], []
+    E0 = None
     for tag in ("closed", "sponge"):
         for L, d in a5[tag]["far_probe_spectrum"].items():
             for nm, ln in d["lines"].items():
-                if nm in ("rate", "3rd harmonic", "5th harmonic") and ln["amp_over_floor"] is not None and ln["amp_over_floor"] > 3:
-                    lines_bad.append("%s L=%s %s: %.3g x floor" % (tag, L, nm, ln["amp_over_floor"]))
+                eq = (ln["omega"] * ln["amp"]) ** 2        # energy-density scale of the line (omega A)^2
+                ratios_all.append((tag, L, nm, ln["amp_over_floor"], eq))
+                if nm in ("2nd harmonic", "4th harmonic"):
+                    ratios_even.append(ln["amp_over_floor"])
+    E0 = a5["E0"]
+    floor_abs = 1e-5 * E0                                   # Block 6: below 1e-5 of E0 is unresolved
+    for tag, L, nm, rr, eq in ratios_all:
+        if nm in ("rate", "3rd harmonic", "5th harmonic") and eq > floor_abs:
+            lines_bad.append("%s L=%s %s: (omega A)^2 = %.3g > 1e-5 E0" % (tag, L, nm, eq))
+    odd = [rr for tag, L, nm, rr, eq in ratios_all if nm in ("rate", "3rd harmonic", "5th harmonic")]
+    maxeq = max(eq for _, _, nm, _, eq in ratios_all if nm in ("rate", "3rd harmonic", "5th harmonic"))
     drift_v = grade(max(ratio_s, ratio_c), 10.0, "le", 3.0)
     spec_v = HIT if not lines_bad else MISS
     v = drift_v if spec_v == HIT else MISS
     srcs = [cl["source"], sp["source"]]
-    meas = ("fixed-window drift over %.0f cycles: closed ring %s, sponge %s; closed-ring conservation error %s; ratios %s (closed), %s (sponge). Far-probe lines above 3x the local floor: %s" % (
+    meas = ("fixed-window drift over %.0f cycles: closed ring %s, sponge %s; closed-ring conservation error %s; ratios %s (closed), %s (sponge). Far-probe lines with (omega A)^2 above 1e-5 E0: %s" % (
         sp["cycles_at_end"], fmt(dr_c), fmt(dr_s), fmt(err), fmt(ratio_c), fmt(ratio_s),
         "; ".join(lines_bad) or "none"))
+    meas += ("; largest (omega A)^2 over the rate and odd overtones %.3g against the Block 6 floor 1e-5 E0 = %.3g; line amplitude over the local spectral floor: rate and odd overtones %.2f to %.2f, symmetry-forbidden even harmonics %.2f to %.2f (so the lines are not distinguishable from the floor); exp(-kappa L) = %.2g at 60 sites" % (
+        maxeq, floor_abs, min(odd), max(odd), min(ratios_even), max(ratios_even), a5["sponge"]["evanescent_level_exp_minus_kappa_L"].get("60.0", float("nan"))))
     return row("C4", "a trapped vibration emits nothing at its rate or overtones; fixed-window energy constant",
                "2.3 C4: drift <= 10 x closed-string conservation error, and no line at the rate or overtones above the leakage floor at a far probe",
-               meas, "ratio <= 10 (<= 30 pass with note); no line > 3x local floor", v,
+               meas, "ratio <= 10 (<= 30 pass with note); (omega A)^2 of every line <= 1e-5 E0 (Block 6 floor)", v,
                "drift ratio verdict %s; spectrum verdict %s" % (drift_v, spec_v), srcs)
 
 
