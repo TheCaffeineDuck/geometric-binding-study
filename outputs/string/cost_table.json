@@ -1,0 +1,180 @@
+{
+ "params": {
+  "kind": "cost",
+  "name": "cost_table",
+  "periods": 20,
+  "cases": [
+   {
+    "medium": "grid",
+    "law": "G1",
+    "N": 400,
+    "dt": 0.01,
+    "start": {
+     "type": "orbit",
+     "obj": "sbend",
+     "omega": 2.5
+    }
+   },
+   {
+    "medium": "fd",
+    "law": "G1",
+    "h": 0.25,
+    "N": 1760,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   },
+   {
+    "medium": "fd",
+    "law": "G1",
+    "h": 0.125,
+    "N": 3520,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   },
+   {
+    "medium": "fd",
+    "law": "G1",
+    "h": 0.0625,
+    "N": 7040,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   },
+   {
+    "medium": "spectral",
+    "law": "G1",
+    "h": 0.125,
+    "N": 3520,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   }
+  ]
+ },
+ "rows": [
+  {
+   "case": {
+    "medium": "grid",
+    "law": "G1",
+    "N": 400,
+    "dt": 0.01,
+    "start": {
+     "type": "orbit",
+     "obj": "sbend",
+     "omega": 2.5
+    }
+   },
+   "omega_nominal": 2.5,
+   "N": 400,
+   "wall_s": 0.04565000534057617,
+   "T": 50.26548245743669,
+   "wall_s_per_1000_cycles": 2.2825002670288086
+  },
+  {
+   "case": {
+    "medium": "fd",
+    "law": "G1",
+    "h": 0.25,
+    "N": 1760,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   },
+   "omega_nominal": 1.1,
+   "N": 1760,
+   "wall_s": 0.608410120010376,
+   "T": 114.23973285781065,
+   "wall_s_per_1000_cycles": 30.4205060005188
+  },
+  {
+   "case": {
+    "medium": "fd",
+    "law": "G1",
+    "h": 0.125,
+    "N": 3520,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   },
+   "omega_nominal": 1.1,
+   "N": 3520,
+   "wall_s": 1.1770730018615723,
+   "T": 114.23973285781065,
+   "wall_s_per_1000_cycles": 58.85365009307861
+  },
+  {
+   "case": {
+    "medium": "fd",
+    "law": "G1",
+    "h": 0.0625,
+    "N": 7040,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   },
+   "omega_nominal": 1.1,
+   "N": 7040,
+   "wall_s": 2.297668218612671,
+   "T": 114.23973285781065,
+   "wall_s_per_1000_cycles": 114.88341093063354
+  },
+  {
+   "case": {
+    "medium": "spectral",
+    "law": "G1",
+    "h": 0.125,
+    "N": 3520,
+    "dt": 0.02,
+    "omega_nominal": 1.1,
+    "start": {
+     "type": "gauss",
+     "obj": "bump",
+     "sigma": 0.5,
+     "peak_stretch": 0.8
+    }
+   },
+   "omega_nominal": 1.1,
+   "N": 3520,
+   "wall_s": 9.612464189529419,
+   "T": 114.23973285781065,
+   "wall_s_per_1000_cycles": 480.62320947647095
+  }
+ ]
+}

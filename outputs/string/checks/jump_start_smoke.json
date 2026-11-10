@@ -1,0 +1,31 @@
+{
+ "frac_end": 0.995950106619983,
+ "rate_zero_crossings_core": 1.0833832718971201,
+ "core_coordinate": "stretch across centre",
+ "tail_kappa_at_nominal_rate": 0.05148843283504122,
+ "tail_kappa_O1": 1.8090680674665818,
+ "guard": null,
+ "jump_max": 0.8252847684227196,
+ "jump_x": -0.375,
+ "stretch_total_variation": 6.156489793611588,
+ "jump_cells": 1,
+ "twin_frac_end": 0.9421688372250675,
+ "start_info": {
+  "omega": 1.2,
+  "A_star": 0.3932829162056056,
+  "A_z": 0.6255414207622166,
+  "a_top": 0.7038447841790012,
+  "kappa": 1.8090680674665818,
+  "exists": true,
+  "a_s": 0.6931203134213602,
+  "a_out": -0.364101925646794,
+  "x_s": 0.22512809820037438,
+  "x_top": 0.0,
+  "jump_outer": 1.057222239068154,
+  "jump_centre": 0.0,
+  "x_s_requested": 0.25,
+  "x_s_note": "requested x_s not reached; widest profile of the family used",
+  "plateau_cells": 3.60204957120599,
+  "net_stretch_removed": 0.05284908724177641
+ }
+}

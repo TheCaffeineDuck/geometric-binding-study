@@ -1,0 +1,26 @@
+{
+ "rows": [
+  {
+   "omega": 10.0,
+   "max_multiplier": 2.5213782663749393,
+   "growth_over_angular_freq": 0.14718739586678303,
+   "growth_over_ordinary_freq": 0.9248056831121965,
+   "parity": "antisymmetric"
+  },
+  {
+   "omega": 20.0,
+   "max_multiplier": 2.617797885952927,
+   "growth_over_angular_freq": 0.15316012750876926,
+   "growth_over_ordinary_freq": 0.9623334628088509,
+   "parity": "antisymmetric"
+  },
+  {
+   "omega": 40.0,
+   "max_multiplier": 2.642355535368401,
+   "growth_over_angular_freq": 0.15464620571936438,
+   "growth_over_ordinary_freq": 0.971670767586982,
+   "parity": "antisymmetric"
+  }
+ ],
+ "sps_abstract": 0.15
+}

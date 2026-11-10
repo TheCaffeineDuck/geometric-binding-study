@@ -1,0 +1,47 @@
+{
+ "h": 0.25,
+ "law": "G1",
+ "obj": "sbend",
+ "sigma": 0.5,
+ "peak_stretch_guess": 0.8,
+ "omega": 1.4231176713825293,
+ "N": 64,
+ "L": 16.0,
+ "nq": 55,
+ "newton": {
+  "converged": true,
+  "iterations": 5,
+  "residual": 1.4467593789646571e-15,
+  "residuals": [
+   0.08352102675631086,
+   0.02015366158340569,
+   0.0031038031531857215,
+   4.239290183613142e-05,
+   1.0470812843513255e-08,
+   1.4467593789646571e-15
+  ]
+ },
+ "jacobian_sv_min_over_max": 0.06613730406563977,
+ "E": 0.365008777230137,
+ "E_per_cycle": 1.6115447318252858,
+ "peak_stretch": 0.8573891435978614,
+ "peak_displacement": 0.21434728589946533,
+ "L_half": 0.1736479879857939,
+ "rms_width": 0.33176245201859184,
+ "centroid": -1.426412931094395e-09,
+ "nonlinear_share": 0.11350784574693565,
+ "period_return_error": 5.412337245047638e-15,
+ "tail_kappa_measured": 1.4005238959244763,
+ "tail_kappa_envelope": 1.3210559551868855,
+ "tail_kappa_O1": 1.405474521523777,
+ "floquet_max_modulus": 1.0089932964628068,
+ "floquet_max": [
+  -0.5380887173702652,
+  0.8535385196613592
+ ],
+ "floquet_unstable_mode_parity": "symmetric",
+ "floquet_parity_ratio": 9.47210376932979e-15,
+ "floquet_n_outside_1e-6": 2,
+ "floquet_max_modulus_excl_4_at_1": 1.0089932964628068,
+ "floquet_4_nearest_1_max_dev": 6.372474536712131e-07
+}

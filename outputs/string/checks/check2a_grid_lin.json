@@ -1,0 +1,6 @@
+{
+ "medium": "grid",
+ "law": "lin",
+ "max_ratio_dEdt_over_power": 3.711970146393218e-15,
+ "target": 1e-12
+}
