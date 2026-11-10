@@ -122,3 +122,13 @@ Source: reviewer, `scratchpad/reviewer_S5_derivation/derivation.md` (equations d
 - The plan's g4 and g6 are the Session 1 constants divided by 6 and 120 (0.05 and 0.001); beta = 4/3 is the Session 1 label.
 - The truncation of R at X^2 has the opposite sign to the term retired on 2026-10-01; it fails for its own reason (hyperbolicity lost for static S of 2/3 and above). The full root is used, as planned.
 - Equation R limits X, not stretch; G1 limits stretch, not speed (the long-wave speed in a stretched string exceeds 1). Both are stated in the report's limits.
+
+## Block 5. Addendum after the Track C literature brief. Written 2026-11-10, before any production run
+
+Source: `docs/PRIOR_ART.md`, "Session 5 brief, Track C", and `docs/S5_SPS1992_PARAMS.md`.
+
+- **The regression target is weaker than the plan assumed.** The full text of Sandusky, Page and Schmidt 1992 was not obtained. The abstract gives the patterns, "odd unstable, even stable", "more than 32 000 mode oscillations" for the even mode, and "moves instead of dying". It does not give the lattice constants, amplitude, chain length or start of that run. The regression is therefore run on a setup that was read in full (Flach and Gorbach 2005: quadratic and quartic constants 1, rate 4.5, 80 sites, open ends) and scored against the abstract's statements. This is a deviation from "at the published value of beta", recorded here and in the report.
+- **"Unstable and moves" (rule 2.3) kept as written, with one reading added before the data:** the literature reports that a perturbed single bump can settle into oscillating about the S-bend position half a site away. A centroid shift between 0.5 and 1 grid unit that does not grow is reported as "unstable, shifts to the S-bend position, does not travel" and scored as a split, not a hit.
+- **C5's rule (loss per distance never decreases with speed) has no source;** exact moving breathers are reported to have resonance peaks. The rule stays as written. A non-monotone curve is a miss of my rule and is reported with the curve.
+- **Aaron's "narrow window":** the literature expects breathers at every rate above the band in the quartic chain, and for G1 the rate has no upper edge (it grows without bound as the stretch nears 1). The expected outcome under rule 2.5 is "not narrow in rate". The length range is still to be measured.
+- **C6 premise corrected:** published existence results rely on a bounded linear spectrum, not on a grid as such. C-smooth has a bounded spectrum and lies outside the class covered by the continuum non-existence theorems. No published breather and no published obstruction were found for it.
