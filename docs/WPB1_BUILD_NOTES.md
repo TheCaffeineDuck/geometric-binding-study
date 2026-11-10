@@ -30,7 +30,32 @@ Fourth-order Yoshida triple jump of velocity Verlet (w1 = 1/(2 - 2^(1/3)), w0 = 
 
 ## 4. Absorber (calibrated)
 
-Ring of length L; sponge sigma(x) = sigma_max ((|x| - x_s)/L_s)^2 on |x| > x_s = L/2 - L_s, the two ends meeting inside it. Default L_s = 100, sigma_max = 0.3.
+Ring of length L; sponge sigma(x) = sigma_max ((|x| - x_s)/L_s)^2 on |x| > x_s = L/2 - L_s, the two ends meeting inside it. **Production default (revised after review): L_s = 300, sigma_max = 0.05** (`SPONGE_LEN`, `SPONGE_SIGMA` in `driver.py`; was 100 / 0.3).
+
+Why it was revised: reflection at the onset of the ramp scales with its curvature 2 sigma_max / L_s^2. The test is a grid band-edge packet (k = 0.9 pi, group velocity 0.156) moving into the sponge, comparing the interior energy of a string and one twice as long (test in check 4). Reflected fraction:
+
+| L_s / sigma_max | Reflected fraction |
+|---|---|
+| 100 / 0.3 (old) | 3.5e-4 |
+| 200 / 0.1 | 2.7e-5 |
+| 200 / 0.05 | 1.4e-5 |
+| 300 / 0.1 | 1.2e-5 |
+| 300 / 0.05 (chosen) | 6.0e-6 |
+| 400 / 0.05 | 3.4e-6 |
+
+The reviewer measured 8.4e-4 for the old sponge with a different construction. Long waves still lose e^-20 of their energy on one traverse of the new sponge (exp(-2 int sigma dx), int over 2 L_s = 2 sigma_max L_s / 3 = 10). Cost: the ring is 600 units longer, and every step with damping now does 4 force evaluations instead of 3 (see below). The driver refuses a job whose interior half-length L/2 - L_s is below max(W, profile_range).
+
+**Stale acceleration (fixed after review).** The damping half-step changes d, so the carried (FSAL) acceleration must be recomputed after it. Without the recomputation the energy balance in the sponge was first order in dt. Balance |E + absorbed - E0| / E0 for fully absorbed runs at dt = 0.02:
+
+| Run | Before | After |
+|---|---|---|
+| Grid, reviewer's measurement | 2.65e-4 | — |
+| fd linear (my check-5 runs) | 2.0e-5 | 1.7e-10 |
+| fd G1 (my check-5 runs) | 8.1e-6 | 4.7e-10 |
+| Grid linear | — | 2.6e-10 |
+| Grid G1 | — | 9.8e-9 |
+
+The statement below about a splitting error of about (sigma dt)^2 is withdrawn: that error was this bug.
 
 **Matched (distortionless) sponge.** The first version damped the velocity only. It failed check 4 on the interior field: difference-field energy 4.5e-6 of E0 against the 1e-6 target, at any sponge length tried up to 400. Cause (derived and confirmed): waves with omega below about (sigma_max / L_s^2)^(1/3) (about 0.01, wavelengths longer than the sponge) are reflected by a velocity-only damper, whose impedance at low frequency is sqrt(1 + i sigma/omega). Fix: carry the stretch d as its own variable and damp velocity and stretch at the same rate:
 M v_t = force - B v, d_t = (stretch of v) - sigma d, B = sigma + D^T sigma D ('fd', spectral; diagonal sigma on the grid).
@@ -44,11 +69,11 @@ For the long-wave limit (v_t = d_x, d_t = v_x) equal damping of both fields is H
 
 ## 5. Guard (check 6)
 
-Every force evaluation (each of the 3 stages of every step) checks |d| < 1 (and not NaN) on every bond. On failure the step is undone and `GuardTrip` carries the time, the stage, the bond and its position, the stretch, the energy and absorbed energy of the last good state, and that state (u, v, d). The driver writes the state to `checkpoints/string/<name>_guard_state.npz` and puts the diagnosis in the result JSON. Nothing is clipped. In the exact dynamics G1 cannot reach |d| = 1 at finite energy on the grid. A trip there is therefore an integration statement: either the energy forces 1 - d^2 below double precision (the test start: energy 25 in one bond, 1 - d^2 >= 2e-22), or dt is too large for the local stiffness.
+Every force evaluation (each of the 3 stages of every step) checks |d| < 1 (and not NaN) on every bond. On failure the step is undone and `GuardTrip` carries the time, the stage, the bond and its position, the stretch, the energy and absorbed energy of the last good state, and that state (u, v, d). The driver writes the state to `checkpoints/string/<name>_guard_state.npz` and puts the diagnosis in the result JSON. After review: the driver also reruns the last stretch automatically, from the state at the start of the sample chunk in which the guard tripped, at dt/2 up to t_fail + max(10 dt, 1). It records the new trip time. A trip that disappears or moves by more than dt is labelled "numerical (moves with dt)"; otherwise "persists at dt/2". Nothing is clipped. In the exact dynamics G1 cannot reach |d| = 1 at finite energy on the grid. A trip there is therefore an integration statement: either the energy forces 1 - d^2 below double precision (the test start: energy 25 in one bond, 1 - d^2 >= 2e-22), or dt is too large for the local stiffness.
 
 ## 6. Exact periodic states and Floquet multipliers (tools a and b)
 
-Unknowns u(0) with v(0) = 0. Equations: u(T/4) = 0 at every point. Derived: F odd and the scheme time-reversible give u(-t) = u(t) and u(T/4 + s) = -u(T/4 - s), hence u(t + T/2) = -u(t) and period T. The quarter-period map is integrated by the same Yoshida scheme with T = 4 nq dt, so the state is an exact periodic orbit of the discrete map, O(dt^4) from the flow's orbit. Newton uses the exact tangent map (dense) with step halving. The uniform shift is not a null direction (it survives to T/4), so no pinning is needed on the ring. Floquet: the monodromy of the discrete map over one period, 2N x 2N, symplectic by construction. Two exact symmetries (time shift; uniform shift on a ring) put two Jordan pairs at +1, split by round-off to about sqrt(eps |M|) (up to 1e-5 at peak stretch above 0.98). So the result also reports the largest modulus excluding the four multipliers nearest +1, and the parity of the leading eigenvector under the reflection about the object's centre. Family continuation in rate uses a secant predictor and an adaptive step. Each point reports rate, peak stretch, peak displacement, E, E per cycle 2 pi E / rate, L_half and rms width of the cycle-averaged energy, the nonlinear share (cycle average of (E - E_quadratic)/E), and the tail decay rate fitted to the component at the rate (Block 4 item 5), beside O1 and the envelope fit. It also reports the period-return error, the Floquet numbers, and the profile.
+Unknowns u(0) with v(0) = 0. Equations: u(T/4) = 0 at every point. Derived: F odd and the scheme time-reversible give u(-t) = u(t) and u(T/4 + s) = -u(T/4 - s), hence u(t + T/2) = -u(t) and period T. The quarter-period map is integrated by the same Yoshida scheme with T = 4 nq dt, so the state is an exact periodic orbit of the discrete map, O(dt^4) from the flow's orbit. Newton uses the exact tangent map (dense) with step halving. The uniform shift is not a null direction (it survives to T/4), so no pinning is needed on the ring. Floquet: the monodromy of the discrete map over one period, 2N x 2N, symplectic by construction. Two exact symmetries (time shift; uniform shift on a ring) put two Jordan pairs at +1, split by round-off to about sqrt(eps |M|) (up to 1e-5 at peak stretch above 0.98). So the result reports the raw largest modulus, the largest modulus excluding the four multipliers nearest +1, the distances from 1 of those four, and the distance from 1 of the nearest kept multiplier, so that a genuine multiplier within 3e-6 of 1 stays visible. It also reports the parity of the leading eigenvector under the reflection about the object's centre. Family continuation in rate uses a secant predictor and an adaptive step. Each point reports rate, peak stretch, peak displacement, E, E per cycle 2 pi E / rate, L_half and rms width of the cycle-averaged energy, the nonlinear share (cycle average of (E - E_quadratic)/E), and the tail decay rate fitted to the component at the rate (Block 4 item 5), beside O1 and the envelope fit. It also reports the period-return error, the Floquet numbers, and the profile.
 
 Tool b runs the same Newton on 'fd' at spacing h from a Gaussian guess at the O4 lone-oscillator rate (or a given rate). It reports what happens: convergence, the residual history, and for a converged state the diagnostics above plus the conditioning of the quarter-map Jacobian (sigma_min/sigma_max; near zero means the state is not isolated).
 
@@ -94,9 +119,24 @@ Constructed by quadrature in `swirl/string/jump.py`, with a series for Phi below
 - **Run-level outputs.** Time-averaged displacement, stretch and rms displacement against distance, and the amplitude of u at the nominal rate against distance with its tail fit inside the window. Probe series (u at chosen distances, the core coordinates) go to `<name>_series.npz`. Optional field snapshots go to `checkpoints/string/` (not committed).
 - **Push.** v = -lambda du/dx at a turning point (u_t = -c u_x for rigid motion, so lambda is a nominal speed). Reported: the measured speed (centroid fit after the first 10% of the run), the energy lost per unit distance from the co-moving window, whether it broke (co-moving frac < 0.5), and frac when it crosses dist_target. Measured speeds are 3 to 6% of lambda (the kick projects weakly on translation).
 
+**Changes after review (2026-11-10), in the driver and diag:**
+- **Rates and cycles.** rate_early and rate_late are the medians of the records' zero-crossing rates over the first and last 10% of records. The probe-window rates (the first probe_max samples, a transient) are renamed `*_first_window`. cycles_at_end, T_90_cycles and T_death_cycles integrate the record rates over time.
+- **Tail fit.** The component of u is taken over the last 20% of the run (`tail_fit_from` = 0.8), Hann-tapered, at a bank of 81 rates within +-10% of the record rate at the start of that interval. The bank rate nearest the rate measured over the interval is fitted. Outputs: `tail_kappa_at_late_rate`, `tail_kappa_O1_at_late_rate`, `tail_fit_rate`, and the profile `amp_u_at_late_rate`.
+  - Asserted: trapped grid S-bend at rate 2.5, -1.9e-5 against O1.
+  - Asserted: exact C-smooth S-bend (h = 1/8, rate 1.423), -1.3e-3 against O1.
+  - Reported: the held jump state from rate 1.2. Its rate drifts from 1.16 to 1.07, and its component at the late rate falls like O1 (kappa about 2.8) only from x = 1 to 1.5, then levels to a floor. Fitted kappa 0.61 against O1 2.85.
+- **T_death baseline.** Interpolated at t = 50.
+- **Wavenumbers.** `k_first_moment_stretch` and `k_rms_stretch` replace `k_mean_stretch`, which was the rms.
+- **Defaults and refusals.**
+  - Every start gets seeded noise 1e-8 (seed 0) unless start.noise = 0; the amplitude and seed are in start_info.
+  - Push jobs run the twin by default.
+  - A G2 job without beta is an error.
+  - The interior-length refusal above.
+- **New start type.** "smooth_orbit": an exact 'fd' state from tool b, embedded in the long ring.
+
 ## 10. Checks: measured against target
 
-Full run: `pytest tests/string -q`: 57 passed in 233 s (the slow tests are in that time: check 3, 4 runs of about 26 s each plus a 4 s diagnostic; the spectral closed-ring energy runs, about 17 s each). Every measured value is also in `outputs/string/checks/`.
+Full run after review: `pytest tests/string -q`: 67 passed in 512 s (first run: 57 passed in 233 s) (the slow tests are in that time: check 3, 4 runs of about 26 s each plus a 4 s diagnostic; the spectral closed-ring energy runs, about 17 s each). Every measured value is also in `outputs/string/checks/`.
 
 | Check | Target | Measured (worst over the record) | Verdict |
 |---|---|---|---|
@@ -107,22 +147,26 @@ Full run: `pytest tests/string -q`: 57 passed in 233 s (the slow tests are in th
 | 2b. Order | dt^4 | ratio dt : dt/2 = 16.0 in all 9 cases; no drift (first and last 10% of run equal) | hit |
 | 3. S-bend, exact start, Flach-Gorbach setup (G2 beta 1, Omega 4.5) | multiplier within 1e-6 of 1; amp, centre 1%, frac >= 0.99 at 32,000 cycles | multiplier 1 + 8e-15; amp -1.7e-5; centre drift 5e-10 sites; frac 0.99999988 at 31,995 cycles | hit |
 | 3. S-bend, rotating-wave start (as in the SPS abstract) | same | frac 0.9971 (vs t = 0), 0.9984 (vs 100 cycles); centre 1.3e-9; amp -2.9% vs 100 cycles (relaxes from 1.5986 toward the exact state's 1.5435) | miss on amp (1% rule); rest hit |
-| 3. Bump, exact start | multiplier > 1 + 1e-3; leaves site by >= 1 with co-moving frac >= 0.9 | multiplier 2.062, antisymmetric; centroid moves 0 -> 0.5 within the first 50 cycles and stays at 0.50 +- 0.02 to 32,085 cycles (converted to an S-bend half a site over); max distance 0.52; co-moving frac >= 0.998 | unstable: hit; moves >= 1 site: miss (Block 5 reading: shifts 0.5 toward the S-bend position and stays) |
-| 3. Bump, rotating-wave start | same | same picture: 0.265 -> 0.50, max distance 0.52 | same |
-| 3. Bump, exact, Omega = 2.3 (diagnostic) | as above | multiplier 1.073; centroid hops 0 <-> 1 repeatedly over 3,000 cycles (max distance 0.99999993), frac 1.000; a 400-site ring with another noise draw reached 4 sites | moves 1 site: miss by 7e-8; travel is marginal |
+| 3. Bump, exact start | multiplier > 1 + 1e-3; leaves site by >= 1 with co-moving frac >= 0.9 | multiplier 2.062, antisymmetric; centroid moves 0 -> -0.5 within the first 50 cycles and stays at -0.50 +- 0.01 to 32,112 cycles (converted to an S-bend half a site over); max distance 0.52; co-moving frac >= 0.998 (first run: +0.5, 0.52) | unstable: hit; moves >= 1 site: miss (Block 5 reading: shifts 0.5 toward the S-bend position and stays) |
+| 3. Bump, rotating-wave start | same | after review (700-site ring, production sponge): leaves its site by 1 at cycle 97, settles at -2.50 (an S-bend position 2.5 sites away) and stays to 32,019 cycles; co-moving frac >= 0.997. First run (300-site ring, old sponge): 0.265 -> 0.50, max distance 0.52 | moves: hit now, miss before; the outcome depends on the perturbation |
+| 3. Bump, exact, Omega = 2.3 (report) | as above | multiplier 1.073; on the 700- and 800-site rings the centroid hops 0 <-> -1 repeatedly over 3,000 cycles (max distance 0.9999992 and 0.9999995), frac 1.000; on the 400-site ring with sponge 100 / 0.3 (saved as data) it travels steadily to 7 sites, passing 1 site at cycle 501, frac 1.000 | moves 1 site: miss on two rings, hit on the third; whether it travels depends on the perturbation |
 | 3. Pure-quartic growth rate (report) | SPS 0.15 | angular reading 0.147 / 0.153 / 0.155 at Omega 10 / 20 / 40; ordinary reading 0.925 / 0.962 / 0.972 | angular reading agrees within 3% |
-| 4. Window energy, string vs twice as long | 1e-6 E0 | 5.2e-8 (grid G1) worst; linear 1e-11 to 1e-9 | hit |
-| 4. Interior difference-field energy | 1e-6 E0 | 3.7e-7 (grid G1) worst | hit |
+| 4. Window energy, string vs twice as long | 1e-6 E0 | after review (sponge 300 / 0.05, acceleration fix): 1.2e-9 (grid G1) worst; linear 1.5e-17 to 2.2e-13. Before: 5.2e-8 | hit |
+| 4. Interior difference-field energy | 1e-6 E0 | after review: 6.4e-11 (grid G1) worst. Before: 3.7e-7 | hit |
+| 4. Absorbing case (C-smooth G1, sigma 1.5, replaces sigma 0.5 where only 6% was absorbed) | absorbed >= 0.5; 1e-6 | absorbed 0.566; window 3.7e-10; field 5.4e-14 | hit |
+| 4. Band-edge packet, grid k = 0.9 pi, reflected fraction | 1e-5 | 6.0e-6 (production 300 / 0.05); old 100 / 0.3: 3.5e-4 | hit |
+| 4. Energy balance, fully absorbed, dt 0.02 | 1e-6 | 9.8e-9 (grid G1) worst; 1.7e-10 to 4.9e-10 otherwise. Before the fix: 2.65e-4 grid (reviewer), 2.0e-5 fd | hit |
+| 4. Energy never rises under damping | <= symplectic error | largest rise between records 3.4e-9 E0; damping increments >= -1.5e-15 E0 (round-off) | hit |
 | 5. fd linear, h = 1/4, 1/8, 1/16 | convergence | pointwise order 2.04 / 2.03 / 2.03 / 2.02 at t = 50 / 100 / 200 / 300; frac order 3.5 to 4.3; rate order 2.07 | hit |
 | 5. fd G1, sigma 0.5, peak stretch 0.8 | report | frac order 3.0 (t = 100), 2.4 (200), 2.05 (300; values 0.698 / 0.782 / 0.802); pointwise order 1.63 (t = 50), 1.11 (100), 0.06 (200), 0.55 (300): no convergence after t ~ 100; rates show no order (0.965 / 0.971 / 0.949); mean stretch wavenumber 8.7 / 11.6 / 21.7 grows like 1/h | no order for pointwise and rate: stated plainly |
-| 6. Guard | trips with diagnosis | start at d = 1.05 trips at t = 0; dynamic trips in grid, fd, spectral; state left at last good (max d 0.992 / 0.840 / 0.909); no false trip on an exact S-bend at peak stretch 0.935 over 50 periods | hit |
+| 6. Guard | trips with diagnosis | start at d = 1.05 trips at t = 0; dynamic trips in grid, fd, spectral; state left at last good (max d 0.992 / 0.840 / 0.909); no false trip on an exact S-bend at peak stretch 0.935 over 50 periods; driver rerun at dt/2 trips at the same time (shift 0, "persists at dt/2") for the energy-800 start | hit |
 
 The worst values over the record: check 1, 1.9e-9; check 2a, 7.8e-15; check 2b, 3.6e-9; check 4, 3.7e-7.
 
 Numbers that miss their target or rule:
 - (a) rotating-wave S-bend start, amplitude rule 1%: 2.9%;
-- (b) bump "moves >= 1 site" at Omega = 4.5: 0.52;
-- (c) the same rule at Omega = 2.3: 0.99999993 (it hops 0 <-> 1);
+- (b) bump "moves >= 1 site" at Omega = 4.5 from the exact start: 0.52. After review the rotating-wave start meets it (2.52 sites), where the first run did not (0.52);
+- (c) the same rule at Omega = 2.3: 0.9999995 (it hops 0 <-> -1);
 - (d) check 5 G1 pointwise convergence after t ~ 100: none.
 
 (a) is the start's distance from the exact state, which it sheds; (b) and (c) are physics, reported as Block 5 asks; (d) is the expected outcome of the phase-mixing picture (O5) and the jump structure (O10).
@@ -144,13 +188,14 @@ Numbers that miss their target or rule:
 
   | Run | Wall time per 1,000 cycles |
   |---|---|
-  | C-grid G1 S-bend, N = 400, dt 0.01, rate 2.5 | 2.3 s |
-  | fd G1, L = 440, dt 0.02, rate taken 1.1, h = 1/4 | 30 s |
-  | fd, same, h = 1/8 | 59 s |
-  | fd, same, h = 1/16 | 115 s |
-  | spectral, same, h = 1/8 | 481 s |
+  | C-grid G1 S-bend, N = 800 (interior 100 + sponge 300 each side), dt 0.01, rate 2.5 | 5.9 s |
+  | fd G1, L = 840 (interior 120), dt 0.02, rate taken 1.1, h = 1/4 | 89 s |
+  | fd, same, h = 1/8 | 175 s |
+  | fd, same, h = 1/16 | 345 s |
+  | spectral, same, h = 1/8 | 1,138 s |
 
-  Cost scales with N and with 1/dt; dt is set by the peak stretch, not by h.
+  These are after review. The first table (old sponge, 3 force evaluations per step) read 2.3 / 30 / 59 / 115 / 481 s. Measured while a second process ran. Cost scales with N and with 1/dt; dt is set by the peak stretch, not by h.
+- **Floquet near the band top (after review).** At rate 2.01 both families have, besides the 4 symmetry multipliers (distances 3e-11 to 2.8e-6 from 1), a pair at phase +-3.2e-6 rad on the unit circle (|lambda| - 1 = 2e-15). That is a very slow internal mode, now visible as intended (`floquet_nearest_kept_dist_from_1`). It is not an instability. Family numbers are otherwise unchanged (no sponge in the orbit solver).
 
 ## 11. How to run
 

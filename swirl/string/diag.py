@@ -4,17 +4,16 @@ import numpy as np
 
 
 def t90_tdeath(t, frac, Ewin):
-    """T_90: first record time with frac < 0.90. T_death: first record time with window energy
-    below half its value at t = 50 (the record whose span contains t = 50). None if never."""
+    """T_90: first record time with frac < 0.90. T_death: first record time after t = 50 with
+    window energy below half its value at t = 50 (interpolated between record mid-times).
+    None if never."""
     t = np.asarray(t)
     frac = np.asarray(frac)
     Ewin = np.asarray(Ewin)
     i90 = np.where(frac < 0.90)[0]
     T90 = float(t[i90[0]]) if i90.size else None
-    i50 = int(np.searchsorted(t, 50.0))
-    i50 = min(i50, len(t) - 1)
-    idd = np.where(Ewin < 0.5 * Ewin[i50])[0]
-    idd = idd[idd > i50]
+    E50 = float(np.interp(50.0, t, Ewin))
+    idd = np.where((Ewin < 0.5 * E50) & (t > 50.0))[0]
     Td = float(t[idd[0]]) if idd.size else None
     return T90, Td
 
@@ -96,9 +95,31 @@ def tail_kappa(dist, amp, rmin, omega, medium, rmax=np.inf):
     return float(-p[0]), o1
 
 
-def mean_wavenumber(S, d, mask):
-    """rms wavenumber of the stretch on the window (Hann-tapered)."""
+def wavenumber_moments(S, d, mask):
+    """First-moment mean and rms wavenumber of the stretch on the window (Hann-tapered power)."""
     w = d[mask] * np.hanning(int(mask.sum()))
     W = np.abs(np.fft.rfft(w)) ** 2
     k = 2 * np.pi * np.fft.rfftfreq(w.size, d=S.h)
-    return float(np.sqrt(np.sum(k * k * W) / max(np.sum(W), 1e-300)))
+    s = max(np.sum(W), 1e-300)
+    return float(np.sum(k * W) / s), float(np.sqrt(np.sum(k * k * W) / s))
+
+
+def cycles(t_end, rates, rate_fill):
+    """Cycle count at each record end: the integral of the record rates over time. Records without a
+    rate take the nearest measured one (rate_fill if none was measured)."""
+    r = np.asarray(rates, dtype=float).copy()
+    ok = np.isfinite(r)
+    if not ok.any():
+        r[:] = rate_fill
+    else:
+        idx = np.arange(r.size)
+        r = np.interp(idx, idx[ok], r[ok])
+    dt = np.diff(np.concatenate([[0.0], np.asarray(t_end, dtype=float)]))
+    return np.cumsum(r * dt) / (2 * np.pi)
+
+
+def at_time(T, t_end, cyc):
+    """Cycle count at time T (None passes through)."""
+    if T is None:
+        return None
+    return float(np.interp(T, np.concatenate([[0.0], t_end]), np.concatenate([[0.0], cyc])))

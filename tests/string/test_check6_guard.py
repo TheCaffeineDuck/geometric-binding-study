@@ -67,7 +67,7 @@ def test_guard_trips_dynamically(medium, h, record):
 
 def test_guard_driver_stops_with_diagnosis(tmp_path):
     cfg = {"kind": "evolve", "name": "_test_guard", "medium": "grid", "law": "G1", "N": 64,
-           "sponge_len": 0.0, "dt": 0.002, "T": 50.0, "start": {"type": "gauss", "obj": "bump", "sigma": 2.0,
+           "sponge_len": 0.0, "profile_range": 20.0, "dt": 0.002, "T": 50.0, "start": {"type": "gauss", "obj": "bump", "sigma": 2.0,
                                              "peak_stretch": 0.3}, "twin": False}
     # replace the start velocity by the dynamic trip: patch through a push of huge speed
     cfg["push"] = {"lambda": 60.0}
@@ -75,6 +75,8 @@ def test_guard_driver_stops_with_diagnosis(tmp_path):
     g = r["summary"]["guard"]
     print("\ncheck6 driver: guard diagnosis %s" % g)
     assert g is not None and abs(g["stretch"]) >= 1.0
+    rr = g["rerun_half_dt"]
+    assert rr["label"].startswith("numerical") or rr["label"].startswith("persists")
     assert os.path.exists(os.path.join(DR.CKPT, "_test_guard_guard_state.npz"))
     for f in ("_test_guard.json", "_test_guard_series.npz"):
         os.remove(os.path.join(DR.OUT, f))

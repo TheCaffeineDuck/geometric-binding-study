@@ -1,13 +1,13 @@
 {
- "window_max_rel": 5.2086255494820494e-08,
- "t_at_max": 240.0,
- "field_energy_max_rel": 3.7089316494533673e-07,
+ "window_max_rel": 1.1510014634123692e-09,
+ "t_at_max": 245.0,
+ "field_energy_max_rel": 6.435363351502952e-11,
  "T_window": 245.03717845161657,
  "T_field": 198.11516555662615,
  "A_echo_time": 126.22295866488648,
  "c_max": 1.8221724671391568,
- "absorbed_frac": 0.9995313663267344,
- "Ls": 100.0,
- "sigma_max": 0.3,
+ "absorbed_frac": 0.9996825472257728,
+ "Ls": 300.0,
+ "sigma_max": 0.05,
  "target": 1e-06
 }

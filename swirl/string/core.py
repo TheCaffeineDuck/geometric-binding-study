@@ -211,6 +211,9 @@ def _advance(u, v, dd, a, Fb, nsteps, dt, W, law, beta, invh, h, smooth,
         if damping:
             ab += _damp(v, dd, smooth, h, law, beta, gfac, bidx, bfac, plo, pcp, pdinv, pz, psc,
                         qlo, qdi, qup, work)
+            # the damping step changed d: the carried (FSAL) acceleration is stale; without this
+            # recomputation the energy balance in the sponge is first order in dt
+            _acc(dd, law, beta, invh, smooth, mlo, mcp, mdinv, mz, msc, Fb, a)
         for s in range(3):
             c = W[s] * dt
             for i in range(N):
@@ -394,7 +397,10 @@ class String:
     def _advance_spec(self, dt, n):
         for k in range(int(n)):
             u0, v0, d0, a0 = self.u.copy(), self.v.copy(), self.dd.copy(), self.a.copy()
-            ab = self._damp_spec(0.5 * dt) if self.damping else 0.0
+            ab = 0.0
+            if self.damping:
+                ab = self._damp_spec(0.5 * dt)
+                self._accel_now()                 # d changed: refresh the carried acceleration
             for s in range(3):
                 c = YOSHIDA[s] * dt
                 self.v = self.v + 0.5 * c * self.a

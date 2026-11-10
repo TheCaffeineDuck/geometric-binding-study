@@ -43,5 +43,16 @@
  "floquet_parity_ratio": 9.47210376932979e-15,
  "floquet_n_outside_1e-6": 2,
  "floquet_max_modulus_excl_4_at_1": 1.0089932964628068,
- "floquet_4_nearest_1_max_dev": 6.372474536712131e-07
+ "floquet_excluded_dists_from_1": [
+  1.9206858326015208e-13,
+  1.9251267247000214e-13,
+  6.372474536712131e-07,
+  6.372474536712131e-07
+ ],
+ "floquet_4_nearest_1_max_dev": 6.372474536712131e-07,
+ "floquet_nearest_kept_dist_from_1": 1.4444326654829553,
+ "floquet_nearest_kept": [
+  -0.0431928625570978,
+  -0.9990667528369279
+ ]
 }

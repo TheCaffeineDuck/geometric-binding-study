@@ -40,7 +40,7 @@ def _runs(law):
     for h in HS:
         name = "check5_fd_%s_h%g" % (law, h)
         cfg = {"kind": "evolve", "name": name, "medium": "fd", "law": law, "h": h,
-               "N": int(round(320 / h)), "sponge_len": 100.0, "sigma_max": 0.3, "dt": 0.02,
+               "N": int(round(720 / h)), "profile_range": 50.0, "dt": 0.02,
                "T": 300.0, "sample_dt": 0.1, "record_periods": 1, "W": 10.0,
                "start": {"type": "gauss", "obj": "bump", "sigma": 0.5, "A": A}, "twin": False,
                "snap_times": list(SNAPS), "probe_max": 4096}
@@ -70,10 +70,14 @@ def test_spacing(law, record):
         fr = np.array([x["E_fixed"] for x in recs]) / r["summary"]["E_fixed0"]
         q[h] = {"frac_t100": float(np.interp(100, t, fr)), "frac_t200": float(np.interp(200, t, fr)),
                 "frac_t300": float(fr[-1]),
-                "rate_core": r["summary"]["rate_zero_crossings_core"],
-                "rate_peak_stretch": r["summary"]["rate_zero_crossings_peak_stretch"],
+                # the probe window (first 65,536 samples) covers the whole 300-unit run here
+                "rate_core_whole_run": r["summary"]["rate_zero_crossings_core_first_window"],
+                "rate_peak_stretch_whole_run":
+                    r["summary"]["rate_zero_crossings_peak_stretch_first_window"],
+                "rate_early": r["summary"]["rate_early"], "rate_late": r["summary"]["rate_late"],
                 "L_half_end": recs[-1]["L_half_window"], "rms_width_end": recs[-1]["rms_width_window"],
-                "k_mean_stretch_end": recs[-1].get("k_mean_stretch"),
+                "k_first_moment_stretch_end": recs[-1].get("k_first_moment_stretch"),
+                "k_rms_stretch_end": recs[-1].get("k_rms_stretch"),
                 "E0": r["summary"]["E0"], "max_abs_balance": r["summary"]["max_abs_balance"]}
     for key in q[HS[0]]:
         vals = [q[h][key] for h in HS]
