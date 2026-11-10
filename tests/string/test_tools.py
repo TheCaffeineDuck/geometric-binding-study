@@ -95,12 +95,12 @@ def test_jump_start_runs_with_jump_diagnostics(record):
     100 time units, with its twin; records carry the jump measure. Failure: missing fields."""
     name = "_test_jump_start"
     cfg = {"kind": "evolve", "name": name, "medium": "fd", "law": "G1", "h": 0.125,
-           "N": int(round(320 / 0.125)), "dt": 0.01, "T": 100.0,
+           "N": int(round(720 / 0.125)), "profile_range": 50.0, "dt": 0.01, "T": 100.0,
            "start": {"type": "jump", "obj": "sbend", "omega": 1.2}, "twin": True}
     r = DR.evolve(cfg, log=lambda *a: None)
     s, rec = r["summary"], r["records"][-1]
-    out = {k: s[k] for k in ("frac_end", "rate_zero_crossings_core", "core_coordinate",
-                             "tail_kappa_at_nominal_rate", "tail_kappa_O1", "guard")}
+    out = {k: s[k] for k in ("frac_end", "rate_early", "rate_late", "core_coordinate",
+                             "tail_kappa_at_late_rate", "tail_kappa_O1_at_late_rate", "guard")}
     out.update({k: rec[k] for k in ("jump_max", "jump_x", "stretch_total_variation", "jump_cells")})
     out["twin_frac_end"] = r["twin"]["frac_end"]
     out["start_info"] = {k: v for k, v in r["start_info"].items()}
@@ -112,12 +112,47 @@ def test_jump_start_runs_with_jump_diagnostics(record):
     assert out["start_info"]["plateau_cells"] >= 1
 
 
+@pytest.mark.parametrize("case", ["grid_sbend", "fd_orbit", "fd_jump"])
+def test_tail_fit_at_late_rate(case, record):
+    """Item 2 of the review: the tail is fitted on the component of u at the rate measured over the
+    fit interval (last 20% of the run, Hann-tapered), compared with O1 at that rate (5%).
+    grid_sbend (asserted): trapped exact S-bend, G1, rate 2.5 (O1: 2 arccosh(rate/2)).
+    fd_orbit (asserted): held exact C-smooth S-bend of tool b, G1, h = 1/8, from sigma 0.25 and
+    peak stretch 0.8, rate 1.423 (Floquet stable; O1: rate / sqrt(rate^2 - 1)).
+    fd_jump (reported): the held jump-profile S-bend from rate 1.2; its rate drifts (1.16 -> 1.07)
+    and its component at the late rate is not a clean bound tail. Failure: > 5% off O1."""
+    name = "_test_tail_%s" % case
+    if case == "grid_sbend":
+        cfg = {"kind": "evolve", "name": name, "medium": "grid", "law": "G1", "N": 800,
+               "dt": 0.01, "T": 600.0, "start": {"type": "orbit", "obj": "sbend", "omega": 2.5},
+               "twin": False}
+    elif case == "fd_orbit":
+        cfg = {"kind": "evolve", "name": name, "medium": "fd", "law": "G1", "h": 0.125,
+               "N": int(round(720 / 0.125)), "profile_range": 50.0, "dt": 0.01, "T": 600.0,
+               "start": {"type": "smooth_orbit", "obj": "sbend", "sigma": 0.25,
+                         "peak_stretch": 0.8}, "twin": False}
+    else:
+        cfg = {"kind": "evolve", "name": name, "medium": "fd", "law": "G1", "h": 0.125,
+               "N": int(round(720 / 0.125)), "profile_range": 50.0, "dt": 0.01, "T": 600.0,
+               "start": {"type": "jump", "obj": "sbend", "omega": 1.2}, "twin": False}
+    s = DR.evolve(cfg, log=lambda *a: None)["summary"]
+    out = {k: s[k] for k in ("tail_kappa_at_late_rate", "tail_kappa_O1_at_late_rate",
+                             "tail_fit_rate", "tail_fit_rate_source", "rate_early", "rate_late",
+                             "rate_late_over_fit_interval", "frac_end", "nominal_rate")}
+    out["rel_dev"] = out["tail_kappa_at_late_rate"] / out["tail_kappa_O1_at_late_rate"] - 1
+    print("\ntail fit %s: %s" % (case, out))
+    record("tail_fit_%s" % case, out)
+    _cleanup(name)
+    if case != "fd_jump":
+        assert abs(out["rel_dev"]) < 0.05
+
+
 def test_driver_cli_checkpoint_resume(tmp_path):
     """(d) Driver entry point, atomic JSON with full parameters, and checkpoint/resume: a run cut
     after its first checkpoint and resumed gives the same records as an uncut run.
     Failure: a different result after resume, or a missing parameter in the JSON."""
     name = "_test_resume"
-    cfg = {"kind": "evolve", "name": name, "medium": "grid", "law": "G1", "N": 400, "dt": 0.01,
+    cfg = {"kind": "evolve", "name": name, "medium": "grid", "law": "G1", "N": 800, "dt": 0.01,
            "T": 60.0, "start": {"type": "orbit", "obj": "sbend", "omega": 2.4}, "twin": False,
            "ckpt_every_s": 0.0}
     p = tmp_path / "jobs.json"
@@ -163,7 +198,8 @@ def test_push_smoke(record):
 
 def test_cost_smoke():
     """(f) The cost table runs. Failure: an exception."""
-    rows = DR.cost_table([{"medium": "fd", "law": "G1", "h": 0.25, "N": 1280, "dt": 0.02,
+    rows = DR.cost_table([{"medium": "fd", "law": "G1", "h": 0.25, "N": 2880, "dt": 0.02,
+                           "profile_range": 50.0,
                            "start": {"type": "gauss", "obj": "bump", "sigma": 0.5,
                                      "peak_stretch": 0.8}}], periods=2, log=lambda *a: None)
     assert rows[0]["wall_s_per_1000_cycles"] > 0

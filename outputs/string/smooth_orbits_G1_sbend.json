@@ -132,7 +132,18 @@
    "floquet_parity_ratio": 1.4193254834997047e-14,
    "floquet_n_outside_1e-6": 2,
    "floquet_max_modulus_excl_4_at_1": 1.0073218656092808,
+   "floquet_excluded_dists_from_1": [
+    1.460250176332778e-08,
+    1.4602503650706922e-08,
+    1.6141150481287877e-07,
+    1.6141150481287877e-07
+   ],
    "floquet_4_nearest_1_max_dev": 1.6141150481287877e-07,
+   "floquet_nearest_kept_dist_from_1": 0.16448426811033237,
+   "floquet_nearest_kept": [
+    0.986472462772102,
+    0.16392705753578185
+   ],
    "profile_x": [
     -8.0,
     -7.75,
@@ -311,7 +322,18 @@
    "floquet_parity_ratio": 2.6969092742064446e-14,
    "floquet_n_outside_1e-6": 2,
    "floquet_max_modulus_excl_4_at_1": 1.0089932964628263,
+   "floquet_excluded_dists_from_1": [
+    9.614531393253856e-14,
+    9.681144774731365e-14,
+    3.080020427063552e-07,
+    3.080020427063552e-07
+   ],
    "floquet_4_nearest_1_max_dev": 3.080020427063552e-07,
+   "floquet_nearest_kept_dist_from_1": 1.4444326654829565,
+   "floquet_nearest_kept": [
+    -0.04319286255710053,
+    -0.9990667528369267
+   ],
    "profile_x": [
     -8.0,
     -7.75,
@@ -491,7 +513,18 @@
    "floquet_parity_ratio": 2.8295268975578924e-13,
    "floquet_n_outside_1e-6": 4,
    "floquet_max_modulus_excl_4_at_1": 1.5947902921153925,
+   "floquet_excluded_dists_from_1": [
+    2.6159264785145814e-09,
+    2.6159264785145814e-09,
+    4.748784071394109e-07,
+    4.748784071394109e-07
+   ],
    "floquet_4_nearest_1_max_dev": 4.748784071394109e-07,
+   "floquet_nearest_kept_dist_from_1": 0.35878331698787225,
+   "floquet_nearest_kept": [
+    0.6412166830121278,
+    0.0
+   ],
    "profile_x": [
     -8.0,
     -7.75,
@@ -670,7 +703,18 @@
    "floquet_parity_ratio": 9.47210376932979e-15,
    "floquet_n_outside_1e-6": 2,
    "floquet_max_modulus_excl_4_at_1": 1.0089932964628068,
+   "floquet_excluded_dists_from_1": [
+    1.9206858326015208e-13,
+    1.9251267247000214e-13,
+    6.372474536712131e-07,
+    6.372474536712131e-07
+   ],
    "floquet_4_nearest_1_max_dev": 6.372474536712131e-07,
+   "floquet_nearest_kept_dist_from_1": 1.4444326654829553,
+   "floquet_nearest_kept": [
+    -0.0431928625570978,
+    -0.9990667528369279
+   ],
    "profile_x": [
     -8.0,
     -7.75,
@@ -1008,7 +1052,18 @@
    "floquet_parity_ratio": 1.3631327116137936e-06,
    "floquet_n_outside_1e-6": 0,
    "floquet_max_modulus_excl_4_at_1": 1.000000000000014,
+   "floquet_excluded_dists_from_1": [
+    1.4586852392639571e-08,
+    1.4586859053977719e-08,
+    5.9506327643177315e-08,
+    5.950633008566797e-08
+   ],
    "floquet_4_nearest_1_max_dev": 5.950633008566797e-08,
+   "floquet_nearest_kept_dist_from_1": 0.5642968953453333,
+   "floquet_nearest_kept": [
+    0.8407845069518076,
+    -0.5413699408628107
+   ],
    "profile_x": [
     -8.0,
     -7.875,
@@ -1315,7 +1370,18 @@
    "floquet_parity_ratio": 2.1040498003541944e-06,
    "floquet_n_outside_1e-6": 0,
    "floquet_max_modulus_excl_4_at_1": 1.000000000000013,
+   "floquet_excluded_dists_from_1": [
+    1.6864287744056128e-13,
+    1.7719159473017498e-13,
+    2.861742447457516e-07,
+    2.861743273463446e-07
+   ],
    "floquet_4_nearest_1_max_dev": 2.861743273463446e-07,
+   "floquet_nearest_kept_dist_from_1": 1.2642491034475545,
+   "floquet_nearest_kept": [
+    0.20083710221603107,
+    0.9796246517791775
+   ],
    "profile_x": [
     -8.0,
     -7.875,
@@ -1669,7 +1735,18 @@
    "floquet_parity_ratio": 4.680050439564767e-14,
    "floquet_n_outside_1e-6": 2,
    "floquet_max_modulus_excl_4_at_1": 1.0067568032837237,
+   "floquet_excluded_dists_from_1": [
+    7.609155894261477e-08,
+    7.609156682519824e-08,
+    8.323247183097155e-08,
+    8.323247183097155e-08
+   ],
    "floquet_4_nearest_1_max_dev": 8.323247183097155e-08,
+   "floquet_nearest_kept_dist_from_1": 1.4447346891888286,
+   "floquet_nearest_kept": [
+    -0.04362916107277863,
+    -0.9990477948046679
+   ],
    "profile_x": [
     -8.0,
     -7.875,
@@ -1981,7 +2058,18 @@
    "floquet_parity_ratio": 7.672615194901101e-15,
    "floquet_n_outside_1e-6": 8,
    "floquet_max_modulus_excl_4_at_1": 1.6468196400335413,
+   "floquet_excluded_dists_from_1": [
+    1.4372947276797277e-12,
+    1.439959262938828e-12,
+    4.772231987359987e-08,
+    4.7722322649157434e-08
+   ],
    "floquet_4_nearest_1_max_dev": 4.7722322649157434e-08,
+   "floquet_nearest_kept_dist_from_1": 0.2662292017658662,
+   "floquet_nearest_kept": [
+    0.9645610060635565,
+    -0.2638599355371387
+   ],
    "profile_x": [
     -8.0,
     -7.875,
@@ -2450,7 +2538,18 @@
    "floquet_parity_ratio": 2.0822669589125125e-13,
    "floquet_n_outside_1e-6": 4,
    "floquet_max_modulus_excl_4_at_1": 1.0035924544305652,
+   "floquet_excluded_dists_from_1": [
+    5.059286323216838e-13,
+    5.120348589571222e-13,
+    3.5764756600720204e-08,
+    3.57647653714821e-08
+   ],
    "floquet_4_nearest_1_max_dev": 3.57647653714821e-08,
+   "floquet_nearest_kept_dist_from_1": 0.5295828590377889,
+   "floquet_nearest_kept": [
+    0.8597709977066852,
+    0.5106797739312378
+   ],
    "profile_x": [
     -8.0,
     -7.9375,
@@ -3013,7 +3112,18 @@
    "floquet_parity_ratio": 8.964747053954135e-15,
    "floquet_n_outside_1e-6": 0,
    "floquet_max_modulus_excl_4_at_1": 1.0000000000000258,
+   "floquet_excluded_dists_from_1": [
+    1.815214645262131e-13,
+    1.822986206434507e-13,
+    1.3105030271693065e-07,
+    1.3105030271693065e-07
+   ],
    "floquet_4_nearest_1_max_dev": 1.3105030271693065e-07,
+   "floquet_nearest_kept_dist_from_1": 1.2469392700111643,
+   "floquet_nearest_kept": [
+    0.22257122845201743,
+    0.974916431426494
+   ],
    "profile_x": [
     -8.0,
     -7.9375,
@@ -3624,7 +3734,18 @@
    "floquet_parity_ratio": 1.2895225978674802e-13,
    "floquet_n_outside_1e-6": 2,
    "floquet_max_modulus_excl_4_at_1": 1.006917270009855,
+   "floquet_excluded_dists_from_1": [
+    1.27754952172765e-07,
+    1.277549706024672e-07,
+    1.7680404655126783e-05,
+    1.7680404655126783e-05
+   ],
    "floquet_4_nearest_1_max_dev": 1.7680404655126783e-05,
+   "floquet_nearest_kept_dist_from_1": 1.4185333819195622,
+   "floquet_nearest_kept": [
+    -0.006118477810075336,
+    0.9999812819394609
+   ],
    "profile_x": [
     -8.0,
     -7.9375,

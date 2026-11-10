@@ -315,9 +315,15 @@ def describe(S, u0, omega, nq, obj, floquet=True, nsamp=64):
         out["floquet_n_outside_1e-6"] = int(np.sum(np.abs(lam) > 1 + 1e-6))
         # time shift and uniform shift (ring) are exact symmetries: two Jordan pairs at +1, split
         # by round-off to ~sqrt(eps |M|). Largest modulus among the other multipliers:
-        rest = lam[np.argsort(np.abs(lam - 1.0))[4:]]
+        order = np.argsort(np.abs(lam - 1.0))
+        rest = lam[order[4:]]
         out["floquet_max_modulus_excl_4_at_1"] = float(np.max(np.abs(rest)))
-        out["floquet_4_nearest_1_max_dev"] = float(np.sort(np.abs(lam - 1.0))[3])
+        dist = np.abs(lam[order] - 1.0)
+        out["floquet_excluded_dists_from_1"] = [float(v) for v in dist[:4]]
+        out["floquet_4_nearest_1_max_dev"] = float(dist[3])
+        # a genuine multiplier close to 1 (e.g. within 3e-6) would show here, beside the 4 above
+        out["floquet_nearest_kept_dist_from_1"] = float(dist[4])
+        out["floquet_nearest_kept"] = [float(lam[order[4]].real), float(lam[order[4]].imag)]
     return out
 
 

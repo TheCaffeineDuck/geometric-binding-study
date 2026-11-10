@@ -1,26 +1,26 @@
 {
  "rows": [
   {
-   "speed": 0.01130448337810177,
-   "distance": 3.052008632182245,
-   "energy_lost_per_unit_distance": 3.545254036716786e-06,
+   "speed": 0.011304483750985878,
+   "distance": 3.0520087355581684,
+   "energy_lost_per_unit_distance": 3.5452271194946636e-06,
    "broke": false,
    "t_break": null,
    "crossed_target": false,
    "frac_comoving_at_target": null,
-   "frac_comoving_end": 0.9999491777187957,
+   "frac_comoving_end": 0.9999491777718279,
    "lambda": 0.2,
    "file": "_test_push_l0.2"
   },
   {
-   "speed": 0.056046747166282974,
-   "distance": 15.138900738967452,
-   "energy_lost_per_unit_distance": 2.5647427899731924e-05,
+   "speed": 0.05604674848203461,
+   "distance": 15.138901094572264,
+   "energy_lost_per_unit_distance": 2.5647385471322864e-05,
    "broke": false,
    "t_break": null,
    "crossed_target": true,
-   "frac_comoving_at_target": 0.9983376353274482,
-   "frac_comoving_end": 0.998318813816204,
+   "frac_comoving_at_target": 0.9983376367658016,
+   "frac_comoving_end": 0.998318815337341,
    "lambda": 1.0,
    "file": "_test_push_l1"
   }

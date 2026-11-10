@@ -1,15 +1,16 @@
 {
- "frac_end": 0.995950106619983,
- "rate_zero_crossings_core": 1.0833832718971201,
+ "frac_end": 0.9959260090692562,
+ "rate_early": 1.1699685997205858,
+ "rate_late": 1.0790818765144121,
  "core_coordinate": "stretch across centre",
- "tail_kappa_at_nominal_rate": 0.05148843283504122,
- "tail_kappa_O1": 1.8090680674665818,
+ "tail_kappa_at_late_rate": null,
+ "tail_kappa_O1_at_late_rate": 5.557199459514391,
  "guard": null,
- "jump_max": 0.8252847684227196,
+ "jump_max": 0.8271527576378215,
  "jump_x": -0.375,
- "stretch_total_variation": 6.156489793611588,
+ "stretch_total_variation": 6.165696828728495,
  "jump_cells": 1,
- "twin_frac_end": 0.9421688372250675,
+ "twin_frac_end": 0.942145271696794,
  "start_info": {
   "omega": 1.2,
   "A_star": 0.3932829162056056,
@@ -26,6 +27,8 @@
   "x_s_requested": 0.25,
   "x_s_note": "requested x_s not reached; widest profile of the family used",
   "plateau_cells": 3.60204957120599,
-  "net_stretch_removed": 0.05284908724177641
+  "net_stretch_removed": 0.052849087241776393,
+  "noise": 1e-08,
+  "seed": 0
  }
 }

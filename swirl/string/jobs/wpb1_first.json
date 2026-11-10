@@ -8,14 +8,14 @@
  {"kind": "smooth_orbits", "name": "smooth_orbits_G1_bump", "law": "G1", "obj": "bump",
   "hs": [0.25, 0.125, 0.0625], "sigmas": [0.25, 0.5, 1.0], "peak_stretches": [0.5, 0.8], "L": 16.0},
  {"kind": "cost", "name": "cost_table", "periods": 20, "cases": [
-  {"medium": "grid", "law": "G1", "N": 400, "dt": 0.01,
+  {"medium": "grid", "law": "G1", "N": 800, "dt": 0.01,
    "start": {"type": "orbit", "obj": "sbend", "omega": 2.5}},
-  {"medium": "fd", "law": "G1", "h": 0.25, "N": 1760, "dt": 0.02, "omega_nominal": 1.1,
+  {"medium": "fd", "law": "G1", "h": 0.25, "N": 3360, "dt": 0.02, "omega_nominal": 1.1,
    "start": {"type": "gauss", "obj": "bump", "sigma": 0.5, "peak_stretch": 0.8}},
-  {"medium": "fd", "law": "G1", "h": 0.125, "N": 3520, "dt": 0.02, "omega_nominal": 1.1,
+  {"medium": "fd", "law": "G1", "h": 0.125, "N": 6720, "dt": 0.02, "omega_nominal": 1.1,
    "start": {"type": "gauss", "obj": "bump", "sigma": 0.5, "peak_stretch": 0.8}},
-  {"medium": "fd", "law": "G1", "h": 0.0625, "N": 7040, "dt": 0.02, "omega_nominal": 1.1,
+  {"medium": "fd", "law": "G1", "h": 0.0625, "N": 13440, "dt": 0.02, "omega_nominal": 1.1,
    "start": {"type": "gauss", "obj": "bump", "sigma": 0.5, "peak_stretch": 0.8}},
-  {"medium": "spectral", "law": "G1", "h": 0.125, "N": 3520, "dt": 0.02, "omega_nominal": 1.1,
+  {"medium": "spectral", "law": "G1", "h": 0.125, "N": 6720, "dt": 0.02, "omega_nominal": 1.1,
    "start": {"type": "gauss", "obj": "bump", "sigma": 0.5, "peak_stretch": 0.8}}]}
 ]

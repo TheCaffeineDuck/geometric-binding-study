@@ -1,0 +1,12 @@
+{
+ "tail_kappa_at_late_rate": 1.38627779616684,
+ "tail_kappa_O1_at_late_rate": 1.3863045446460176,
+ "tail_fit_rate": 2.500007637677003,
+ "tail_fit_rate_source": "rate measured over the fit interval (median of its records), nearest of 81 bank rates within +-10% of the record rate at the start of the interval",
+ "rate_early": 2.500006684372153,
+ "rate_late": 2.5000079233926096,
+ "rate_late_over_fit_interval": 2.5000089139282777,
+ "frac_end": 0.9999998834799642,
+ "nominal_rate": 2.5,
+ "rel_dev": -1.9294807393488433e-05
+}

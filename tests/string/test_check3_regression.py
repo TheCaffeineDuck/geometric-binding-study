@@ -38,6 +38,7 @@ Runtime: about 4 runs x 30 s plus 2 short ones (slow)."""
 import numpy as np
 import pytest
 
+from swirl.string import diag as G
 from swirl.string import driver as DR
 from swirl.string import orbits as O
 from swirl.string.core import String
@@ -58,12 +59,16 @@ def _floquet(obj, om=OMEGA, N=80):
     return d
 
 
-def _run(obj, start, om=OMEGA, ncyc=NCYC, dt=0.008):
+def _run(obj, start, om=OMEGA, ncyc=NCYC, dt=0.008, N=700, name=None, sponge=None):
     st = {"type": start, "obj": obj, "omega": om, "noise": 1e-8, "seed": 0}
-    cfg = {"kind": "evolve", "name": "check3_G2_%s_%s_om%g" % (obj, start, om), "medium": "grid",
-           "law": "G2", "beta": 1.0, "N": 300, "dt": dt, "sample_dt": 12 * dt,
+    cfg = {"kind": "evolve", "name": name or "check3_G2_%s_%s_om%g" % (obj, start, om),
+           "medium": "grid",
+           "law": "G2", "beta": 1.0, "N": N, "dt": dt, "sample_dt": 12 * dt,
+           "profile_range": 40.0,
            "T": ncyc * 2 * np.pi / om, "record_periods": 50 if ncyc > 5000 else 10, "start": st,
            "twin": False, "probe_max": 8192, "probes": [0.0, 20.0, 40.0]}
+    if sponge:
+        cfg["sponge_len"], cfg["sigma_max"] = sponge
     return DR.evolve(cfg, log=lambda *a: None)
 
 
@@ -71,8 +76,9 @@ def _evaluate(obj, start, fl, r):
     s, recs = r["summary"], r["records"]
     E0 = s["E_fixed0"]
     t = np.array([q["t_mid"] for q in recs])
-    rate = s["rate_zero_crossings_core"]
-    cyc = t * rate / (2 * np.pi)
+    rate = s["rate_late"]
+    rr = np.array([np.nan if q["rate_zc"] is None else q["rate_zc"] for q in recs])
+    cyc = G.cycles(np.array([q["t"] for q in recs]), rr, rate)     # integrated record rates
     c = np.array([q["centroid"] for q in recs])
     fr = np.array([q["E_fixed"] for q in recs]) / E0
     fco = np.array([q["E_comoving"] for q in recs]) / E0
@@ -129,12 +135,24 @@ def test_regression(obj, start, record):
 
 @pytest.mark.slow
 def test_bump_travel_weaker_anharmonicity(record):
-    """Diagnostic for the 'moves' half of rule 2.3: the same exact bump at Omega = 2.3 (weaker
-    anharmonicity, closer to the band top), 3,000 cycles."""
+    """Report, not a pass line, for the 'moves' half of rule 2.3: the same exact bump at
+    Omega = 2.3 (weaker anharmonicity), 3,000 cycles, noise 1e-8 seed 0 on |x| <= 20, on three
+    rings: interior half-length 50 and 100 with the production sponge, and the 400-site ring with
+    sponge 100 / 0.3 described in the first WP-B1 return (where, before the stale-acceleration fix,
+    the bump reached 4 sites). All saved as data files (outputs/string/check3_G2_bump_om2.3_*). What is asserted: the instability acts in
+    direct evolution (the centroid leaves the site-centred position by >= 0.4) with co-moving
+    frac >= 0.9. Whether it travels >= 1 site is reported."""
     fl = _floquet("bump", om=2.3, N=120)
-    out = _evaluate("bump", "orbit", fl, _run("bump", "orbit", om=2.3, ncyc=3000, dt=0.01))
-    print("\ncheck3 diagnostic G2 bump Omega=2.3: %s" % out)
-    record("check3_G2_bump_orbit_om2.3", out)
+    outs = {}
+    for N, sp, nm in ((700, None, "check3_G2_bump_om2.3_int50"),
+                      (800, None, "check3_G2_bump_om2.3_int100"),
+                      (400, (100.0, 0.3), "check3_G2_bump_om2.3_N400_sponge100")):
+        outs[nm] = _evaluate("bump", "orbit", fl, _run("bump", "orbit", om=2.3, ncyc=3000,
+                                                      dt=0.01, N=N, name=nm, sponge=sp))
+        print("\ncheck3 report G2 bump Omega=2.3 %s: %s" % (nm, outs[nm]))
+        record(nm, outs[nm])
+    for o in outs.values():
+        assert o["max_distance_from_start_site"] >= 0.4 and o["frac_comoving_min"] >= 0.9
 
 
 def test_pure_quartic_growth_rate(record):
