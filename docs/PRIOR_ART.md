@@ -2419,3 +2419,499 @@ Total 84 numbered entries (278 to 361). Page fetches without their own number: n
 - Ivanchenko, Kanakov, Mishagin, Flach (PRL 97, 025505, 2006) and Kivshar and Campbell (PRE 48, 3077, 1993): not found. Chen, Wang (Nonlinear Anal. 36, 961, 1999): cited in a read paper, not read. Rosenau 1986 to 1988, Rosenau 2003: not obtained.
 - Eringen's own papers and book (cited in Duruk et al.); Metrikine and Askes 2002: not obtained.
 - Not found: any breather, standing wave or time-periodic localized solution of the improved Boussinesq or Eringen rod with any force law; any breather result for FENE, logarithmic or Born-Infeld springs; the pole-law Cauchy problem for the improved Boussinesq equation; a measurement of the loss per unit distance of a pushed breather against its speed in a hardening chain; the SPS lattice for the 32,000-oscillation run.
+
+## Session 5 brief, Track F (2026-11-10, before any Track F run)
+
+*Folded into this file on 2026-11-10 from `docs/S5_TRACKF_BRIEF.md`, which stays in place. The text below is that file as written: only the heading levels are shifted down by one and this note is added. The gate statement ("Gate (answer first)", YES: the equation-R production runs may go ahead) is unchanged. Search numbers stay S5F-1 to S5F-18, a separate series from the numbered searches 278 to 361 (Track C brief) and 362 to 404 (Track C against the results); the original header line saying that the orchestrator renumbers is kept as it was and has not been acted on. Author of the brief: `scholar`, Track F half.*
+
+
+Date: 2026-11-10. Author: `scholar` (Track F half). Written only in `docs/`. Nothing committed. `PRIOR_ART.md` and `SESSION_05_PREDICTIONS.md` were not touched; the orchestrator folds this file in. Search numbers are S5F-1 onward; the orchestrator renumbers.
+
+**Evidence tags** (as at the head of `PRIOR_ART.md`, with the exact meaning used here).
+
+- `READ`: I extracted the full text of the arXiv PDF locally (macOS PDFKit) and read the passage cited. `READ (part)` means I read the sections named and not the rest.
+- `ABSTRACT`: I saw only the abstract (arXiv abstract page or search-result abstract text).
+- `SECONDHAND`: another source says the paper says this, or the only access was a summary written by the web-fetch tool.
+- `DERIVED`: my own algebra from the plan's equations or from numbers in a `READ` source. Not a literature claim. Re-derive before relying on it. Items are numbered DF-1 onward and listed in section 6. DF-1, DF-4, DF-5 and DF-7 were also checked numerically (a short script, scratch only; results are quoted in the items).
+- "no source found": I searched (see the log) and found nothing.
+
+Notation. S = sum over i of |d_i u|^2, X = |u_t|^2 - S (no 1/2), as in the plan. Amin's variable is X_A = -(1/2) d_mu phi d^mu phi, which in our units is X_A = X/2 (DF-2). L_O and L_R as in the plan.
+
+---
+
+### Gate (answer first)
+
+**YES. The equation-R production runs may go ahead.** The plan's stop condition (section 8: "L_R is not well posed for this use, or the October lesson applies to the full form") is not met. Reasons, in three lines.
+
+1. L_R, with the full square root, is hyperbolic, subluminal and has positive energy density for X < 1. This is Babichev, Mukhanov, Vikman (READ), Adams et al. (READ; their eq. 7 is this Lagrangian's series), Eperon, Reall, Sbierski (READ), and my own algebra (DF-1, DF-4).
+2. Three of the four clauses of the October lesson are reversed for L_R (sign of the quartic term, propagation speed, energy bound). The fourth, the static no-go, still holds for L_R, but it only rules out static solutions, not oscillons (DF-6).
+3. Amin's existence sign condition is satisfied: Delta = xi_2 = +1/2 > 0 for L_R (Amin eq. 24, READ; map in DF-2).
+
+**Conditions to carry into the run set-up.** None of these stops the start.
+
+- **G1. The guard "X < 1" is not the whole well-posedness condition for the pinch.** For the single bump (one fixed direction) X < 1 is exactly the hyperbolicity condition. For any configuration with more than one field direction active, X < 1 is necessary but not sufficient (DF-5). For the pinch u = f r-hat the extra condition is f_t^2 < 1 + f_r^2 + (f/r)^2. The radial solver cannot see its violation, because the mode that goes bad is the angular one. Add this to the WP-B2 guard and log it. Verified with an independent determinant calculation (DF-5); the reviewer should re-derive it.
+- **G2. A guard trip at X -> 1 is a documented physical outcome, not necessarily a bug.** For the massless Born-Infeld/Nambu-Goto equation, a regular graph at t = 0 reaches 1 - X = 0 with a curvature singularity in finite time (Eggers and Hoppe, READ), including for radially symmetric membranes. For the equation with a mass term no existence or blow-up result was found. So log min(1 - X), max |p| (p the conjugate momentum), and where and when, and call a trip a finding with a diagnosis, as the plan's stop condition already says.
+- **G3. F1 should be recorded as resting on existence only.** Amin's paper gives existence of small-amplitude k-oscillons and, in the same paper, a long-wavelength instability in three space dimensions (his d >= 3) for small amplitude. It does not give trapping or lifetimes for DBI. Pre-register: small-amplitude starts of R are expected to collapse or disperse by Amin's own criterion; a trapped state, if any, is at large amplitude, where no source was found.
+- **G4. The X^2 truncation stays forbidden.** It reintroduces loss of hyperbolicity (for a static gradient with 2/3 < S < 2) and a static energy that is negative for S > 4 (DF-7).
+- **G5. (Optional, cheap.)** The single bump in the three-component theory has two transverse polarizations that propagate at exactly the speed of light on top of the oscillating background (DF-5). Their parametric stability is not covered by Amin (single field). No source found.
+
+---
+
+### Three most important findings
+
+1. **L_R is the DBI Lagrangian of Amin's paper with f = 1 and V = phi^2/2.** Existence sign condition Delta = 1/2 > 0 holds. But Amin's own stability result says the small-amplitude 3D family is unstable (long-wavelength, same criterion as the canonical model). I found no published stable 3D k-oscillon family. The one statement about large-amplitude DBI is "rather intriguing dynamics", with the details left to an unpublished Pearce and Amin paper (section 1.6).
+2. **The October lesson does not transfer.** Its retired term is L = X_A - 4 kappa X_A^2 (xi_2 = -4 kappa < 0). L_R has xi_2 = +1/2 > 0. I rebuilt the lesson's own numbers (the -3 kappa phi_t^4 energy term and the speed sqrt((1 + 12 kappa b^2)/(1 + 4 kappa b^2))) from that Lagrangian, so the identification is exact (DF-3).
+3. **Plan-relevant correction to O9 and to WP-B2 check 6.** O9's algebra is right (DF-1, to 1e-14). But "X cannot trip the guard for finite p" understates the risk (G2), and X < 1 is not sufficient for hyperbolicity of the pinch (G1).
+
+---
+
+### 1. Item 4: a Born-Infeld (DBI) scalar with a mass term
+
+#### 1.1 L_R and its place in the literature
+
+- L_R = 1 - sqrt(1 - X) - |u|^2/2 is the Dirac-Born-Infeld Lagrangian of Amin's paper with f = 1 and a quadratic potential. Amin writes it as L = f^-1(phi) [1 - sqrt(1 - 2 f(phi) X_A)] - V(phi), says it gives xi_2 = 1/2, and says he analysed large-amplitude oscillons in it with V = phi^2/2, results not presented ([Amin 2013](https://arxiv.org/abs/1303.1102), sec. 2 and 5, `READ`).
+- In 1+1 dimensions, 1 - sqrt(1 - X) with X = u_t^2 - u_x^2 and no potential is the Born-Infeld scalar, the gauge-fixed Nambu-Goto string ([Eperon, Reall, Sbierski](https://arxiv.org/abs/1802.03020), sec. 3.2-3.3, `READ`; their c = +1 theory).
+- The same expansion appears as the textbook example of a brane fluctuation: L = -f^4 sqrt(1 - (dy)^2) = f^4(-1 + (dy)^2/2 + (dy)^4/8 + ...), which they note has the "correct" (positive) quartic sign ([Adams, Arkani-Hamed, Dubovsky, Nicolis, Rattazzi](https://arxiv.org/abs/hep-th/0602178), eq. 7, `READ`). Our L_R has the series X/2 + X^2/8 + ..., the same.
+
+#### 1.2 Hyperbolic, positive energy, for X < 1
+
+- **General k-essence criterion.** For L(X_A, phi) the field equation has principal part G^{mu nu} d_mu d_nu phi with G^{mu nu} = L_X g^{mu nu} + L_XX d^mu phi d^nu phi (their 2.4). It is hyperbolic (G Lorentzian) iff 1 + 2 X_A L_XX / L_X > 0 (their 2.5). The null energy condition is L_X >= 0; violating it means an energy unbounded below. They add that L_X must nowhere vanish or become infinite, since those points are singularities of the emergent geometry, and that a well-posed Cauchy problem does not guarantee a global solution ([Babichev, Mukhanov, Vikman 2007](https://arxiv.org/abs/0708.0561), sec. 2, 4, `READ (part)`).
+- **No superluminality** for a single derivatively coupled scalar in a general background needs L to be convex in X: L'' >= 0 ([Adams et al.](https://arxiv.org/abs/hep-th/0602178), p. 11, `READ`).
+- **For L_R**: L_X = 1/sqrt(1 - X) > 0, L_XX > 0, and 1 + 2 X_A L_XX/L_X = 1/(1 - X) > 0 for X < 1. All three conditions hold exactly when X < 1. L_X diverges as X -> 1, which Babichev et al. flag as the singular point of the emergent geometry (`DERIVED`, DF-2, from their criteria).
+- **Energy.** With p the momentum conjugate to u, H = sqrt((1 + p^2)(1 + S)) - 1 + |u|^2/2, and 1 - X = (1 + S)/(1 + p^2). So H >= |u|^2/2 >= 0, and X < 1 is equivalent to p finite (`DERIVED`, DF-1; the same as O9). The same holds for the three-component field with p a vector and S the full sum.
+- **Local Cauchy problem.** Hyperbolicity gives local well-posedness by the standard quasilinear theory (Kato; Hughes, Kato, Marsden; not read, no arXiv text). The mass term is a lower-order term and does not change the principal part. I did not find a source that states this for the massive Born-Infeld scalar, so "local well-posed for X < 1" is `DERIVED` plus standard theory, not a quoted result.
+
+#### 1.3 Propagation speeds along and across the gradient
+
+Single field. Background u_t = a, gradient of size b along a unit vector n. Define X = a^2 - b^2. `DERIVED` (DF-4); checked numerically against the closed forms (agreement to the 7 digits printed).
+
+| Direction of the wave vector | Speed | Notes |
+|---|---|---|
+| across the gradient (k perpendicular to n) | c_perp^2 = (1 - X)/(1 + b^2) = 1 - a^2/(1 + b^2) | at most 1 |
+| along the gradient (k parallel to n) | v = (-a b +/- sqrt(1 - X))/(1 + b^2) | magnitude at most 1; equals 1 only at X = 0 |
+| gradient-free (b = 0) | c^2 = 1 - a^2 = 1 - X | the DBI speed limit; also Amin eq. 25, c_s^2 = (1 + 2 X_A T_XX/T_X)^-1 = 1 - 4 xi_2 X_A + ..., `READ` |
+| static (a = 0) | c_perp = 1, c_par = 1/sqrt(1 + b^2) | subluminal along the gradient |
+| retired term, static, for comparison | c_par^2 = (1 + 12 kappa b^2)/(1 + 4 kappa b^2) | exactly the speed in LESSONS item 6; above 1 |
+
+The characteristic cone is the null cone of the induced (Nambu-Goto) metric. Eperon et al. state the c = +1 theory is subluminal in the sense that the null cone of g lies on or inside that of the Minkowski metric (their 3.12, `READ`), consistent with the table.
+
+Vector-valued field (the pinch, and the bump with its two extra components): see DF-5 and G1. In the three-component theory two polarizations propagate on the light cone and one on a DBI-type cone, and X < 1 does not guarantee that the DBI-type cone is real.
+
+#### 1.4 Can X reach 1, or smoothness be lost in finite time from smooth data
+
+Without a potential (the massless Born-Infeld equation):
+
+- Exceptional, no shocks. In the 1+1 case a wavepacket moves without distortion and never forms a shock (the property called "exceptional"; Taniuti 1959 via [Eperon et al.](https://arxiv.org/abs/1802.03020) `READ`). For the Born-Infeld electrodynamics the same word means no shocks form, and "completely exceptional" is Boillat's term; a 3D result of Christodoulou is reported for the scalar (Chaplygin) case ([Kadlecova](https://arxiv.org/abs/2107.12249), intro, `SECONDHAND`, which cites Boillat and Christodoulou, neither read).
+- Simple waves do not steepen. Both the canonical and the DBI scalar are free of caustics for planar simple waves, where generic k-essence is not ([Mukohyama, Namba, Watanabe 2016](https://arxiv.org/abs/1605.06418), `ABSTRACT`; against [Babichev 2016](https://arxiv.org/abs/1602.00735), `ABSTRACT`, who argued generic k-essence forms caustics).
+- But smooth data can still fail in finite time by another route. In the 1+1 massless equation z_tt(1 + z_x^2) - z_xx(1 - z_t^2) = 2 z_t z_x z_xt, "can develop singularities in finite time, starting from finite initial data". The singularity is a swallowtail: the graph is regular at t = 0 and has a curvature singularity at t = 1 in their explicit example (their eqs. 31 and 32), and for t > 1 is no longer a graph. At the singular point L^2 = 1 - z_t^2 + z_x^2 = 0, which in our variables is X = 1 ([Eggers, Hoppe 2008](https://arxiv.org/abs/0812.1790), `READ`). They state the same singular solution applies to radially symmetric membranes and to higher dimensions (their sec. III).
+- Eperon et al. describe the same thing as two strong wavepackets meeting and the string folding back, so Phi would have to become multivalued; for small amplitude the packets pass through each other with a time delay, for large amplitude a singularity forms, and the maximal globally hyperbolic development is then not unique in the subluminal theory ([Eperon et al.](https://arxiv.org/abs/1802.03020), sec. 1 and 3.4, `READ (part)`).
+- Small data are fine: global existence for small data of the timelike minimal-surface (Born-Infeld) equation in Minkowski space ([Lindblad 2002](https://arxiv.org/abs/math/0210056), `ABSTRACT`). Small 1+1 solutions decay inside a smaller region of the light cone ([Alejo, Munoz 2017](https://arxiv.org/abs/1707.02595), `ABSTRACT`). Explicit self-similar blow-up solutions of the 1+1 equation, with a nonlinear stability result ([Yan 2018](https://arxiv.org/abs/1807.04227), `ABSTRACT`).
+
+With a potential:
+
+- For Born-Infeld scalars with a potential that multiplies the square root, V(T) sqrt(1 + (dT)^2), and runaway V, caustics (multivalued regions) form generically, in 1+1 and in 3+1 ([Felder, Kofman, Starobinsky 2002](https://arxiv.org/abs/hep-th/0208019), `ABSTRACT` plus the first two sections read). That is a different structure from L_R (an additive mass term, no runaway), so it is context, not a prediction for us.
+- For the DBI scalar plus an additive quadratic potential, as in L_R: **no source found** on well-posedness, global existence or blow-up (searches S5F-7, S5F-18).
+
+What follows for the runs. The singularity mechanism is amplitude-driven (strong, colliding packets; X -> 1 needs |u_t| of order the Born-Infeld speed, which in our units is field amplitude of order 1/omega). An oscillon at large amplitude is a standing superposition of left- and right-moving pieces, so G2 is a live possibility in the large-amplitude part of the family. Not a prediction; no source applies.
+
+#### 1.5 Amin's existence condition ([arXiv:1303.1102](https://arxiv.org/abs/1303.1102), PRD 87, 123505, `READ`)
+
+- Lagrangian L = T(X_A, phi) - V(phi), X_A = -(1/2) eta^{ab} d_a phi d_b phi (mostly plus signature, so X_A = (1/2)(phi_t^2 - |grad phi|^2)), T = X_A + xi_2 X_A^2 + xi_3 phi X_A^2 + ..., V = phi^2/2 + lambda_3 phi^3/3 + lambda_4 phi^4/4 + ... (eqs. 1 to 3).
+- Small-amplitude expansion phi = eps phi_1 + ..., tau = sqrt(1 - eps^2) t, rho = eps r. The profile equation is f'' + ((d - 1)/rho) f' - f + (3/4) Delta f^3 = 0 (eq. 18) with **Delta = xi_2 - lambda_4 + (10/9) lambda_3^2** (eq. 19). Oscillons exist iff Delta > 0 (eq. 24, boxed). For a quadratic potential, xi_2 > 0 suffices, which he states is equivalent to c_s < 1 (eq. 25).
+- 1D: f = sqrt(8/(3 Delta)) sech(rho). 3D: numerical, f_0 = 3.06699 sqrt(8/(3 Delta)) (eq. 32). No simulations tables for non-canonical models are given.
+
+**Map to L_R** (`DERIVED`, DF-2): X_A = X/2, T = 1 - sqrt(1 - 2 X_A) = X_A + X_A^2/2 + X_A^3/2 + (5/8) X_A^4 + ..., so xi_2 = 1/2, lambda_3 = lambda_4 = 0, m = 1. **Delta = 1/2 > 0: the sign condition is satisfied.** At leading order in 3D (using S(0) = 4.33738768 and the integral of S^2 = 18.897 for the canonical 3D profile, from Fodor et al., `READ` in the Session 1 brief): phi(0) = 7.08 eps and E = 25.2/eps + O(eps), with omega^2 = 1 - eps^2. So the amplitude goes to zero and the energy diverges as eps goes to zero. Context: valid only where the single-frequency small-amplitude expansion is, eps below about 0.25 in the canonical case.
+
+For the single bump u = f e in the three-component theory, S = f_r^2 and |u_t|^2 = f_t^2, so L_R reduces exactly to the single-field DBI Lagrangian. Amin's single-field result applies to that invariant sector.
+
+#### 1.6 What Amin found for stability and lifetime, and later work
+
+- **Stability criterion** (eqs. 53 to 56): small-amplitude oscillons are stable against long-wavelength perturbations iff dN/d eps > 0, with N = eps^{2-d} times the integral of f^2 d^d rho. So stable for d = 1, 2 and **unstable for d >= 3**, "confirmed by numerical simulations" with no data shown. The typeset eq. 56 ends in "proportional to eps^{d-2}", which contradicts the first part of the same line and eq. 54; the text and the first equality give eps^{2-d}. Treat that as a typo.
+- He says large amplitudes may remove the 3D instability (as in Amin and Shirokoff, where a large sextic term does it), and that "no general stability condition exists" for large amplitude. The sextic term is what turns N(eps) around there ([Amin, Shirokoff 2010](https://arxiv.org/abs/1002.3380), `READ` in the Session 1 brief).
+- **Lifetime**: no number. The radiating tail is expected to be exponentially small, decay rate of order exp(-1/eps), citing Segur-Kruskal and Fodor et al. He computes radiation only in an expanding background (1+1).
+- **DBI at large amplitude**: "rather intriguing dynamics appearing at large amplitudes", reference [53] Pearce and Amin "in progress"; acknowledgment thanks M. Pearce for simulations of large-amplitude DBI oscillons (sec. 5 and 6, `READ`). **I found no published Pearce and Amin paper** (S5F-1, S5F-9, S5F-16).
+- Later work found:
+  - [Sang, Huang 2021](https://arxiv.org/abs/2012.14697) (PLB 823, 136781), 3+1D lattice, DBI kinetic term, axion-monodromy potential, formation during preheating. Reports oscillon-like overdensities with space-averaged Lorentz factor up to about 3.9 and says formation is suppressed by the non-canonical term; gives no lifetimes, amplitudes or frequencies. `SECONDHAND` (fetch-tool summary of the ar5iv text; the PDF exceeds the tool's size limit).
+  - [Sakstein, Trodden 2018](https://arxiv.org/abs/1809.07724) (PRD 98, 123512): oscillon-type quasi-breathers sustained by the quartic galileon, only C^1. `ABSTRACT`. Different structure.
+  - [van Dissel, Sfakianakis](https://arxiv.org/abs/2010.07789) (PRD 106, 096018) say non-canonical oscillons have been considered only for single fields (their ref. 8 is Amin) (sec. II, `READ (part)`).
+  - [Diaz-Alonso, Rubiera-Garcia 2007](https://arxiv.org/abs/0705.0112) (PLB 653, 445): some k-field models with kinetic self-coupling do have static, finite-energy, spherically symmetric solutions, under conditions on the model (vanishing vacuum energy, positive-definite energy density). `ABSTRACT`. This does not contradict DF-6 (L_R is not shown to be in that class).
+  - [Endlich et al. 2010](https://arxiv.org/abs/1002.4873) (JHEP 05 (2011) 73): no stable static solitons in a broad class of derivatively coupled theories including some k-essence models. `ABSTRACT`.
+- No source found for any measured lifetime of a DBI-plus-mass oscillon in 3+1 (S5F-1, S5F-9, S5F-11, S5F-16).
+
+#### 1.7 Energy minimum, stable branch, saturating term (3D)
+
+- Canonical sextic case: the family has an energy and N minimum at finite amplitude, which is the edge of the stable branch (details and numbers in `PRIOR_ART.md` 2.2 to 2.4, `READ`). Examples: [Fodor et al. 2008](https://arxiv.org/abs/0802.3525), E = 6.29908/eps + 264.262 eps for the phi^4 double well; [Amin, Shirokoff](https://arxiv.org/abs/1002.3380), N minimum near alpha^2 = 0.025; [Li, Yamaguchi, Zhang 2025](https://arxiv.org/abs/2507.13276), beta = 4/3, omega_death = 0.97, N = 80.3. All from the Session 1 brief; not re-opened this round.
+- k-oscillon case: the small-amplitude end gives N proportional to 1/eps and E = 25.2/eps for L_R (section 1.5), so E rises without bound toward small amplitude. Whether E turns up again at large amplitude, i.e. whether the kinetic nonlinearity supplies its own saturation, **no source found**. Amin says large amplitude "requires a case by case analysis" and gives none for DBI. The expansion has no small parameter here (Delta = 1/2 is order one, unlike the large-g limit of Amin and Shirokoff), so the interior minimum, if it exists, sits at order-one amplitude where only numerics can decide. This is why F1 and F2 for R rest on the runs, not on theory.
+
+---
+
+### 2. Item 5: does the October lesson apply to the full square-root L_R
+
+**Answer: No.** Three clauses are reversed; the fourth (static no-go) holds but does not constrain oscillons.
+
+The retired term. LESSONS item 6 gives W = phi'^2/2 + 3 kappa phi'^4 - V, a term -3 kappa phi_t^4 in H, and a speed sqrt((1 + 12 kappa phi'^2)/(1 + 4 kappa phi'^2)). I rebuilt all three from L = X_A - 4 kappa X_A^2 - V (DF-3). So the retired term is xi_2 = -4 kappa < 0 in Amin's notation.
+
+| Clause | Retired term (LESSONS item 6) | L_R, full square root | Source, tag |
+|---|---|---|---|
+| (a) Static regular solution | none exists | **none exists either** | `DERIVED` DF-6: the quantity H_l = V - (1 - 1/sqrt(1 + phi'^2)) satisfies dH_l/dr = (2/r) phi'^2/sqrt(1 + phi'^2) >= 0 with H_l(0) = V(phi_0) >= 0 and H_l(infinity) = 0, so phi_0 = 0. Derrick bracket is also a sum of non-negative terms. Endlich et al. (`ABSTRACT`) are consistent. **Harmless for oscillons**: Amin's k-oscillons are time-periodic and need no static balance (`READ`). |
+| (b) Sign of the quartic terms | +kappa grad^4 in the static energy (beats Derrick); -3 kappa phi_t^4 in H | xi_2 = +1/2: static gradient energy S/2 - S^2/8 + ... (the quartic is negative, so Derrick is made worse, not better); H in velocity variables = u_t^2/2 + (3/8) u_t^4 + ... (positive). In momentum variables the quartic is -p^4/8, but sqrt(1 + p^2) - 1 is non-negative, so the sign of a truncated coefficient is not the criterion | `DERIVED` DF-2, DF-3; sign is the "correct" one in [Adams et al.](https://arxiv.org/abs/hep-th/0602178) eq. 7 (`READ`); Amin: xi_2 > 0 gives Delta > 0 (`READ`) |
+| (c) Propagation speed | superluminal along gradients | subluminal everywhere in X < 1; at most 1 (table in 1.3) | Adams et al. p. 11 (L'' >= 0, `READ`); Eperon et al. (3.12) (`READ`); DF-4 |
+| (d) Energy bounded below | no (-3 kappa phi_t^4) | yes: H >= |u|^2/2 >= 0 | `DERIVED` DF-1; NEC L_X > 0 ([Babichev et al.](https://arxiv.org/abs/0708.0561), `READ`) |
+
+**O9, checked against sources.** The conjugate-momentum form H = sqrt((1 + p^2)(1 + S)) - 1 + |u|^2/2 and the statement "the X^2 term has the opposite sign to the retired one" are both confirmed (DF-1: Legendre transform checked numerically, maximum error 7e-15 over 10,000 random states; DF-3). No source contradicts them. Two cautions, from G1 and G2: p can diverge in finite time in the massless limit, so "X stays below 1" is not a reason to drop the guard; and for the three-component field X < 1 does not give hyperbolicity.
+
+**What truncating at X^2 would do** (`DERIVED`, DF-7). L_T = X/2 + X^2/8 - |u|^2/2.
+
+- For a static gradient S, hyperbolicity needs (1 - 3S/2)/(1 - S/2) > 0, which fails for 2/3 < S < 2 (the equation changes type) and for S > 2 the coefficient of the kinetic term is negative (the null energy condition is lost).
+- Static energy density S/2 - S^2/8 is negative for S > 4: unbounded below.
+- So the truncated model has both pathologies of the retired term, at a gradient |grad u| of order one in units of the limit. Amin uses the X^2 truncation legitimately, only as a leading-order small-amplitude expansion (`READ`). The plan is right to forbid it for production.
+
+---
+
+### 3. Item 6: vector oscillons
+
+#### 3.1 Their model ([Zhang, Jain, Amin 2022](https://arxiv.org/abs/2111.08700), PRD 105, 096037, `READ`; and the first author's thesis [arXiv:2401.00043](https://arxiv.org/abs/2401.00043), sec. 3.5, `READ (part)`)
+
+- Real massive vector (Proca) field W_mu: L = -(1/4) X_{mu nu}X^{mu nu} - V(W_mu W^mu), V = m^2 W^2/2 - (lambda/4)(W^2)^2 + (gamma/6)(W^2)^3, with lambda, gamma > 0 and gamma = lambda^2/m^2 in the simulations (paper, eqs. 1 and 2, footnote 1). The thesis writes it with lambda = -1 and h = 1 (eq. 3.81 and sec. 3.5.5). In the plan's convention beta = (10/3) g6/g4^2 (`PRIOR_ART.md` 1.1, with g4 = lambda, g6 = gamma, m = 1) this is **beta = 10/3**, not 4/3 (`DERIVED` arithmetic). Their numbers are context, not predictions for our beta = 4/3.
+- Nonrelativistic limit: three spatial components behave like Schroedinger fields with the constraint W_0 solved; the nonlinear potential contains a term proportional to the spin density squared, S.S (paper eq. 8). This is what separates directional from spinning.
+- The component equations decouple in the free nonrelativistic limit ([Adshead, Lozanov 2021](https://arxiv.org/abs/2101.07265), `ABSTRACT`).
+
+#### 3.2 The three configurations (all spherically symmetric in energy; only the hedgehog is also in the field)
+
+| Configuration | Form of W (small amplitude) | Total spin | Maps to ours |
+|---|---|---|---|
+| Directional | W = f(r) cos(omega t) z-hat, fixed direction | 0 | **single bump** (u = f e). Profile eq. v'' + 2v'/r - v + (3/4)|lambda| v^3 = 0 (thesis 3.96) |
+| Spinning | W = f(r)[cos(omega t) x-hat + sin(omega t) y-hat], circular polarization | N times hbar (N = particle number) | a bump with a second sideways component **out of step by a quarter period**; same profile in both. Not an S-bend. Plan's reading "spinning = candidate for the twist" fits the out-of-step part only |
+| Hedgehog | W = f(r) r-hat cos(omega t), f(0) = 0 | zero | **pinch** (u = f r-hat). Profile eq. v'' + 2v'/r - (1 + 2/r^2) v + (3/4)|lambda| v^3 = 0 (thesis 3.98): the same cubic coefficient as directional, plus the l = 1 term |
+
+#### 3.3 Energies
+
+- **At fixed particle number** (nonrelativistic, small and moderate amplitude): directional < spinning, E_d < E_s (paper eq. 20, `READ`). For gamma = 0, E_d = (4/9) E_s at equal N and (2/3) E_s at equal omega (paper footnote 3). Hedgehog is the highest: the paper says it "includes significant relativistic corrections towards its center, and is also higher in energy" than the other two, and defers details to future work. No number in the paper.
+- The thesis gives numbers: leading-order energies 5.01/eps, 18.9/eps, 73.4/eps for directional, spinning, hedgehog (sec. 3.5.2), and argues the ordering at fixed N from dE/dN = omega: "directional and hedgehog oscillons are the lowest- and highest-energy state respectively, which is not surprising since hedgehog profiles have nodes". It says the conclusion was checked with subleading profiles. `READ (part)`.
+- **Check of the printed numbers** (`DERIVED`, DF-8). With the printed profile equations and the energy formula E = (1/2 eps) times the integral of W-dot^2 + W^2, I get E_s = 18.9/eps (agrees) and E_d = 12.6/eps, not 5.01/eps. The ratio 73.4/12.6 = 5.8 equals the ratio of the two profile integrals, which I can reproduce from the printed equations. The printed 5.01 is either a typo or defined differently. The ordering d < s < h is not affected. I would use "hedgehog about 6 times the directional energy at the same omega, small amplitude, that model" and not the 14.7 that the printed numbers give.
+
+#### 3.4 Lifetimes (Proca model, beta = 10/3)
+
+| Object | Lifetime | Conditions | Source |
+|---|---|---|---|
+| Directional | no significant energy loss over about 1e5 /m (about 1.6e4 cycles at omega = 0.975); lifetime bound alpha_d >= 1e5 | 2+1D reduction (cylindrical symmetry), absorbing boundary, omega about 0.975 m, E about 164 m/lambda from a Gaussian start | paper sec. VI and App. C, D, `READ` |
+| Spinning | no decay for at least about 1e3 /m (about 155 cycles) | full 3+1D, absorbing boundary | same |
+| Hedgehog | about 1e6 /m (about 1.6e5 cycles at omega 0.976 to 0.986) | **1+1D radial reduction**; initial W_i = (x_i/r) C sin(pi r/2R) exp(-r^2/R^2), C = 1/sqrt|lambda|, R = 9/m; decay rate has a dip | thesis sec. 3.5.5 and Fig. 3.15 (text and axis labels only; figure not examined), `READ (part)` |
+
+The hedgehog number is from a spherically symmetric run, so it cannot see the object losing its roundness: an upper bound with respect to non-radial instabilities (the same caveat as the plan's section 7). The directional run is 2+1D and the spinning run is 3+1D but short. These lifetimes are not comparable with each other as measured, and none is a prediction for our potential.
+
+#### 3.5 Hedgehog references the paper cites, and other multi-component results
+
+- The paper's references for the hedgehog (its refs. 50, 72 to 76): Adshead and Lozanov (self-gravitating vector dark matter, `ABSTRACT`: hedgehog vector solitons, lowest hedgehog halo about three times less gravitationally bound than the ground state; gravity-bound, nonrelativistic), Loginov 2015 (PRD 91, 105028, complex vector Q-ball, not opened), [Brito, Cardoso, Herdeiro, Radu 2015](https://arxiv.org/abs/1508.05395) (Proca stars, `ABSTRACT`; complex field coupled to gravity), and three Proca-star numerical papers (not opened). All are complex vector fields with gravity or a U(1) charge, not real fields with a sextic potential.
+- Real **scalar** multi-component sextic oscillons: [van Dissel, Sfakianakis](https://arxiv.org/abs/2010.07789) (`READ (part)`): two or N fields each with the same quadratic, quartic and sextic terms and a quartic cross-coupling, fields oscillating in or out of phase; they extend the Vakhitov-Kolokolov criterion, find lifetimes like the single-field case, and run 1+1D and 3+1D. No l = 1 hedgehog.
+- **No source found** for a hedgehog (l = 1, spherically symmetric, three-component) oscillon in a real three-scalar model with a phi^4-phi^6 potential, or in any scalar non-canonical multi-component model (S5F-12, S5F-14, S5F-15).
+
+#### 3.6 What differs from L_O and L_R, and what carries over
+
+Differences.
+
+1. Proca has a constraint (W_0 is not dynamical), three polarizations with the longitudinal one special, and a Lorentz-invariant potential V(W_mu W^mu) that includes -W_0^2. The hedgehog is purely longitudinal (curl-free), exactly the part the constraint changes at relativistic order, which is why the paper finds large relativistic corrections near its centre. Three real scalars have no constraint.
+2. Our potential is V(|u|^2) with the same quadratic, attractive quartic, repulsive sextic structure; the nonrelativistic limit of the two models has the same kinetic term (three decoupled Schroedinger fields) and the same kind of quartic terms. Their beta is 10/3 and ours 4/3.
+3. L_R has a non-canonical kinetic term; nothing in the vector papers does.
+
+What carries over (nonrelativistic, small to moderate amplitude).
+
+- **Energy ordering at fixed N.** The hedgehog's nonrelativistic kinetic energy is f_r^2 + 2f^2/r^2 against f_r^2 for the same profile, with the same local quartic, so its energy exceeds the bump's at equal N (`DERIVED`, DF-8). Directional vs spinning: in a three-scalar model the time-averaged quartic energy is (3/8)|A|^4 for linear and (1/4)|A|^4 for circular polarization (A the complex amplitude), ratio 3:2, so the energy ratio 4/9 for the pure-quartic case matches the paper's footnote (`DERIVED`, DF-8).
+- **Energy ratio at the same omega, hedgehog to bump, about 5.8** at small amplitude, from the thesis profile integrals. For L_R the leading cubic coefficient comes from the u_t^4 part of X^2, which is the same for any linearly polarized pattern, so the ratio should hold there too at small amplitude (`DERIVED` and unverified; it needs the thesis profile integrals to be right).
+- **Existence needs an attractive cubic** for all three (thesis sec. 3.5.1): for L_R that is Delta > 0.
+- Lifetimes, amplitudes and the large-amplitude ordering do not carry over.
+
+---
+
+### 4. A source for F2 (energy along a 3D family has a minimum at finite amplitude)
+
+- **Canonical:** Fodor, Forgacs, Horvath, Mezei 2008 (E = 6.29908/eps + 264.262 eps, double well; the energy minimum is near omega_c = 0.9659, which is also where stability begins), [Amin, Shirokoff 2010](https://arxiv.org/abs/1002.3380), [Hertzberg 2010](https://arxiv.org/abs/1003.3459), [Mukaida et al.](https://arxiv.org/abs/1612.07750), [Ibe et al.](https://arxiv.org/abs/1901.06130), [Li, Yamaguchi, Zhang 2025](https://arxiv.org/abs/2507.13276), all `READ` in the Session 1 brief, `PRIOR_ART.md` 2.1 to 2.4. The relation dE = omega dN ties the energy minimum to dN/d omega = 0, the edge of the stable branch. For our O, beta = 4/3: omega at the energy minimum 0.97, N = 80.3 (Li 2025).
+- **Non-canonical (L_R):** only the small-amplitude end is sourced (E proportional to 1/eps, from [Amin 2013](https://arxiv.org/abs/1303.1102), `READ`, with DF-2). A minimum at finite amplitude: **no source found**. See 1.7.
+
+---
+
+### 5. Predictions on record against the sources
+
+| # | Plan says | What the literature expects | Source, tag | Plan vs literature |
+|---|---|---|---|---|
+| F1 | R traps the single bump below the floor; basis Amin, "scholar to confirm the sign condition" | Small-amplitude k-oscillons exist if Delta > 0; for L_R Delta = xi_2 = 1/2 > 0. In 3D the same paper's criterion says the small-amplitude family is **unstable** (dN/d eps < 0). No source for a stable large-amplitude DBI family; the one remark is unpublished | [Amin 2013](https://arxiv.org/abs/1303.1102) `READ`; DF-2 | **Agrees on existence, rests on nothing for trapping.** The cited basis supports a quasi-breather, not a trapped state. By Amin's own criterion a small-amplitude start is expected to collapse or disperse |
+| F2 | Energy along a 3D family has an interior minimum | Yes for the canonical sextic and double-well models (sources in section 4). For R only the small-amplitude end (E rises as 1/eps) is sourced | `PRIOR_ART.md` 2.1 to 2.4 `READ`; Amin `READ`; DF-8 | **Agrees for O. Rests on nothing found for R.** |
+| F3 | Pinch exists in O and R with higher energy than the bump at the same rate; no lifetime prediction | In the real Proca model with the same potential structure, hedgehog has the highest energy: stated in the paper, with numbers and an argument at fixed N in the thesis (about 5.8 times directional at the same omega, small amplitude). Hedgehog radial lifetime about 1e6/m at beta = 10/3 | [Zhang, Jain, Amin](https://arxiv.org/abs/2111.08700), [thesis](https://arxiv.org/abs/2401.00043) `READ (part)`; DF-8 | **Agrees in direction for O (DF-8 makes it a nonrelativistic inequality at equal N). For R: no source found; DF-8 suggests the same.** Their model is Proca, not ours; no source found for a hedgehog oscillon in a three-scalar or non-canonical model. Lifetime numbers do not carry over |
+| F4 | Energy per cycle stays nearly constant while E and rate drift slowly; "new measurement" | **No source found** for it as stated. The sources say the opposite along a radiating family: N is what is lost (decay to N_min), dE = omega dN, so E/omega tracks N. From the beta = 4/3 numbers N(0.94) = 96.2, N(0.85) = 525, ln N changes 16.9 times faster than ln omega; I get change of ln(E/omega) to change of ln E of about 1.06, far above the rule's 0.2 (`DERIVED` DF-9, error from the figure reading E/(mN) about +/-0.03). F4 can hold only near the N minimum, where dN/d omega is about 0 | Mukaida eq. 2.26, Ibe eq. 21, Li 2025 (`READ`, via `PRIOR_ART.md`); Ibe Fig. 6 (N decays to about 80) | **Rests on nothing found, and the sourced relations point against it** away from omega_death. Consistent with O8 |
+| O8 | F4 misses for any lump losing more than a few percent, since dE = omega dN | Agrees: dE = omega dN is in two independent `READ` sources | as for F4; project data (Session 4: change in ln E = -0.52 with change in ln omega = +0.04) | **Agrees** |
+| O9 | In (f, p), X < 1 identically for finite p; what fails is resolution; H = sqrt((1 + p^2)(1 + S)) - 1 + f^2/2; quartic gradient energy has the opposite sign to the retired term | Algebra and sign confirmed (DF-1, DF-3). Caution: the massless equation reaches 1 - X = 0 in finite time from smooth data, which in (f, p) is p -> infinity at a point; and X < 1 is not sufficient for hyperbolicity with more than one field direction (DF-5) | [Eggers, Hoppe](https://arxiv.org/abs/0812.1790) `READ`; [Eperon et al.](https://arxiv.org/abs/1802.03020) `READ (part)`; DF-1, DF-3, DF-5 | **Agrees with the algebra. Disagrees with the implication that the guard is idle**: see G1, G2 |
+
+---
+
+### 6. DERIVED notes
+
+Each is my own algebra, not a literature claim. DF-1, DF-4, DF-5, DF-7 were also checked numerically with a short script (scratch, not project code: `/private/tmp/claude-501/-Users-aaronramos-Desktop-SWIRL/a9be1e91-ebcc-49bf-ac1c-002c1f72b41f/scratchpad/tools/check_alg.py` and `check_alg2.py`). The reviewer should re-derive independently.
+
+**DF-1. Energy.** L_R = 1 - sqrt(1 - X) - V, X = |u_t|^2 - S. Momentum p = u_t/sqrt(1 - X). Then 1 - X = (1 + S)/(1 + |p|^2), |u_t|^2 = |p|^2(1 + S)/(1 + |p|^2), and H = p.u_t - L = (1 + S)/sqrt(1 - X) - 1 + V = sqrt((1 + |p|^2)(1 + S)) - 1 + V. Hence H >= V >= 0, and X < 1 iff p is finite. Numerical check of the Legendre transform at 10,000 random states: maximum error 7e-15. Pinch: S = f_r^2 + 2f^2/r^2, p = p_r r-hat.
+
+**DF-2. Map to Amin.** X_A = X/2. 1 - sqrt(1 - 2X_A) = X_A + X_A^2/2 + X_A^3/2 + (5/8) X_A^4 + ... So xi_2 = 1/2, lambda_3 = lambda_4 = 0, Delta = 1/2. T_X = (1 - 2X_A)^(-1/2), T_XX = (1 - 2X_A)^(-3/2), 1 + 2X_A T_XX/T_X = 1/(1 - 2X_A) = 1/(1 - X). c_s^2 = 1 - X. Amin's constants are consistent: 3.06699 times sqrt(2) = 4.33738 = S(0). Leading 3D numbers for L_R (Delta = 1/2): f_0 = S(0) sqrt(4/(3 Delta)) = 7.083, integral f^2 d^3 rho = (4/(3 Delta)) 18.897 = 50.39, E = (1/(2 eps)) times that = 25.2/eps. These use the canonical 3D constants (S(0), 18.897 from Fodor et al., Session 1 brief) and the leading-order energy without the O(eps) correction.
+
+**DF-3. The retired term.** L = X_A - 4 kappa X_A^2 - V gives: static radial W = phi'^2/2 + 3 kappa phi'^4 - V (the lesson's W); homogeneous H = phi_t^2/2 - 3 kappa phi_t^4 (the lesson's term); speed along a static gradient b: c^2 = 1 + 2X_A L_XX/L_X = (1 + 12 kappa b^2)/(1 + 4 kappa b^2) (the lesson's expression). So the retired term is xi_2 = -4 kappa. L_R is xi_2 = +1/2.
+
+**DF-4. Speeds.** Principal symbol of the single-field equation: (1 - X) eta^{mu nu} d_mu d_nu phi + d^mu phi d^nu phi d_mu d_nu phi = lower order (signature + - - -). Plane wave on background (a, b n): (1 + b^2) omega^2 + 2 a b omega k_par - (1 - a^2) k_par^2 - (1 - a^2 + b^2) k_perp^2 = 0. Gives the table in 1.3. Bound: (|a| b + sqrt(1 - X))^2 <= (a^2 + (1 - X))(b^2 + 1) = (1 + b^2)^2, so |v| <= 1, with equality only at X = 0. Numerical check of the closed forms against the quadratic: agreement to the 7 digits printed, at four test backgrounds.
+
+**DF-5. Three-component field.** Equation: (1 - X) box u^a + d^mu u^a d^nu u^b d_mu d_nu u^b = -(1 - X)^{3/2} V_a. Principal symbol P^{ab} = (1 - X)(xi.xi) delta^{ab} + (d u^a . xi)(d u^b . xi). Eigenvalues: (1 - X)(xi.xi), twice (two polarizations at the speed of light), and (1 - X)(xi.xi) + sum_a (d u^a . xi)^2, once. The last defines a cone G^{mu nu} xi_mu xi_nu = 0 with G^{mu nu} = (1 - X) eta^{mu nu} + sum_a d^mu u^a d^nu u^a. With M^a_i = d_i u^a, w = M k, S = ||M||^2: the quadratic in omega has real roots iff D(k) = (u_t . w)^2 + (1 + S)[(1 - X)|k|^2 - |w|^2] >= 0 for all k. For one field direction D = (1 - X)[(1 + S)|k|^2 - (k.grad f)^2] >= (1 - X)|k|^2 > 0: X < 1 suffices. For several directions it does not: u_t = (0, sqrt 1.2, 0), u_x = (sqrt 0.5, 0, 0) has X = 0.70 < 1 and D = -0.30 < 0; an independent determinant calculation gives roots omega = +/- 0.365 i. Among 1,415 random three-component states with X < 1, 281 (20 percent) had a non-hyperbolic direction (random states, not necessarily reachable). Pinch (frame r, theta, phi; q = f/r): D_r = (1 + 2q^2)(1 - X) >= 0 (same as the radial reduction, so the radial solver sees X < 1 only), and **D_theta = (1 + S)(1 + f_r^2 + q^2 - f_t^2)**, which is negative in the window 1 + f_r^2 + q^2 < f_t^2 < 1 + f_r^2 + 2q^2 even though X < 1. Example f_t = 1.2, f_r = 0.3, q = 0.5: X = 0.85, D_theta = -0.159. The window needs |f_t| > 1, i.e. large amplitude. Single bump transverse modes: effective metric conformal to Minkowski, so exactly luminal; with an oscillating coefficient P_X(t) (parametric resonance is possible; no source).
+
+**DF-6. Static no-go for L_R.** Static energy density sqrt(1 + S) - 1 + V with V = |u|^2/2. Derrick: scaling u(x) -> u(x/lambda) gives dE/d lambda at 1 equal to the integral of g(S) + 3 integral V, with g(S) = 3(s - 1) - S/s, s = sqrt(1 + S), equal to (2s - 1)(s - 1)/s >= 0. Both terms non-negative, so no nonzero static finite-energy solution in 3D, for any number of components. Radial scalar: see clause (a). The October argument is the same with the sign of dW/dr flipped, and V(phi_0) >= 0 against W(infinity) = 0 again forces phi_0 = 0.
+
+**DF-7. Truncation at X^2.** L_T = X_A + X_A^2/2 (Amin variables), T_X = 1 + X_A, T_XX = 1. Hyperbolic iff (1 + 3X_A)/(1 + X_A) > 0; static gradient X_A = -S/2 gives the windows in section 2. Static energy -L = S/2 - S^2/8. Checked at nine values of S.
+
+**DF-8. Hedgehog vs bump, directional vs spinning, in a three-scalar model.** Real u = Re(A e^{-i omega t}): time average of |u|^4 = (1/4)(|A|^4 + (1/2)|A.A|^2). Linear polarization (A.A = |A|^2): (3/8)|A|^4. Circular (A.A = 0): (1/4)|A|^4. Ratio 3:2, equal to the ratio of the (3/4) and 1 cubic coefficients in the thesis profile equations (3.96, 3.97) and to the footnote of the paper. In the nonrelativistic pure-quartic problem E at the stationary point scales as 1/(g^2 N) (derived by scaling the profile at fixed N), so E_d/E_s = (2/3)^2 = 4/9, as in the paper. The hedgehog u = f r-hat is linearly polarized at every point (|u|^4 averages to (3/8) f^4 as for the bump) with gradient energy f_r^2 + 2f^2/r^2 >= f_r^2 for the same f, so at equal N its energy is at least the bump's. The thesis ratio 73.4/12.6 = 5.8 equals the ratio of profile integrals for the two printed equations (110.1 against 18.9 for unit cubic coefficient). The printed 5.01 for directional is inconsistent with this; see 3.3.
+
+**DF-9. F4 against the family relations.** E/omega = N (E/(omega N)). Along the beta = 4/3 family N(0.85) = 525, N(0.94) = 96.2, E/(mN) about 0.90 at 0.85 (Li) and about 0.97 at 0.94 (interpolated, +/-0.03): d ln N/d ln omega = -16.9; change in ln E = -1.62; change in ln(E/omega) = -1.72; ratio 1.06. The rule in `SESSION_05_PREDICTIONS.md` 2.4 needs at most 0.2. The ratio is small only where dN/d omega is small, near omega_death.
+
+---
+
+### 7. Corrections to the plan's literature column and to the predictions file
+
+1. **F1 basis.** Amin 2013 supports existence of a small-amplitude quasi-breather for L_R (Delta = 1/2 > 0). It does not support trapping, and its stability criterion says the 3D small-amplitude family is unstable. Rewrite the basis as "existence only".
+2. **F3 basis.** The hedgehog energy statement in the paper is one sentence with no data; the numbers are in the first author's thesis (arXiv:2401.00043, sec. 3.5.2), one of which looks misprinted (3.3). Their potential is beta = 10/3 in the plan's convention.
+3. **Plan section 4, "valid for X < 1".** Sufficient for the bump; not for the pinch (G1, DF-5). WP-B2 check 6 should name the pinch condition.
+4. **Amin's X** is (1/2)(d phi)^2 (mostly plus); the plan's X is twice that, and Amin's DBI "2 f X" is our X for f = 1.
+5. **LESSONS item 6.** Add that the static no-go clause holds for L_R too (DF-6) and is not a reason to doubt R; the other three clauses do not transfer.
+6. **O9, second sentence.** "The X guard cannot trip for finite p": true as algebra, but p can diverge in finite time in the massless equation (G2). Keep the guard.
+7. **F4.** The plan names it "new measurement". The sourced relations predict it fails away from omega_death (F4 row, DF-9). The orchestrator already says this in O8.
+8. **Model and effort.** The CLAUDE.md table lists `scholar` as Sonnet 5.5, effort xhigh. Here the model reports as `claude-sonnet-5-5` and the effort setting shown to me is the number 30. I cannot map that to the label "xhigh". Flag if the table is meant strictly.
+
+---
+
+### 8. Novelty check for statements this brief might lead to
+
+| Statement | Searches | What they returned | Wording supported |
+|---|---|---|---|
+| "DBI-plus-mass oscillons: measured lifetimes in 3+1" | S5F-1, 2, 9, 11, 16 | Amin 2013 (existence, no lifetimes; large-amplitude DBI "in progress"); Sang and Huang 2021 (formation in preheating, no lifetimes); nothing else | "No published lifetime measurement of a DBI-plus-mass oscillon was found; Amin 2013 refers to unpublished large-amplitude simulations." Not "first". |
+| "Hedgehog oscillon in a three-component real scalar model" | S5F-12, 13, 14, 15 | Proca hedgehog (thesis); gravity-bound Proca stars; van Dissel and Sfakianakis (no l = 1) | "No source found for a scalar-triplet hedgehog oscillon." Not "new": the Proca hedgehog is the closest relative. |
+| "For a vector-valued Born-Infeld scalar, X < 1 does not guarantee hyperbolicity" | S5F-17, 18 | Single-field k-essence and Born-Infeld only (Babichev et al., Eperon et al., Mukohyama et al.); no multi-field characteristic analysis found | "Derived here (DF-5), not found in the sources read." Do not call it new without a search of the multi-field k-essence literature. |
+| "Finite-time X -> 1 singularities with a mass term" | S5F-7, 18 | massless results only (Eggers and Hoppe; Eperon et al.; Yan) | "No source found for the massive case." |
+
+---
+
+### 9. Search log (S5F-n; web search unless stated; 2026-11-10)
+
+1. k-oscillons DBI large amplitude Pearce Amin non-canonical lifetime: Amin pdf, Zhang et al. 2020, galileon oscillons; no Pearce-Amin paper.
+2. oscillons in scalar field with non-canonical kinetic term, Born-Infeld, mass term, simulation: Sang and Huang 2012.14697.
+3. Zhang Jain Amin polarized/vector oscillons hedgehog: 2111.08700; Jain and Amin 2109.04892.
+4. Born-Infeld "completely exceptional" scalar shock formation Nambu-Goto: Kadlecova 2107.12249 and BI electrodynamics papers; Christodoulou only second-hand.
+5. Lindblad minimal surface equation Minkowskian: math/0210056; Brendle, Allen-Andersson-Isenberg, Ai-Ifrim-Tataru as citing work; not opened.
+6. Eggers Hoppe singularity formation timelike extremal hypersurfaces: 0812.1790 (arXiv title "M-brane singularity formation"; journal PLB 680, 274, from the search result); Eggers, Hoppe, Hynek, Suramlishvili 2015 not opened.
+7. Born-Infeld scalar 1+1 blow-up finite time smooth data: Eperon et al.; Yan; Alejo and Munoz; Felder et al.
+8. Born-Infeld scalar potential soliton Derrick no static solutions: Diaz-Alonso and Rubiera-Garcia; Endlich et al.; BPS solitons in DBI (1402.0019, not opened).
+9. oscillons P(X, phi) k-essence 3+1 lattice "k-oscillon" (extended): no k-essence oscillon paper beyond Amin.
+10. oscillons Born-Infeld/DBI breathers 1+1 kink-antikink noncanonical: DBI solitons (BPS, kinks), no oscillons.
+11. "K-oscillons" Amin 2013 cited, follow-up: Sakstein and Trodden; Zhang et al. 2020 citing it.
+12. hedgehog oscillon multi-component scalar O(3) l = 1 phi^6: two-field phi^6 (1907.07145), van Dissel and Sfakianakis, review 2411.16604; no hedgehog.
+13. "Symmetric multifield oscillons" 2010.07789: found, read (part).
+14. Loginov nontopological solitons self-interacting complex vector field: 2015 paper and "electromagnetic hedgehogs" (2405.01335); not opened.
+15. hedgehog oscillon real vector field / O(3) triplet (extended): led to the thesis 2401.00043 (hedgehog section found by text search after extraction).
+16. DBI scalar oscillon lifetime large amplitude 3+1 2022 to 2025 (extended): nothing new.
+17. multi-field k-essence hyperbolicity characteristics: 2008.07546, 1605.06418, 1602.00735, 2003.13730, 2412.21169; none multi-field Born-Infeld.
+18. Born-Infeld scalar with mass term Klein-Gordon well-posedness blow-up: 1807.04227, 1707.02595; nothing for the massive scalar.
+
+Fetches that were read in full or in part (arXiv PDF, text extracted locally): 1303.1102, 2111.08700, PRD 105, 096037 (accepted manuscript), 2401.00043 (thesis, hedgehog and vector-oscillon sections), 0708.0561, hep-th/0602178, 1802.03020, 0812.1790, hep-th/0208019 (intro), 2107.12249 (intro), 2010.07789 (model section). Abstract pages only: 1002.4873, 1107.4370, 0705.0112, 1602.00735, 1605.06418, 1807.04227, 1707.02595, math/0210056, 1809.07724, 2101.07265, 1508.05395, 2008.07546, 2006.09053.
+
+---
+
+### 10. Not obtained, not read
+
+- Pearce and Amin, large-amplitude DBI oscillons: not found; may not exist in print.
+- Boillat 1970, Whitham 1974, Barbashov and Chernikov 1966 and 1967, Taniuti 1959, Christodoulou (scalar Born-Infeld, 3D): no arXiv text; claims about them are `SECONDHAND` through Eperon et al. and Kadlecova.
+- Kato and Hughes-Kato-Marsden (local well-posedness of quasilinear hyperbolic systems): not read.
+- Lindblad 2004, Brendle 2002, Allen-Andersson-Isenberg: abstract of Lindblad only.
+- Yan 2018 and Alejo and Munoz 2017: abstracts only; I did not check what smoothness "blow-up" refers to there.
+- Felder, Kofman, Starobinsky: only the introduction and abstract; the 3+1 section was not read.
+- Sang and Huang 2021: fetch-tool summary only (PDF over the 10 MB limit); amplitude, lifetime and frequency are not reported there per that summary, not verified against the text.
+- Loginov 2015, Sanchis-Gual et al. 2017 and 2019, Bustillo et al. 2021, Jain and Amin 2109.04892 (abstract only): not opened.
+- Thesis Fig. 3.15 (the hedgehog decay-rate figure) not examined; the numbers 1e6/m and omega 0.976 to 0.986 are from the text and axis labels. The printed energies 5.01, 18.9, 73.4 per eps: see 3.3.
+- Fodor et al. 2008, Amin and Shirokoff, Hertzberg, Li et al., Mukaida et al., Ibe et al.: relied on the Session 1 brief; not re-opened.
+- Multi-field Born-Infeld or k-essence hyperbolicity analysis: no source found.
+- d'Avenia and collaborators on Klein-Gordon-Born-Infeld systems (surfaced in a search snippet): not opened; may concern coupling to Born-Infeld electrodynamics rather than the scalar.
+- Whether F2 holds for L_R, whether the 3D k-oscillon family has a stable branch, and lifetimes of the pinch in L_O or L_R: no source found; these are what the runs measure.
+
+## Session 5, Track C against the results (2026-11-10, after the production runs, the reviewer's recomputation and diagnostics D1 to D6)
+
+Scope: the literature check for the Track C misses and splits recorded in `FAILURES.md` F-038 to F-051 (C5, O1 C-smooth, O2, O5, O6, O10, O11; splits C3, E1, E3; and the process entries). Written by `scholar` (model claude-sonnet-5-5; the reasoning-effort value visible to me is 30, CLAUDE.md lists xhigh: mismatch, noted a third time). Only `docs/` was written. No code, no runs.
+
+Tags as at the head of this file. How read: the fetch tool could not convert any PDF, so it saved each one; I extracted the text locally with the PDFKit helper from the earlier briefs and read the passages cited, so `READ` means a passage of that extracted text. `READ (part)` means sections only. `ABSTRACT` means the abstract page or a search-result abstract. `SECONDHAND` also covers the summaries the search tool writes about pages it did not return in full. `DERIVED` is my own algebra or arithmetic from numbers in a `READ` source or from `TABLES.md`; it is not a literature claim and the reviewer should re-derive it. Search numbers continue from 361: this section uses **362 to 404** (log in 8). The Track F brief above uses its own series S5F-1 to S5F-18.
+
+### 1. Headline findings
+
+1. **The equation of C-smooth is a published equation with a published Banach-space structure, and the structure is exactly the one the reviewer used.** In the stretch variable w = u_x, C-smooth is w_tt - w_xxtt = (F(w))_xx, which is the form "u_tt - u_xxtt = (F(u))_xx, F smooth, F(0) = 0" that Constantin and Molinet recast "as an ODE system in Banach spaces" and solved by Picard iteration for data in (H^s intersect L^infinity) x (H^s intersect L^infinity), s at least 0 ([Geba and Lin 2019](https://arxiv.org/abs/1903.07718), intro, `READ`; Constantin and Molinet, Differential Integral Equations 15, 1061 (2002), `SECONDHAND` through Geba and Lin). Erbay, Erbay and Erkip write the same class as u_tt = (beta * f(u))_xx and say that its character is that of a Banach-space-valued ODE, so a blow-up "should be observed in the L-infinity norm" and one "can not have higher order singularities if the amplitude stays finite" ([Erbay, Erbay, Erkip 2018](https://arxiv.org/abs/1805.07264), Remark 3.2, `READ`). For the linear nonlocal bar the persistence of a jump at its own place, with no other jump created, is proved ([Emmrich and Weckner 2005 preprint](https://www.math.uni-bielefeld.de/~emmrich/public/art9.pdf), Corollary 3.1, `READ`). So "a jump in stretch stays where it was made" is known for the linear nonlocal bar and follows from the published structure for C-smooth (`DERIVED`: the pole law is outside the cited theorems). **Not found:** any statement for the pole law F = d/(1 - d^2), any time-periodic localized state with a discontinuity, and any nonexistence theorem for smooth breathers of this equation (searches 374 to 390).
+2. **The stable-S-bend / unstable-bump conversion is half known.** That the unstable site-centred mode, perturbed along its unstable eigenvector, goes on to oscillate about the stable bond-centred mode is published ([Flach and Gorbach 2005](https://arxiv.org/abs/cond-mat/0410026) `READ`); so is the swing of the energy centre of a perturbed bond-centred mode about its half-site position, and its escape above a threshold ([Flach and Willis 1994](https://arxiv.org/abs/cond-mat/9403053) `READ`). **Not found:** any report that it converts into the bond-centred mode of the same energy, with the energy match and the shed fraction (D3: 0.03 to 1.6 percent in energy after shedding 1.4 to 2.6 percent). Searches 362, 363, 392, 402, 403.
+3. **Pinned or short-travelling kicked breathers are the published norm for strongly localized breathers in pure even-anharmonic FPU chains; the numbers for a pole law are not.** In the beta-FPU chain with k2 = k4 = 1 a kicked bond-centred breather of frequency 4 (twice the band maximum) is trapped before site 200 (38 sites at kick velocity 0.5); at frequency 3 it stops between 4,000 and 10,000 sites ([Shelkan, Klopov, Hizhnyakov 2018](https://arxiv.org/abs/1812.03496), sec. 2, `READ`). Speed proportional to the kick is the standard marginal-mode picture, with an effective mass ([Cuevas et al.](https://arxiv.org/abs/nlin/0202007), sec. 3, `READ`). No source for the 5.6 percent ratio or for loss per distance against push.
+4. **The "first order" in O10 is not a property of the medium but of where the jump sits.** No source states the order for a jump on a cell edge. The only published order is second, for smooth data (Erbay et al. 2018, Theorem 4.1, s above 9/2, `READ`); the published remedy for jumps in a quadrature is to break the domain at the jump (Emmrich and Weckner, sec. 4, `READ`). D5 found second order for the energy of the exact state (ratio 4, jump on a cell edge at every h).
+5. **The long staggered envelopes decay as the hardening-FPU literature says they should.** The zone-boundary (staggered) mode of the beta-FPU chain is modulationally unstable above an amplitude threshold that falls as 1/N, and the instability produces a few breather-like packets that merge ([Cretegny et al. 1998](https://arxiv.org/abs/cond-mat/9709204), eqs. 3 and 4, sec. V, `READ`). E1's "too long" clause is therefore a known instability, not a travelling wave, and the sign argument carries to G1 at small amplitude (`DERIVED`).
+
+### 2. Item (a): an unstable site-centred mode turning into the bond-centred mode of the same energy
+
+What is published (all with potentials other than G1; context, not predictions for us).
+
+- **Stability and the eigenvector route.** Page (bond-centred, the S-bend) stable, Sievers-Takeno (site-centred, the bump) unstable, with one localized pair of real Floquet multipliers; perturbed along that eigenvector the Sievers-Takeno mode goes on to oscillate about the Page mode (phi_2 = phi_4 = 1, phi_3 = 0, Omega_b = 4.5, 80 sites, [Flach and Gorbach 2005](https://arxiv.org/abs/cond-mat/0410026), `READ`; table in 3.2 of the Track C brief above). Search 403 returned the same statement.
+- **The energy centre swings about the half-site position.** For the pure quartic chain (V = x^4/4, C = 0, E = 1) the even-parity mode (centred between sites, "elliptic") has frequency 1.760 +- 0.0018 and the odd-parity mode (centred on a site, "hyperbolic") 1.751 +- 0.0018 at the same energy; for an asymmetric perturbation of the even mode the energy centre X_E(t) oscillates around its mean value 0.5 and, past a threshold amplitude, escapes ([Flach and Willis 1994](https://arxiv.org/abs/cond-mat/9403053), pp. 5 to 7, Fig. 2 caption lists a = 0.02, 0.06, 0.1, 0.112, 0.113, `READ`; the figure was not seen, so where the threshold lies between 0.112 and 0.113 is my reading of the caption). The same paper proves that, generically, "it is impossible to define a Peierls-Nabarro potential" because the translational degree of freedom is coupled to the internal ones (abstract, `READ`). So at equal energy the two modes have nearly the same frequency (0.5 percent apart) for that potential.
+- **Energy gap at equal action.** For beta-FPU with alpha = 0, beta = 1, omega_0 = 1, at equal symplectic area the period of the site-centred mode exceeds the period of the bond-centred mode and the bond-centred mode has the higher energy, E_P above E_ST, which the authors call a surprise ("negative effective mass in the Peierls-Nabarro potential"); the barrier is Delta E_PN = abs(E_P - E_ST), and an upper bound on the depinning energy found by kicking (a rough optimisation over momentum patterns) differs from the barrier by roughly a factor of two ([Kastner and Sepulchre](https://arxiv.org/abs/nlin/0310027), secs. 3 and 6, `READ`). In a Hertzian chain with a local potential the barrier is defined at equal frequency and is tiny (E_PN about 1e-4 at omega_b = 1.5, s = -1/6) ([James, Cuevas, Kevrekidis 2013](https://arxiv.org/abs/1301.1769), Fig. 3, `READ`).
+- **Moving, then pinned.** In a Hertzian chain with a harmonic on-site potential at omega = 1.1, a momentum perturbation lets only the unstable site-centred breather move, 2 sites, and then be pinned (a search-tool summary, `SECONDHAND`, search 402, attributed to the Hertzian-chain papers of James, Cuevas and Kevrekidis; the claim is not in the short paper I read, [arXiv:1301.1769](https://arxiv.org/abs/1301.1769), so it is presumably in the long one, [arXiv:1111.1857](https://arxiv.org/abs/1111.1857), which I did not open).
+
+Whether anyone reports the conversion with its energy match and shed fraction: **no source found** (searches 362, 363, 392, 402, 403). The nearest statements are those above.
+
+Reading for the ledger (`DERIVED`, from `TABLES.md` table 1 and D3): the bump and S-bend family curves of C-grid G1 differ in energy at equal rate by 0.8 percent at rate 2.2 (E = 0.6416 against 0.6364 at 2.205), about 9 percent at 2.5 and about 24 percent at 3.0 (interpolated from A1). So the D3 energy match (0.57 percent at start rate 2.2) does not by itself discriminate bump from S-bend at 2.2; the odd fraction about the bond centre (0.973 against 0.004 about the site) does. At 2.5, 3.0 and 3.5 the match (0.03 to 0.41 percent, 1.64 percent at 3.5) is much smaller than the gap, so it does discriminate.
+
+Verdict: **known in part** (instability, motion, half-site oscillation about the stable mode, ill-defined barrier); the energy match and shed fraction of a conversion: **not found**.
+
+### 3. Item (b): pushed breathers that travel a finite distance and stop; pinned at high rate; speed against push
+
+- **PN trapping is the published explanation of the stop.** "Unlikely to kinks, breathers also have internal oscillation modes ... PN barrier for DBs has not been found explicitly, but illustrated via computer simulations, showing the trapping of DBs when their size is small enough" ([Shelkan et al.](https://arxiv.org/abs/1812.03496), intro, `READ`). In their FPU chain (k2 = k4 = 1, k3 = k5 = 0, 4,000 atoms, fixed ends, frequencies 1.5, 2.0, 2.5 times the band maximum 2) a kick of the displacement pattern (...0.0, 0.33, -1.33, 1.33, -0.33, 0.0...) with velocity pattern (-v, v, v, -v) gave "all moving DBs were trapped earlier than site 200; if v = 0.5 the DB moves over 38 sites and then it is trapped", and at frequency 3 "they stop between 4000 and 10000 atoms" (sec. 2, `READ`; the frequency labels are read from a garbled extraction: 1.5 times 2 = 3 is stated, and the second frequency is 4 by the same arithmetic). The mean velocity is larger when the breather sits between sites and smaller on a site (their Fig. 3), which they read as a PN barrier. Adding an odd term makes the breather travel much farther (more than 300 sites at frequency 4 with k3 = 0.15, and more than a million sites at frequency 3 with k3 or k5 equal to 0.01 k2, "without trapping"). These are in-chain results for a different potential and kick; read them as the trend (higher frequency, shorter travel) and not as a prediction. Our D1 shows the same trend in G1: rate 2.1 travels 99 to 292 sites, rate 2.3 moves 10 to 20 sites and stops, rate 3.0 moves at most 0.24.
+- **Kastner and Sepulchre** use the same picture quantitatively (above, `READ`): the PN barrier is "non-negligible" for strongly localized breathers (their type III, the Page and Sievers-Takeno modes, FPU alpha = 0, beta = 1), negligible (exponentially small in the amplitude) for weakly localized ones (type II), and the kick energy found necessary to depin is within roughly a factor of two of the barrier (upper bound, rough optimisation). Their kicks are momentum patterns, not translations.
+- **Why it can stop at all.** An undamped particle in a periodic potential either oscillates in one well or runs freely; stopping after a finite distance needs loss. The literature's loss is radiation: a moving breather "generically radiates" and "eventually slows or decays" ([Johansson and Jason 2014](https://arxiv.org/abs/1412.0994), sec. 1, `READ`); in a periodic beta-FPU box a perturbed Sievers-Takeno breather "gradually decelerates and ends nearly at rest" ([Duran et al.](https://arxiv.org/abs/2111.09167), `READ`, as in 3.3 of the brief above). The motion in the PN potential and the radiative loss are not separated in the sources I read.
+- **Speed proportional to the push.** For a static breather "made movable using the marginal mode method" (a velocity perturbation of size lambda along a localized linear mode), "the resulting translational velocity of the breather, v, is proportional to lambda", and the effective mass is defined by m* v^2/2 = lambda^2/2 ([Cuevas, Palmero, Archilla, Romero](https://arxiv.org/abs/nlin/0202007), sec. 3, `READ`; they cite their refs. 7 and 8 for the proportionality; a Peyrard-Bishop DNA model, omega_b = 0.8, C = 0.24, J = 0.02, context only). They also say phonon radiation "is not negligible" above an added energy of about 0.03 in that model (sec. 4). A search-tool summary says the same proportionality is in [arXiv:nlin/0504021, "Classical and quantum nonlinear localized excitations in discrete systems"](https://arxiv.org/abs/nlin/0504021) (`SECONDHAND`, search 373; authors not checked). Our push v = -lambda u_x (nominal speed lambda, `swirl/string/starts.py`) is a translation generator, not the marginal mode, so the constant is not comparable: **no source found** for the measured 5.6 percent of the nominal speed (0.050 to 0.056 of lambda over lambda = 0.05 to 3 at rate 2.1), and none for loss per unit distance against speed. The form "speed proportional to push" agrees with the effective-mass picture.
+- **The kick direction matters.** "A pure marginal-mode kick gives the least phonon radiation" and "not every kick can move a breather" (search-tool summaries, `SECONDHAND`, searches 371, 373; the second is also the wording of the DNA paper's sec. 3). Ours is not a marginal-mode kick; a lambda of 10 gave speed 5.6e-4 and 2.8 sites at rate 2.1, against 0.149 at lambda = 3, so a larger push is not a faster object: not contradicted by the sources.
+- **The barrier concept.** Flach and Willis 1994 (`READ`) and Johansson and Jason (`READ`): no unique PN potential; the movability separatrix depends on the internal actions. So a "depinning energy" or "break speed" for these breathers is a property of the kick used.
+
+Verdict: **known but not for this law**: finite travel and stopping of kicked strongly localized breathers, PN trapping, speed proportional to kick. **Not found**: loss per unit distance against push, the 5.6 percent constant, any statement of monotone loss; the resonance structure in Duran et al. argues against monotone (as in conflict 2 of the brief above).
+
+### 4. Item (c): the equation u_tt - u_xxtt = (F(u_x))_x as a Banach-space ODE; stationary discontinuities
+
+What is published.
+
+- **Banach-space ODE, regularity class preserved, no higher singularities.** (i) [Geba and Lin 2019](https://arxiv.org/abs/1903.07718), eq. (3) and intro, `READ`: the equation u_tt - u_xxtt = (F(u))_xx, F in C^infinity, F(0) = 0, is "recast in the form of an ODE system in Banach spaces and the LWP is obtained by classical Picard iteration" (Constantin and Molinet), locally well posed in (H^s intersect L^infinity)^2, s at least 0, with continuation criteria; Geba and Lin add a contraction proof in the same spaces and ill-posedness for s below 0 (the flow map is not smooth from H^s). (ii) [Duruk, Erkip, Erbay 2009](https://research.sabanciuniv.edu/id/eprint/8722/1/IMA_Duruk-Erbay-Erkip.pdf), `READ` (as in 4.4 of the brief above): H^s, s above 1/2, Theorem 3 regularity preserved, not improved. (iii) [Erbay, Erbay, Erkip 2018](https://arxiv.org/abs/1805.07264), Remark 3.2 and Theorem 3.5, `READ`: the class u_tt = (beta * f(u))_xx with beta = (1/2) exp(-abs(x)) and f(u) = u + g(u) is the improved Boussinesq equation (their (1.2)); "the H^s-valued ODE character" and the L-infinity control of the nonlinear term imply that "one can not have higher order singularities if the amplitude stays finite"; the semi-discrete scheme is an l-infinity-valued ODE for any locally Lipschitz f, well posed by Picard's theorem on Banach spaces (Theorem 3.5).
+- **Discontinuous data are inside the class.** (H^0 intersect L^infinity) = (L^2 intersect L^infinity) contains jump functions with bounded support (`DERIVED`, elementary); Geba and Lin's range s at least 0 therefore includes them (`READ` for the range, `DERIVED` for the inclusion). The first-order system in the stretch variable is the same ODE (`DERIVED`: w_tt = -F(w) + K * F(w), K = (1/2) exp(-abs(x)), as in the reviewer's derivation).
+- **Jumps persist and do not move: linear bar.** Emmrich and Weckner, equation u_tt = integral k(x, xi) u(xi) d xi + c(x) u + b, "well-posedness in L-infinity as well as jump relations"; Corollary 3.1: for piecewise continuous data with a jump at x-hat, the solution is piecewise continuous, "the jump remains at x-hat" and "no other jumps are generated" (preprint dated 2/02/2005, `READ`; the published venue was not checked). The height obeys [[u]] = cosh(t c(x-hat)^(1/2)) [[u_0]] + ... in the notation of eq. (3.10) (the square roots were lost in my text extraction; Example 3.2 gives, for a jump in u_0 and constant c, a height (u_r - u_l) times cosh(t sqrt(c)) for c above 0, 1 for c = 0 and cos(t sqrt(-c)) for c below 0, and a jump in the velocity v_0 produces a jump in the displacement for t above 0 even when u_0 is continuous, Example 3.3). With k = K and c = -1 this is the linearization of C-smooth, and it gives a jump height oscillating at rate 1 (`DERIVED` mapping; consistent with the reviewer's J'' = -[F(w)]). Weckner and Emmrich state that "the Lagrangian location of a discontinuity is shown to remain stationary" in Weckner and Abeyaratne ([J. Comput. Appl. Mech. 6, 311 (2005)](https://www.math.uni-bielefeld.de/~emmrich/public/art4.pdf), sec. 1, `READ (part)`; the original, [Weckner and Abeyaratne, J. Mech. Phys. Solids 53, 705 (2005)](https://doi.org/10.1016/j.jmps.2004.08.006), `ABSTRACT` only, `SECONDHAND` for the stationary location; the Riemann-type problem with a jump in the velocity is its "most striking observation").
+- **Nonlinear nonlocal bar, bounded classes.** [Erbay, Erkip, Muslu 2012](https://arxiv.org/abs/1010.5689), `READ (part)`: for u_tt = integral alpha(y - x) w(u(y) - u(x)) d y with alpha in L^1 and w in C^1, w(0) = 0, local well-posedness in C^2([0,T], C_b) for continuous bounded data (Theorem 2.2) and in C^2([0,T], L^p intersect L^infinity), 1 at most p at most infinity (Theorem 2.3); global existence and blow-up conditions. Their nonlinearity acts on differences, not on a strain, so it is a neighbour of C-smooth, not the same equation. Jumps are not discussed in the part I read.
+- **A published counter-case: jumps can dissolve and nucleate when the nonlocal operator is unbounded.** [Coclite, Dipierro, Maddalena, Orlando, Valdinoci, arXiv:2609.30041](https://arxiv.org/abs/2609.30041) (24 September 2026; `READ`: abstract and introduction): in a periodic linear peridynamic wave model u_tt - K[u] = 0 with the singular kernel K[u](x) = - p.v. integral chi_delta(y) (u(x) - u(x - y))/abs(y)^(1 + 2 alpha) d y, alpha in (0,1), delta the horizon, for alpha in (0, 1/2) they build a solution with a jump at t = 0 that is continuous at every t above 0 and, by time reversal, a continuous datum that develops a jump at a prescribed time, with a sharp Hoelder blow-up estimate. This operator is unbounded (the dispersion rises without bound with k), so the L-infinity Lipschitz argument above does not apply to it, and C-smooth's operator (1 - d_xx)^(-1) d_xx, bounded with norm 1, is outside its class (`DERIVED`). It matters as a reminder that "jumps persist" is a statement about bounded nonlocal operators, as in Emmrich and Weckner and in C-smooth, and not about nonlocal waves in general. The reviewer should confirm the reading; I read the kernel from the introduction only.
+
+What is **not** found (searches 374 to 390, plus 317, 345, 354, 361 of the brief above).
+
+- The pole law F = d/(1 - d^2) in any of the theorems: the cited results need F smooth on all of R or locally Lipschitz on the whole space; the flow of C-smooth with G1 lives on the open set where abs(w) is below 1 (`DERIVED`: the right-hand side is Lipschitz on L-infinity while sup abs(w) is below 1, as the reviewer derived). The energy does not bound sup abs(w) (brief above, 4.4).
+- Any stationary, time-periodic or breather-type solution of the improved Boussinesq equation, the Love rod, Pochhammer-Chree or the Eringen rod, smooth or with a jump; the Pochhammer-Chree literature found is about solitary and travelling waves (search 389, `SECONDHAND`: a search-tool summary).
+- For the regularized long-wave (BBM) relative, u_t + u_x + u u_x - u_xxt = 0 (a first-order-in-time relative, not the same equation): the results found concern ill-posedness and norm inflation in negative Sobolev spaces ([arXiv:1511.02207](https://arxiv.org/abs/1511.02207); [Panthee, arXiv:1003.6098](https://arxiv.org/abs/1003.6098), flow map not continuous at the origin from H^s to distributions) and a smoothed stationary shock that persists but decays algebraically ([arXiv:1601.01071](https://arxiv.org/abs/1601.01071)); all `SECONDHAND` through search-tool summaries (search 377). I found no statement about persistence or non-creation of discontinuities for the BBM or the Rosenau-regularized long-wave equations.
+- Any theorem that smooth breathers do not exist for this equation. The only published non-existence results are for Klein-Gordon-type equations with an unbounded spectrum (brief above, 4.1).
+- Any breather or standing state of a nonlocal wave equation with a jump discontinuity (search 390): the breathers returned are for nonlocal discrete nonlinear Schroedinger equations, a different structure.
+- Hardening laws specifically: F = d + beta d^3 is inside Duruk, Erkip, Erbay's class (g smooth on R) and the Erbay-Erbay-Erkip class (f smooth); with F = d + beta d^3 the strain energy is non negative, so global existence in H^s holds (Theorem 4 of Duruk et al., `READ` in the brief above). That says nothing about jump profiles or standing states.
+
+Verdict: **known, but not for this law**: the Banach-space ODE structure, preservation of the regularity class, the persistence of a jump at its own place in the linear nonlocal bar, well-posedness in bounded classes for neighbouring nonlinear models. **Not found**: the pole law; any standing or time-periodic state with a discontinuity; any nonexistence theorem for smooth breathers. **Not new**: the structural facts. Careful wording: "the held jump-profile states are discontinuous periodic solutions of an equation whose flow is an ODE in L-infinity; we found no published example of such a state and no published obstruction."
+
+### 5. Item (d): rate differences with a ratio near 4 across h
+
+- **What is published.** Second order in space for the semi-discrete scheme of u_tt = (beta * f(u))_xx, in l-infinity, **for smooth solutions** (Theorem 4.1: s above 9/2, f in C^(floor(s) + 1)), and the abstract says "second-order convergent in space" ([Erbay, Erbay, Erkip 2018](https://arxiv.org/abs/1805.07264), `READ`). That theorem does not cover a discontinuous solution (s above 9/2 is smooth).
+- **Jumps and quadrature.** For the linear nonlocal bar the published numerical method "partitions the domain of integration corresponding to the jumps in the data and applies quadrature formulae on each of the integrals taken over intervals on which the data are continuous" because the solution "possesses only jumps at the abscissae" of the data ([Emmrich and Weckner](https://www.math.uni-bielefeld.de/~emmrich/public/art9.pdf), intro and sec. 4, `READ`; Weckner and Emmrich 2005, end of sec. 2, `READ (part)`: the stationary position of every discontinuity is known in advance, which makes the interpolation near it easy). That is the published reason to put the discretization's edges at the jumps.
+- **The generic expectation that a jump inside a cell costs an order** appears in numerical-analysis papers (a search-tool summary of [arXiv:1903.08891](https://arxiv.org/abs/1903.08891), `SECONDHAND`, search 396, 401; the sentence is about jumps in the interior of grid cells and a first-order estimate; I did not open the paper). A related finite-difference statement is the Beale and Layton result that a localized truncation error at an interface can leave the global accuracy at second order (Commun. Appl. Math. Comput. Sci. 1 (2006), `SECONDHAND`).
+- **No source found** that states the convergence order of a periodic state with a jump fixed on a cell edge at every h, for this or any nonlocal wave equation.
+
+Reading for the ledger (`DERIVED`): the prediction O10 ("rate converging at first order in h") is the generic expectation for a jump free to sit inside a cell. The jump sits at 0.25, which is a cell edge at h = 1/4, 1/8, 1/16 (and 1/32, D5), and the measured order is two: energies 0.36501, 0.36181, 0.36101, 0.36081 (D5, differences 3.2e-3, 8.0e-4, 2.0e-4, ratio 4), rates 1.456, 1.461, 1.462 and 1.839, 1.846, 1.847 (ratios 3.87 and 3.96). Verdict: **not found** for jump profiles; **known** for smooth data. The second-order result is a property of the alignment (reviewer, D5) and agrees with the published practice of putting cell edges at jumps; whether a jump placed inside a cell gives first order is untested (a diagnostic is proposed in F-043).
+
+### 6. Item (e): decay of long staggered envelopes on the hardening lattice
+
+- **The band-edge mode of the beta-FPU chain is modulationally unstable.** "The pi-mode turns out to be modulational unstable above a critical energy E_c", with E = N (2 a^2 + 4 beta a^4) for u_n = (-1)^n a and V(x) = x^2/2 + beta x^4/4, so that for a above a_c = sin(pi/N)/sqrt(beta (9 cos^2(pi/N) - 3)) the mode is destroyed (eqs. 3 and 4, periodic ring of N sites). The instability gives first a few localized packets, which then merge, because inelastic collisions favour the growth of big breathers at the expense of small ones, into one large breather-like excitation, the "chaotic breather", which moves erratically, is sometimes stopped or reflected, and collects energy; frequencies up to 3.5 against a band maximum of 2 were seen in N = 512 chains; "the usually adopted Nonlinear Schroedinger approximation is not appropriate to describe these objects" ([Cretegny, Dauxois, Ruffo, Torcini 1998](https://arxiv.org/abs/cond-mat/9709204), secs. I to V, `READ`). A 1/N threshold means any fixed amplitude is unstable once N is large (`DERIVED` arithmetic from eq. 4: a_c = 0.111, 0.054, 0.027 for N = 12, 24, 48 at beta = 1).
+- **Early reports and the continuum picture.** Kivshar and Peyrard, "Modulational instabilities in discrete lattices", Phys. Rev. A 46, 3198 (1992): the discrete lattice changes the stability domain; the long-term evolution shows chaotic-like states ([bibliographic record](https://doi.org/10.1103/PhysRevA.46.3198), `SECONDHAND`, search 393). Daumont, Dauxois, Peyrard, Nonlinearity 10, 617 (1997): modulational instability is "the first step towards energy localization in nonlinear lattices" (`ABSTRACT` through a search record, search 394). Kosevich and Lepri, [Phys. Rev. B 61, 299 (2000)](https://arxiv.org/abs/cond-mat/9910192): in a classical anharmonic chain at finite energy density the modulational instability of the zone-boundary mode produces "a gas of envelope solitons" that merge into a single localized object holding a large fraction of the energy, with time scales set by the energy density (`ABSTRACT`; the potential and the sign of the nonlinearity are not in the abstract page I saw).
+- **Sign argument for G1** (`DERIVED`, reviewer to check): for the staggered mode u_n = (-1)^n a cos(omega t) of the beta-FPU chain, omega^2 = 4 + 12 beta a^2 (a displacement amplitude; helper algebra in `S5_SPS1992_PARAMS.md`, item 1), so the frequency rises with amplitude (hardening), while the linear band near the edge, omega = 2 cos(k/2) for wavenumber k measured from pi, curves downward; opposite signs of the dispersion curvature and the nonlinear frequency shift make the nonlinear Schroedinger envelope focusing, which is the condition for modulational instability. G1 is G2 with beta = 1 at small amplitude (B = 3, brief above), so the sign carries; the rate and threshold for the pole law near stretch 0.6 are **no source found**.
+- **What the runs show.** A4 (`TABLES.md`): staggered Gaussian envelopes of width 3 and 6 hold (frac 0.85 to 0.99 at about 1,000 cycles, one lump); width 12 falls to frac 0.33 and 0.67 (S-bend) and 0.17 and 0.39 (bump) with 2 to 4 lumps in the last snapshot; width 24 at peak stretch 0.3 falls to 0.035 and 0.018 (6 lumps), and at peak stretch 0.6 trips the guard at 14 and 57 cycles. That is what the published sequence predicts (a few packets that merge or wander), with the width threshold in the right direction (longer envelopes contain more unstable sidebands). It is not a measurement of the published threshold: no test of the 1/N scaling was made.
+
+Verdict: **known** for the cubic beta-FPU law (modulational instability of the staggered mode, breather formation, merging); **not found** for the pole law G1 specifically, and for a finite Gaussian envelope on an open chain (the published results are for plane waves on rings, and for finite energy density). E1's "too long" clause therefore reads: long envelopes break into localized lumps by a known instability, which is not Aaron's "travelling wave" unless a lump is set moving (the chaotic breather of Cretegny et al. does move).
+
+### 7. Item (f): oscillatory instabilities of the exact jump state and the effect of the box (D5, D6)
+
+D5 (`DIAGNOSTICS.md`, commit 460106d): the exact C-smooth jump S-bend at rate 1.4231 (an imposed Newton input) has exactly four multipliers off the unit circle at h = 1/4, 1/8, 1/16, 1/32, a complex pair and its inverse with phase about 2.1 rad per cycle, growth ln of the largest modulus 0.0067 to 0.0090 per cycle with no trend in h (0.00895, 0.00673, 0.00689, 0.00797). The mode is extended (8 to 9 percent of its energy within 0.5 of the centre), not grid-scale (wavenumber 2.7 to 3.5 while pi/h runs from 12.6 to 100), and in a box twice as long the growth is 0.0056 (h = 1/8) and 0.0061 (h = 1/16), that is 15 to 20 percent lower. D6: jump S-bend 1.5 loses hold at 4,065 cycles (h = 1/4) and 3,117 cycles (h = 1/8), with growth 0.0072 and 0.0096 per cycle after a flat 1e-5 stretch.
+
+What is published.
+
+- **Oscillatory instabilities come from collisions of multipliers of opposite Krein signature.** Two routes are named: two extended-state multipliers colliding (a finite-size effect) or a localized eigenvector entering the extended band; a Krein collision sends a complex quadruplet off the unit circle ([search-tool summaries of Aubry and of the Krein-signature papers, e.g. arXiv:nlin/0410001](https://arxiv.org/abs/nlin/0410001), `SECONDHAND`, search 400; I did not open them). That four multipliers leave the circle as a complex pair with its inverse is the standard Hamiltonian Hopf picture, and is what D5 found.
+- **Finite-size ones vanish as the box grows, like 1/N.** Two extended states with omega_q +- omega_q' = m Omega_b (q not equal to q', Omega_b the breather frequency, the breather acting as a local parametric driver) have the same Floquet multiplier on an infinite lattice, and "the degeneracy of the corresponding Floquet eigenvalues is lifted in a finite lattice, leading to their departure from the unit circle", abs(abs(lambda) - 1) of order 1/N, N the number of sites, because the matrix element between a delocalized and a localized state is of order 1/N (Marin and Aubry, Physica D, 1998, DOI [10.1016/S0167-2789(98)00077-3](https://doi.org/10.1016/S0167-2789(98)00077-3), not obtained; [Flach, Fleurov, Gorbach 2005](https://arxiv.org/abs/cond-mat/0410465), sec. II, eq. (9) and the paragraph after it, `READ`; Marin and Aubry `SECONDHAND` through it).
+- **Ones from a localized mode meeting the band survive N going to infinity.** For the lattice with phi_2 = phi_4 = 1 and phi_3 = 0.5 the Page mode has two pairs of originally localized eigenstates that interact strongly with the Floquet continuum; the deviation of |lambda| from 1 is "of the order of 0.01 ... 0.03" and "independent of the system size by increasing the number of sites from 80 to 640" ([Flach and Gorbach 2005](https://arxiv.org/abs/cond-mat/0410026), Fig. 9 text, `READ`). The same paper marks the extended-extended ones as finite-size, vanishing as 1/N, and says that for phi_3 = 0 the Floquet matrix has period T_b/2, which "excludes the possibility of finite size instabilities" because the resonance condition (a band frequency plus 2 Omega_b equal to a band frequency; the primes were lost in the text extraction) cannot be met when Omega_b exceeds the band maximum (Fig. 10 text, `READ`). Johansson and Kivshar, Phys. Rev. Lett. 82, 85 (1999) ([arXiv:patt-sol/9811002](https://arxiv.org/abs/patt-sol/9811002), `SECONDHAND`: the first example of an oscillatory instability of dark solitons in discrete NLS; search 398) and a later paper that says oscillatory instabilities of standing waves are very sensitive to finite-size effects ([Morgante, Johansson, Kopidakis, Aubry, arXiv:nlin/0104025](https://arxiv.org/abs/nlin/0104025), `SECONDHAND`, search 397) are the other places to look; neither was opened.
+
+Reading for the ledger (`DERIVED`, reviewer to check).
+
+- A growth that falls 15 to 20 percent when the box doubles is slower than the 1/N of a pure finite-size effect (which would halve it), so D5 is consistent with an N-independent part (a localized mode meeting the band, which persists) plus a smaller finite-size part, or with a weakly N-dependent hybridization. Two box sizes cannot separate them. Floquet at L = 16, 32, 64, 128 at h = 1/8 would: a growth that tends to a positive constant is the persistent kind, one that falls as 1/L is the finite-size kind. This is cheap (D5 notes the Newton solve at N = 1024 takes 9 s).
+- The published exclusion of finite-size instabilities for a symmetric potential with Omega_b above the band applies to a lattice. For C-smooth the band maximum is 1 and the rate 1.4231 exceeds it. If the exact state keeps u(t + T_b/2) = -u(t) (Block 4, O2, for family members; not checked for the jump state), the Floquet problem has period T_b/2 and only even m in omega_q +- omega_q' = m Omega_b matter; with 2 Omega_b = 2.846 against a band of width below 1 (sum of two band frequencies at most 2, difference at most 1), no extended-extended collision is possible (`DERIVED` by analogy with Flach and Gorbach). That would point to the localized-mode-into-band kind, which survives N going to infinity; but D5 found four multipliers off the circle with a growth that falls 15 to 20 percent for a doubled box, so the analogy leaves the mechanism open (and if the half-period symmetry fails for the jump state, m = 1 is allowed: omega_q + omega_q' = 1.4231 has solutions inside the band). I have no source for a C-smooth or improved-Boussinesq Floquet analysis.
+- The phase 2.1 rad per cycle means a lab-frame frequency of 2.1/4.415 = 0.476 or 1.4231 - 0.476 = 0.947 (T_b = 2 pi/1.4231 = 4.415); the band frequency at wavenumber 3.0 is 3.0/sqrt(10) = 0.949 (and 0.940, 0.953, 0.962 at k = 2.75, 3.14, 3.53). So the growing mode oscillates at a band frequency near 0.95, as the coordinator's note says. This is true of any band wave and does not identify the partner mode.
+
+Verdict: **known in kind** (oscillatory instabilities of breathers through resonance with the extended band, finite-size bubbles that shrink as 1/N, persistent ones when a localized mode meets the band), **not found for C-smooth**; **not settled** which kind D5 shows.
+
+### 8. Search log (web search and page fetches; 2026-11-10; numbers continue from 361)
+
+| # | Search or fetch | Result |
+|---|---|---|
+| 362 | search Sievers-Takeno unstable evolves into Page, energy conserved, radiation | stability picture (arXiv 1604.06956, nlin/0504021, 2111.09167, cond-mat/0410026); no conversion statement |
+| 363 | search PN barrier, FPU chain, energy difference of Page and Sievers-Takeno | 1111.1857, 1301.1769, 1812.03496, nlin/0310027, 1412.0994, cond-mat/9403053 |
+| 364 | search Ivanchenko, Kanakov, Mishagin, Flach, "Mobility of discrete breathers" PRL 2006 | not found (as 322, 326); Flach-Willis 1994 and Flach-Kladko found |
+| 365 | search Kivshar and Campbell PN potential for highly localized modes | not found (as 327, 331); Johansson-Jason and photonics papers |
+| 366 | fetch arXiv nlin/0310027 (Kastner, Sepulchre) | `READ` secs. 3, 6 |
+| 367 | fetch arXiv cond-mat/9403053 (Flach, Willis 1994) | `READ` (11 pp.) |
+| 368 | fetch arXiv 1812.03496 (Shelkan, Klopov, Hizhnyakov) | `READ` (8 pp.) |
+| 369 | search kicked breather, depinning, FPU, finite distance, radiation | junction papers; no kick-versus-distance data for a homogeneous chain |
+| 370 | search Chen, Aubry, Tsironis breather mobility in phi^4 lattices | not found; Johansson-Jason; Archilla et al. |
+| 371 | search moving breather, effective mass, kick, Galilean boost | arXiv nlin/0202007, nlin/0206013, nlin/0504021 |
+| 372 | fetch arXiv nlin/0202007 (Cuevas, Palmero, Archilla, Romero) | `READ` secs. 3 to 4 |
+| 373 | search marginal-mode kick, effective mass, velocity proportional to kick | cond-mat/9712046, nlin/0504021, nlin/0311002 (summaries, `SECONDHAND`) |
+| 374 | search Constantin and Molinet generalized Boussinesq | Geba-Lin arXiv 1903.07718; Project Euclid record |
+| 375 | search Erbay, Erbay, Erkip nonlocal wave equation, Banach space | arXiv 1805.07264, 1807.02822 and the 2022 KdV-type preprint |
+| 376 | search peridynamic bar, discontinuity persists, Emmrich and Weckner | Emmrich-Weckner preprints (art4, art9, art10), core.ac.uk record |
+| 377 | search BBM, no smoothing, discontinuous data, ODE in Banach space | norm inflation (1511.02207), Panthee (1003.6098), a stationary-shock paper (1601.01071); no "ODE in Banach space" statement |
+| 378 | fetch core.ac.uk/download/187203201.pdf | 403 |
+| 379 | fetch Bielefeld art9.pdf (Emmrich and Weckner) | `READ` (20 pp.) |
+| 380 | fetch arXiv 1805.07264 (Erbay, Erbay, Erkip) | `READ` (29 pp.) |
+| 381 | fetch Bielefeld art4.pdf (Weckner and Emmrich) | `READ (part)` |
+| 382 | search Weckner and Abeyaratne 2005 | JMPS abstract; stationary location via art4 |
+| 383 | search Erbay, Erkip, Muslu, nonlinear peridynamic model | arXiv 1010.5689 and records |
+| 384 | search nonlinear peridynamic, jump in strain persists, propagation of singularities | arXiv 2609.30041 (Coclite et al.), Dayal 2017, Lipton-Jha |
+| 385 | fetch arXiv abs 2609.30041 | abstract summary |
+| 386 | fetch arXiv 1010.5689 | `READ (part)` (Theorems 2.2 to 2.5, 3.3) |
+| 387 | fetch arXiv pdf 2609.30041 | `READ` abstract and introduction (kernel, Theorem 1.1) |
+| 388 | fetch arXiv 1903.07718 (Geba and Lin) | `READ` (10 pp.) |
+| 389 | search Pochhammer-Chree, Love equation, breather, standing wave | solitary and travelling waves only; no time-periodic result |
+| 390 | search breather with a jump discontinuity, nonlocal wave equation | Emmrich-Weckner again; breathers of nonlocal discrete NLS; none for elastic waves |
+| 391 | search modulational instability, zone-boundary mode, FPU beta, hardening | Cretegny et al.; chaotic-breather papers; 1907.10094; 1504.01490 |
+| 392 | search Chubykalo, Kovalev, Usatenko odd to even transformation | not found (PRL-era paper not indexed); cond-mat/9704118, nlin/0403048 |
+| 393 | search Kivshar and Peyrard, Phys. Rev. A 46, 3198 | bibliographic record only |
+| 394 | search Daumont, Dauxois, Peyrard 1997 | abstract-level record |
+| 395 | fetch arXiv abs cond-mat/9910192 (Kosevich, Lepri) | `ABSTRACT` |
+| 396 | search second-order accuracy, jump on a cell face against inside a cell | no direct statement; interface FD papers |
+| 397 | search Marin and Aubry, finite size effects on instabilities | Physica D record; cited in cond-mat/0410465; Morgante et al. nlin/0104025 |
+| 398 | search Johansson and Kivshar, oscillatory instabilities of dark solitons | arXiv patt-sol/9811002, bibliographic |
+| 399 | fetch arXiv cond-mat/0410465 (Flach, Fleurov, Gorbach) | `READ` (8 pp.) |
+| 400 | search Krein signature, collision, oscillatory instability, breather | nlin/0410001 and others (summaries) |
+| 401 | search trapezoidal rule, jump at a node, order | no direct statement; interior jumps cost an order (summary) |
+| 402 | search unstable site-centred breather relaxes to bond-centred, emitting phonons | Hertzian chains 1111.1857, 1301.1769; no shed-fraction figure |
+| 403 | search Sievers-Takeno oscillates about Page, energy centre | Flach-Gorbach 2005 again; nlin/0306025; nlin/0005068 |
+| 404 | fetch arXiv 1301.1769 (James, Cuevas, Kevrekidis, short paper) | `READ` (4 pp.): PN barrier definition at equal frequency; the "moves 2 sites, pinned" claim is not in this short paper (it is `SECONDHAND` for 1111.1857) |
+
+Total 43 numbered entries (362 to 404). Local re-reads of texts already extracted in the earlier briefs (Flach and Gorbach 2005, Cretegny et al., Sanchez-Rey et al.) are not counted.
+
+### 9. Novelty check for statements the Track C report might call new
+
+| Statement | Searches | Found | Wording supported |
+|---|---|---|---|
+| An unstable site-centred (bump) vibration converts into the bond-centred (S-bend) one of the same energy to 0.03 to 1.6 percent after shedding 1.4 to 2.6 percent | 362, 363, 392, 402, 403 | not found as a measurement; the instability and the half-site oscillation about the stable mode are known (Flach and Gorbach; Flach and Willis) | "The instability and the motion about the stable mode are known; we found no published measurement of the energy match or the shed fraction." Not "first". Caution: at rate 2.2 the two families differ by 0.8 percent in energy, so the match there is weak evidence (section 2) |
+| A kicked bond-centred breather stops after a finite distance; strongly localized ones are pinned | 363, 366, 368, 369, 402 | yes, for other potentials (Shelkan et al.; Kastner and Sepulchre; Hertzian chains) | Not new. For a pole law: no source found |
+| Measured speed is proportional to the push (5.6 percent of the nominal speed at rate 2.1) | 371, 372, 373 | proportionality known (marginal-mode kicks); the constant: no source | "Proportional, as for marginal-mode kicks; the constant is a property of this push." |
+| The C-smooth equation is an ODE in L-infinity; a jump in stretch stays at its place | 374 to 388 | structure known (Constantin-Molinet via Geba-Lin; Erbay et al. 2018); linear jump persistence known (Emmrich-Weckner) | Not new in structure. For the pole law and for the nonlinear jump height equation J'' = -[F(w)]: derived, no source found for the nonlinear case |
+| A time-periodic localized state with a jump in stretch exists in the improved Boussinesq medium | 317, 345, 354, 361, 374 to 390 | no source found, in either direction | "We found no published example and no published obstruction." Do not write "first" |
+| Smooth standing states above the ceiling do not exist in C-smooth with G1 | 317, 345, 354, 361, 389, 390 | no source found; the measurement (0 of 10 Gaussian starts trapped at all three h) is ours | State as a measurement at three h, not a theorem |
+| A jump fixed on a cell edge gives second-order convergence of the energy and rate | 396, 401 | no source for this state; second order proved for smooth data; remedy of aligning edges with jumps is published (Emmrich and Weckner) | "Second order, as expected for a jump on a cell edge; not tested for a jump inside a cell." |
+| Long staggered envelopes break up on the hardening lattice | 391, 393, 394, 395 | yes (Cretegny et al.; Kosevich and Lepri; Daumont et al.), for the cubic law | Not new. For G1: no source found |
+| The exact jump state has a complex-quadruplet oscillatory instability whose growth falls 15 to 20 percent when the box doubles | 397, 398, 399, 400 | the kinds of instability are known for lattices; nothing for a continuum with a bounded operator | "Of a known kind; the kind is not yet identified." |
+
+### 10. Conflicts between the plan's or the orchestrator's predictions and published results, and corrections to the literature column
+
+1. **O10, "first order".** No published result says first order; the published order is second (smooth data) and the published practice is to align cell edges with jumps. The prediction was derived for a general-position jump and the measurement is for an edge-aligned one. Not a conflict with the literature; a wrong premise of the prediction.
+2. **O6, "a corner stays".** Agrees with the linear-bar theorem (Emmrich and Weckner, Corollary 3.1) and with the Banach-ODE structure. The miss is the detector (largest jump swaps between two jumps), not the physics.
+3. **C3 and E3, "moves".** The brief above (section 10, conflict 1) said the rule would misread a half-site hop; the data (D3: the bump becomes an S-bend centred on a bond, shift 0.5, 0 of 6 travel) confirm that this is what the literature describes (Flach and Gorbach; Flach and Willis, energy centre about 0.5). The prediction's basis (SPS "moves instead of dying") also agrees: it moves by half a site and settles.
+4. **C5, monotone loss.** Still no support; the published expectation is a non-monotone loss with resonances (Duran et al.), and the push transient is excluded from the per-distance loss in `push_summary` (F-038).
+5. **E1, "too long becomes a travelling wave".** The published outcome of a too-long staggered excitation is modulational instability into breathers that merge and may move (Cretegny et al.); a travelling wave would be an unstable-then-pushed lump, not the envelope itself.
+6. **O1 (C-smooth).** Agrees: the exponent kappa = omega/sqrt(omega^2 - 1) is the continuation of the dispersion relation (Flach and Kladko eq. 6, as in the brief above) and the held states reproduce it to 0.02 to 0.5 percent, falling as h^2 (reviewer).
+
+### 11. Not obtained, not read, open
+
+- Constantin and Molinet 2002 (Project Euclid): the statement is `SECONDHAND` through Geba and Lin; the theorem itself was not read.
+- Weckner and Abeyaratne 2005 (JMPS 53, 705): abstract only; the stationary location of discontinuities is `SECONDHAND` through Weckner and Emmrich.
+- Marin and Aubry (Physica D, 1998), Johansson and Kivshar (PRL 82, 85, 1999), Kivshar and Peyrard (PRA 46, 3198, 1992), Daumont, Dauxois, Peyrard (Nonlinearity 10, 617, 1997): records and summaries only. Aubry's Krein-signature papers: summaries only.
+- James, Cuevas, Kevrekidis, arXiv:1111.1857 (the long Hertzian-chain paper): not opened; the "moves 2 sites and is pinned" claim is `SECONDHAND` and is for a compression-only Hertzian chain with a local potential.
+- arXiv:nlin/0504021 (a review of localized excitations) and the Aubry-Cretegny marginal-mode paper (cond-mat/9712046): search-tool summaries only.
+- Erbay, Erkip, Muslu 2012: Theorems 2.2 and 2.3 read; the global-existence and blow-up parts were not read; no jump statement in the parts read.
+- Coclite et al. 2026: abstract and introduction (pp. 1 to 3) read; the proofs and the dispersion relation were not.
+- A direct source for the order of convergence of a finite-difference or quadrature method on a state with a jump on a cell edge: no source found.
+- Ivanchenko, Kanakov, Mishagin, Flach (PRL 97, 025505) and Kivshar and Campbell (PRE 48, 3077): not found, again (364, 365).
+- The Sandusky, Page, Schmidt full text: still not obtained (`S5_SPS1992_PARAMS.md`).
+- Not found, in either direction: any breather, standing or time-periodic state of the improved Boussinesq or Eringen rod with or without a jump; any pole-law result for it; the shed fraction or energy match of a site-to-bond conversion; loss per unit distance of a pushed breather against its speed.
