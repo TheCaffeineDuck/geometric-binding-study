@@ -6,7 +6,13 @@ Every number below was measured in this session unless it is labelled calibrated
 
 ## 1. Summary
 
-TRACKF_SUMMARY_PLACEHOLDER
+**Track F, the floor trap in three dimensions (round objects only).**
+
+- **Equation R slows dispersal but did not trap anything.** Every R start died. Bump starts from R's own family live up to 4.0 times as long as the same start in the linear medium, and the lifetime grows with the square of the width (11 to 12 times the half-width squared at the wide end). A wide enough start therefore passes a fixed 1,000-cycle test without being trapped: the widest three (half-widths 29, 37, 45) kept 0.906, 0.997 and 1.000 of their starting share at 1,000 cycles and died at 9,286, 16,308 and 25,148 time units. Away from the family, a start either disperses in 10 to 23 cycles or, above a threshold amplitude, the equation breaks down in finite time. I score prediction F1 a miss over the range tested, half-widths 3 to 45.
+- **The pinch exists in the old equation and holds:** at rate 0.86 it lasts 95,412 time units (13,105 cycles) and holds at 0.99 and 1.01 times its amplitude. It carries 4.5 to 5.8 times the energy of a bump at the same rate. A bump at 1.02 times the Session 1 amplitude was still at 0.972 when its run stopped at 100,000, so the two are not ranked.
+- **In the floor medium a tighter vibration is slower,** the opposite of the string: on the small-amplitude branches the rate rises toward the floor as the object widens (rank correlation +1.000, 32 and 59 points).
+- **The Session 1 baseline bump sits on the wall of the narrow dip found in Session 2.** At 0.99 times its amplitude it is at the limit of the hold rule (0.9003 against 0.90); at 0.98 it fails (0.819); at 1.02 it holds to 100,000 time units.
+- **Energy per cycle is not constant** as an object decays; it falls 1.05 to 1.10 times as fast as the energy. F4 is a miss, as I predicted (O8).
 
 **Track C, the string (ceiling trap).**
 
@@ -25,7 +31,7 @@ TRACKF_SUMMARY_PLACEHOLDER
 | WP-B1 string solver | numerics | 67 tests; reviewer found 9 defects, all fixed (49b9dc9) |
 | WP-B2 radial solver | numerics | Reviewer found 5 defects; fixed (dc6796d, 2e5d2fa); multi-harmonic R states parked after two attempts |
 | WP-C Track C runs | runner | 3 h 20 min; then diagnostics D1 to D6 |
-| WP-D Track F runs | runner | TRACKF_WPD_PLACEHOLDER |
+| WP-D Track F runs | runner | 1 h 15 min; families, lifetimes, 1% tests, boundary scans, pinch against bump (301dca5); then diagnostics DF1 to DF4 (6ac7f5e) |
 | WP-E review | reviewer | Equations derived independently before production; Track C and Track F numbers recomputed; this text reviewed |
 
 Models used on the string (units: long-wave speed 1, smallest scale 1, stretch limit 1):
@@ -170,7 +176,144 @@ Under rule 2.3 as written the count of grid-independent traps is **0 of 16 start
 
 ## 4. Track F: the five questions
 
-TRACKF_BODY_PLACEHOLDER
+Units: wave speed 1, floor (lowest rate of a travelling wave) 1, limit 1. Model O is the Session 1 equation at beta = 4/3. Model R is L = 1 - sqrt(1 - X) - |u|^2/2. All runs are round (one radial profile), grid spacing 0.05, absorbing shell at 100 to 200 (O) or 200 to 400 (R). Tables: `outputs/session5/trackF/TABLES.md`. Plots: `plot_families.png`, `plot_frac_vs_time.png`, `plot_boundary_scan.png`, `plot_bump_vs_pinch_E.png`.
+
+**Regression.** The O bump reproduces Session 1 bit for bit (rate 0.9096711; energy fraction 0.994127 at time 1,000; build).
+
+**Three places where the hold rule did not fit equation R** (found by the runner, reported as found, nothing changed):
+1. The rule asks for 0.90 of the start energy inside three half-widths. R profiles have wide tails, so they start at 0.71 to 0.92 by that measure.
+2. The rule asks for the rate to be below the floor by more than the frequency resolution (0.031). The whole R family lies within 0.0054 (bump) or 0.0135 (pinch) of the floor. Rates from zero crossings are quoted instead.
+3. The classifier uses the instantaneous energy fraction, the rule says cycle-averaged. They differ in the third decimal.
+4. Two defects in the classifier (reviewer): it calls a run "disperses" whenever a lifetime exists, even if the run met the rule at 1,000 cycles; and it counts 1,000 cycles using the end-of-run rate (for example 6,258 time units against 6,652 counted cycle by cycle).
+
+The tables now carry two columns for every run: the rule by the letter (cycle-averaged share of the total start energy at 1,000 counted cycles), and a "retained" reading (share relative to the start, rate from zero crossings). Verdicts below say which is used. The rule's own text says "over its value at t = 0", which supports the retained reading.
+
+### F-Q1. Does equation R trap a swirl below the floor?
+
+*Prediction F1: R traps the single bump. The scholar's brief said this rested on existence arguments only.*
+
+**Not in any test made: every start died. R does hold energy up to 4.0 times longer than the linear medium. F1 is a miss over the range tested.**
+
+- **Periodic profiles exist** (single-harmonic approximation): a bump family at rates 0.99459 to 1 and a pinch family at 0.98652 to 1. Both turn back at their lowest rate.
+- **None holds when evolved.** Production runs, half-widths 3.0 to 22.4. Lifetime is the time to fall to half the reference energy fraction:
+
+| R start | Lifetime, time units (cycles) | Late rate |
+|---|---|---|
+| Bump, amplitude 0.2 | 4,106 (653) | 1.000 |
+| Bump, 0.33 | 1,304 | 1.000 |
+| Bump, 0.55 | 376 | 1.000 |
+| Bump, 0.79 | 140 | 1.000 |
+| Bump, 0.90, 0.95, 1.0 (past the turn) | 102, 94, 90 | 1.000 |
+| Pinch, 0.038 | 1,152 (183) | 1.000 |
+| Pinch, 0.092 | 412 | 1.002 |
+| Pinch, 0.2 to 0.51 | 153 down to 65 | 0.998 to 1.033 |
+
+- Every late rate is at or above the floor: what remains has become ordinary waves.
+- A further production start at energy 1,000 (half-width 22.4) lasted 5,403 time units (860 cycles) and kept 0.34 of its starting share at 1,000 cycles, the best of the production set.
+- **Wider starts (diagnostic DF1, run after the reviewer pointed out that the family extends to half-width 56 and only 22.4 had been run).** Absorbing shell moved out to 400 to 800; a run with the shell at 800 to 1,600 agrees to 1e-4.
+
+| Half-width | Retained at 1,000 cycles (by the letter) | Twin | Rate passes above the floor at cycle | Lifetime | Lifetime / half-width squared | Twin lifetime / half-width squared | Run / twin |
+|---|---|---|---|---|---|---|---|
+| 28.6 | 0.906 (0.830) | 0.294 | 680 | 9,286 | 11.3 | 3.11 | 3.64 |
+| 37.0 | 0.997 (0.914) | 0.262 | 1,269 | 16,308 | 11.9 | 3.11 | 3.83 |
+| 45.0 | 1.000 (0.917) | 0.460 | 2,020 | 25,148 | 12.4 | 3.11 | 3.99 |
+
+- **Reading.** The linear twin's lifetime is 3.11 times the half-width squared at every width: that is plain spreading. The R run's is 7.3 at half-width 4.4, rising steadily to 12.4 at 45. So R delays spreading by a factor that grows slowly with width (1.1 at the narrowest and largest-amplitude start, 3.99 at the widest). Each run ends the same way: the rate drifts up through the floor, then the object goes. The nonlinear share of the energy in these wide starts is 0.05% to 0.12%.
+- **Against the rule.** The half-width 37 and 45 starts meet the energy and twin clauses of the hold rule at 1,000 cycles, by the letter and by the retained reading. They do so because they are wide: the horizon of 1,000 cycles is shorter than their spreading time. The twin at half-width 45 is itself at 0.46, close to the 0.50 limit.
+- **The 1% test at half-width 37 (DF2) is not passed.** At 0.99 times the amplitude: 0.945 retained, 0.866 by the letter. At 1.01 times: the run tripped the resolution guard at the centre at t = 4,433 (704 cycles, X = 0.994); the refinement test could not classify it, so it is "unresolved".
+- **The wide pinch (DF3, half-width 45):** 0.601 retained at 1,000 cycles, rate above the floor from cycle 402, twin 0.021.
+- **Away from the families** (Gaussian and shell starts, amplitude bisected to 1%):
+
+| Start | Threshold amplitude | Below | Above |
+|---|---|---|---|
+| Bump, width 2 | 0.927 | Disperses in 62 time units | Collapse at the centre at t = 3.82 |
+| Bump, width 3 | 0.848 | Disperses in 64 | Collapse at t = 12.85 |
+| Bump, width 5 | 0.613 | Disperses in 148 | Collapse at t = 42.0 |
+| Shell at radius 10 | 0.214 | Disperses in 129 | Collapse at t = 36.1 |
+| Pinch, width 3 | 1.72 | Disperses in 98 | Equation stops being well posed at t = 37.9 |
+
+- **Collapse** means 1 - X heads to zero at the centre in finite time. The times at which 1 - X first passes a fixed shallow level agree across three grid spacings to 0.1% (width 5, level 0.1: 42.013, 42.006, 42.003; width 2, level 0.1; width 3 and the shell, level 0.01, the shell on two grids only). At a deep level (1e-7; width 3, amplitude 1) the two finer grids differ by 1.5% (7.400 against 7.291). So the approach to collapse is a property of the equation; the last stage is not resolved. The solver is second-order accurate in the first cells at the centre for the bump.
+- **For the pinch** the failure is different: the condition for sideways waves to propagate fails at radius 2.3 while X is still well below 1 (1 - X = 0.046). The time agrees across three grids (37.9125, 37.925, 37.925). A round run cannot follow what happens next.
+- **What was not tried:** periodic states with more than one harmonic (two attempts failed and the work is parked), starts with inward velocity, half-widths beyond 45 (the family goes to 56), and non-round shapes.
+- **Guard trips** are logged as failure entries. The equation was not changed to avoid them.
+
+**Why I score F1 a miss and not "undecided".** The reviewer's position after the production runs was that the miss was earned only up to half-width 22.4. DF1 and DF2 extend the range to 45: every start still dies, the best one fails the 1% test, and the pass at 1,000 cycles follows from width alone. What stays open is whether the delay factor keeps growing for still wider objects; it rose only from 3.64 to 3.99 while the width went from 29 to 45.
+
+### F-Q2. Families: rate, size, energy, energy per cycle, and the energy minimum
+
+*Prediction F2: the energy along a trapped family has a minimum at a finite amplitude.*
+
+| Family | Rate | Half-width | Energy | Energy minimum | Turning point |
+|---|---|---|---|---|---|
+| O bump | 0.8006 to 1 | 2.94 to 56 | 1,659 to 81,196 | 1,659.0 at rate 0.9711 | In amplitude, at rate 0.876 |
+| O pinch | 0.7968 to 1 | 6.02 to 163 | 7,926 to 184,019 | 7,926.2 at rate 0.9558 | In amplitude, at rate 0.888 |
+| R bump | 0.99459 to 1 | 3.00 to 56 | 145.7 to 2,515 | 145.65 at rate 0.99494 | In rate, at 0.994586 |
+| R pinch | 0.98652 to 1 | 4.48 to 163 | 307.9 to 14,674 | 307.87 at rate 0.99725 | In rate, at 0.986521 |
+
+- **F2: hit for O with a qualifier, not scorable for R.** Both O families have an interior energy minimum (Session 1 found 1,657.1 for the bump). The qualifier: starts at the minimum do not hold (bump at 0.965 and 0.98 die in 285 and 418 cycles; pinch at 0.965 in 71). The objects that hold (bump 0.909, pinch 0.86) are at larger amplitude than the minimum. The R tables have minima too, but no R family is trapped, and the prediction was about trapped families.
+- Energy per cycle follows the energy along every family (the rate changes by under 1.5% where it matters): its logarithmic slope against energy has median 0.999.
+- The O families stop near rate 0.80 because the profile solver runs out of precision there. The R bump family stops where the single-harmonic approximation reaches its limit. The R pinch upper branch was stopped by hand at 104 points.
+
+### F-Q3. Lifetime
+
+*Session 2 definitions unchanged. Cap 20,000 time units for O, with two runs extended to 100,000.*
+
+| Start | Energy fraction at 1,000 cycles | T_90 | Lifetime | Outcome |
+|---|---|---|---|---|
+| O bump 0.82 | 0.291 | 186 | 429 | Disperses |
+| O bump 0.86 | 0.443 | 1,680 | 4,083 | Disperses |
+| O bump 0.909 (Session 1 baseline) | 0.960 | 10,630 | beyond 20,000 (0.597 at the cap) | Held |
+| O bump 0.94 | 0.828 | 1,985 | 8,279 | Disperses |
+| O bump 0.965, 0.98, 0.995 | 0.0004 to 0.010 | 388 to 2,657 | 575 to 2,722 | Disperses |
+| O pinch 0.82 | 0.510 | 233 | beyond 20,000 (0.504) | Alive at cap |
+| O pinch 0.86 | 0.982 | none | 95,412 (13,105 cycles) | Held |
+| O pinch 0.91 | 0.796 | 794 | beyond 20,000 (0.785) | Alive at cap |
+| O pinch 0.94 | 0.964 | 13,620 | 13,666 (2,063 cycles) | Meets the rule at 1,000 cycles, gone by 2,063 |
+| O pinch 0.965, 0.98, 0.995 | 0.0001 to 0.527 | 417 to 3,262 | 462 to 8,035 | Disperses |
+| R, 17 production starts | see F-Q1 | | 65 to 5,403 | Disperses |
+| R bump, three wide diagnostic starts | 0.830, 0.914, 0.917 | 4,770 to 14,013 | 9,286 to 25,148 | Disperses |
+
+- Linear twins are below 2e-3 at the same times, except the smallest R bump (2e-2).
+- **The 1% rule.** Three production starts meet the hold rule by the letter: O bump 0.909, O pinch 0.86, O pinch 0.94 (the runner first reported two; the classifier had marked the third as dispersing). A fourth, a bump at rate 0.853 from the matched-energy set, also meets it (0.908) and has no 1% test.
+  - O pinch 0.86 passes: 0.992, 0.982, 0.969 at 0.99, 1.00, 1.01 times the amplitude.
+  - O pinch 0.94 passes at 1,000 cycles (0.979, 0.964, 0.950; diagnostic DF4), but all three are gone by 1,472 to 2,063 cycles. The rule's horizon is what it passes.
+  - O bump 0.909 is marginal: at 0.99 times the amplitude it is at 0.9003 against the limit 0.90, with T_90 at 999 cycles; at 1.01 it is at 0.988.
+- **The baseline is on the wall of a narrow dip in the loss rate.** Loss rate per time unit (fit over times 2,000 to 10,000) at 0.98, 0.99, 1.00, 1.01, 1.02, 1.05 times the amplitude: 4.5e-5, 3.1e-5, 9.8e-6, 1.6e-6, 4.6e-8, 2.0e-6. Energy fraction at 20,000: 0.0009, 0.0026, 0.597, 0.914, 0.996, 0.965. The minimum is near 1.02, where the object holds to 100,000 time units (0.9716, 14,437 cycles), and the loss rises again at 1.05. This is the dip Session 2 reported (rate 0.9065 holding 0.9946 to 300,000, with the Session 1 primary "on the wall of the same dip"; `docs/SESSION_02_REPORT.md` lines 34 and 78 to 79). It is not new and does not conflict with Sessions 1 and 2. The 0.98, 1.02, 1.05 and both 100,000 runs were added after seeing first results and are diagnostics, not scored runs.
+- **Radial lifetimes are upper bounds.** A round run cannot see an object lose its roundness.
+
+### F-Q4. Bump against pinch: which has the lower energy at the same rate?
+
+*Prediction F3: the pinch exists in O and R with higher energy than the bump at the same rate.*
+
+**The bump has the lower energy, except on one branch of R. F3 is a split.**
+
+- **O:** the pinch carries 4.5 to 5.8 times the bump's energy at rates 0.95 to 0.999 (family tables), and 2.2 to 4.2 times at rates 0.82 to 0.94 (run points). Its half-width is 1.3 to 2.8 times the bump's. Hit. The scholar's brief expected about 5.8 from published work on a different model.
+- **R, small-amplitude branch:** 6.0 to 7.3 times at rates 0.995 to 0.999. Hit on ordering.
+- **R, upper branch of the pinch:** its energy stays near 309 to 363 and falls below the bump's above rate 0.99733 (ratio 0.84 at 0.998, 0.58 at 0.999). This contradicts the ordering there. Whether that branch is physical is open; it was stopped by hand.
+- **"Exists in R":** as a profile, yes; as something that holds, no, for half-widths up to 20 in production and one diagnostic point at 45 (0.60 retained at 1,000 cycles).
+- **Lifetime at matched energy.** O at energy 2e4: pinch held (0.972 at 20,000), bump gone by 2,008. O at 1e4: both alive (pinch 0.80, bump 0.90). R at energy 1,000: bump 5,403 against pinch 333.
+
+### F-Q5. The pinch in the old equation
+
+**It exists and it holds for more than 13,000 cycles at its best rate.**
+
+- Family from rate 0.797 to 1, energy minimum 7,926 at rate 0.956.
+- At rate 0.86 it is held for 95,412 time units (13,105 cycles) and passes the 1% rule.
+- There is a window: rates 0.82 to 0.94 live past 13,000 time units, with 0.86 the best (it has lost 2% at 1,000 cycles where 0.82 has lost about half and 0.91 a fifth). At rates 0.965 and above it dies within 1,205 cycles. The window rests on seven sampled rates.
+- Against the bump at the same rate 0.86: pinch held, bump gone by 4,083. The bump's own best amplitude (1.02 times the baseline, rate 0.909) was still at 0.972 at 100,000, so neither object is ranked above the other overall.
+- The longest-lived point (0.86) is not the energy minimum (0.956).
+- Limits: round only. The pinch has directions in which it could deform that this run cannot see.
+
+### Energy per cycle (F4, O8)
+
+*F4: for a long-lived swirl energy per cycle stays nearly constant while energy and rate drift. O8 (mine): F4 misses.*
+
+**F4 miss, O8 hit. These are one observation, not two.** In held O runs the energy per cycle changes 0.92 to 1.10 times as fast as the energy (reviewer's values from 20-period averages at each end; the runner's first-to-last values are 1.05 to 1.10; rule for F4: at most 0.2). Energy per cycle is 2 pi times energy over rate by construction, so the ratio is 1 minus the relative drift of the rate, and the rate moves far less than the energy. In plain terms both energy and energy per cycle change by only 2% to 9% over 20,000 time units in these runs, which reads as "nearly constant"; the wording of F4 and the rule written for it disagree, and the rule is what was scored.
+
+### Equation R as a set of equations (O9, O12)
+
+- **O9, split.** Hit: X stays below 1 for any finite momentum, and the pinch needs the extra sideways condition. Miss: I said the only thing that could fail was resolution. What fails is the equation itself, at a time that does not move when the grid is refined (to 0.1% at shallow levels; see F-Q1 for the depth caveat). One run, the 1.01 neighbour at half-width 37, did end as "unresolved".
+- **O12, split.** Hit: at small amplitude 1 - rate is proportional to the square of the centre amplitude, with constant 0.00996, steady to 0.1% over six points; and the small-amplitude branch has the sign that marks instability. Miss: my coefficient 3/16 was wrong by a factor 18.8. The scholar traced it: 3/16 is the one-dimensional value. Amin's three-dimensional expansion gives 0.0099666 for R, against 0.009957 measured, and 0.00099666 for O against 0.000997 measured. Miss: I said a trapped R bump, if any, would sit past the energy minimum. Starts there die fastest (90 to 102 time units).
 
 ## 5. Is a tighter vibration faster or slower?
 
@@ -181,7 +324,13 @@ TRACKF_BODY_PLACEHOLDER
 | C-smooth, Gaussian starts at fixed displacement | Rank correlation -0.79 (core rate, n = 8) and -0.19 (rate at peak stretch, n = 11); rule needs -0.9 | No monotone relation shown |
 | C-smooth, Gaussian starts at fixed peak stretch 0.8 | -0.62 to -0.76 (n = 8); -0.96 for the bump core rate but n = 7, below the rule's 8 | No monotone relation shown |
 | C-smooth, jump states | Half-length is an input (0.151), so not testable | Not tested |
-TRACKF_TIGHTER_PLACEHOLDER
+| O bump (floor) | Rank correlation of rate with half-width +0.857 (n = 52). Half-width has a minimum of 2.94 at rate 0.95 and grows again toward the thin-wall end | No monotone relation by the rule; **tighter is slower** from rate 1 down to 0.95 |
+| O pinch (floor) | +0.931 (n = 78) | **Tighter is slower** |
+| R bump, small-amplitude branch | +1.000 (n = 32); upper branch has 5 points, not scored | **Tighter is slower** |
+| R pinch, small-amplitude branch | +1.000 (n = 59) | **Tighter is slower** |
+| R pinch, upper branch | -0.987 (n = 46) | Tighter is faster on this branch; nothing on it holds |
+
+So the two traps have opposite signatures, as the plan expected: under a ceiling a tighter vibration runs faster and moves further above the band; under a floor a tighter one runs slower and moves further below it.
 
 In C-smooth the rate at a point is set mainly by the stretch at that point (prediction O4, hit: the measured rate is 3.4% to 9.2% below the lone-oscillator value for peak stretch 0.3 to 0.95). It is the size of the stretch, not the length of the object, that sets the rate there.
 
@@ -227,20 +376,42 @@ In C-smooth the rate at a point is set mainly by the stretch at that point (pred
 
 **O1 for C-smooth.** Miss by the rule as I wrote it (worst case of 18 fits). The two failures are the rate-1.2 jump S-bend at spacings 1/8 and 1/16, which is not steady and has a late rate of 1.07 and 1.02, where the formula blows up. The other 16 fits are within 1.7%, and for the held states the error falls as the square of the spacing (0.49%, 0.12%, 0.03%).
 
-TRACKF_SCOREBOARD_PLACEHOLDER
+### Track F scoreboard
+
+| # | Prediction (short) | Measured | Verdict |
+|---|---|---|---|
+| F1 | R traps the bump | 0 of 12 family starts survive (half-widths 3 to 45; lifetimes 90 to 25,148); lifetime up to 4.0 times the twin's; the half-width 37 start fails the 1% test; scans find dispersal or collapse | Miss over the range tested |
+| F2 | Energy minimum at finite amplitude along a trapped family | O bump 1,659.0 at 0.9711; O pinch 7,926.2 at 0.9558; the held objects are not at the minimum; R not trapped | Hit for O, qualified; not scorable for R |
+| F3 | Pinch exists in O and R with higher energy than the bump | O: 4.5 to 5.8 times, held 13,105 cycles. R: 6.0 to 7.3 times on one branch, below the bump on the other; does not hold | Split |
+| F4 | Energy per cycle nearly constant | Changes 0.92 to 1.10 times as fast as energy (limit 0.2) | Miss |
+| O8 | F4 misses | Same numbers | Hit |
+| O9 | X cannot reach 1; only resolution can fail | Algebra holds; failure is real collapse, converged to 0.1% | Split |
+| O12 | Small-amplitude R family unstable, rate 1 - (3/16) A^2; a trap, if any, past the minimum | Scaling holds with constant 0.009957, matching the published 3D value 0.0099666, not 3/16; starts past the turn die in 90 to 102 | Split |
+
+### Track F misses in detail
+
+**F1, miss over the range tested.** Expected: R traps the bump (basis: Amin's work on such kinetic terms; the brief warned it rested on existence only). Measured: section F-Q1. Causes, ranked: (1) the small-amplitude family is on the unstable side (O12), and its instability time grows with the square of the width, so wide members last long without being stable; (2) the stiffening in R only becomes strong near amplitude 0.9, where collapse takes over, and the scans find no stable window between dispersal and collapse; (3) the starts are single-harmonic approximations, least accurate at large amplitude; (4) the hold rule did not fit R, and its fixed horizon can be met by width alone. Diagnostics run: DF1 (lifetime against width), DF2 (1% neighbours and box), DF3 (wide pinch). Rules in: dispersal delayed by a factor up to 4.0; a hard upper limit on amplitude set by breakdown of the equation. Rules out: a trapped R bump reachable from the single-harmonic family at half-widths 3 to 45, or from a Gaussian or shell start at rest. Does not rule out: a multi-harmonic state, or a delay factor that keeps growing beyond half-width 45. Literature: no conflict. Amin (arXiv:1303.1102) covers existence for this kinetic term with a pure mass term, and his own stability criterion makes the three-dimensional small-amplitude family unstable; he gives no lifetime. One short segment of the R bump family (rates 0.99471 to 0.99494) satisfies his criterion and its starts still die in 90 to 102 time units; he limits the criterion to cases where one frequency is a good approximation, and here X reaches 1.000 over a cycle. Ledger: F-052, F-056.
+
+**F4, miss.** Expected constant energy per cycle. Measured ratio 1.05 to 1.10. Cause: along a family the change in energy equals rate times change in "amount of oscillation", and the rate hardly changes, so the two fall together. This was O8. Literature: known. The adiabatic invariant is only approximately conserved and its loss is the decay (Kasuya, Kawasaki, Takahashi hep-ph/0209358; Kawasaki, Takahashi, Takeda arXiv:1508.01028; abstracts only). No source says energy over rate stays constant along a decay. Ledger: F-053.
+
+**O9 clause, miss.** Expected: failure only by resolution. Measured: collapse times converged across three grids. Cause: I treated the bounded X as protection; it bounds the speed of the field, not the steepening of the profile. Literature: finite-time breakdown is published for the massless equation (Eggers and Hoppe, arXiv:0812.1790). With a mass term, and for the pinch's sideways condition, no source was found. Ledger: F-054.
+
+**O12 clauses.** The 3/16 coefficient: my error (one-dimensional value); the measurement confirms the published three-dimensional one. "Past the minimum": wrong; the upper branch is the short-lived one. Ledger: F-055, F-056.
+
+**Baseline bump marginal on the 1% rule.** Not a numbered prediction, but Sessions 1 to 4 used this object. Reading in F-Q3: it is the Session 2 dip. Literature: lifetime windows and dips are known in other models (Honda and Choptuik hep-ph/0110065; Zhang and others arXiv:2004.01202); nothing found for this model's scan or for the pinch window. Ledger: F-062.
 
 ## 7. Aaron's expectations
 
 | Expectation | Verdict | Deciding number |
 |---|---|---|
 | A swirl has an optimal length and rate | Split | By loss rate the S-bend family has an interior best point and the bump family does not. By energy there is no optimum: energy and energy per cycle rise along the whole family |
-| The range is narrow | Contradicted on the grid | Rate spans a factor 2.15 and length a factor 5.4 for the S-bend; no upper edge with G1. TRACKF_NARROW |
+| The range is narrow | Split: contradicted on the grid, supported for the O pinch | Rate spans a factor 2.15 and length a factor 5.4 for the S-bend; no upper edge with G1. For the O pinch the long-lived window is rates 0.82 to 0.94, a factor 1.15, with a best point at 0.86: supported there |
 | Too long and it becomes a travelling wave | Split | Envelope widths 12 and 24 fall to 0.02 to 0.67 in 1,000 cycles; of the starts longer than 1.44, 4 of 9 are below 0.5. Long exact states near the ceiling (half-length 2.8) hold |
 | Moving too fast and it becomes a travelling wave | Not tested | No intact motion above speed 0.149 was achieved; harder pushes destroy the object in place or trip the guard |
 | The S-bend traps energy better than the bump | Supported | At 5 of 5 matched energies the S-bend keeps 1.000 against 0.9997, 0.990, 0.980, 0.973, 0.969 for the bump. Bump values are interpolated across six runs. In C-smooth: jump S-bends hold, jump bumps do not hold by stiffening |
 | The bump is probably not stable enough to build a structure | Split, leaning supported | Unstable at every rate (multiplier up to 605). It does not disperse: it becomes an S-bend within tens of cycles at rates 2.5 and above. By the rule on record: supported at 1 of 6 rates, contradicted at 2 of 6 |
 | Structures and reach | Not tested | Session 6 |
-| The pinch | TRACKF_PINCH |
+| The pinch, the object he started from | Reported | In the old equation it exists, holds for 13,105 cycles at rate 0.86, passes the 1% test, and costs 4.5 to 5.8 times a bump's energy at the same rate. In equation R it does not hold (9 to 183 cycles). Round runs only |
 
 ## 8. Process notes, deviations and limits
 
@@ -271,7 +442,7 @@ The effort labels do not match the table for runner, reviewer and scholar. I can
 **What the plan's limits mean for these results:**
 - **One dimension.** The string results say nothing yet about a twist, a pinch or a structure. The S-bend's stability is against disturbances along the string only.
 - **The grid.** The clean trap (C-Q1, C-Q3, C-Q4) needs the grid. Without it, what survives needs a sharp corner that the medium cannot create by itself from a smooth start. Whether nature allows a grid, or a corner, is not settled here.
-- **Radial symmetry.** TRACKF_LIMITS
+- **Radial symmetry.** Every Track F lifetime is an upper bound: a round run cannot see an object lose its roundness. The pinch's breakdown in R is in a sideways direction that a round run can detect but not follow. What is shown for R is that round objects from the starts listed all die.
 - **Units only.** No physical values are attached to any number.
 
 **Standards check (CLAUDE.md, ten items).** Regime numbers (rate against ceiling, nonlinear share) are in the family tables. Stability is judged by energy in a window. Energies include every term (reviewer derivation). Absorbing ends were compared with a closed ring. Every nonlinear run has a twin, except the D2, D3 and D6 diagnostics, which are nonlinear only. Linear and exact values came first (O1, O3, O4). Items 7 and 8 (symmetry classes, structures) do not arise. Each prediction sits beside its literature expectation in the predictions file. No claim of novelty is made in this report.
@@ -294,7 +465,21 @@ Full entries, sources and the search log (362 to 404 for Track C; S5F-1 to S5F-1
 - **Not obtained:** Constantin and Molinet 2002; Marin and Aubry 1998; Johansson and Kivshar 1999; Sandusky, Page and Schmidt 1992 (full text); a direct source for convergence order with an edge-aligned jump.
 - **Where the data disagree with a plan premise, not with the literature:** "the bump's instability makes it move" (the brief flagged this before the runs); "too long becomes a travelling wave" (the published outcome is break-up into merging lumps, which is what the envelope runs show: 2 to 6 lumps).
 - **Caution on one paper:** Coclite and others 2026 (arXiv:2609.30041) show jumps dissolving and forming in a linear nonlocal model with a singular weight. The scholar reads this as not applying here, because the weight in C-smooth is bounded. That reading has not been checked by the reviewer.
-TRACKF_LITERATURE
+
+**Track F.**
+
+| Result | Published? | Key source |
+|---|---|---|
+| Small-amplitude R and O families: rate against amplitude | Known; measured constants match to 0.1% | Amin, arXiv:1303.1102 |
+| R does not trap in three dimensions at small amplitude | Consistent with Amin's stability criterion; no published lifetime or large-amplitude result | Same |
+| Finite-time collapse in R | Known for the massless equation; not found with a mass term | Eggers and Hoppe, arXiv:0812.1790 |
+| Pinch loses the sideways propagation condition | Not found | Search log 405 to 429 |
+| Pinch carries about 5.8 times a bump's energy | Known (5.8 in the low-amplitude limit; ours 5.79 in O, 5.96 in R at rate 0.999) | Zhang, Jain, Amin, arXiv:2111.08700 |
+| Pinch lifetime window in O | Not found; their model differs | Same |
+| Energy per cycle not conserved along decay | Known | Kasuya and others; Kawasaki and others (abstracts) |
+
+- **Not obtained:** Pearce and Amin on large-amplitude objects with this kinetic term (cited as in progress, not found in print); full texts of the two adiabatic-invariant papers.
+- **To confirm:** the O comparison with Amin uses a coupling value (0.05) read from the plan's convention; the reviewer has not checked it.
 
 ## 10. Proposals for Session 6
 
@@ -302,7 +487,10 @@ TRACKF_LITERATURE
 2. **Two S-bends on one string.** Force, merging and the reach of the combined field, using the surroundings baseline of C-Q6 (no static field above 1e-7 for one S-bend).
 3. **Settle the smooth medium.** (a) Stability calculation for the rate-2.0 jump state and a scan over jump position, which maps the window that was not mapped here. (b) Box-length scan of the growth rate, which fell 15% to 20% when the box doubled: does it vanish in a long box. (c) The spectral scheme with a treatment of the jump. (d) The 1/64 anomaly.
 4. **A medium that can make its own corner, or does not need one.** A smooth medium with a fourth-order term, for comparison with the one used here, which cannot form a jump.
-TRACKF_PROPOSALS
+5. **Decide whether equation R is worth more work.** Two capped checks: the delay factor at half-widths 56 and beyond (does 3.99 keep rising), and one attempt at multi-harmonic periodic states with their stability rates. If neither shows a hold, retire R as a trap and record why.
+6. **The pinch in the old equation, out of round.** It is the longest-lived object found, but only round runs exist. This is three-dimensional vector work, which the plan forbids this session.
+7. **Rewrite the hold rule** before any further floor runs: retained fraction relative to the start; rate from zero crossings; a horizon that scales with the object's own spreading time (the twin's lifetime) so that width alone cannot pass it; and fix the two classifier defects.
+8. **Re-base the old-equation baseline** at the bottom of the dip (1.02 times the Session 1 amplitude), since Sessions 1 to 4 used an object on its wall.
 
 ## 11. Parking lot
 
