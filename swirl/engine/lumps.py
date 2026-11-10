@@ -409,6 +409,17 @@ class LumpDiagnostics:
             pi = self.ev.pi
             self.point.setdefault("It", []).append(
                 [float((pi[sub] ** 2 * W).sum()) * self.ev.dV for sub, _, W in self._ball_weights()])
+        if self.cfg.get("it_half"):
+            # Session 4 Test A: int_{x < pos} phi_t^2 every step (axis 0 planes only; the slice is contiguous)
+            pi = self.ev.pi
+            vals = []
+            for pl in self.cfg["it_half"]:
+                if int(pl["axis"]) != 0:
+                    raise ValueError("it_half supports axis 0 only")
+                k = int(np.searchsorted(self.ev.coords, float(pl["pos"]), side="left"))
+                v = pi[:k].ravel()
+                vals.append(float(np.dot(v, v)) * self.ev.dV)
+            self.point.setdefault("It_half", []).append(vals)
 
     # -- every `every` steps -----------------------------------------------------
     def sample(self, t):

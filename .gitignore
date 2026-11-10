@@ -6,3 +6,6 @@ __pycache__/
 .claude/settings.local.json
 checkpoints/
 logs/
+
+# Session 4 Test A: snapshot sources are field arrays
+outputs/session4/testA/sources/*.npz

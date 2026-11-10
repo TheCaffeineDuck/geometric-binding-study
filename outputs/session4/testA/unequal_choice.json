@@ -1,0 +1,339 @@
+{
+ "what": "Test A unequal pair choice (plan A1), numerics recommendation; to be recorded in the plan addendum before production runs",
+ "scan_files": [
+  "outputs/session4/testA/unequal_scan.json",
+  "outputs/session4/testA/unequal_scan_small.json"
+ ],
+ "scan": "radial solver (wpa_run grid), beta 4/3, single-frequency starts omega 0.835 to 0.954, T = 1500; settling drift = |median whole-period omega over (t-50,t] minus the same 100 earlier|; snapshot guard 1e-4",
+ "members_passing_guard_at_t300_and_t500": [
+  {
+   "omega": 0.855,
+   "N": 9096.253704069177,
+   "drift300": 7.621353800546515e-05,
+   "rate": 1.3862215584823182e-05
+  },
+  {
+   "omega": 0.8565,
+   "N": 8720.35755965292,
+   "drift300": 1.1153262928331742e-05,
+   "rate": 2.6887392607018632e-06
+  },
+  {
+   "omega": 0.857,
+   "N": 8599.97793487072,
+   "drift300": 1.7378138705836932e-06,
+   "rate": 6.311327216049212e-07
+  },
+  {
+   "omega": 0.8575,
+   "N": 8481.956488362015,
+   "drift300": 8.359320944339999e-07,
+   "rate": 1.0585788526251694e-07
+  },
+  {
+   "omega": 0.858,
+   "N": 8366.235128351913,
+   "drift300": 5.844856787340369e-06,
+   "rate": 1.823081212416755e-06
+  },
+  {
+   "omega": 0.8585,
+   "N": 8252.75749305593,
+   "drift300": 1.9384794355814527e-05,
+   "rate": 6.886533850992694e-06
+  },
+  {
+   "omega": 0.9025,
+   "N": 3192.916452824719,
+   "drift300": 4.1760623133879626e-05,
+   "rate": 6.096383184439891e-06
+  },
+  {
+   "omega": 0.905,
+   "N": 3062.7422349824246,
+   "drift300": 3.2534622487201403e-06,
+   "rate": 1.0312158120811173e-06
+  },
+  {
+   "omega": 0.9055,
+   "N": 3037.771485736376,
+   "drift300": 4.1915366510991703e-07,
+   "rate": 3.890302129982056e-07
+  },
+  {
+   "omega": 0.906,
+   "N": 3013.1425557748403,
+   "drift300": 1.5741374406186281e-06,
+   "rate": 4.2287820517156185e-07
+  },
+  {
+   "omega": 0.9065,
+   "N": 2988.850154404881,
+   "drift300": 2.308596074640512e-06,
+   "rate": 5.858578773598744e-07
+  },
+  {
+   "omega": 0.907,
+   "N": 2964.8891007672482,
+   "drift300": 1.7067933275605185e-06,
+   "rate": 3.5865923127246607e-07
+  },
+  {
+   "omega": 0.9091,
+   "N": 2867.758374033686,
+   "drift300": 1.4895605910281162e-05,
+   "rate": 2.81245992220495e-06
+  },
+  {
+   "omega": 0.9115,
+   "N": 2763.34679189297,
+   "drift300": 6.577164071619457e-05,
+   "rate": 1.0504162816812416e-05
+  }
+ ],
+ "finding": "No pair with N ratio 1.3 to 1.6 has both members passing the settling guard: passing members lie in two bands, omega 0.9025 to 0.9115 (N 2763 to 3193) and 0.855 to 0.8585 (N 8253 to 9096). Within a band the largest ratio is 1.16; across bands the smallest is 2.58. Every start in 0.86 to 0.90 and in 0.914 to 0.954 drifts by 1.2e-4 to 1.8e-3 per 100 at t = 300 (Session 3 found the same at N/N_min 3.1 and 4.4).",
+ "recommended": {
+  "label": "A: the two dips (Session 3 parking-lot pair N/N_min 1.83 and 5.2); deviation: N ratio 2.84, not 1.3 to 1.6",
+  "lump1": {
+   "omega_profile": 0.9065,
+   "omega_settled_t300": 0.9068796921514848,
+   "omega_settled_t1500": 0.9068799245468798,
+   "N": 2988.850154404881,
+   "N_over_Nmin": 1.829642026214276,
+   "E": 2913.621108484628,
+   "A": 60.07629935690321,
+   "kappa": 0.42220581473968366,
+   "kappa_settled": 0.4213896343803774,
+   "hw": 3.3931151162938047,
+   "Phi0": 6.9231657494309875,
+   "r_Phi_1e3_Phi0": 15.05597795830222,
+   "settle_drift_t300": 2.308596074640512e-06,
+   "settle_drift_t500": 9.252080483967973e-07,
+   "settle_drift_t1500": 3.6164134076255294e-07,
+   "frac_t1500": 0.996689780474512,
+   "loss_rate_frac_per_time_300_1500": 5.858578773598744e-07
+  },
+  "lump2": {
+   "omega_profile": 0.8575,
+   "omega_settled_t300": 0.8591280042091478,
+   "omega_settled_t1500": 0.8591325212404322,
+   "N": 8481.956488362015,
+   "N_over_Nmin": 5.192279055126478,
+   "E": 7724.150247823545,
+   "A": 263.17125415652475,
+   "kappa": 0.514483964764695,
+   "kappa_settled": 0.51176075697889,
+   "hw": 4.922169627932024,
+   "Phi0": 7.144119709826777,
+   "r_Phi_1e3_Phi0": 15.153165162405793,
+   "settle_drift_t300": 8.359320944339999e-07,
+   "settle_drift_t500": 1.5498262440072352e-07,
+   "settle_drift_t1500": 3.7820955922640564e-07,
+   "frac_t1500": 0.9979074177637095,
+   "loss_rate_frac_per_time_300_1500": 1.0585788526251694e-07
+  },
+  "N_ratio": 2.837866085678987,
+  "delta_omega_settled": 0.04775168794233697,
+  "beat_period": 131.5803813001733,
+  "beats_in_window_40_400": 2.735970183721651,
+  "kappa_min": 0.42220581473968366
+ },
+ "alternatives": [
+  {
+   "label": "B: largest ratio inside the small-lump band (1.16); kappa 0.431 vs 0.411 barely separated; both lose 0.6 to 1.3% of frac by t = 1500",
+   "lump1": {
+    "omega_profile": 0.9025,
+    "omega_settled_t300": 0.9031109396494134,
+    "omega_settled_t1500": 0.9035840051948458,
+    "N": 3192.916452824719,
+    "N_over_Nmin": 1.9545623990782885,
+    "E": 3098.1915464776685,
+    "A": 65.75494575247154,
+    "kappa": 0.43068985360697787,
+    "kappa_settled": 0.4294073016211457,
+    "hw": 3.472400777093772,
+    "Phi0": 6.96733364610885,
+    "r_Phi_1e3_Phi0": 14.967952327436466,
+    "settle_drift_t300": 4.1760623133879626e-05,
+    "settle_drift_t500": 4.277816927289457e-05,
+    "settle_drift_t1500": 3.484084242866281e-05,
+    "frac_t1500": 0.9880337474643147,
+    "loss_rate_frac_per_time_300_1500": 6.096383184439891e-06
+   },
+   "lump2": {
+    "omega_profile": 0.9115,
+    "omega_settled_t300": 0.9119367627888852,
+    "omega_settled_t1500": 0.9128821574823603,
+    "N": 2763.34679189297,
+    "N_over_Nmin": 1.6915988297374098,
+    "E": 2708.6513536882308,
+    "A": 53.93169712452514,
+    "kappa": 0.41130007293945386,
+    "kappa_settled": 0.4103307698359074,
+    "hw": 3.30273528941411,
+    "Phi0": 6.859246304156969,
+    "r_Phi_1e3_Phi0": 15.193331716811699,
+    "settle_drift_t300": 6.577164071619457e-05,
+    "settle_drift_t500": 7.280306012558135e-05,
+    "settle_drift_t1500": 9.153926790850253e-05,
+    "frac_t1500": 0.9807011416501502,
+    "loss_rate_frac_per_time_300_1500": 1.0504162816812416e-05
+   },
+   "N_ratio": 1.1554526786836918,
+   "delta_omega_settled": 0.008825823139471889,
+   "beat_period": 711.9092698650602,
+   "beats_in_window_40_400": 0.5056824166206414,
+   "kappa_min": 0.41130007293945386
+  },
+  {
+   "label": "C: smallest cross-band ratio (2.58); both members less settled than A",
+   "lump1": {
+    "omega_profile": 0.9025,
+    "omega_settled_t300": 0.9031109396494134,
+    "omega_settled_t1500": 0.9035840051948458,
+    "N": 3192.916452824719,
+    "N_over_Nmin": 1.9545623990782885,
+    "E": 3098.1915464776685,
+    "A": 65.75494575247154,
+    "kappa": 0.43068985360697787,
+    "kappa_settled": 0.4294073016211457,
+    "hw": 3.472400777093772,
+    "Phi0": 6.96733364610885,
+    "r_Phi_1e3_Phi0": 14.967952327436466,
+    "settle_drift_t300": 4.1760623133879626e-05,
+    "settle_drift_t500": 4.277816927289457e-05,
+    "settle_drift_t1500": 3.484084242866281e-05,
+    "frac_t1500": 0.9880337474643147,
+    "loss_rate_frac_per_time_300_1500": 6.096383184439891e-06
+   },
+   "lump2": {
+    "omega_profile": 0.8585,
+    "omega_settled_t300": 0.8601948216342225,
+    "omega_settled_t1500": 0.8605302708714997,
+    "N": 8252.75749305593,
+    "N_over_Nmin": 5.051973555514838,
+    "E": 7527.498257768438,
+    "A": 252.44791463561546,
+    "kappa": 0.5128135626131586,
+    "kappa_settled": 0.5099655565169752,
+    "hw": 4.874716265936821,
+    "Phi0": 7.145010343482786,
+    "r_Phi_1e3_Phi0": 15.124811883041952,
+    "settle_drift_t300": 1.9384794355814527e-05,
+    "settle_drift_t500": 2.5296887830927872e-05,
+    "settle_drift_t1500": 3.310333797856835e-05,
+    "frac_t1500": 0.9882790987641296,
+    "loss_rate_frac_per_time_300_1500": 6.886533850992694e-06
+   },
+   "N_ratio": 2.5847082487093753,
+   "delta_omega_settled": 0.04291611801519091,
+   "beat_period": 146.40618951032673,
+   "beats_in_window_40_400": 2.4589124353557983,
+   "kappa_min": 0.43068985360697787
+  }
+ ],
+ "reasons_for_A": [
+  "both members are the most settled of their bands (drift 2.3e-6 and 8.4e-7 at t = 300; loss rates 5.9e-7 and 1.1e-7 of frac per unit time), 40 to 100 times inside the 1e-4 guard",
+  "kappa 0.422 and 0.515 differ by 20%, so A-P6 (fitted k tends to min(kappa_1, kappa_2)) is a real discrimination; inside band B they differ by 5%",
+  "the beat period 131.6 gives 2.7 beats in the window 40 to 400 (plan: at least half a beat)",
+  "this pair was already proposed in SESSION_03_REPORT section 6 for exactly this test"
+ ],
+ "costs_of_A": [
+  "the larger lump is wider (hw 4.92): boxes about 10 larger in L than primary pairs; its 3D source must be built (t_s 300 at dx 0.55)",
+  "the N ratio leaves the plan range: A-P6 law check is unchanged, but the plan text says 1.3 to 1.6; the orchestrator records the deviation"
+ ],
+ "production": {
+  "note": "the driver uses the Session 2 starts of the recommended pair (dip 0.9065045, N/N_min 5.2 start 0.8573703), within 1.3e-4 in omega of the scanned members",
+  "dip": {
+   "omega_profile": 0.9065045072253043,
+   "N": 2988.6326863755316,
+   "N_over_Nmin": 1.8295089018937847,
+   "E": 2913.4239732259443,
+   "A": 60.070309938795454,
+   "kappa": 0.422196137334543,
+   "hw": 3.3930293212526594,
+   "Phi0": 6.923112586526455,
+   "D_sponge": 15.056087819835835,
+   "radial_omega_settled_t300": 0.9068840925399104,
+   "radial_drift_t300": 2.308530990258184e-06,
+   "radial_drift_t500": 9.248817932627773e-07,
+   "radial_loss_rate": 5.855994009254517e-07,
+   "source_3d": {
+    "omega": 0.9068730736474689,
+    "omega_drift": 3.834516628253848e-05,
+    "sha256": "23c9ddb76033632eef7c15fe801edf544d10bbbf46487c6956149df8d8c5b874",
+    "crop_loss_E_max": 1.0619401187295097e-06,
+    "crop_loss_N": 1.1231179637416489e-06,
+    "t_s": 300.0,
+    "nonlinear_share_ref": 0.35845453758699414,
+    "E_ref": 2952.6249275793266
+   }
+  },
+  "big": {
+   "omega_profile": 0.857370255463254,
+   "N": 8512.358465846184,
+   "N_over_Nmin": 5.210889802675356,
+   "E": 7750.217969591148,
+   "A": 264.6092031563637,
+   "kappa": 0.5147001506186633,
+   "hw": 4.928397627900812,
+   "Phi0": 7.143992421502243,
+   "D_sponge": 15.156938248811741,
+   "radial_omega_settled_t300": 0.8589968092134987,
+   "radial_drift_t300": 9.99337429030689e-07,
+   "radial_drift_t500": 2.2448459424673217e-07,
+   "radial_loss_rate": 5.921697366314168e-08,
+   "source_3d": {
+    "omega": 0.8589879041919078,
+    "omega_drift": 2.1098578033118542e-05,
+    "sha256": "dcbb5c7b65026a6594e606da841911ee2857befe2674969d60b26c737526f1cb",
+    "crop_loss_E_max": 1.445976668623672e-06,
+    "crop_loss_N": 1.552190719955604e-06,
+    "t_s": 300.0,
+    "nonlinear_share_ref": 0.4869147443513342,
+    "E_ref": 7740.70147059294
+   }
+  },
+  "N_ratio": 2.848245120469976,
+  "delta_omega_settled": 0.047885169455561094,
+  "beat_period": 131.21359658151727,
+  "beats_in_window_40_400": 2.7436181110724127,
+  "static_U_amp_vs_law": {
+   "10.0": {
+    "U_amp": -89.765323626352,
+    "U_law": -91.13641780246505,
+    "V_raw": 640.9330565745751
+   },
+   "12.0": {
+    "U_amp": -30.498227831932,
+    "U_law": -30.564224119736657,
+    "V_raw": 310.42060600745504
+   },
+   "16.0": {
+    "U_amp": -3.7963393035048267,
+    "U_law": -3.796493860375765,
+    "V_raw": 60.64623158383977
+   },
+   "20.0": {
+    "U_amp": -0.5163463711680274,
+    "U_law": -0.5163467811711775,
+    "V_raw": 10.678986800179896
+   },
+   "24.0": {
+    "U_amp": -0.07473390555505367,
+    "U_law": -0.07473390417615537,
+    "V_raw": 1.8237294071829409
+   },
+   "32.0": {
+    "U_amp": -0.0017707443126781857,
+    "U_law": -0.0017707442446595904,
+    "V_raw": 0.0520345670069574
+   },
+   "40.0": {
+    "U_amp": -4.649546836821715e-05,
+    "U_law": -4.649546648617158e-05,
+    "V_raw": 0.0014904337968148214
+   }
+  }
+ }
+}

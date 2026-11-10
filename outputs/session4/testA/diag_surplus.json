@@ -1,0 +1,162 @@
+{
+ "what": "Addendum 2 item 3(a): the t = 0 cross-energy surplus of snapshot starts (engine 8.527 against the family\nquadrature 7.757 at r = 20; 2.228 against 1.533 at r = 24).\n\n1. Angular average of the settled primary source (reference state, phase 0): phi_s(r), pi_s(r) in shells.\n2. Tail: fit A_s e^{-kappa_s r}/r on r = 12 to 18 (kappa_s from the source's settled omega); residual\n   phi_s - tail for r = 12 to 26 (the non-evanescent part).\n3. Cross energy of two copies at phases (0, 0), windowed (26, 30) as the snapshot start, by axisymmetric\n   quadrature of the radial profiles (static.moments): (i) the measured profile (phi_s, pi_s); (ii) the measured\n   core with the fitted evanescent tail beyond r = 12 and pi = 0 beyond 12; (iii) the family profile at the settled\n   omega. (i) - (ii) is the part carried by the non-evanescent field; (ii) - (iii) the core difference.\n4. What the residual does to V_N: its cross with the partner's core oscillates at (n - 1) omega and averages out of\n   whole-period N, but stays in the conserved E at its t = 0 value.\nUsage: PYTHONPATH=. python outputs/session4/testA/diag_surplus.py   (one process)\n",
+ "source": "/Users/aaronramos/Desktop/SWIRL/outputs/session2/wpE/source/src_prod_N160_L88.npz",
+ "sha256": "6193e7b109b7369cfc087b743bff24c17e51efd0193885d69aea170f916a8c72",
+ "omega_source": 0.909531801493928,
+ "kappa_source": 0.41563433697327024,
+ "A_fit_12_18": 55.81484529432861,
+ "A_family_at_settled_omega": 56.23599098643528,
+ "profile_comparison": [
+  {
+   "r": 12.030501425743028,
+   "phi_s": 0.031174445257229674,
+   "tail": 0.03125128401283378,
+   "family": 0.03148643262740239,
+   "residual": -7.683875560410627e-05,
+   "residual_over_tail": -0.002458739153647249,
+   "pi_s": 0.0025487504181572014
+  },
+  {
+   "r": 13.964269205655043,
+   "phi_s": 0.0128499001558947,
+   "tail": 0.012052396471578289,
+   "family": 0.012143298341760327,
+   "residual": 0.0007975036843164123,
+   "residual_over_tail": 0.06616971871088606,
+   "pi_s": 0.002761977301100624
+  },
+  {
+   "r": 16.015347281195414,
+   "phi_s": 0.00548606578490883,
+   "tail": 0.004480431870739683,
+   "family": 0.004514236679971332,
+   "residual": 0.0010056339141691472,
+   "residual_over_tail": 0.2244502189033677,
+   "pi_s": 0.0002608984300278971
+  },
+  {
+   "r": 17.94148572096731,
+   "phi_s": 0.0020692686458215624,
+   "tail": 0.0017960359141599115,
+   "family": 0.0018095876714419835,
+   "residual": 0.00027323273166165096,
+   "residual_over_tail": 0.15213099554830145,
+   "pi_s": -0.002211245918367282
+  },
+  {
+   "r": 20.012959015632273,
+   "phi_s": 0.0003036095653227182,
+   "tail": 0.000680683520706766,
+   "family": 0.0006858195739938641,
+   "residual": -0.00037707395538404777,
+   "residual_over_tail": -0.5539636907802985,
+   "pi_s": -0.0015356446337369952
+  },
+  {
+   "r": 22.065554757751237,
+   "phi_s": -0.00019094737062517659,
+   "tail": 0.0002630463968771143,
+   "family": 0.00026503119881706534,
+   "residual": -0.00045399376750229086,
+   "residual_over_tail": -1.7259075695090407,
+   "pi_s": 0.00011953991637201982
+  },
+  {
+   "r": 24.0017991107386,
+   "phi_s": 0.00035640903716615413,
+   "tail": 0.00010814249835181183,
+   "family": 0.00010895848169283965,
+   "residual": 0.0002482665388143423,
+   "residual_over_tail": 2.2957351882760793,
+   "pi_s": 0.0012213210207588727
+  },
+  {
+   "r": 26.05869298114187,
+   "phi_s": 0.0007175566239925835,
+   "tail": 4.236452937781328e-05,
+   "family": 4.268418864422098e-05,
+   "residual": 0.0006751920946147701,
+   "residual_over_tail": 15.937674855143673,
+   "pi_s": 0.0003041728117638145
+  },
+  {
+   "r": 27.97953888524609,
+   "phi_s": 0.0004693111122934602,
+   "tail": 1.7757711181371012e-05,
+   "family": 1.7891701043183826e-05,
+   "residual": 0.00045155340111208917,
+   "residual_over_tail": 25.428581223113817,
+   "pi_s": -0.00137777633385493
+  },
+  {
+   "r": 30.0484608537105,
+   "phi_s": -7.010195507487391e-05,
+   "tail": 6.997597616529883e-06,
+   "family": 7.050397613649066e-06,
+   "residual": -7.70995526914038e-05,
+   "residual_over_tail": -11.018003165726117,
+   "pi_s": -0.0012160243099331137
+  }
+ ],
+ "cross_energy": [
+  {
+   "r": 16.0,
+   "E_cross_measured_profile": 39.84219489144624,
+   "E_cross_measured_core_evanescent_tail": 38.89848972307497,
+   "E_cross_family_at_settled_omega": 38.26190805201326,
+   "kinetic_cross_measured": 0.005448624000567325,
+   "kinetic_cross_evanescent": 0.004441326731170678,
+   "surplus_from_nonevanescent": 0.9437051683712738,
+   "core_difference": 0.6365816710617054
+  },
+  {
+   "r": 20.0,
+   "E_cross_measured_profile": 8.52981849730162,
+   "E_cross_measured_core_evanescent_tail": 7.822962365707177,
+   "E_cross_family_at_settled_omega": 7.757102133380698,
+   "kinetic_cross_measured": -0.007851712805188437,
+   "kinetic_cross_evanescent": 0.0007741126748045175,
+   "surplus_from_nonevanescent": 0.7068561315944422,
+   "core_difference": 0.06586023232647875
+  },
+  {
+   "r": 24.0,
+   "E_cross_measured_profile": 2.2283021733511057,
+   "E_cross_measured_core_evanescent_tail": 1.530860472997586,
+   "E_cross_family_at_settled_omega": 1.5330720598308591,
+   "kinetic_cross_measured": -0.015071282803079991,
+   "kinetic_cross_evanescent": -1.2393258990260265e-05,
+   "surplus_from_nonevanescent": 0.6974417003535196,
+   "core_difference": -0.0022115868332730493
+  },
+  {
+   "r": 28.0,
+   "E_cross_measured_profile": 0.6780261267497945,
+   "E_cross_measured_core_evanescent_tail": 0.27866155138040455,
+   "E_cross_family_at_settled_omega": 0.29909839451671777,
+   "kinetic_cross_measured": -0.005694554663563302,
+   "kinetic_cross_evanescent": 4.263853079459724e-18,
+   "surplus_from_nonevanescent": 0.3993645753693899,
+   "core_difference": -0.02043684313631322
+  }
+ ],
+ "engine_t0_E_cross": {
+  "20.0": 8.527141897790898
+ },
+ "reviewer_numbers": {
+  "r20": {
+   "engine": 8.527,
+   "family": 7.757
+  },
+  "r24": {
+   "engine": 2.2277,
+   "family": 1.533
+  }
+ },
+ "diagnosis": {
+  "residual": "non-evanescent field in the settled source beyond the tail: wavenumber 2.53-2.54 = k3 (the steady 3 omega radiation), rms 5.5e-4 in phi (7.5e-5 Phi0) and 1.4e-3 in phi_t over r = 12 to 30; larger than the evanescent tail beyond r ~ 19",
+  "surplus": "axisymmetric quadrature of the measured angular-average profile reproduces the engine t = 0 cross energy (8.530 vs 8.527 at r = 20; 2.228 vs 2.2277 at r = 24). Replacing the tail beyond r = 12 by the fitted evanescent tail removes 0.94, 0.71, 0.70, 0.40 at r = 16, 20, 24, 28 and leaves 7.823 and 1.531 against the family 7.757 and 1.533 at r = 20 and 24. The surplus is the cross of each copy's windowed 3 omega cloud (out to the 26-30 window) with the partner's core: nearly r-independent while the partner core is inside the cloud, falling once it reaches the window taper.",
+  "effect_on_V_N": "E + absorbed and E_box keep the t = 0 value of this cross term; whole-period N removes its 3 omega x omega cross. In the two r = 20 runs V_N sits +0.07 (in phase) and +0.09 (anti phase) above U_static, not +0.7, so most of it is compensated. The rest (~0.08, of unknown r dependence) is an offset comparable to U at r ~ 22 to 24: V_N cannot resolve U beyond about r = 24 without a control that removes it (e.g. singles and pairs from a source whose cloud is cut at a smaller window, or a pair-minus-superposed-copies run).",
+  "effect_on_V_F": "the t = 0 cloud is outgoing at group velocity 0.93 and crosses the partner before t1 = 40 at r <= 30; its impulse is a constant velocity, taken by the c1 term of the fit. It does not enter the acceleration in the window. The steady 3 omega emission of each lump continues in every run (it is physics, not a start artefact): its cross force is the radiation-mediated term A3 lists (order 1e-4, sign alternating with k3 r), which V_F would see as a residual at large r."
+ }
+}
