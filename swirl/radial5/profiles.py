@@ -263,6 +263,140 @@ def solve(mdl, omega, iters=200, rtol=1e-12):
     return _assemble(mdl, omega, kappa, best_u, best_o)
 
 
+def _side(kind):
+    """'under' is one side of the family curve; 'over' and 'limit' the other."""
+    return kind == "under"
+
+
+def solve_point(mdl, omega=None, x=None, guess=None, delta=0.01, iters=200, rtol=1e-12):
+    """Profile with omega fixed (search the shooting parameter x near guess) or with x fixed
+    (F(0) for the bump, F'(0) for the pinch; search eps = sqrt(1 - omega^2) near guess).
+    The search steps outward from the guess (log steps delta 2^n, both directions) to the
+    nearest change undershoot <-> overshoot, then bisects to round-off. This finds the
+    branch next to the guess, so a continuation can pass folds in omega or in x.
+    Raises RuntimeError when no bracket is found or when the converged overshoot side is
+    the limit (R: omega F = 1, the ansatz wall; O: the runaway value F_out)."""
+    fix_omega = omega is not None
+    if fix_omega:
+        lo_b, hi_b = 1e-12, (mdl.F_limit(omega) * (1 - 1e-12) if mdl.obj == "bump" else np.inf)
+        kappa = np.sqrt(1.0 - omega * omega)
+        r_end = 60.0 / kappa + 60.0
+
+        def shoot(v):
+            return _shoot_once(mdl, omega, v, r_end, rtol)
+    else:
+        lo_b, hi_b = 1e-6, 1.0 - 1e-12
+        if mdl.model == "R" and mdl.obj == "bump":
+            # omega F(0) < 1 needs eps > sqrt(1 - 1/x^2)
+            if x >= 1.0:
+                lo_b = max(lo_b, np.sqrt(1.0 - 1.0 / (x * x)) * (1 + 1e-12))
+
+        def shoot(e):
+            w = np.sqrt(1.0 - e * e)
+            return _shoot_once(mdl, w, x, 60.0 / e + 60.0, rtol)
+    v0 = float(np.clip(guess, lo_b * (1 + 1e-9), hi_b * (1 - 1e-9)))
+    k0, s0 = shoot(v0)
+    bracket = None
+    for n in range(40):
+        step = delta * 2.0 ** n
+        for sgn in (1.0, -1.0):
+            v = v0 * np.exp(sgn * step)
+            if not (lo_b < v < hi_b):
+                v = lo_b * (1 + 1e-9) if sgn < 0 else hi_b * (1 - 1e-9)
+            k, s = shoot(v)
+            if _side(k) != _side(k0):
+                bracket = ((v0, k0, s0), (v, k, s))
+                break
+        if bracket is not None:
+            break
+        if v0 * np.exp(-step) <= lo_b and v0 * np.exp(step) >= hi_b:
+            break
+    if bracket is None:
+        raise RuntimeError("no bracket near %s = %.6g at %s = %.6g" % (
+            "x" if fix_omega else "eps", v0, "omega" if fix_omega else "x",
+            omega if fix_omega else x))
+    a, b = bracket
+    under, other = (a, b) if _side(a[1]) else (b, a)
+    for _ in range(iters):
+        v = 0.5 * (under[0] + other[0])
+        if v in (under[0], other[0]):
+            break
+        k, s = shoot(v)
+        if _side(k):
+            under = (v, k, s)
+        else:
+            other = (v, k, s)
+    if other[1] == "limit":
+        what = "ansatz wall omega F = 1" if mdl.model == "R" else "runaway value F_out"
+        raise RuntimeError("the curve here is the %s, not a profile (%s = %.8g)" % (
+            what, "x" if fix_omega else "eps", 0.5 * (under[0] + other[0])))
+    if fix_omega:
+        res = _assemble(mdl, omega, kappa, (under[0], under[2]), (other[0], other[2]))
+    else:
+        e = 0.5 * (under[0] + other[0])
+        res = _assemble(mdl, float(np.sqrt(1 - e * e)), e, (x, under[2]), (x, other[2]))
+        res["eps_bracket_rel"] = float(abs(other[0] - under[0]) / e)
+    res["fixed"] = "omega" if fix_omega else "amplitude"
+    return res
+
+
+def continue_family(mdl, eps0=0.01, ds0=0.04, ds_max=0.12, ds_min=2e-4, eps_max=0.999,
+                    max_points=300, verbose=False, wall_cap=None, on_point=None):
+    """Continuation along the family in c = (ln eps, ln x), x = F(0) (bump) or F'(0)
+    (pinch), through folds in omega and in x. Predictor: the secant; corrector: solve_point
+    with the parameter whose tangent component is larger held fixed. The step halves on
+    failure; the family ends when it falls below ds_min, and the reason is returned."""
+    w0 = np.sqrt(1 - eps0 ** 2)
+    pts = [solve(mdl, w0)]
+    pts.append(solve_point(mdl, omega=np.sqrt(1 - (eps0 * 1.08) ** 2), guess=pts[0]["shoot_param"] * 1.08))
+    coord = lambda p: np.array([np.log(p["kappa"]), np.log(p["shoot_param"])])
+    C = [coord(p) for p in pts]
+    ds = ds0
+    reason = None
+    import time as _time
+    t_start = _time.time()
+    while len(pts) < max_points:
+        if wall_cap is not None and _time.time() - t_start > wall_cap:
+            reason = "wall cap %.0f s reached" % wall_cap
+            break
+        t = C[-1] - C[-2]
+        t /= np.linalg.norm(t)
+        pred = C[-1] + ds * t
+        try:
+            if abs(t[0]) >= abs(t[1]):
+                e = float(np.exp(pred[0]))
+                if e >= eps_max:
+                    reason = "eps reached %.3f (omega %.4f): scan limit" % (eps_max, np.sqrt(1 - eps_max ** 2))
+                    break
+                p = solve_point(mdl, omega=float(np.sqrt(1 - e * e)), guess=float(np.exp(pred[1])),
+                                delta=max(0.2 * ds, 1e-4))
+            else:
+                p = solve_point(mdl, x=float(np.exp(pred[1])), guess=float(np.exp(pred[0])),
+                                delta=max(0.2 * ds, 1e-4))
+            c = coord(p)
+            d = c - C[-1]
+            if np.dot(d, t) <= 0 or np.linalg.norm(d) > 3 * ds:
+                raise RuntimeError("corrector left the branch (step %.3g, forward %.3g)"
+                                   % (np.linalg.norm(d), np.dot(d, t)))
+        except RuntimeError as exc:
+            reason = str(exc)
+            ds *= 0.5
+            if ds < ds_min:
+                break
+            continue
+        pts.append(p)
+        C.append(c)
+        if on_point is not None:
+            on_point(pts, ds)
+        if verbose:
+            print("w=%.6f x=%.6g E=%.6g fixed=%s ds=%.3g" % (p["omega"], p["shoot_param"], p["E"],
+                                                               p.get("fixed", "omega"), ds), flush=True)
+        ds = min(ds * 1.3, ds_max)
+    else:
+        reason = "max_points reached"
+    return pts, reason
+
+
 def _tail_shape(obj, kappa, r):
     if obj == "bump":
         return np.exp(-kappa * r) / r

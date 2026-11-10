@@ -20,8 +20,8 @@ T = 300.0
 def test_resolution(combo):
     model, obj = combo.split("_")
     st = EV.profile_start(model, obj, STARTS[combo])
-    g1 = dict(EV.GRID)
-    g2 = dict(EV.GRID, h=EV.GRID["h"] / 1.5, dt=EV.GRID["dt"] / 1.5)
+    g1 = EV.default_grid(model)
+    g2 = dict(g1, h=g1["h"] / 1.5, dt=g1["dt"] / 1.5)
     a = EV.run(model, obj, st, T, grid=g1)
     b = EV.run(model, obj, st, T, grid=g2)
     dE = abs(a["E0"] - b["E0"]) / a["E0"]
