@@ -265,3 +265,156 @@ A 10^5 R run takes about 25 minutes. Two processes give about 50 R runs of 10^4 
 3. The Session 2 T_90 is badly posed for wide starts whose initial frac is below 0.90 (R bump, omega >= 0.995).
 4. The end of the O-pinch family at omega 0.875 may be a solver limit (the runaway value), not a physical end.
 5. The O-bump family solver stops at 0.802, short of the thin-wall end 0.760 (shooting precision). Session 1's tables cover the rest.
+
+## 10. Follow-up to the review (2026-11-10 evening)
+
+Sections 5 and 8 above are the first pass. Where they differ from this section, this section replaces them: family ends, energy minima, regime numbers, cost and defaults.
+
+The reviewer accepted the solver, the energies and the guard, and set six conditions for R. Old values are kept where something changed. The first-pass family tables are in `outputs/radial5/old/`.
+
+### 10.1 Families through the folds (condition 1): done for O bump, O pinch and R bump; R pinch see 10.7
+
+`profiles.solve` scans in omega and bisects on the amplitude from below. It therefore stops at the first fold in omega and reports that fold as the end.
+
+`profiles.continue_family` replaces it.
+- It follows the family as a curve in (ln eps, ln x), with x = F(0) (bump) or F'(0) (pinch).
+- Predictor: the secant. Corrector: `solve_point`, which holds omega or x fixed (whichever the tangent favours) and searches outward from the prediction to the nearest undershoot/overshoot change, then bisects to round-off.
+- Passing a fold therefore needs no special treatment.
+
+| Family | Old (scan in omega) | New (continuation) | Why it ends (new) |
+|---|---|---|---|
+| O bump | 0.8018–0.995; E min 1657.41 at 0.970 | 0.8006–0.99995, 52 points. No fold in omega; fold in F(0) at omega 0.8759 (F0 max 7.131). E min 1658.96 at 0.9711 (sampled; Session 1: 1657.1 at 0.9692) | solver limit: shooting precision (thin wall). Analytic thin-wall end 0.760 |
+| O pinch | 0.8751–0.995; "ends" at the runaway value | 0.7968–0.99995, 78 points. No fold in omega; fold in F'(0) at omega 0.8880 (x max 2.223). E min 7926.2 at 0.9558 | solver limit: shooting precision (thin wall). **The old end at 0.875 was an artefact** of scanning omega from below past the F'(0) fold |
+| R bump | 0.99455–0.99995; E falls to the end, 161.4 | 0.994586–0.99995, 36 points. **Fold in omega** at 0.994586 (F0 0.871; the old bisected end 0.9945451 is the fold, the reviewer has 0.994519). The upper branch runs to F0 = 1.005 | **ansatz wall**: omega F0 = 0.99988 at the last point |
+
+The R bump has an energy minimum just before the wall:
+- E = 145.654 at F0 = 1.0016, omega 0.994939;
+- E = 145.863 at the end;
+- E = 164.97 at the omega fold;
+- the reviewer has 145.6 at F0 = 1.00.
+
+Signs of dE/domega and dN/domega along the curves (central differences along the curve). They agree in sign everywhere, consistent with dE = omega dN:
+- **O bump:** (+, +) from 0.99995 to 0.9711, then (−, −) from 0.9652 to 0.8006.
+- **O pinch:** (+, +) from 0.99995 to 0.9613, then (−, −) from 0.9558 to 0.7968.
+- **R bump:**
+  - (+, +) on the lower branch, 0.99995 to the fold;
+  - **(−, −) on the upper branch**, 0.99471 to 0.99494;
+  - (+, +) at the last point, past the energy minimum.
+
+Solver precision along the new curves:
+- median |dE/domega − omega dN/domega| / max: 2.1e-6 (O bump), 4.2e-7 (O pinch), 4.4e-7 (R bump); larger only at folds;
+- max |Derrick|: 9.5e-12, 1.5e-11 and 8.6e-7.
+
+Every family row now records which parameter was held fixed (`fixed`).
+
+### 10.2 Past the ansatz wall (condition 2): not done, parked after two attempts
+
+Method: Newton–Krylov shooting for symmetric periodic orbits of R in (f, p) in a closed box (`swirl/radial5/periodic.py`).
+- Unknowns: f0 without the pinned centre cell, and the period T.
+- Equations: f(T/4) = 0 at every cell.
+
+Two attempts, both from the single-frequency seed at F0 = 0.9, seed residual 3.7e-2:
+- **Attempt 1** (box 80, h 0.1): NoConvergence at the first point. The iterate left the profile shape.
+- **Attempt 2** (box 39.68, sized so 3 omega sits mid-gap between box modes; deeper Krylov solve): the residual fell to 5.3e-3 and stalled for 40 Newton steps. A spike grew next to the pinned cell (f1 = 1.03 > c = 0.9).
+
+Diagnosis:
+- pinning one cell is a poor amplitude condition;
+- the shooting Jacobian is ill-conditioned through near-resonant box modes;
+- the first cells of the R operator are second order (10.6), right where the pin sits.
+
+Proposals for the parking lot:
+- harmonic balance with 3 to 5 odd harmonics, collocated in time;
+- or Newton shooting with an integral amplitude condition and a spectral grid near r = 0.
+
+No Floquet rates were obtained.
+
+### 10.3 Starts, bisection driver, end classes (condition 3): done
+
+- `--scale` on any profile start.
+- `amp:<x>`: the profile with a given central amplitude, which reaches branches past a fold. Example: amp 0.95 gives omega 0.994593 on the upper R-bump branch.
+- `gauss:A,sigma,v0`: f_t = v0 times the shape.
+- `shell:A,r0,sigma,v_in`: a Gaussian shell made regular by its mirror image, moving inward at v_in.
+- `evolve.classify` gives one of: held (rule 2.1), held but not by stiffening, alive at cap, disperses, singular, 3D ill-posed, unresolved, invalid start.
+- `evolve.refine_trip` reruns a resolution or momentum trip at h/2 and h/4 and compares the first times at which the per-stage min(1 − X) crosses 1e-1 … 1e-8.
+  - Agreement within 2% at the deepest common threshold → singular, with t*.
+  - Otherwise → unresolved.
+  - Measured: R bump Gaussian A 1, sigma 3 has t(1 − X < 1e-7) = 7.40 at h 0.025 and 7.29 at h 0.0125, so singular, centre collapse, t* = 7.29. The reviewer has about 7.25.
+- `python -m swirl.radial5.boundary5` bisects the amplitude between not-tripping and tripping. Every step is written atomically, with class, T_death, trip time and crossing times.
+- The R-bump Gaussian, sigma 3, in a T = 60 smoke run brackets the boundary between A = 0.75 (disperses) and A = 1.0 (trips).
+
+### 10.4 Regime numbers (condition 4): done; one definition everywhere
+
+**Definition:** nonlinear share = 1 − <E_quad>/<E>, cycle-averaged, with E_quad = ∫ 4π r² (f_t²/2 + S/2 + f²/2) in the Lagrangian variables (f, f_t). For R, f_t = p/q.
+- Profiles: the cycle average of the ansatz.
+- Runs: per measured period inside r_lump. This is the `nonlinear_share_cyc_rlump` column of the per-period table, plus the first-period and t = 50 to 150 medians in `regime`.
+
+**Old:** −4.4e-5 for the R bump at omega 0.995. That was instantaneous, at t = 0 where p = 0, and measured with p.
+
+**New**, first evolutions, first period / t 50 to 150, against the profile table:
+
+| Start | New, first period | New, t 50 to 150 | Profile table |
+|---|---|---|---|
+| R bump | +0.029 | +0.006 | +0.036 |
+| R pinch | +0.056 | +0.016 | +0.069 |
+| O bump | −0.129 | −0.129 | about −0.134 |
+| O pinch | −0.088 | −0.089 | −0.085 |
+
+**X_max and q_max** are now per-stage extremes: block rows every 5 time units, plus the global value. For the first R runs: X_max 0.5045 and q_max 1.421 (bump); 0.357 and 1.247 (pinch). The 10-unit instantaneous samples are gone.
+
+### 10.5 Twin and box defaults (condition 5): done
+
+- The twin runs to the same T as the run.
+- R defaults to the sponge 200 to 400 (`evolve.GRID_R`); O keeps 100 to 200.
+- Check 5 now doubles the production box: R 400 against 800.
+- The first R evolutions were rerun. Old to new:
+  - R bump frac(1000): 0.002785 to 0.002818; twin frac(1000): 0.001543 to 0.001423;
+  - R pinch frac(1000): 0.000728 to 0.000718.
+  - T_90 and T_death are unchanged (R bump 0.5* and 137.5; R pinch 161 and 232).
+  - End class: disperses, both.
+  - O runs: unchanged numbers, end class "alive at cap" (1000 time units = 145 and 151 cycles, short of the 1000 cycles of rule 2.1).
+
+**Cost**, wall seconds per 10,000 time units, one core. Measured while two other jobs ran, so these are upper bounds; the quiet-machine O values earlier were 43 to 51.
+
+| Combination | Run | Twin |
+|---|---|---|
+| O bump | 28 | 28 |
+| O pinch | 37 | 37 |
+| R bump (400 box) | 239 | 181 |
+| R pinch (400 box) | 241 | 193 |
+
+### 10.6 Euler–Lagrange test and the order in the first cells (condition 6): done
+
+`tests/radial5/test_el_kernel.py` sets f and f_t to analytic fields with max X = 0.75 (gamma up to 2.0). It compares the kernel's p_t with r⁻²(r² γ f_r)_r − s2 γ f/r² − f written out with exact derivatives.
+- **Bulk** (r in [1, 8]), at h = 0.1 / 0.05 / 0.025:
+  - R bump: 6.7e-6 / 4.2e-7 / 2.7e-8 (order 4.0);
+  - R pinch: 4.5e-3 / 3.6e-4 / 2.4e-5 (order 3.65, 3.94);
+  - O bump: order 4.0; O pinch: order 3.95 to 3.99.
+- **Sensitivity:** dropping gamma from the pinch's s2 f/r² term (in kernel and energy alike) changes p_t by 7.0 times max|p_t|. Energy conservation cannot see this; this test does.
+
+**True order in the first cells:**
+- **R bump: second order.**
+  - Linear Laplacian, cell 0 (r = h/2): 7.8e-2 / 2.0e-2 / 5.0e-3, against |∇²f| = 3.
+  - Nonlinear test at h = 0.05: cell 0 error 5.9e-2 of max|p_t|; observed order 1.2 to 1.8, tending to 2.
+  - Cause: dividing D(r² q D f) by w = r² h at r ~ h turns the O(h⁴) truncation into O(h²).
+- **R pinch:** third order at cell 0, two to three in cells 1 to 3.
+- **O (u = r f):** fourth to fifth order at the first nodes; no loss.
+
+**Consequence:** the R bump's centre value has a local error of about 1% at h = 0.05. A centre collapse should be judged by the h-refined crossing times (10.3), never by one grid. A closure near r = 0 that keeps fourth order is a proposal.
+
+### 10.7 R pinch through the fold
+
+The first continuation ran inside a multiprocessing Pool. Its worker died after about 2.5 h, and the Pool waited forever. The cause was not established: no traceback was logged, and memory is the likely suspect.
+
+One serial attempt: no Pool, a partial file after every point, `run_family5 --serial`. It reached 102 points in about 20 minutes, and I stopped it by hand. File: `outputs/radial5/family_R_pinch.json` (`partial: true`).
+
+| | Old (scan in omega) | New (continuation) |
+|---|---|---|
+| Rate range | 0.98651–0.99995; "ends" where the first non-undershoot reaches omega F = 1 | 0.986521–1 (104 rows) |
+| Fold in omega | not seen | at 0.986521 (F'(0) 0.284, E 494.7) |
+| Energy minimum | none, E fell to 524.0 at the end | interior, **E = 307.87 at omega 0.997247** (F'(0) 0.486) |
+| Signs of dE/domega, dN/domega | > 0 throughout | (+, +) lower branch, (−, −) from the fold to the minimum, (+, +) after it |
+
+- The upper branch does not reach the ansatz wall. As omega -> 1, the core tends to a fixed shape: F'(0) -> 0.5194, F_peak 0.985, hw 4.48, omega F_peak 0.985, X_max 0.970. E rises slowly (362.7 at omega 0.9999996) as the tail widens.
+- The end is "stopped by hand": each further point integrates to r ~ 60/eps.
+- Solver precision: median identity error 5.9e-7, max |Derrick| 1.3e-6.
+- **Open:** where the upper branch ends as eps -> 0, and whether a finite-amplitude object really persists as omega -> 1 in this ansatz.

@@ -1,5 +1,5 @@
 """Cost table: wall time per 10,000 time units on one core at the production grid, for
-each combination and its twin, measured over a short run (default 200 time units after a
+each combination and its twin, measured over a short run, production grids (R: sponge 200 to 400) (default 200 time units after a
 warm-up that compiles the kernels). Run: <venv python> -m swirl.radial5.cost5
 Writes outputs/radial5/cost.json."""
 
@@ -29,7 +29,7 @@ def measure(T=200.0):
                              hours_per_10000=wall * 10000.0 / T / 3600.0,
                              guard=res.get("guard")))
             print(rows[-1], flush=True)
-    return dict(grid=EV.GRID, rec_dt=EV.REC_DT, note="one process, NUMBA_NUM_THREADS=1; includes the "
+    return dict(grid=dict(O=EV.GRID_O, R=EV.GRID_R), rec_dt=EV.REC_DT, note="one process, NUMBA_NUM_THREADS=1; includes the "
                 "per-record diagnostics (energy inside, spectra every 10 time units)", rows=rows)
 
 

@@ -213,6 +213,13 @@ class SolverO:
         g = FOUR_PI * e * self.r ** 2
         return np.concatenate([[0.0], np.cumsum(0.5 * (g[1:] + g[:-1]) * self.h)])
 
+    def energy_inside_q(self, rcs):
+        """E_in at each rc, E_total, and the quadratic energy (f, f_t) inside rcs[-1]."""
+        e, quad = self.density()
+        cum = self.cumulative(e)
+        cq = self.cumulative(quad)
+        return np.interp(rcs, self.r, cum), cum[-1], float(np.interp(rcs[-1], self.r, cq))
+
     def energy_inside(self, rcs):
         e, _ = self.density()
         cum = self.cumulative(e)

@@ -79,9 +79,11 @@ def test_settled_rate_and_frac_T1000():
     fr = res["frac_at"]["1000"]
     print("\ncheck1 T=1000 via radial5: rate (median 975-1025) %.7f vs Session 1 %.7f (rel %.1e, "
           "target 1e-4); settled 50-150 %.6f; spectral last 200 %.6f; frac(1000) %.6f vs %.6f "
-          "(diff %.1e, target 5e-4: different E_in quadrature); nonlinear share t=0 %.4f (S1 %.4f)"
+          "(diff %.1e, target 5e-4: different E_in quadrature); nonlinear share t=0 (instantaneous, "
+          "signed) %.4f (S1 %.4f); cycle-averaged share (f, f_t) %.4f"
           % (rate, REF["rate_1000"], rel, res["regime"]["rate_settled_50_150"],
              res["regime"]["rate_spectral_last200"], fr, REF["frac_1000"], fr - REF["frac_1000"],
-             res["regime"]["nonlinear_share_signed_t0"], REF["nl_t0"]))
+             res["energy_parts_t0"]["nonlinear_share_signed"], REF["nl_t0"],
+             res["regime"]["nonlinear_share_cyc_50_150"]))
     assert rel < 1e-4
     assert abs(fr - REF["frac_1000"]) < 5e-4

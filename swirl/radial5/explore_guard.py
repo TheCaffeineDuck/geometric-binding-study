@@ -27,16 +27,16 @@ def one(obj, A, s, T, grid):
 
 
 def main():
-    A_runs = [one(o, A, s, 500.0, EV.GRID) for o, specs in
+    A_runs = [one(o, A, s, 500.0, EV.GRID_O) for o, specs in
               (("bump", [(1, 1.5), (2, 1.5), (4, 1.5), (1, 3), (2, 3), (4, 3)]),
                ("pinch", [(1, 2), (2, 2), (1, 4), (2, 4)])) for A, s in specs]
     B_runs = []
     for o, A, s in (("bump", 1, 3), ("bump", 2, 3), ("pinch", 2, 4)):
         for h in (0.05, 0.025, 0.0125):
-            g = dict(EV.GRID, h=h, dt=h / 4, R_sponge=60.0, R_box=90.0, r_probe=30.0)
+            g = dict(EV.GRID_O, h=h, dt=h / 4, R_sponge=60.0, R_box=90.0, r_probe=30.0)
             B_runs.append(one(o, A, s, 60.0, g))
             print(B_runs[-1]["obj"], A, s, h, B_runs[-1]["guard"], flush=True)
-    out = dict(description=__doc__, grid_A=EV.GRID, part_A=A_runs, part_B=B_runs,
+    out = dict(description=__doc__, grid_A=EV.GRID_O, part_A=A_runs, part_B=B_runs,
                note="guard diagnosis values are those of the last accepted state before the failing "
                     "RK stage; the extremes are over every stage")
     p = EV.write_json(os.path.join(os.path.dirname(__file__), "..", "..", "outputs", "radial5",

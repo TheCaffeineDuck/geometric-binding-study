@@ -101,7 +101,7 @@ def _rhs(f, p, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, ft, pt, fail, ext):
 
 @njit(cache=True)
 def _advance(f, p, r, w, s2, kg, sig, idx, sgn, C, qmax, dt, nsteps, par0, h, i_probe,
-             core_rec, probe_rec, fail, ext):
+             core_rec, probe_rec, fail, ext, om_rec):
     """RK4. Returns -1 on success, else the step index k at which a stage failed
     (f, p then hold the last accepted state; fail = [node, code, stage])."""
     n = f.shape[0]
@@ -110,31 +110,37 @@ def _advance(f, p, r, w, s2, kg, sig, idx, sgn, C, qmax, dt, nsteps, par0, h, i_
     k3f = np.empty(n); k3p = np.empty(n); k4f = np.empty(n); k4p = np.empty(n)
     tf = np.empty(n); tp = np.empty(n)
     nd = np.zeros(1, dtype=np.int64)
+    es = np.empty(6)
     for k in range(nsteps):
-        st = _rhs(f, p, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k1f, k1p, nd, ext)
+        es[0] = np.inf; es[1] = -1.0; es[2] = 0.0; es[3] = -1.0; es[4] = np.inf; es[5] = -1.0
+        st = _rhs(f, p, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k1f, k1p, nd, es)
         if st:
             fail[0] = nd[0]; fail[1] = st; fail[2] = 1
+            _fold(ext, es)
             return k
         for i in range(n):
             tf[i] = f[i] + 0.5 * dt * k1f[i]
             tp[i] = p[i] + 0.5 * dt * k1p[i]
-        st = _rhs(tf, tp, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k2f, k2p, nd, ext)
+        st = _rhs(tf, tp, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k2f, k2p, nd, es)
         if st:
             fail[0] = nd[0]; fail[1] = st; fail[2] = 2
+            _fold(ext, es)
             return k
         for i in range(n):
             tf[i] = f[i] + 0.5 * dt * k2f[i]
             tp[i] = p[i] + 0.5 * dt * k2p[i]
-        st = _rhs(tf, tp, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k3f, k3p, nd, ext)
+        st = _rhs(tf, tp, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k3f, k3p, nd, es)
         if st:
             fail[0] = nd[0]; fail[1] = st; fail[2] = 3
+            _fold(ext, es)
             return k
         for i in range(n):
             tf[i] = f[i] + dt * k3f[i]
             tp[i] = p[i] + dt * k3p[i]
-        st = _rhs(tf, tp, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k4f, k4p, nd, ext)
+        st = _rhs(tf, tp, r, w, s2, kg, sig, idx, sgn, C, qmax, Df, g, k4f, k4p, nd, es)
         if st:
             fail[0] = nd[0]; fail[1] = st; fail[2] = 4
+            _fold(ext, es)
             return k
         for i in range(n):
             f[i] += dt / 6.0 * (k1f[i] + 2.0 * k2f[i] + 2.0 * k3f[i] + k4f[i])
@@ -144,7 +150,19 @@ def _advance(f, p, r, w, s2, kg, sig, idx, sgn, C, qmax, dt, nsteps, par0, h, i_
         else:
             core_rec[k] = (27.0 * f[0] - f[1]) / (12.0 * h)    # f_r(0), f odd: a r + b r^3
         probe_rec[k] = f[i_probe]
+        om_rec[k] = es[0]                                       # min over the step's stages
+        _fold(ext, es)
     return -1
+
+
+@njit(cache=True)
+def _fold(ext, es):
+    if es[0] < ext[0]:
+        ext[0] = es[0]; ext[1] = es[1]
+    if es[2] > ext[2]:
+        ext[2] = es[2]; ext[3] = es[3]
+    if es[4] < ext[4]:
+        ext[4] = es[4]; ext[5] = es[5]
 
 
 class SolverR:
@@ -231,9 +249,11 @@ class SolverR:
         probe = np.empty(n)
         fail = np.zeros(3, dtype=np.int64)
         ext = np.array([np.inf, -1.0, 0.0, -1.0, np.inf, -1.0])
+        om = np.full(n, np.nan)
         k = _advance(self.f, self.p, self.r, self.w, self.s2, self.kg, self.sig, self.idx,
                      self.sgn, self.C, self.qmax, dt, n, self.par, self.h, self.i_probe,
-                     core, probe, fail, ext)
+                     core, probe, fail, ext, om)
+        self.last_om = om                    # per-step min(1 - X) over the stages
         # extremes over every stage of this chunk: min(1 - X), max|p|, pinch margin, and where
         self.last_ext = dict(min_one_minus_X=float(ext[0]), r_min_one_minus_X=float(self.r[int(ext[1])]),
                              max_abs_p=float(ext[2]), r_max_abs_p=float(self.r[int(ext[3])]),
@@ -293,13 +313,17 @@ class SolverR:
         return d * d + self.s2 * f * f / (self.r * self.r)
 
     def density(self, f=None, p=None):
-        """Energy density e_i and its quadratic (Klein-Gordon) part at the cell centres."""
+        """Energy density e_i and its quadratic part at the cell centres. The quadratic part
+        is the Klein-Gordon energy in the Lagrangian variables, f_t^2/2 + S/2 + f^2/2 with
+        f_t = p/q (the same definition as the profile tables), not in p."""
         f = self.f if f is None else f
         p = self.p if p is None else p
         S = self.S(f)
-        quad = 0.5 * p * p + 0.5 * S + 0.5 * f * f
         if self.kg:
+            quad = 0.5 * p * p + 0.5 * S + 0.5 * f * f
             return quad, quad
+        ft2 = p * p * (1.0 + S) / (1.0 + p * p)            # f_t^2 from Hamilton's equation
+        quad = 0.5 * ft2 + 0.5 * S + 0.5 * f * f            # Klein-Gordon energy in (f, f_t)
         return np.sqrt((1.0 + S) * (1.0 + p * p)) - 1.0 + 0.5 * f * f, quad
 
     def energy_discrete(self, f=None, p=None):
@@ -320,6 +344,13 @@ class SolverR:
         """X = f_t^2 - S at the nodes, from the state (always < 1)."""
         S = self.S(self.f)
         return 1.0 - (1.0 + S) / (1.0 + self.p ** 2)
+
+    def energy_inside_q(self, rcs):
+        """E_in at each rc, E_total, and the quadratic energy (f, f_t) inside rcs[-1]."""
+        e, quad = self.density()
+        cum = np.concatenate([[0.0], np.cumsum(FOUR_PI * self.w * e)])
+        cq = np.concatenate([[0.0], np.cumsum(FOUR_PI * self.w * quad)])
+        return np.interp(rcs, self.edges, cum), cum[-1], float(np.interp(rcs[-1], self.edges, cq))
 
     def energy_inside(self, rcs):
         e, _ = self.density()
