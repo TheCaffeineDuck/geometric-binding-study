@@ -1,0 +1,24 @@
+[
+ {
+  "kind": "family",
+  "name": "A1_family_grid_G1_sbend",
+  "law": "G1",
+  "obj": "sbend",
+  "omega_start": 2.3,
+  "omega_min": 2.01,
+  "d_stop": 0.99,
+  "prio": 1,
+  "est_s": 300
+ },
+ {
+  "kind": "family",
+  "name": "A1_family_grid_G1_bump",
+  "law": "G1",
+  "obj": "bump",
+  "omega_start": 2.3,
+  "omega_min": 2.01,
+  "d_stop": 0.99,
+  "prio": 1,
+  "est_s": 300
+ }
+]

@@ -1,0 +1,55 @@
+[
+ {
+  "kind": "evolve",
+  "name": "A5_sbend_w2.5_closed",
+  "medium": "grid",
+  "law": "G1",
+  "N": 400,
+  "dt": 0.006981317007977318,
+  "sample_dt": 0.09773843811168245,
+  "T": 25132.741228718343,
+  "record_periods": 25,
+  "probes": [
+   0,
+   20,
+   50,
+   60,
+   80
+  ],
+  "probe_max": 400000,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.5
+  },
+  "prio": 3,
+  "est_s": 83.52,
+  "sponge_len": 0.0
+ },
+ {
+  "kind": "evolve",
+  "name": "A5_sbend_w2.5_sponge",
+  "medium": "grid",
+  "law": "G1",
+  "N": 800,
+  "dt": 0.006981317007977318,
+  "sample_dt": 0.09773843811168245,
+  "T": 25132.741228718343,
+  "record_periods": 25,
+  "probes": [
+   0,
+   20,
+   50,
+   60,
+   80
+  ],
+  "probe_max": 400000,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.5
+  },
+  "prio": 3,
+  "est_s": 167.04
+ }
+]

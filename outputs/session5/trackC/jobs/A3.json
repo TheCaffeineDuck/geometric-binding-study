@@ -1,0 +1,218 @@
+[
+ {
+  "kind": "custom",
+  "mode": "scale",
+  "name": "A3_sbend_w2.5_x0.99",
+  "cfg": {
+   "name": "A3_sbend_w2.5_x0.99",
+   "medium": "grid",
+   "law": "G1",
+   "N": 800,
+   "dt": 0.006981317007977318,
+   "sample_dt": 0.09773843811168245,
+   "T": 25132.741228718343,
+   "record_periods": 25,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "probe_max": 30000,
+   "start": {
+    "type": "orbit",
+    "obj": "sbend",
+    "omega": 2.5,
+    "scale": 0.99
+   }
+  },
+  "base_start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.5
+  },
+  "scale": 0.99,
+  "prio": 1,
+  "est_s": 167.04
+ },
+ {
+  "kind": "custom",
+  "mode": "scale",
+  "name": "A3_sbend_w2.5_x1.01",
+  "cfg": {
+   "name": "A3_sbend_w2.5_x1.01",
+   "medium": "grid",
+   "law": "G1",
+   "N": 800,
+   "dt": 0.006981317007977318,
+   "sample_dt": 0.09773843811168245,
+   "T": 25132.741228718343,
+   "record_periods": 25,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "probe_max": 30000,
+   "start": {
+    "type": "orbit",
+    "obj": "sbend",
+    "omega": 2.5,
+    "scale": 1.01
+   }
+  },
+  "base_start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.5
+  },
+  "scale": 1.01,
+  "prio": 1,
+  "est_s": 167.04
+ },
+ {
+  "kind": "custom",
+  "mode": "scale",
+  "name": "A3_sbend_w3.5_x0.99",
+  "cfg": {
+   "name": "A3_sbend_w3.5_x0.99",
+   "medium": "grid",
+   "law": "G1",
+   "N": 800,
+   "dt": 0.0011717988264042497,
+   "sample_dt": 0.09960290024436122,
+   "T": 17951.958020513102,
+   "record_periods": 25,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "probe_max": 30000,
+   "start": {
+    "type": "orbit",
+    "obj": "sbend",
+    "omega": 3.5,
+    "scale": 0.99
+   }
+  },
+  "base_start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.5
+  },
+  "scale": 0.99,
+  "prio": 1,
+  "est_s": 710.848
+ },
+ {
+  "kind": "custom",
+  "mode": "scale",
+  "name": "A3_sbend_w3.5_x1.01",
+  "cfg": {
+   "name": "A3_sbend_w3.5_x1.01",
+   "medium": "grid",
+   "law": "G1",
+   "N": 800,
+   "dt": 0.0011717988264042497,
+   "sample_dt": 0.09960290024436122,
+   "T": 17951.958020513102,
+   "record_periods": 25,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "probe_max": 30000,
+   "start": {
+    "type": "orbit",
+    "obj": "sbend",
+    "omega": 3.5,
+    "scale": 1.01
+   }
+  },
+  "base_start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.5
+  },
+  "scale": 1.01,
+  "prio": 1,
+  "est_s": 710.848
+ },
+ {
+  "kind": "custom",
+  "mode": "scale",
+  "name": "A3_bump_w2.5_x0.99",
+  "cfg": {
+   "name": "A3_bump_w2.5_x0.99",
+   "medium": "grid",
+   "law": "G1",
+   "N": 1600,
+   "dt": 0.009973310011396168,
+   "sample_dt": 0.09973310011396168,
+   "T": 25132.741228718343,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "probe_max": 30000,
+   "start": {
+    "type": "orbit",
+    "obj": "bump",
+    "omega": 2.5,
+    "scale": 0.99
+   }
+  },
+  "base_start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.5
+  },
+  "scale": 0.99,
+  "prio": 1,
+  "est_s": 233.85600000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "scale",
+  "name": "A3_bump_w2.5_x1.01",
+  "cfg": {
+   "name": "A3_bump_w2.5_x1.01",
+   "medium": "grid",
+   "law": "G1",
+   "N": 1600,
+   "dt": 0.009973310011396168,
+   "sample_dt": 0.09973310011396168,
+   "T": 25132.741228718343,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "probe_max": 30000,
+   "start": {
+    "type": "orbit",
+    "obj": "bump",
+    "omega": 2.5,
+    "scale": 1.01
+   }
+  },
+  "base_start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.5
+  },
+  "scale": 1.01,
+  "prio": 1,
+  "est_s": 233.85600000000002
+ }
+]

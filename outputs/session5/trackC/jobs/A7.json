@@ -1,0 +1,106 @@
+[
+ {
+  "kind": "evolve",
+  "name": "A7_sbend_w2.5",
+  "medium": "grid",
+  "law": "G1",
+  "N": 800,
+  "dt": 0.006981317007977318,
+  "sample_dt": 0.10471975511965978,
+  "T": 2513.2217629942747,
+  "record_periods": 10,
+  "probes": [
+   0,
+   20,
+   50,
+   80
+  ],
+  "probe_max": 30000,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.5
+  },
+  "prio": 3,
+  "est_s": 16.703652,
+  "profile_range": 100.0
+ },
+ {
+  "kind": "evolve",
+  "name": "A7_sbend_w3.5",
+  "medium": "grid",
+  "law": "G1",
+  "N": 800,
+  "dt": 0.0011717988264042497,
+  "sample_dt": 0.004687195305616999,
+  "T": 1795.1934584536577,
+  "record_periods": 10,
+  "probes": [
+   0,
+   20,
+   50,
+   80
+  ],
+  "probe_max": 30000,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.5
+  },
+  "prio": 3,
+  "est_s": 71.0847072,
+  "profile_range": 100.0
+ },
+ {
+  "kind": "evolve",
+  "name": "A7_bump_w2.5",
+  "medium": "grid",
+  "law": "G1",
+  "N": 800,
+  "dt": 0.009973310011396168,
+  "sample_dt": 0.08975979010256552,
+  "T": 502.6099446793156,
+  "record_periods": 10,
+  "probes": [
+   0,
+   20,
+   50,
+   80
+  ],
+  "probe_max": 30000,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.5
+  },
+  "prio": 3,
+  "est_s": 2.3383512000000004,
+  "profile_range": 100.0
+ },
+ {
+  "kind": "evolve",
+  "name": "A7_bump_w2.5_c10",
+  "medium": "grid",
+  "law": "G1",
+  "N": 800,
+  "dt": 0.009973310011396168,
+  "sample_dt": 0.08975979010256552,
+  "T": 25.087861333667064,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50,
+   80
+  ],
+  "probe_max": 30000,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.5
+  },
+  "prio": 3,
+  "est_s": 0.11671920000000004,
+  "profile_range": 100.0
+ }
+]

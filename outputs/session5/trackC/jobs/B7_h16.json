@@ -1,0 +1,62 @@
+[
+ {
+  "kind": "evolve",
+  "medium": "fd",
+  "law": "G1",
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 0.5,
+   "peak_stretch": 0.8
+  },
+  "push": {
+   "lambda": 0.3
+  },
+  "profile_range": 100.0,
+  "h": 0.0625,
+  "N": 13440,
+  "name": "B7_gsbend_l0.3_h16",
+  "prio": 4,
+  "est_s": 800
+ },
+ {
+  "kind": "evolve",
+  "medium": "fd",
+  "law": "G1",
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1256.6370614359173,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "jump",
+   "obj": "sbend",
+   "omega": 1.5,
+   "x_s": 0.25
+  },
+  "push": {
+   "lambda": 0.1
+  },
+  "profile_range": 100.0,
+  "h": 0.0625,
+  "N": 13440,
+  "name": "B7_jsbend_l0.1_h16",
+  "prio": 4,
+  "est_s": 800
+ }
+]

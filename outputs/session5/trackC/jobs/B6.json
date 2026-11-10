@@ -1,0 +1,839 @@
+[
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.25_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.35_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.35,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.5_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.5,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.7_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.7,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s1_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 1.0,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_O4_pk0.3_s0.25_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "peak_stretch": 0.3
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_O4_pk0.5_s0.25_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "peak_stretch": 0.5
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_O4_pk0.8_s0.25_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_O4_pk0.95_s0.25_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.004242148827934391,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "peak_stretch": 0.95
+  },
+  "prio": 2,
+  "est_s": 555.3892117670445,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.3_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.3,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.4_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.4,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.6_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.6,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s0.85_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.85,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s1.4_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 1.4,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6_A0.2_s2_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 2.0,
+   "A": 0.2
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s0.25_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s0.35_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.35,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s0.5_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.5,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s0.7_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.7,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s1_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 1.0,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s1.4_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 1.4,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s2_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 2.0,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_bump_pk0.8_s3_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 3.0,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s0.25_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 0.25,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s0.35_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 0.35,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s0.5_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 0.5,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s0.7_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 0.7,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s1_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 1.0,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s1.4_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 1.4,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s2_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 2.0,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B6x_sbend_pk0.8_s3_h8",
+  "medium": "fd",
+  "law": "G1",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 1884.9555921538758,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "sbend",
+   "sigma": 3.0,
+   "peak_stretch": 0.8
+  },
+  "prio": 2,
+  "est_s": 117.80218468724863,
+  "profile_range": 50.0
+ }
+]
