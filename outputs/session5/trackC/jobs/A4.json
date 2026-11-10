@@ -1,0 +1,594 @@
+[
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env3_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 3,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env3_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env3_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 3,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env3_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env6_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 6,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env6_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env6_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 6,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env6_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env12_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 12,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env12_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env12_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 12,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env12_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env24_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 24,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env24_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_sbend_env24_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "sbend",
+    "env_sigma": 24,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_sbend_env24_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env3_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 3,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env3_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env3_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 3,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env3_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env6_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 6,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env6_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env6_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 6,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env6_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env12_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 12,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env12_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env12_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 12,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env12_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env24_pk0.3",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 24,
+    "peak_stretch": 0.3
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env24_pk0.3",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ },
+ {
+  "kind": "custom",
+  "mode": "stag",
+  "name": "A4_bump_env24_pk0.6",
+  "cfg": {
+   "medium": "grid",
+   "law": "G1",
+   "N": 1000,
+   "dt": 0.01,
+   "sample_dt": 0.1,
+   "T": 3000.0,
+   "record_periods": 10,
+   "probes": [
+    0,
+    20,
+    50,
+    80
+   ],
+   "start": {
+    "type": "stag",
+    "obj": "bump",
+    "env_sigma": 24,
+    "peak_stretch": 0.6
+   },
+   "snap_times": [
+    900.0,
+    1800.0,
+    2500.0
+   ],
+   "kind": "evolve",
+   "name": "A4_bump_env24_pk0.6",
+   "probe_max": 40000
+  },
+  "T_cycles": 1000,
+  "prio": 3,
+  "est_s": 18.560000000000002
+ }
+]

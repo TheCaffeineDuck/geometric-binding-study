@@ -1,0 +1,898 @@
+[
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l0.05",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 0.05
+  },
+  "prio": 2,
+  "est_s": 425.54110204975035
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l0.1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 0.1
+  },
+  "prio": 2,
+  "est_s": 425.54110204975035
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l0.3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 16666.666666666668,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 0.3
+  },
+  "prio": 2,
+  "est_s": 177.30879252072933
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 5000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 1
+  },
+  "prio": 2,
+  "est_s": 53.192637756218794
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 3
+  },
+  "prio": 2,
+  "est_s": 21.27705510248752
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l10",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 10
+  },
+  "prio": 2,
+  "est_s": 21.27705510248752
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l30",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 30
+  },
+  "prio": 2,
+  "est_s": 21.27705510248752
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.1_l100",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.00763263521280319,
+  "sample_dt": 0.09922425776644146,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.1
+  },
+  "push": {
+   "lambda": 100
+  },
+  "prio": 2,
+  "est_s": 21.27705510248752
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l0.05",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 0.05
+  },
+  "prio": 2,
+  "est_s": 637.2777825643005
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l0.1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 0.1
+  },
+  "prio": 2,
+  "est_s": 637.2777825643005
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l0.3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 16666.666666666668,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 0.3
+  },
+  "prio": 2,
+  "est_s": 265.5324094017919
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 5000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 1
+  },
+  "prio": 2,
+  "est_s": 79.65972282053757
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 3
+  },
+  "prio": 2,
+  "est_s": 31.86388912821503
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l10",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 10
+  },
+  "prio": 2,
+  "est_s": 31.86388912821503
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l30",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 30
+  },
+  "prio": 2,
+  "est_s": 31.86388912821503
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w2.3_l100",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.005096678542488308,
+  "sample_dt": 0.10193357084976616,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 100
+  },
+  "prio": 2,
+  "est_s": 31.86388912821503
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l0.05",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 0.05
+  },
+  "prio": 2,
+  "est_s": 2208.347410054098
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l0.1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 0.1
+  },
+  "prio": 2,
+  "est_s": 2208.347410054098
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l0.3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 16666.666666666668,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 0.3
+  },
+  "prio": 2,
+  "est_s": 920.1447541892076
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 5000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 1
+  },
+  "prio": 2,
+  "est_s": 276.04342625676225
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 3
+  },
+  "prio": 2,
+  "est_s": 110.4173705027049
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l10",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 10
+  },
+  "prio": 2,
+  "est_s": 110.4173705027049
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l30",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 30
+  },
+  "prio": 2,
+  "est_s": 110.4173705027049
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_sbend_w3_l100",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0014707830775233114,
+  "sample_dt": 0.10001324927158517,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "sbend",
+   "omega": 3.0
+  },
+  "push": {
+   "lambda": 100
+  },
+  "prio": 2,
+  "est_s": 110.4173705027049
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l0.05",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 0.05
+  },
+  "prio": 2,
+  "est_s": 485.09204344446755
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l0.1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 40000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 0.1
+  },
+  "prio": 2,
+  "est_s": 485.09204344446755
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l0.3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 16666.666666666668,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 0.3
+  },
+  "prio": 2,
+  "est_s": 202.12168476852816
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l1",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 5000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 1
+  },
+  "prio": 2,
+  "est_s": 60.636505430558444
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l3",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 3
+  },
+  "prio": 2,
+  "est_s": 24.254602172223375
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l10",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 10
+  },
+  "prio": 2,
+  "est_s": 24.254602172223375
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l30",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 30
+  },
+  "prio": 2,
+  "est_s": 24.254602172223375
+ },
+ {
+  "kind": "evolve",
+  "name": "A6_bump_w2.3_l100",
+  "medium": "grid",
+  "law": "G1",
+  "N": 1400,
+  "dt": 0.0066956365166022875,
+  "sample_dt": 0.1004345477490343,
+  "T": 2000.0,
+  "record_periods": 20,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 20000,
+  "profile_range": 100.0,
+  "start": {
+   "type": "orbit",
+   "obj": "bump",
+   "omega": 2.3
+  },
+  "push": {
+   "lambda": 100
+  },
+  "prio": 2,
+  "est_s": 24.254602172223375
+ }
+]

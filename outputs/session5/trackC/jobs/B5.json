@@ -1,0 +1,164 @@
+[
+ {
+  "kind": "evolve",
+  "name": "B5_lin_bump_s0.1_h8",
+  "medium": "fd",
+  "law": "lin",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 2000.0,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.1,
+   "A": 0.1
+  },
+  "prio": 2,
+  "est_s": 62.496,
+  "W": 10.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B5_lin_bump_s0.1_h16",
+  "medium": "fd",
+  "law": "lin",
+  "h": 0.0625,
+  "N": 13440,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 2000.0,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.1,
+   "A": 0.1
+  },
+  "prio": 2,
+  "est_s": 124.992,
+  "W": 10.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B5_lin_bump_s0.25_h8",
+  "medium": "fd",
+  "law": "lin",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 2000.0,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "A": 0.1
+  },
+  "prio": 2,
+  "est_s": 62.496,
+  "W": 10.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B5_lin_bump_s0.25_h16",
+  "medium": "fd",
+  "law": "lin",
+  "h": 0.0625,
+  "N": 13440,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 2000.0,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.25,
+   "A": 0.1
+  },
+  "prio": 2,
+  "est_s": 124.992,
+  "W": 10.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B5_lin_bump_s0.5_h8",
+  "medium": "fd",
+  "law": "lin",
+  "h": 0.125,
+  "N": 6720,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 2000.0,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.5,
+   "A": 0.1
+  },
+  "prio": 2,
+  "est_s": 62.496,
+  "W": 10.0
+ },
+ {
+  "kind": "evolve",
+  "name": "B5_lin_bump_s0.5_h16",
+  "medium": "fd",
+  "law": "lin",
+  "h": 0.0625,
+  "N": 13440,
+  "dt": 0.02,
+  "sample_dt": 0.1,
+  "T": 2000.0,
+  "record_periods": 1,
+  "probes": [
+   0,
+   20,
+   50
+  ],
+  "probe_max": 70000,
+  "start": {
+   "type": "gauss",
+   "obj": "bump",
+   "sigma": 0.5,
+   "A": 0.1
+  },
+  "prio": 2,
+  "est_s": 124.992,
+  "W": 10.0
+ }
+]
