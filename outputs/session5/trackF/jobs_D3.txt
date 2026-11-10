@@ -1,0 +1,3 @@
+--model R --obj pinch --start gauss:1.7254502572384367,3 --T 45 --no-twin --no-refine --tag D_pinch_trip_h0.05
+--model R --obj pinch --start gauss:1.7254502572384367,3 --T 45 --no-twin --no-refine --h 0.025 --dt 0.00625 --tag D_pinch_trip_h0.025
+--model R --obj pinch --start gauss:1.7254502572384367,3 --T 45 --no-twin --no-refine --h 0.0125 --dt 0.003125 --tag D_pinch_trip_h0.0125

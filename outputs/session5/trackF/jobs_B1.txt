@@ -1,0 +1,28 @@
+--model O --obj bump --start profile:0.82 --T 20000 --T-twin 20000 --tag B_O_bump_w0.82
+--model O --obj bump --start profile:0.86 --T 20000 --T-twin 20000 --tag B_O_bump_w0.86
+--model O --obj bump --start profile:0.909149280617113 --T 20000 --T-twin 20000 --tag B_O_bump_w0.91
+--model O --obj bump --start profile:0.94 --T 20000 --T-twin 20000 --tag B_O_bump_w0.94
+--model O --obj bump --start profile:0.965 --T 20000 --T-twin 20000 --tag B_O_bump_w0.965
+--model O --obj bump --start profile:0.98 --T 20000 --T-twin 20000 --tag B_O_bump_w0.98
+--model O --obj bump --start profile:0.995 --T 20000 --T-twin 20000 --tag B_O_bump_w0.995
+--model O --obj pinch --start profile:0.82 --T 20000 --T-twin 20000 --tag B_O_pinch_w0.82
+--model O --obj pinch --start profile:0.86 --T 20000 --T-twin 20000 --tag B_O_pinch_w0.86
+--model O --obj pinch --start profile:0.91 --T 20000 --T-twin 20000 --tag B_O_pinch_w0.91
+--model O --obj pinch --start profile:0.94 --T 20000 --T-twin 20000 --tag B_O_pinch_w0.94
+--model O --obj pinch --start profile:0.965 --T 20000 --T-twin 20000 --tag B_O_pinch_w0.965
+--model O --obj pinch --start profile:0.98 --T 20000 --T-twin 20000 --tag B_O_pinch_w0.98
+--model O --obj pinch --start profile:0.995 --T 20000 --T-twin 20000 --tag B_O_pinch_w0.995
+--model R --obj bump --start amp:0.2 --T 2000 --tag B_R_bump_a0.2
+--model R --obj bump --start amp:0.33 --T 2000 --tag B_R_bump_a0.33
+--model R --obj bump --start amp:0.55 --T 2000 --tag B_R_bump_a0.55
+--model R --obj bump --start amp:0.79 --T 2000 --tag B_R_bump_a0.79
+--model R --obj bump --start amp:0.90 --T 2000 --tag B_R_bump_a0.90
+--model R --obj bump --start amp:0.95 --T 2000 --tag B_R_bump_a0.95
+--model R --obj bump --start amp:1.0 --T 2000 --tag B_R_bump_a1.0
+--model R --obj pinch --start amp:0.0384 --T 2000 --tag B_R_pinch_a0.0384
+--model R --obj pinch --start amp:0.0916 --T 2000 --tag B_R_pinch_a0.0916
+--model R --obj pinch --start amp:0.2 --T 2000 --tag B_R_pinch_a0.2
+--model R --obj pinch --start amp:0.36 --T 2000 --tag B_R_pinch_a0.36
+--model R --obj pinch --start amp:0.4384 --T 2000 --tag B_R_pinch_a0.4384
+--model R --obj pinch --start amp:0.4861 --T 2000 --tag B_R_pinch_a0.4861
+--model R --obj pinch --start amp:0.51 --T 2000 --tag B_R_pinch_a0.51

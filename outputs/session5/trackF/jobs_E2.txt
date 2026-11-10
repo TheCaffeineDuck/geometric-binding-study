@@ -1,0 +1,1 @@
+--model R --obj bump --start amp:0.17715 --T 6600 --T-twin 6600 --tag E_R_bump_E1000_a0.17715_T6600

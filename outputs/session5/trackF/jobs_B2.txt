@@ -1,0 +1,5 @@
+G 0.11672 --model R --obj pinch --start amp:0.4384 --T 2000 --tag B_R_pinch_a0.4384
+G 0.07415 --model R --obj pinch --start amp:0.4861 --T 2000 --tag B_R_pinch_a0.4861
+G 0.0362 --model R --obj pinch --start amp:0.51 --T 2000 --tag B_R_pinch_a0.51
+G 0.57339 --model O --obj pinch --start amp:1.828 --T 20000 --T-twin 20000 --tag B_O_pinch_a1.828
+--model R --obj bump --start amp:0.2 --T 6600 --T-twin 6600 --tag B_R_bump_a0.2

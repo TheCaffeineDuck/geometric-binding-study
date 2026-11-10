@@ -1,0 +1,8 @@
+--model O --obj bump --start profile:0.8312130664608154 --T 20000 --T-twin 2000 --tag E_O_bump_E20k_w0.8312
+--model O --obj bump --start profile:0.8531146230752826 --T 20000 --T-twin 2000 --tag E_O_bump_E10k_w0.8531
+--model O --obj pinch --start profile:0.91197637518528 --T 20000 --T-twin 2000 --tag E_O_pinch_E10k_w0.912
+--model O --obj bump --start profile:0.9996791686693182 --T 20000 --T-twin 2000 --tag E_O_bump_E10k_w0.99968
+--model O --obj pinch --start profile:0.9854469021260388 --T 20000 --T-twin 2000 --tag E_O_pinch_E10k_w0.9854
+--model R --obj bump --start amp:0.17715 --T 2000 --tag E_R_bump_E1000_a0.17715
+--model R --obj pinch --start amp:0.10892 --T 2000 --tag E_R_pinch_E1000_a0.10892
+--model R --obj pinch --start amp:0.26158 --T 2000 --tag E_R_pinch_E533_a0.26158
