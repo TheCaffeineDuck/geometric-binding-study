@@ -2,25 +2,27 @@
 
 Date: 2026-11-10. Plan: `docs/SESSION_05_PLAN.md`. Predictions and rules: `docs/SESSION_05_PREDICTIONS.md`. Status log: `docs/SESSION_05_STATUS.md`. Nothing was pushed. No cloud compute was used.
 
+Terms (rate, bump, S-bend, pinch, ceiling, floor, linear twin) are defined in `docs/SESSION_05_TERMS.md`. In short: the rate is the angular frequency of the vibration in the units of each track; a ceiling trap is a vibration faster than any travelling wave the medium carries, a floor trap one slower than any; the linear twin is the same start with the stiffening switched off.
+
 Every number below was measured in this session unless it is labelled calibrated (set by a fit or an input), derived (from a formula), or build (measured during the solver build, before production).
 
 ## 1. Summary
 
 **Track F, the floor trap in three dimensions (round objects only).**
 
-- **Equation R slows dispersal but did not trap anything.** Every R start died. Bump starts from R's own family live up to 4.0 times as long as the same start in the linear medium, and the lifetime grows with the square of the width (11 to 12 times the half-width squared at the wide end). A wide enough start therefore passes a fixed 1,000-cycle test without being trapped: the widest three (half-widths 29, 37, 45) kept 0.906, 0.997 and 1.000 of their starting share at 1,000 cycles and died at 9,286, 16,308 and 25,148 time units. Away from the family, a start either disperses in 10 to 23 cycles or, above a threshold amplitude, the equation breaks down in finite time. I score prediction F1 a miss over the range tested, half-widths 3 to 45.
-- **The pinch exists in the old equation and holds:** at rate 0.86 it lasts 95,412 time units (13,105 cycles) and holds at 0.99 and 1.01 times its amplitude. It carries 4.5 to 5.8 times the energy of a bump at the same rate. A bump at 1.02 times the Session 1 amplitude was still at 0.972 when its run stopped at 100,000, so the two are not ranked.
-- **In the floor medium a tighter vibration is slower,** the opposite of the string: on the small-amplitude branches the rate rises toward the floor as the object widens (rank correlation +1.000, 32 and 59 points).
+- **Equation R slows dispersal but did not trap anything.** Every R start that was run to its end died; three wide diagnostic runs stopped at 6,600 time units were still alive. Bump starts from R's own family live up to 4.0 times as long as the same start in the linear medium, and the lifetime grows with the square of the width (11 to 12 times the half-width squared at the wide end). Lifetime scales with the square of the width in both media (the linear twin: 3.11 times), so any fixed horizon is passed on energy by a wide enough start: the widest three (half-widths 29, 37, 45) kept 0.906, 0.997 and 1.000 of their starting share at 1,000 cycles and died at 9,286, 16,308 and 25,148 time units. Away from the family, a start either disperses in 10 to 23 cycles or, above a threshold amplitude, the equation breaks down in finite time. I score prediction F1 a miss over the range tested, half-widths 3 to 45.
+- **The pinch exists in the old equation and holds:** at rate 0.86 it lasts 95,412 time units (13,105 cycles) and holds at 0.99 and 1.01 times its amplitude. It carries 2.7 times the energy of a bump at that rate (4.5 to 5.8 times at rates 0.95 to 0.999, where the pinch does not hold). A bump at 1.02 times the Session 1 amplitude was still at 0.972 when its run stopped at 100,000, so the two are not ranked.
+- **In the floor medium a tighter vibration is slower on the small-amplitude branches,** the opposite of the string: there the rate rises toward the floor as the object widens (rank correlation +1.000, 32 and 59 points, for R; +0.931 for the O pinch). The O bump (+0.857) does not pass the rule and one R pinch branch reverses.
 - **The Session 1 baseline bump sits on the wall of the narrow dip found in Session 2.** At 0.99 times its amplitude it is at the limit of the hold rule (0.9003 against 0.90); at 0.98 it fails (0.819); at 1.02 it holds to 100,000 time units.
-- **Energy per cycle is not constant** as an object decays; it falls 1.05 to 1.10 times as fast as the energy. F4 is a miss, as I predicted (O8).
+- **Energy per cycle is not constant** as an object decays; it changes 0.92 to 1.10 times as fast as the energy. F4 is a miss by its rule, as I predicted (O8).
 
 **Track C, the string (ceiling trap).**
 
 - **On a grid the ceiling trap works, and the S-bend is the object that holds.** With the asymptote spring law (G1), the S-bend ran unchanged at all six rates tested, from 2.05 to 4.2, for 32,000 cycles: the energy inside its window stayed at 0.99999994 or more of the start value, against 0.0014 to 0.0030 for the same start with the stiffening switched off.
 - **A tighter vibration is faster on the string.** Along both grid families the rate rises as the length falls at every point (rank correlation -1.0, 21 and 24 points). The S-bend runs from rate 2.01 at half-length 2.79 to rate 4.32 at half-length 0.52.
-- **The single bump is unstable and turns into an S-bend.** It does not die and it does not travel. It slides half a site, sheds 1.4% to 2.6% of its energy, and lands on the S-bend family within 0.03% to 1.6% in energy.
-- **Without a grid, no smooth trapped vibration was found.** In the smooth medium every smooth start leaked. The only states that held are ones with a sharp corner in the string (a jump in stretch). The equation itself keeps such a corner fixed in place for all time, so this is a property of the medium and not of the numerical grid; the numerics converge on it at second order. These states are unstable at a rate that does not depend on the numerical spacing (0.007 to 0.009 per cycle), and two of the three that were run long lost hold near 3,000 to 4,000 cycles. One (rate 1.85) showed no loss to 5,000 cycles.
-- **Misses.** Seven predictions missed or split on Track C: motion under a push (C5), the bump's instability (C3, split), and five of my own (O2, O5, O6, O10, O11). They are in section 6 at the same depth as the hits.
+- **The single bump is unstable and turns into an S-bend.** It does not die and it does not travel. It slides half a site, sheds 1.2% to 3.1% of its energy (rates 2.5 to 3.5), and lands on the S-bend family within 0.03% to 1.6% in energy.
+- **Without a grid, no smooth trapped vibration was found.** In the smooth medium every smooth start leaked. The only states that held are ones with a sharp corner in the string (a jump in stretch). By derivation, the equation keeps such a corner fixed in place for all time, so this is consistent with a property of the medium and not of the numerical grid: the exact state's energy converges at second order from spacing 1/4 to 1/32 (not at 1/64, unexplained), and the same instability appears at four spacings (0.007 to 0.009 per cycle). Two of the three such states run long lost hold near 3,000 to 4,000 cycles. One (measured rate 1.85) showed no loss to 5,000 cycles. All of this rests on one numerical scheme; a second scheme did not confirm it.
+- **Misses.** Eight predictions missed or split on Track C: motion under a push (C5), the bump's instability (C3, split), and six of my own (O1 for the smooth medium, O2, O5, O6, O10, O11). C2 is also split on one clause. They are in section 6 at the same depth as the hits.
 
 ## 2. What was run
 
@@ -67,6 +69,7 @@ C-grid families, G1 (full tables: `outputs/session5/trackC/TABLES.md` table 1; p
 | S-bend | 2.01 to 4.316 | 0.162 to 0.993 | 2.79 to 0.515 | 0.134 to 2.449 | 0.418 to 3.566 |
 | Bump | 2.01 to 4.916 | 0.161 to 0.991 | 2.79 to 0.409 | 0.134 to 4.141 | 0.418 to 5.293 |
 
+- The nonlinear share of the energy runs from 0.003 at the ceiling end to 0.11 (S-bend) and 0.12 (bump).
 - **The window is not narrow.** The rate spans a factor 2.15 (S-bend) and 2.45 (bump); the half-length spans a factor 5.4 and 6.8.
 - **The lower edge is the ceiling.** As the rate falls toward 2 the object grows without limit in length and shrinks in amplitude.
 - **No upper edge was found.** With G1 the rate keeps rising as the peak stretch approaches 1. The families stop at peak stretch 0.99 because that is where I stopped them, not because the object ends there.
@@ -79,7 +82,7 @@ C-smooth: the window was not mapped. All jump states were built with the jump 0.
 
 *Prediction C2 (G2): S-bend stable beyond 32,000 cycles; bump unstable, and the instability makes it move, not die. C3: the same ordering with G1.*
 
-**C2 (G2, regression against Sandusky, Page and Schmidt 1992), build measurement:** the S-bend exact start is unchanged at 32,000 cycles (energy fraction 0.99999988). The bump is unstable (largest Floquet multiplier 2.062 at rate 4.5, reproduced independently by the reviewer). Whether it travels depends on how it is disturbed: the exact start settles half a site away, and a start with a travelling disturbance moves 2.5 sites. **Hit on stability, split on "moves".** The full text of the 1992 paper was not obtained, so this is scored against its abstract and a later review.
+**C2 (G2, regression against Sandusky, Page and Schmidt 1992), build measurement:** the S-bend exact start is unchanged at 32,000 cycles (energy fraction 0.99999988). The bump is unstable (largest Floquet multiplier 2.062 at rate 4.5, reproduced independently by the reviewer). Whether it travels depends on how it is disturbed: the exact start settles half a site away, and an approximate (rotating-wave) start on a 700-site ring leaves its site at cycle 97, settles 2.5 sites away and stays. **Hit on stability, split on "moves".** The full text of the 1992 paper was not obtained, so this is scored against its abstract and a later review.
 
 **C3 (G1), production: split.**
 
@@ -97,7 +100,7 @@ C-grid lifetimes, cap 32,000 cycles (plot `plots/lifetimes_A2_frac.png`):
 
 - **S-bend stable: hit, 6 of 6.** Floquet multipliers differ from 1 by 1e-14 to 6e-14 once the four that belong to exact symmetries are set aside. The multipliers at these six rates are interpolated from the family table, not computed at the rates themselves.
 - **Bump unstable: hit.** Its largest multiplier rises from 1.0001 at rate 2.04 to 605 at rate 4.92.
-- **"Moves by at least one site": miss, 0 of 6.** Diagnostic D3 shows what happens instead. At the end of 10,000-cycle reruns at rates 2.5, 3.0 and 3.5, the object is centred between two sites (within 0.002 to 0.04 of a site), its energy is 98.4% to 100% in the S-bend symmetry, and its (rate, energy) point lies on the S-bend family curve within 0.03%, 0.4% and 1.6%. At rate 2.2 it is still drifting.
+- **"Moves by at least one site": miss, 0 of 6.** Diagnostic D3 shows what happens instead. At the end of 10,000-cycle reruns at rates 2.5, 3.0 and 3.5, the object is centred on the midpoint between two sites (within 0.002, 0.015 and 0.043), its energy is 98.4% to 100% in the S-bend symmetry, and its (rate, energy) point lies on the S-bend family curve within 0.4%, 0.03% and 1.6%. At rate 2.2 it is still drifting.
 - The 1.0-site threshold is missed by 0.3% at rate 2.05 and by 1.3% at 2.2.
 
 ### C-Q4. Leak
@@ -109,7 +112,7 @@ C-grid lifetimes, cap 32,000 cycles (plot `plots/lifetimes_A2_frac.png`):
 - S-bend at rate 2.5 for 10,000 cycles: the energy in the window drifts by 6.0e-12 on a closed ring and 5.8e-12 with absorbing ends. The solver's own conservation error is 2.8e-8, so the drift is 2e-4 of it (rule: at most 10 times).
 - The absorbing ends took up 1.6e-15 of the energy in 10,000 cycles. This is the best bound on the leak, and it is comparable to the seeded noise.
 - **Disclosure.** The runner's first spectrum test was "no line above 3 times the local noise floor". One line, the fifth overtone at 60 sites with absorbing ends, came out at 3.24 times. Under that test the spectrum part would have been a miss. The test was replaced after seeing the data by the Block 6 floor (below 1e-5 of the start energy counts as unresolved), which was on record before the runs; the lines are 5e-35 of the start energy or less. The reviewer adds that the far probes were stored in single precision, so their floor is rounding noise, and that the symmetry-forbidden even overtones show the same 1.5 to 2.0 times, which says a line at 2 to 3 times the floor is noise.
-- Nothing below the ceiling: the largest far-probe amplitude in the travelling-wave band is 4.6e-10 (closed ring), which is the seeded noise.
+- Nothing below the ceiling: the largest far-probe amplitude in the travelling-wave band is 4.7e-10 (closed ring, 80 sites), which is the seeded noise.
 
 ### C-Q5. Motion
 
@@ -119,14 +122,14 @@ C-grid lifetimes, cap 32,000 cycles (plot `plots/lifetimes_A2_frac.png`):
 
 | Object, rate | What a push does |
 |---|---|
-| S-bend 2.1 | Travels at 5.6% of the push size (speed 0.0025 to 0.149) for 89 to 292 sites, keeping 0.966 to 1.000 of its energy. At push 10 it is destroyed (0.52 left after 2.8 sites). |
-| S-bend 2.3 | Travels 10 to 20 sites, then stops (19.8 sites at push 1). |
+| S-bend 2.1 | Travels at 5.6% of the push size (speed 0.0025 to 0.149); largest excursion 99 to 292 sites, keeping 0.966 to 1.000 of its energy. At push 10 it stops after 2.8 sites with 0.52 of its energy left. |
+| S-bend 2.3 | Moves, then stops: under 0.1 sites at the smallest pushes, 19.8 at push 1, 5.6 at push 3, 3.1 at push 10 (0.80 of its energy left). |
 | Bump 2.3 | Travels up to 9.4 sites, then stops. |
-| S-bend 3.0 | Does not move (at most 0.24 sites), and loses energy to the kick. |
+| S-bend 3.0 | Does not move (at most 0.24 sites), and loses energy to the kick (0.77 left at push 3). |
 
-- The lowest push (0.05) at rate 2.1 covered 89.3 sites in the run length with no measurable loss (energy fraction 1.000). The rule asked for 100, so by the letter it fails; the run was 11% too short. This part of the rule was badly posed.
+- The lowest push (0.05) at rate 2.1 covered 89.3 sites by the fitted speed, and 99.07 sites by largest excursion, in the run length, with no measurable loss (energy fraction 1.000). The rule asked for 100. On the excursion measure that is 0.9% short, a near pass under the tolerance guideline; the run length, not the object, set the distance. C5 still misses on its second clause, below.
 - Loss per unit distance at rate 2.1 is not monotone: 2.05e-7 at push 0.3, 9.0e-8 at push 1, 3.3e-6 at push 3.
-- No speed at which the object breaks into travelling waves was measured. The fastest intact motion is 0.149. Larger pushes either destroy the object in place or trip the stretch guard at the kick; those trips are logged as failure entries.
+- No speed at which the object breaks into travelling waves was measured. The fastest intact motion is 0.149. Larger pushes cost the object 20% to 48% of its energy without moving it far, or trip the stretch guard at the kick; those trips are logged as failure entries.
 - **Correction of a first report.** The runner's first tables said the S-bend at 2.3 and the bump at 2.3 were "pinned, no motion". Diagnostic D1 showed that was an artefact of fitting the speed late in a long run. The build's speed (0.0386 at push 0.5) reproduces exactly at the build's run length of 300; the object then stops by about 20 sites.
 - **Reading.** The weakly trapped, long S-bend near the ceiling moves almost freely. Tighter, faster ones are held by the grid, and the tightest does not move at all.
 - **C-smooth:** jump states cannot be moved. The equation has no term that transports a jump, and the pushed runs show centre shifts of at most 0.24.
@@ -141,13 +144,13 @@ C-grid lifetimes, cap 32,000 cycles (plot `plots/lifetimes_A2_frac.png`):
 - The oscillating field falls off as predicted: its size is 0.28 at the centre, 4e-4 at 5 sites, 4e-7 at 10 sites for the S-bend at 2.5, then the noise floor near 1e-9.
 - Bump at 2.5 over 200 cycles: mean displacement 2.5e-4 and mean stretch 4.8e-4. Diagnostic D4: this appears about 40 to 50 time units after the bump starts to slide and does not follow the slide (correlation 0.16 to 0.21). It looks like radiation from the conversion to an S-bend, not a static field. Only one probe was usable, so this is indicative.
 - **Baseline for Session 6:** a lone S-bend on the grid has no static field above 1e-7 at any distance out to 60 sites.
-- C-smooth states with a jump: mean stretch 4e-5 to 1.1e-4 at the centre, falling to 1e-7 or less by 5 units.
+- C-smooth states with a jump: mean stretch 4e-5 to 1.1e-4 at the centre, falling to 1e-7 or less by 10 units.
 
 ### C-Q7. Grid or no grid
 
 *Prediction C6: none. My predictions O5, O6, O7, O10, O11 bear on it.*
 
-**Answer: no smooth trapped vibration survives without a grid. A vibration around a sharp corner does hold, for thousands of cycles, and the corner is a feature of the equation, not of the numerical grid.**
+**Answer: none of the ten smooth starts stayed trapped at all three spacings. A vibration around a sharp corner does hold, for thousands of cycles, and by derivation the corner is a feature of the equation, not of the numerical grid. One numerical scheme only.**
 
 Every start was run at numerical spacings 1/4, 1/8 and 1/16 (plots `plots/smooth_frac_*.png`).
 
@@ -163,25 +166,28 @@ Every start was run at numerical spacings 1/4, 1/8 and 1/16 (plots `plots/smooth
 
 Under rule 2.3 as written the count of grid-independent traps is **0 of 16 starts**: the jump is one numerical cell wide at every spacing, and a width that follows the spacing was to be reported as an artefact. I report it under the Block 4 class written for this case, "a jump in stretch, not resolved by any spacing", and not as an artefact, for these reasons.
 
-- **Derivation (reviewer, independent).** In terms of the stretch w, the smooth-medium equation is w_tt = -F(w) + K * F(w), where K * means a weighted average over neighbouring points with weight (1/2) exp(-|x|). No spatial derivative acts on w. So each point of the string is its own oscillator, driven by a smooth average of its neighbours. A jump in w stays exactly where it is, forever. No jump can form from a smooth start, and none can move. The linear equation keeps jumps too.
+- **Derivation (reviewer, independent; derived, not measured).** In terms of the stretch w, the smooth-medium equation is w_tt = -F(w) + K * F(w), where K * means a weighted average over neighbouring points with weight (1/2) exp(-|x|). No spatial derivative acts on w. So each point of the string is its own oscillator, driven by a smooth average of its neighbours. A jump in w stays exactly where it is, forever. No jump can form from a smooth start, and none can move. The linear equation keeps jumps too.
 - **What a converged jump looks like.** The scheme is this equation with a discrete average (checked to 5.6e-16). A one-cell jump at a fixed position at every spacing is what a correct solution with a true jump must look like.
 - **Convergence (D5).** For the exact state at spacings 1/4, 1/8, 1/16, 1/32: energy 0.36501, 0.36181, 0.36101, 0.36081. Successive differences fall by a factor 4. The rate of the jump states (1.456, 1.461, 1.462) and the tail fall-off converge the same way. At spacing 1/64 the iteration landed on a state with energy 0.39087, 8% off the trend; this is unexplained and was not followed up.
 - **Smooth starts cannot reach these states.** That follows from the derivation, and the data agree: 0 of 10 Gaussian starts is trapped at all three spacings. The 0.5 to 0.9 that narrow Gaussian starts retain is fine structure wound up to the numerical cutoff (final wavenumber at 0.5 to 0.76 of the cutoff, doubling when the spacing halves). That part is an artefact of the grid.
-- **The jump states are unstable, and the instability is not a grid effect (D5, D6).** The exact state has one growing mode at every spacing, with growth 0.0090, 0.0067, 0.0069, 0.0080 per cycle at spacings 1/4 to 1/32. The mode is a wave of wavenumber about 3 that fills the box; it is not at the jump and not at the grid scale. In a box twice as long the growth is 15% to 20% lower (0.0056 to 0.0061). In the time runs the loss grows at 0.0072 to 0.0096 per cycle after staying near 1e-5 for 2,000 cycles, and the 90% time is 4,065 cycles at spacing 1/4 and 3,117 at 1/8. So the lifetime is set by how small the starting disturbance is, not by the object.
+- **The jump states are unstable, and the instability is not a grid effect (D5, D6).** The exact state has one growing mode at every spacing, with growth 0.0090, 0.0067, 0.0069, 0.0080 per cycle at spacings 1/4 to 1/32. The mode is a wave of wavenumber about 3 that fills the box; it is not at the jump and not at the grid scale. In a box twice as long the growth is 11% to 17% lower (0.0056 and 0.0061). In the time runs the loss grows at 0.0072 to 0.0096 per cycle after staying near 1e-5 for 2,000 cycles, and the 90% time is 4,065 cycles at spacing 1/4 and 3,117 at 1/8. This is consistent with growth from the small seeded disturbance; the seed size was not varied, the loss of hold came earlier at the finer spacing (onset at cycle 3,254 against 2,427), and the growth rate is not monotone in the spacing.
+- **The 1% test (Block 6), spacing 1/8 only.** The exact state and the rate-1.5 jump S-bend both hold at 0.99 and 1.01 times the amplitude (energy fraction 1.000 at 957 to 1,016 cycles, twin 0.24). The rate-2.0 state has no 1% test.
+- **Longer runs (cap about 5,000 cycles, spacing 1/8).** T_90 in cycles: exact state 3,082; jump S-bend 1.5: 3,111 (4,065 at spacing 1/4); jump S-bend 2.0: none; jump bump 1.2: 635; Gaussian S-bend of width 0.25: 782. None reached half its reference value within the cap.
+- **Labels.** "Rate 1.2, 1.5, 2.0" for jump starts are the input labels of the starts. The measured late rates are 1.19, 1.46 and 1.85.
 - **The exception.** The jump S-bend at rate 2.0 showed no growth: 0.9997 or better to 5,000 cycles at spacings 1/4 and 1/8, and to the 2,001 cycles reached at 1/16. No stability calculation was done for it.
 - **Not shown.** Independence from the numerical scheme: the second scheme (spectral) crashed on the rate-2.0 start, and for the rate-1.5 start it gave 0.857 at 300 cycles against 1.000. The reviewer expects this from the overshoot a spectral method makes at a jump. It is one start at one spacing and it is open.
 - **Part of the hold is not stiffening.** The twin keeps 0.18 to 0.29 of the S-bend forms, because in this medium short waves hardly travel at all (speed falls as the cube of the wavelength). For the bump forms the twin keeps 0.74 to 0.81.
 
-*My predictions here.* O7 hit: at time 2,000 the Gaussian bump of width 0.5 keeps 0.61, 0.60, 0.59 against 9e-4 for the twin. O5 miss, O6 split, O10 split, O11 miss: section 6.
+*My predictions here.* O7 hit: at time 2,000 the Gaussian bump of width 0.5 keeps 0.61, 0.60, 0.59 against 9e-4 for the twin. O5, O6, O10 and O11 miss by their rules as written, with O6 and O10 holding in part: section 6.
 
 ## 4. Track F: the five questions
 
 Units: wave speed 1, floor (lowest rate of a travelling wave) 1, limit 1. Model O is the Session 1 equation at beta = 4/3. Model R is L = 1 - sqrt(1 - X) - |u|^2/2. All runs are round (one radial profile), grid spacing 0.05, absorbing shell at 100 to 200 (O) or 200 to 400 (R). Tables: `outputs/session5/trackF/TABLES.md`. Plots: `plot_families.png`, `plot_frac_vs_time.png`, `plot_boundary_scan.png`, `plot_bump_vs_pinch_E.png`.
 
-**Regression.** The O bump reproduces Session 1 bit for bit (rate 0.9096711; energy fraction 0.994127 at time 1,000; build).
+**Regression.** The new solver matches the old one step for step, bit for bit. At time 1,000 the O bump gives rate 0.9096711 and energy fraction 0.994127, against Session 1's 0.9096747 and 0.994146: agreement to 4e-6 and 2e-5 (build).
 
-**Three places where the hold rule did not fit equation R** (found by the runner, reported as found, nothing changed):
-1. The rule asks for 0.90 of the start energy inside three half-widths. R profiles have wide tails, so they start at 0.71 to 0.92 by that measure.
+**Four places where the hold rule or its classifier did not fit** (found by the runner, reported as found, nothing changed):
+1. The rule asks for 0.90 of the start energy inside three half-widths. R profiles have wide tails: 5 of 8 R bump starts and 1 of 9 R pinch starts begin below 0.90 by that measure (0.71 to 0.895).
 2. The rule asks for the rate to be below the floor by more than the frequency resolution (0.031). The whole R family lies within 0.0054 (bump) or 0.0135 (pinch) of the floor. Rates from zero crossings are quoted instead.
 3. The classifier uses the instantaneous energy fraction, the rule says cycle-averaged. They differ in the third decimal.
 4. Two defects in the classifier (reviewer): it calls a run "disperses" whenever a lifetime exists, even if the run met the rule at 1,000 cycles; and it counts 1,000 cycles using the end-of-run rate (for example 6,258 time units against 6,652 counted cycle by cycle).
@@ -192,7 +198,7 @@ The tables now carry two columns for every run: the rule by the letter (cycle-av
 
 *Prediction F1: R traps the single bump. The scholar's brief said this rested on existence arguments only.*
 
-**Not in any test made: every start died. R does hold energy up to 4.0 times longer than the linear medium. F1 is a miss over the range tested.**
+**Not in any test made: every start run to its end died. R does hold energy up to 4.0 times longer than the linear medium. F1 is a miss over the range tested.**
 
 - **Periodic profiles exist** (single-harmonic approximation): a bump family at rates 0.99459 to 1 and a pinch family at 0.98652 to 1. Both turn back at their lowest rate.
 - **None holds when evolved.** Production runs, half-widths 3.0 to 22.4. Lifetime is the time to fall to half the reference energy fraction:
@@ -208,28 +214,28 @@ The tables now carry two columns for every run: the rule by the letter (cycle-av
 | Pinch, 0.092 | 412 | 1.002 |
 | Pinch, 0.2 to 0.51 | 153 down to 65 | 0.998 to 1.033 |
 
-- Every late rate is at or above the floor: what remains has become ordinary waves.
+- Every late rate is within 0.003 of the floor or above it: what remains has become ordinary waves.
 - A further production start at energy 1,000 (half-width 22.4) lasted 5,403 time units (860 cycles) and kept 0.34 of its starting share at 1,000 cycles, the best of the production set.
 - **Wider starts (diagnostic DF1, run after the reviewer pointed out that the family extends to half-width 56 and only 22.4 had been run).** Absorbing shell moved out to 400 to 800; a run with the shell at 800 to 1,600 agrees to 1e-4.
 
-| Half-width | Retained at 1,000 cycles (by the letter) | Twin | Rate passes above the floor at cycle | Lifetime | Lifetime / half-width squared | Twin lifetime / half-width squared | Run / twin |
+| Half-width | Retained at 1,000 cycles (in brackets: by the letter) | Twin | Rate passes above the floor at cycle | Lifetime | Lifetime / half-width squared | Twin lifetime / half-width squared | Run / twin |
 |---|---|---|---|---|---|---|---|
 | 28.6 | 0.906 (0.830) | 0.294 | 680 | 9,286 | 11.3 | 3.11 | 3.64 |
 | 37.0 | 0.997 (0.914) | 0.262 | 1,269 | 16,308 | 11.9 | 3.11 | 3.83 |
 | 45.0 | 1.000 (0.917) | 0.460 | 2,020 | 25,148 | 12.4 | 3.11 | 3.99 |
 
-- **Reading.** The linear twin's lifetime is 3.11 to 3.19 times the half-width squared for half-widths 6.8 to 45: that is plain spreading. (The four narrowest starts, half-widths 3.0 to 4.4, have twin values 4.65 to 8.71.) The R run's is 8.1 at half-width 6.8, rising steadily to 12.4 at 45. So R delays spreading by a factor that grows slowly with width: 1.1 at the narrowest and largest-amplitude start (half-width 3.0), 3.99 at the widest. Each run ends the same way: the rate drifts up through the floor, then the object goes. The nonlinear share of the energy in these wide starts is 0.05% to 0.12%.
-- **Against the rule.** The half-width 37 and 45 starts meet the energy and twin clauses of the hold rule at 1,000 cycles, by the letter and by the retained reading. They do so because they are wide: the horizon of 1,000 cycles is shorter than their spreading time. The twin at half-width 45 is itself at 0.46, close to the 0.50 limit.
-- **The 1% test at half-width 37 (DF2) is not passed.** At 0.99 times the amplitude: 0.945 retained, 0.866 by the letter. At 1.01 times: the run tripped the resolution guard at the centre at t = 4,433 (704 cycles, X = 0.994); the refinement test could not classify it, so it is "unresolved".
-- **The wide pinch (DF3, half-width 45):** 0.601 retained at 1,000 cycles, rate above the floor from cycle 402, twin 0.021.
+- **Reading.** The linear twin's lifetime is 3.11 to 3.19 times the half-width squared for half-widths 6.8 to 45: that is plain spreading. (The four narrowest starts, half-widths 3.0 to 4.4, have twin values 4.65 to 8.71.) The R run's is 8.1 at half-width 6.8, rising steadily to 12.4 at 45. So R delays spreading by a factor that rises from 1.1 at the narrowest and largest-amplitude start (half-width 3.0) to 3.99 at the widest, a factor 15 in width. Each run ends the same way: the rate drifts up through the floor, then the object goes. The nonlinear share of the energy in these wide starts is 0.05% to 0.12%.
+- **Against the rule.** The half-width 37 and 45 starts meet the energy and twin clauses of the hold rule at 1,000 cycles, by the letter and by the retained reading; the half-width 29 start meets them only on the retained reading. None meets the rate clause as written (rates at cycle 1,000: 1.0001, 0.9999, 0.9999; the clause asks for 0.031 below the floor, which no R start can meet). Because lifetime scales with width squared in both media, a wide enough R start passes any fixed horizon on energy; with the twin's 3.11, the linear medium itself would pass the energy clause above a half-width of about 46. The twin at half-width 45 is at 0.46, close to the 0.50 limit.
+- **The 1% test at half-width 37 (DF2) is not passed.** At 0.99 times the amplitude: 0.945 retained (a pass on that reading), 0.866 by the letter (a fail); still alive when stopped at 6,600. At 1.01 times: the run tripped the resolution guard at the centre at t = 4,433 (704 cycles, X = 0.994); on the two finer grids the same guard (energy share at the shortest wavelengths above 1e-6) fired at t = 29 and t = 25, so the refinement test could not compare times and the end is "unresolved". On the coarse grid 1 - X fell from 0.99 to 0.006 within 0.4 time units before the trip. The half-width 29 and 45 starts had no 1% test.
+- **The wide pinch (DF3, half-width 45):** 0.601 retained at 1,000 cycles, rate above the floor from cycle 402, twin 0.021; still alive when stopped at 6,600.
 - **Away from the families** (Gaussian and shell starts, amplitude bisected to 1%):
 
-| Start | Threshold amplitude | Below | Above |
+| Start | Threshold amplitude | Below | Above (time at which 1 - X first passes the level shown) |
 |---|---|---|---|
-| Bump, width 2 | 0.927 | Disperses in 62 time units | Collapse at the centre at t = 3.82 |
-| Bump, width 3 | 0.848 | Disperses in 64 | Collapse at t = 12.85 |
-| Bump, width 5 | 0.613 | Disperses in 148 | Collapse at t = 42.0 |
-| Shell at radius 10 | 0.214 | Disperses in 129 | Collapse at t = 36.1 |
+| Bump, width 2 | 0.927 | Disperses in 62 time units | Heads to collapse at the centre; level 0.1 at t = 3.82 |
+| Bump, width 3 | 0.848 | Disperses in 64 | Level 0.01 at t = 12.85 |
+| Bump, width 5 | 0.613 | Disperses in 148 | Level 0.1 at t = 42.0 |
+| Shell at radius 10 | 0.214 | Disperses in 129 | Level 0.01 at t = 36.1 |
 | Pinch, width 3 | 1.72 | Disperses in 98 | Equation stops being well posed at t = 37.9 |
 
 - **Collapse** means 1 - X heads to zero at the centre in finite time. The times at which 1 - X first passes a fixed shallow level agree across three grid spacings to 0.1% (width 5, level 0.1: 42.013, 42.006, 42.003; width 2, level 0.1; width 3 and the shell, level 0.01, the shell on two grids only). At a deep level (1e-7; width 3, amplitude 1) the two finer grids differ by 1.5% (7.400 against 7.291). So the approach to collapse is a property of the equation; the last stage is not resolved. The solver is second-order accurate in the first cells at the centre for the bump.
@@ -237,7 +243,7 @@ The tables now carry two columns for every run: the rule by the letter (cycle-av
 - **What was not tried:** periodic states with more than one harmonic (two attempts failed and the work is parked), starts with inward velocity, half-widths beyond 45 (the family goes to 56), and non-round shapes.
 - **Guard trips** are logged as failure entries. The equation was not changed to avoid them.
 
-**Why I score F1 a miss and not "undecided".** The reviewer's position after the production runs was that the miss was earned only up to half-width 22.4. DF1 and DF2 extend the range to 45: every start still dies, the best one fails the 1% test, and the pass at 1,000 cycles follows from width alone. What stays open is whether the delay factor keeps growing for still wider objects; it rose only from 3.64 to 3.99 while the width went from 29 to 45.
+**Why I score F1 a miss and not "undecided".** The reviewer's position after the production runs was that the miss was earned only up to half-width 22.4. DF1 and DF2 extend the range to 45: every start run to its end dies, the one start given a 1% test does not pass it, no start can meet the rate clause, and any fixed horizon is passed on energy by a wide enough start. By rule 2.4 with Block 6, no R start is trapped. What stays open is whether the delay factor keeps growing for still wider objects; it rose only from 3.64 to 3.99 while the width went from 29 to 45.
 
 ### F-Q2. Families: rate, size, energy, energy per cycle, and the energy minimum
 
@@ -273,12 +279,12 @@ The tables now carry two columns for every run: the rule by the letter (cycle-av
 | R, 17 production starts | see F-Q1 | | 65 to 5,403 | Disperses |
 | R bump, three wide diagnostic starts | 0.830, 0.914, 0.917 | 4,770 to 14,013 | 9,286 to 25,148 | Disperses |
 
-- Linear twins are below 2e-3 at the same times, except the smallest R bump (2e-2).
+- Linear twins at the same times: below 6e-3 for the O production runs (0.34 for one matched-energy bump); 2e-3 to 4e-2 for R bump production starts; 0.26 to 0.46 for the three wide R starts. The two 100,000 runs have no twin, and the amplitude-scan diagnostics have twins to time 2,000 only.
 - **The 1% rule.** Three production starts meet the hold rule by the letter: O bump 0.909, O pinch 0.86, O pinch 0.94 (the runner first reported two; the classifier had marked the third as dispersing). A fourth, a bump at rate 0.853 from the matched-energy set, also meets it (0.908) and has no 1% test.
   - O pinch 0.86 passes: 0.992, 0.982, 0.969 at 0.99, 1.00, 1.01 times the amplitude.
   - O pinch 0.94 passes at 1,000 cycles (0.979, 0.964, 0.950; diagnostic DF4), but all three are gone by 1,472 to 2,063 cycles. The rule's horizon is what it passes.
   - O bump 0.909 is marginal: at 0.99 times the amplitude it is at 0.9003 against the limit 0.90, with T_90 at 999 cycles; at 1.01 it is at 0.988.
-- **The baseline is on the wall of a narrow dip in the loss rate.** Loss rate per time unit (fit over times 2,000 to 10,000) at 0.98, 0.99, 1.00, 1.01, 1.02, 1.05 times the amplitude: 4.5e-5, 3.1e-5, 9.8e-6, 1.6e-6, 4.6e-8, 2.0e-6. Energy fraction at 20,000: 0.0009, 0.0026, 0.597, 0.914, 0.996, 0.965. The minimum is near 1.02, where the object holds to 100,000 time units (0.9716, 14,437 cycles), and the loss rises again at 1.05. This is the dip Session 2 reported (rate 0.9065 holding 0.9946 to 300,000, with the Session 1 primary "on the wall of the same dip"; `docs/SESSION_02_REPORT.md` lines 34 and 78 to 79). It is not new and does not conflict with Sessions 1 and 2. The 0.98, 1.02, 1.05 and both 100,000 runs were added after seeing first results and are diagnostics, not scored runs.
+- **The baseline is on the wall of a narrow dip in the loss rate.** Loss rate per time unit (fit over times 2,000 to 10,000) at 0.98, 0.99, 1.00, 1.01, 1.02, 1.05 times the amplitude: 4.5e-5, 3.1e-5, 9.8e-6, 1.6e-6, 4.6e-8, 2.0e-6. Energy fraction at 20,000: 0.0009, 0.0026, 0.597, 0.914, 0.996, 0.965. The minimum is near 1.02, where the object holds to 100,000 time units (0.9716, 14,437 cycles), and the loss rises again at 1.05. This is the dip Session 2 reported (rate 0.9065 holding 0.9946 to 300,000, with the Session 1 primary "on the wall of the same dip"; `docs/SESSION_02_REPORT.md` lines 34 and 78 to 79). The starts are built differently in the two sessions, so identifying the two dips is plausible and not tested; nothing here conflicts with Sessions 1 and 2. The loss rate depends on the fit window: at 1.00 it is 9.8e-6 over times 2,000 to 10,000 and 3.0e-5 over 5,000 to 15,000. The 0.98, 1.02, 1.05 and both 100,000 runs were added after seeing first results and are diagnostics, not scored runs.
 - **Radial lifetimes are upper bounds.** A round run cannot see an object lose its roundness.
 
 ### F-Q4. Bump against pinch: which has the lower energy at the same rate?
@@ -330,9 +336,9 @@ The tables now carry two columns for every run: the rule by the letter (cycle-av
 | R pinch, small-amplitude branch | +1.000 (n = 59) | **Tighter is slower** |
 | R pinch, upper branch | -0.987 (n = 46) | Tighter is faster on this branch; nothing on it holds |
 
-So the two traps have opposite signatures, as the plan expected: under a ceiling a tighter vibration runs faster and moves further above the band; under a floor a tighter one runs slower and moves further below it.
+So: under the ceiling a tighter vibration is faster at every point of both grid families. Under the floor a tighter one is slower on the small-amplitude branches and for the O pinch; the O bump does not pass the rule, one R pinch branch reverses, and none of the R branches is trapped.
 
-In C-smooth the rate at a point is set mainly by the stretch at that point (prediction O4, hit: the measured rate is 3.4% to 9.2% below the lone-oscillator value for peak stretch 0.3 to 0.95). It is the size of the stretch, not the length of the object, that sets the rate there.
+In C-smooth the rate at a point is set mainly by the stretch at that point (prediction O4, hit: the measured rate is 3.4% to 9.2% below the lone-oscillator value for peak stretch 0.3 to 0.95).
 
 **Does the trap survive without a grid?** Stated with its numbers in C-Q7: no smooth start is trapped at all three spacings (0 of 10); states with a stationary jump in stretch hold to at least 2,000 cycles, converge at second order in the spacing, and are unstable at 0.007 to 0.009 per cycle, with one exception that held to 5,000 cycles.
 
@@ -352,35 +358,35 @@ In C-smooth the rate at a point is set mainly by the stretch at that point (pred
 | O2 | Mean field zero to 1e-8 | 5.4e-9 to 5.4e-8 (S-bend); 2.5e-4 (bump, converting) | Miss |
 | O3 | Linear retention of a Gaussian in C-smooth | All six within 0.018 (0.864 against 0.882 the worst) | Hit |
 | O4 | Rate at peak stretch within 10% of lone oscillator | 3.4%, 6.2%, 9.2%, 5.7% below | Hit (9.2% is close to the limit) |
-| O5 | Winding to the cutoff, no selected size (five parts) | 1 of 5 parts by the runner's count, 2 of 5 by the reviewer's | Miss; two parts badly posed |
-| O6 | A jump stays where it is made | All 9 held states: 0 cells. Worst non-held run: 6 cells | Split; measure changed after data |
+| O5 | Winding to the cutoff, no selected size (five parts; thresholds fixed beforehand: hit 5 of 5, split 2 to 4, miss at most 1) | 1 of 5 parts by the runner's count, which is the one scored; 2 of 5 if two badly posed parts are re-posed after the data | Miss by the count on record; two parts badly posed |
+| O6 | A jump stays where it is made | All 9 held states: 0 cells. Worst non-held run: 6 cells. Linear twin: 23 cells at spacing 1/4 | Miss by the rule as written (worst case); holds for every held state; measure changed after data |
 | O7 | Width-0.5 pluck keeps at least 0.5 at time 2,000 | 0.61, 0.60, 0.59; twin 9e-4 | Hit |
-| O10 | Jump states: fixed position, one cell, first-order convergence | Position 0.25 and one cell at every spacing; convergence is second order (ratio 3.87 to 4.06) | Split |
+| O10 | Jump states: fixed position, one cell, first-order convergence | Position 0.25 and one cell at every spacing; convergence is second order (ratio 3.87 to 4.06) | Miss by the rule as written (all clauses required); two of three clauses hold |
 | O11 | Jump starts at 1.2 and 1.5 keep 0.99 at all spacings | 1 of 4 does (S-bend 1.5) | Miss |
 
 ### Splits and misses in detail
 
-**C3, split.** Expected: bump unstable and moving at least one site. Measured: 0 of 6 move a full site. Cause, ranked: (1) the unstable direction of the bump is the slide toward the S-bend position, half a site away, where it stops (D3: lands on the S-bend family within 0.03% to 1.6% in energy); (2) at rates 3.0 and above the change is also one of shape, with the rate rising 12% to 16%; (3) the one-site threshold, missed by 0.3% at rate 2.05. Rules in: the bump is a way of making an S-bend. Rules out: the bump dying, and the bump as a mover at these amplitudes. Literature: the instability of the site-centred mode and its oscillation about the bond-centred one are published (Flach and Gorbach 2005; Flach and Willis 1994). The energy match and the shed fraction of the conversion were not found in print (searches 362, 363, 392, 402, 403). Caution: at rate 2.2 the two families differ by only 0.8% in energy, so the energy match does not discriminate there; the symmetry does. Ledger: F-045.
+**C3, split.** Expected: bump unstable and moving at least one site. Measured: 0 of 6 move a full site. Cause, ranked: (1) the unstable direction of the bump is the slide toward the S-bend position, half a site away, where it stops (D3: lands on the S-bend family within 0.03% to 1.6% in energy); (2) at rates 3.0 and above the change is also one of shape, with the rate rising 12% to 16%; (3) the one-site threshold, missed by 0.3% at rate 2.05. Diagnostic: D3. Rules in: the bump is a way of making an S-bend. Rules out: the bump dying, and the bump as a mover at these amplitudes. Literature: the instability of the site-centred mode and its oscillation about the bond-centred one are published (Flach and Gorbach 2005; Flach and Willis 1994). The energy match and the shed fraction of the conversion were not found in print (searches 362, 363, 392, 402, 403). Caution: at rate 2.2 the two families differ by only 0.8% in energy, so the energy match does not discriminate there; the symmetry does. Ledger: F-045.
 
-**C5, miss.** Expected: free motion with loss rising with speed. Measured: section C-Q5. Causes, ranked: (1) the grid holds tight objects in place, more strongly the tighter they are; (2) the 100-site rule was missed by run length at the one rate that moves freely (89.3 sites, no loss); (3) the "loss grows with speed" rule had no source and the dip at push 1 may be a resonance. Rules in: nearly loss-free motion for long, weakly trapped S-bends (loss 1.9e-11 per site at speed 0.0025). Rules out: free motion at all amplitudes. Literature: known for the cubic law, not for G1. Shelkan, Klopov and Hizhnyakov (arXiv:1812.03496) report kicked vibrations that stop after a finite distance, sooner at higher rate; Cuevas and others (arXiv:nlin/0202007) report speed proportional to the kick. No support for the monotone-loss rule was found. The scholar adds that the loss-per-distance figure excludes the launch and sits near the noise floor, so that clause is doubly weak. Ledger: F-038.
+**C5, miss.** Expected: free motion with loss rising with speed. Measured: section C-Q5. Causes, ranked: (1) the grid holds tight objects in place, more strongly the tighter they are (inferred from the trend across rates 2.1, 2.3, 3.0; the barrier was not measured); (2) the 100-site clause was missed by run length at the one rate that moves freely (89.3 sites by fit, 99.07 by excursion, no loss); this cause was not tested by a longer run; (3) the "loss grows with speed" rule had no source and the dip at push 1 may be a resonance. Rules in: nearly loss-free motion for long, weakly trapped S-bends (loss 1.9e-11 per site at speed 0.0025). Rules out: free motion at all amplitudes. Literature: known for the cubic law, not for G1. Shelkan, Klopov and Hizhnyakov (arXiv:1812.03496) report kicked vibrations that stop after a finite distance, sooner at higher rate; Cuevas and others (arXiv:nlin/0202007) report speed proportional to the kick. No support for the monotone-loss rule was found. The scholar adds that the loss-per-distance figure excludes the launch and sits near the noise floor, so that clause is doubly weak. Ledger: F-038.
 
-**O2, miss.** Expected zero to 1e-8. Measured 5.4e-9 to 5.4e-8 for S-bends. Cause: threshold set at the noise amplitude. Rules out a static far field above 1e-7 for a lone S-bend.
+**O2, miss.** Expected zero to 1e-8. Measured 5.4e-9 to 5.4e-8 for S-bends; for the bump 7.6e-7 and 1.1e-6 over 10 cycles and 2.5e-4 and 4.8e-4 over 200 cycles. Causes, ranked: (1) threshold set at the amplitude of the seeded noise; (2) the bump is converting to an S-bend (D3, D4); (3) a real static field: not indicated. Diagnostic: D4. Rules out a static far field above 1e-7 for a lone S-bend. Ledger: F-040.
 
-**O5, miss.** Expected: the stretch pattern winds steadily to the numerical cutoff, profiles stop agreeing between spacings while the energy fraction agrees, no selected size. Measured: winding saturates by about time 100 at 0.5 to 0.76 of the cutoff (fit quality 0.49); profiles do stop agreeing (0.36 rising to 0.54); the energy fraction differs between spacings by 0.027 in the median and 0.148 at most; selection could not be scored with fewer than three trapped starts. Two of the five parts were badly posed (a relative spread of numbers near zero; a test that cannot return its own predicted outcome).
+**O5, miss.** Expected: the stretch pattern winds steadily to the numerical cutoff, profiles stop agreeing between spacings while the energy fraction agrees, no selected size. Measured: winding saturates by about time 100 at 0.5 to 0.76 of the cutoff (fit quality 0.49); profiles do stop agreeing (0.36 rising to 0.54); the energy fraction differs between spacings by 0.027 in the median and 0.148 at most; selection could not be scored with fewer than three trapped starts. Two of the five parts were badly posed (a relative spread of numbers near zero; a test that cannot return its own predicted outcome). Scored on the runner's count against thresholds fixed before the run. Cause of the saturated winding not separated; no diagnostic was run. Ledger: F-041.
 
-**O6, split.** Expected: a jump never moves. Measured: zero motion for every held state. The detector follows the largest jump, and in runs that are falling apart the largest jump swaps between two jumps 0.25 apart. The measure was changed after the data from signed position to distance from centre; the verdict is a miss under both by the worst case (14 cells before, 6 after). The derivation in C-Q7 says a jump cannot move.
+**O6, miss by the rule as written; the runner's verdict was miss.** Expected: a jump never moves. Measured: zero motion for all 9 held states; up to 6 cells in runs that are falling apart; 13 to 23 cells for linear twins at spacing 1/4. The detector follows the largest jump, not the one made at the start. Why it reports motion in non-held runs and twins was not tested (a swap between the two jumps at plus and minus 0.25 would give zero under the distance measure, so that alone does not explain 6 cells). The measure was changed after the data from signed position to distance from centre; miss under both by the worst case (14 cells before, 6 after). The derivation in C-Q7 says a jump cannot move; the held states agree with it. Rules out: motion of the jump in a state that holds. Literature: for the linear nonlocal bar, "a jump stays at its place" is in print (Emmrich and Weckner). Ledger: F-042.
 
-**O10, split.** Position and one-cell width: hold. First-order convergence: wrong; it is second order, because the jump sits on a cell edge at every spacing used. The exact state's rate is an input, so the runner's ratio of 0.099 for it is not a measurement; its energy ratio is 3.99.
+**O10, miss by the rule as written; two of three clauses hold. The runner's verdict was miss.** Position and one-cell width: hold. First-order convergence: wrong; it is second order, because the jump sits on a cell edge at every spacing used. The exact state's rate is an input, so the runner's ratio of 0.099 for it is not a measurement; its energy ratio is 3.99. Rules out first-order convergence for a jump aligned with the grid. Literature: second order is proved for smooth data only; nothing found for jump profiles. Ledger: F-043.
 
-**O11, miss.** One of four jump starts keeps 0.99 at all spacings. The rate-1.2 S-bend is the widest member near a fold of its family and wanders; the jump bumps are held mostly by the linear medium (twin 0.74 to 0.81). Rows were read at 920 to 975 cycles, not 1,000.
+**O11, miss.** One of four jump starts keeps 0.99 at all spacings. The rate-1.2 S-bend is the widest member near a fold of its family and wanders; the jump bumps are held mostly by the linear medium (twin 0.74 to 0.81). Rows were read at 920 to 975 cycles, not 1,000. The "near a fold" reading comes from the start's own build record (the requested jump position was not reached) and is not otherwise tested. Diagnostics: D5, D6. Ledger: F-044.
 
-**O1 for C-smooth.** Miss by the rule as I wrote it (worst case of 18 fits). The two failures are the rate-1.2 jump S-bend at spacings 1/8 and 1/16, which is not steady and has a late rate of 1.07 and 1.02, where the formula blows up. The other 16 fits are within 1.7%, and for the held states the error falls as the square of the spacing (0.49%, 0.12%, 0.03%).
+**O1 for C-smooth.** Miss by the rule as I wrote it (worst case of 18 fits). The two failures are the rate-1.2 jump S-bend at spacings 1/8 and 1/16, which is not steady and has a late rate of 1.07 and 1.02, where the formula blows up. The other 16 fits are within 1.7%, and for the held states the error falls as the square of the spacing (0.49%, 0.12%, 0.03%). Reading the 16 as a hit "for steady states" is a subset chosen after the data. Ledger: F-039.
 
 ### Track F scoreboard
 
 | # | Prediction (short) | Measured | Verdict |
 |---|---|---|---|
-| F1 | R traps the bump | 0 of 11 family starts survive (8 production, 3 diagnostic; half-widths 3 to 45; lifetimes 90 to 25,148); lifetime up to 4.0 times the twin's; the half-width 37 start fails the 1% test; scans find dispersal or collapse | Miss over the range tested |
+| F1 | R traps the bump | 0 of 11 family starts survive (8 production, 3 diagnostic; half-widths 3 to 45; lifetimes 90 to 25,148); lifetime up to 4.0 times the twin's; the half-width 37 start does not pass the 1% test; scans find dispersal or collapse | Miss over the range tested |
 | F2 | Energy minimum at finite amplitude along a trapped family | O bump 1,659.0 at 0.9711; O pinch 7,926.2 at 0.9558; the held objects are not at the minimum; R not trapped | Hit for O, qualified; not scorable for R |
 | F3 | Pinch exists in O and R with higher energy than the bump | O: 4.5 to 5.8 times, held 13,105 cycles. R: 6.0 to 7.3 times on one branch, below the bump on the other; does not hold | Split |
 | F4 | Energy per cycle nearly constant | Changes 0.92 to 1.10 times as fast as energy (limit 0.2) | Miss |
@@ -390,9 +396,11 @@ In C-smooth the rate at a point is set mainly by the stretch at that point (pred
 
 ### Track F misses in detail
 
-**F1, miss over the range tested.** Expected: R traps the bump (basis: Amin's work on such kinetic terms; the brief warned it rested on existence only). Measured: section F-Q1. Causes, ranked: (1) the small-amplitude family is on the unstable side (O12), and its instability time grows with the square of the width, so wide members last long without being stable; (2) the stiffening in R only becomes strong near amplitude 0.9, where collapse takes over, and the scans find no stable window between dispersal and collapse; (3) the starts are single-harmonic approximations, least accurate at large amplitude; (4) the hold rule did not fit R, and its fixed horizon can be met by width alone. Diagnostics run: DF1 (lifetime against width), DF2 (1% neighbours and box), DF3 (wide pinch). Rules in: dispersal delayed by a factor up to 4.0; a hard upper limit on amplitude set by breakdown of the equation. Rules out: a trapped R bump reachable from the single-harmonic family at half-widths 3 to 45, or from a Gaussian or shell start at rest. Does not rule out: a multi-harmonic state, or a delay factor that keeps growing beyond half-width 45. Literature: no conflict. Amin (arXiv:1303.1102) covers existence for this kinetic term with a pure mass term, and his own stability criterion makes the three-dimensional small-amplitude family unstable; he gives no lifetime. One short segment of the R bump family (rates 0.99471 to 0.99494) satisfies his criterion and its starts still die in 90 to 102 time units; he limits the criterion to cases where one frequency is a good approximation, and on this family X reaches 1.000 over a cycle at its largest (not checked point by point on the segment). Ledger: F-052, F-056.
+**F1, miss over the range tested.** Expected: R traps the bump (basis: Amin's work on such kinetic terms; the brief warned it rested on existence only). Measured: section F-Q1. Causes, ranked: (1) the small-amplitude family is on the unstable side (O12), and its instability time grows with the square of the width, so wide members last long without being stable; (2) the stiffening in R only becomes strong near amplitude 0.9, where collapse takes over, and the scans find no stable window between dispersal and collapse; (3) the starts are single-harmonic approximations, least accurate at large amplitude; (4) the hold rule did not fit R, and its fixed horizon can be met by width alone. Diagnostics run: DF1 (lifetime against width), DF2 (1% neighbours and box), DF3 (wide pinch). Rules in: dispersal delayed by a factor up to 4.0; a hard upper limit on amplitude set by breakdown of the equation. Not found: a trapped R bump from the single-harmonic family at half-widths 3 to 45, or from a Gaussian or shell start at rest. Does not rule out: a multi-harmonic state, or a delay factor that keeps growing beyond half-width 45. Literature: no conflict. Amin (arXiv:1303.1102) covers existence for this kinetic term with a pure mass term, and his own stability criterion makes the three-dimensional small-amplitude family unstable; he gives no lifetime. One short segment of the R bump family (rates 0.99471 to 0.99494) satisfies his criterion and its starts still die in 90 to 102 time units; he limits the criterion to cases where one frequency is a good approximation, and on this family X reaches 1.000 over a cycle at its largest (not checked point by point on the segment). Ledger: F-052, F-056.
 
-**F4, miss.** Expected constant energy per cycle. Measured ratio 1.05 to 1.10. Cause: along a family the change in energy equals rate times change in "amount of oscillation", and the rate hardly changes, so the two fall together. This was O8. Literature: partly known. The adiabatic invariant is described as approximately conserved (Kasuya, Kawasaki, Takahashi hep-ph/0209358; Kawasaki, Takahashi, Takeda arXiv:1508.01028; abstracts only). No source found states how energy over rate behaves along a decay. Ledger: F-053.
+**F3, split.** Expected: the pinch exists in O and R with higher energy than the bump at the same rate. Measured: section F-Q4. Hit in O (2.2 to 5.8 times; held at rate 0.86). In R the ordering holds on the small-amplitude branch (6.0 to 7.3) and reverses on the upper branch above rate 0.99733; no R pinch holds (tested to half-width 20, plus one point at 45). Causes of the reversal, ranked: (1) the upper branch tends to a fixed core whose energy stays near 310 to 360 while the bump's grows toward the floor; (2) the branch may be an artefact of the single-harmonic approximation (it was stopped by hand, and its end is unresolved). No diagnostic was run. Rules in: the pinch as a real object of the old equation. Rules out: nothing about R beyond the starts listed. Ledger: F-058.
+
+**F4, miss.** Expected constant energy per cycle. Measured ratio 0.92 to 1.10 (the runner's first-to-last values are 1.05 to 1.10). Cause: along a family the change in energy equals rate times change in "amount of oscillation", and the rate hardly changes, so the two fall together. This was O8. Literature: partly known. The adiabatic invariant is described as approximately conserved (Kasuya, Kawasaki, Takahashi hep-ph/0209358; Kawasaki, Takahashi, Takeda arXiv:1508.01028; abstracts only). No source found states how energy over rate behaves along a decay. Ledger: F-053.
 
 **O9 clause, miss.** Expected: failure only by resolution. Measured: collapse times converged across three grids. Cause: I treated the bounded X as protection; it bounds the speed of the field, not the steepening of the profile. Literature: finite-time breakdown is published for the massless equation (Eggers and Hoppe, arXiv:0812.1790). With a mass term, and for the pinch's sideways condition, no source was found. Ledger: F-054.
 
@@ -404,18 +412,22 @@ In C-smooth the rate at a point is set mainly by the stretch at that point (pred
 
 | Expectation | Verdict | Deciding number |
 |---|---|---|
-| A swirl has an optimal length and rate | Split | By loss rate the S-bend family has an interior best point and the bump family does not. By energy there is no optimum: energy and energy per cycle rise along the whole family |
-| The range is narrow | Split: contradicted on the grid, supported for the O pinch | Rate spans a factor 2.15 and length a factor 5.4 for the S-bend; no upper edge with G1. For the O pinch the long-lived window is rates 0.82 to 0.94, a factor 1.15, with a best point at 0.86: supported there |
-| Too long and it becomes a travelling wave | Split | Envelope widths 12 and 24 fall to 0.02 to 0.67 in 1,000 cycles; of the starts longer than 1.44, 4 of 9 are below 0.5. Long exact states near the ceiling (half-length 2.8) hold |
-| Moving too fast and it becomes a travelling wave | Not tested | No intact motion above speed 0.149 was achieved; harder pushes destroy the object in place or trip the guard |
+| A swirl has an optimal length and rate | Not established on the string; one sampled best point for the O pinch | String: no resolved optimum for the S-bend (every rate loses under 1e-7 in 32,000 cycles; the differences are below the solver's own error); the bump's loss rises steadily with rate. Energy and energy per cycle rise along the whole family, so energy picks no member. O pinch: rate 0.86 is the best of seven sampled rates. Ledger: F-046 |
+| The range is narrow | Contradicted on the grid; not established for the O pinch | Grid: by the rule's own numbers the S-bend's rate spans a factor 2.05 and its length 2.79 over the rates run (the rate factor is within 2.5% of the rule's threshold of 2); the family spans 2.15 and 5.4, with no upper edge under G1. O pinch: long-lived at rates 0.82 to 0.94 at least (factor 1.15 or more); the lower edge was not found (0.82 is alive at the cap with 0.504, and the family continues to 0.797) |
+| Too long and it becomes a travelling wave | Split | Envelope widths 12 and 24 fall to 0.02 to 0.67 in 1,000 cycles; of the starts longer than 1.44, 4 of 9 are below 0.5 (5 of 10 if a run that ended at 843 cycles is counted). What they become is 2 to 6 lumps, not a travelling wave. The longest exact state evolved (rate 2.05, half-length 1.33) holds; the longer family members (to 2.79) were checked for stability by calculation only |
+| Moving too fast and it becomes a travelling wave | Not tested | No intact motion above speed 0.149 was achieved; harder pushes take 20% to 48% of its energy without moving it far, or trip the guard |
 | The S-bend traps energy better than the bump | Supported | At 5 of 5 matched energies the S-bend keeps 1.000 against 0.9997, 0.990, 0.980, 0.973, 0.969 for the bump. Bump values are interpolated across six runs. In C-smooth: jump S-bends hold, jump bumps do not hold by stiffening |
-| The bump is probably not stable enough to build a structure | Split, leaning supported | Unstable at every rate (multiplier up to 605). It does not disperse: it becomes an S-bend within tens of cycles at rates 2.5 and above. By the rule on record: supported at 1 of 6 rates, contradicted at 2 of 6 |
+| The bump is probably not stable enough to build a structure | Split on the string; not decided in O; supported in R | String: unstable by the rule at 5 of 6 rates (multiplier up to 605; at 2.05 only 2.9e-4 above 1). It does not disperse: it becomes an S-bend within tens of cycles at rates 2.5 and above. By the rule on record: supported at 1 of 6 rates, contradicted at 2 of 6. O (round runs): the bump at 0.909 outlasts 20,000 time units and at 1.02 times amplitude holds 0.972 at 100,000. R: bumps run to their end die in 90 to 25,148. Ledger: F-047 |
 | Structures and reach | Not tested | Session 6 |
-| The pinch, the object he started from | Reported | In the old equation it exists, holds for 13,105 cycles at rate 0.86, passes the 1% test, and costs 4.5 to 5.8 times a bump's energy at the same rate. In equation R it does not hold (9 to 183 cycles). Round runs only |
+| The pinch, the object he started from | Reported | In the old equation it exists, holds for 13,105 cycles at rate 0.86, passes the 1% test, and costs 2.7 times a bump's energy at that rate (4.5 to 5.8 at rates 0.95 to 0.999). In equation R the production starts last 9 to 183 cycles; one wide diagnostic start kept 0.60 at 1,000 cycles and was alive when stopped. Round runs only |
 
 ## 8. Process notes, deviations and limits
 
 **Analysis definitions changed after seeing data** (none changes a verdict except as stated): the C4 spectrum test (section C-Q4); the O6 position measure; the filter for "too long" starts (from "reached 1,000 cycles" to "at least 900 cycles and no guard trip"; 2 of 4 before, 4 of 9 after); guard trips labelled numerical were rerun once at a quarter of the time step, originals kept.
+
+**Further disclosures.** O1 for C-smooth read as a hit "for steady states" uses a subset chosen after the data. O6 and O10 return "miss" by their rules as written, which is how they are scored; the runner's verdicts were miss. Gaussian rows in C-smooth were judged at 988 to 997 cycles and jump rows at 920 to 975, not 1,000. Not run: D6 at spacing 1/16; twins for D2, D3, D6; a second width for the Gaussian pinch scan; push tests and inward-velocity starts on Track F. The first pinch bracket in the boundary scan (0.3 to 1.5) was invalid and was rerun with a wider one. Track F diagnostics added after first results: the amplitude scan at 0.98, 1.02, 1.05, both 100,000 extensions, and DF1 to DF4.
+
+**Final text review.** The reviewer's final read of this report was FAIL on text, with 44 corrections (about 12 wrong numbers or inconsistencies, about 20 overstatements, the rest omissions and wording). All were applied. No headline verdict changed; two rows of Aaron's table moved to "not established", and O6 and O10 are now scored by their rules as written. The corrected text was not re-reviewed. Three items the reviewer could not verify: the lower end (0.92) of the F4 ratio range, the defect counts in section 2, and the scholar's literature claims. Two sentences in the workers' own tables are superseded by this report: Track F `TABLES.md` calls the pinch "the longest-lived object found", and Track C `DIAGNOSTICS.md` gives 15% to 20% for the box effect on the growth rate (the files give 11% to 17%) and 1.4% to 2.6% for the energy shed (the run files give 1.2% to 3.1%).
 
 **Corrections made during the session:** the "pinned" wording for pushed objects (D1); four 1% runs for C-smooth that existed but were missing from the tables; cycle counts for jump rows that were labelled as 1,000.
 
@@ -432,20 +444,21 @@ In C-smooth the rate at a point is set mainly by the stretch at that point (pred
 
 | Worker | Expected | Seen |
 |---|---|---|
-| numerics | Opus, high | Opus 5.5, high |
+| numerics | Opus, high | Opus 5.5; effort not visible to the worker; the request log shows high |
 | runner | Sonnet 5.5, medium | Sonnet 5.5; effort shown as 5 |
 | reviewer | Sonnet 5.5, xhigh | Sonnet 5.5; effort shown as 30 |
 | scholar | Sonnet 5.5, xhigh | Sonnet 5.5; effort shown as 30 |
 
-The effort labels do not match the table for runner, reviewer and scholar. I cannot tell from inside whether 30 is how xhigh is displayed.
+The effort labels do not match the table for runner, reviewer and scholar (one reviewer run and one runner run could not see an effort value at all). I cannot tell from inside whether 30 is how xhigh is displayed.
 
 **What the plan's limits mean for these results:**
 - **One dimension.** The string results say nothing yet about a twist, a pinch or a structure. The S-bend's stability is against disturbances along the string only.
 - **The grid.** The clean trap (C-Q1, C-Q3, C-Q4) needs the grid. Without it, what survives needs a sharp corner that the medium cannot create by itself from a smooth start. Whether nature allows a grid, or a corner, is not settled here.
 - **Radial symmetry.** Every Track F lifetime is an upper bound: a round run cannot see an object lose its roundness. The pinch's breakdown in R is in a sideways direction that a round run can detect but not follow. What is shown for R is that round objects from the starts listed all die.
 - **Units only.** No physical values are attached to any number.
+- **Per result.** C1, C3, C4 (grid trap, S-bend stability, no leak): hold in one dimension on a grid. C5: grid only; the smooth medium cannot move a jump. C-Q7: one scheme, round numbers of spacings 1/4 to 1/32, jump position 0.25 only. F1 and the R scans: round objects, single-harmonic starts, half-widths 3 to 45. O pinch and O bump lifetimes: upper bounds from round runs.
 
-**Standards check (CLAUDE.md, ten items).** Regime numbers (rate against ceiling, nonlinear share) are in the family tables. Stability is judged by energy in a window. Energies include every term (reviewer derivation). Absorbing ends were compared with a closed ring. Every nonlinear run has a twin, except the D2, D3 and D6 diagnostics, which are nonlinear only. Linear and exact values came first (O1, O3, O4). Items 7 and 8 (symmetry classes, structures) do not arise. Each prediction sits beside its literature expectation in the predictions file. No claim of novelty is made in this report.
+**Standards check (CLAUDE.md, ten items).** Regime numbers (rate against ceiling, nonlinear share) are in the family tables. Stability is judged by energy in a window. Energies include every term (reviewer derivation). Absorbing ends were validated against a box twice the size in the builds (string check 4; radial check 5) and again in DF2 (shell at 800 to 1,600, agreement 1e-4), and compared with a closed ring in C-Q4. Every nonlinear run has a twin, except the D2, D3 and D6 diagnostics and the two 100,000 Track F runs; the Track F amplitude-scan diagnostics have twins to time 2,000 only. Linear and exact values came first (O1, O3, O4). Items 7 and 8: no symmetry classes or structures were enumerated; where symmetry was used it came from coordinates (D3's odd fraction about the nearest bond centre) and from the half-period sign flip (O2). Each prediction sits beside its literature expectation in the predictions file. No claim of novelty is made in this report.
 
 ## 9. Literature
 
@@ -486,10 +499,10 @@ Full entries, sources and the search log (362 to 404 for Track C; S5F-1 to S5F-1
 
 1. **The twist on the grid string.** A second direction of sideways motion on C-grid, with the S-bend as the starting object. This is the plan's first candidate and Track C gives it a stable object to start from.
 2. **Two S-bends on one string.** Force, merging and the reach of the combined field, using the surroundings baseline of C-Q6 (no static field above 1e-7 for one S-bend).
-3. **Settle the smooth medium.** (a) Stability calculation for the rate-2.0 jump state and a scan over jump position, which maps the window that was not mapped here. (b) Box-length scan of the growth rate, which fell 15% to 20% when the box doubled: does it vanish in a long box. (c) The spectral scheme with a treatment of the jump. (d) The 1/64 anomaly.
+3. **Settle the smooth medium.** (a) Stability calculation for the rate-2.0 jump state and a scan over jump position, which maps the window that was not mapped here. (b) Box-length scan of the growth rate, which fell 11% to 17% when the box doubled: does it vanish in a long box. (c) The spectral scheme with a treatment of the jump. (d) The 1/64 anomaly.
 4. **A medium that can make its own corner, or does not need one.** A smooth medium with a fourth-order term, for comparison with the one used here, which cannot form a jump.
 5. **Decide whether equation R is worth more work.** Two capped checks: the delay factor at half-widths 56 and beyond (does 3.99 keep rising), and one attempt at multi-harmonic periodic states with their stability rates. If neither shows a hold, retire R as a trap and record why.
-6. **The pinch in the old equation, out of round.** It is the longest-lived object found, but only round runs exist. This is three-dimensional vector work, which the plan forbids this session.
+6. **The pinch in the old equation, out of round.** It holds for 13,105 cycles, but only round runs exist. This is three-dimensional vector work, which the plan forbids this session.
 7. **Rewrite the hold rule** before any further floor runs: retained fraction relative to the start; rate from zero crossings; a horizon that scales with the object's own spreading time (the twin's lifetime) so that width alone cannot pass it; and fix the two classifier defects.
 8. **Re-base the old-equation baseline** at the bottom of the dip (1.02 times the Session 1 amplitude), since Sessions 1 to 4 used an object on its wall.
 
