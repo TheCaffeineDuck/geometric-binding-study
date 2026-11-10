@@ -1,0 +1,7 @@
+{
+ "medium": "fd",
+ "law": "G2",
+ "max_ratio_dEdt_over_power": 5.6850628831821264e-15,
+ "target": 1e-12,
+ "negative_control_ratio_without_uxt_term": 1.6721363048725748
+}

@@ -1,0 +1,11 @@
+{
+ "t": 0.022000000000000006,
+ "stage": 0,
+ "bond": 32,
+ "x_bond": 0.0,
+ "stretch": 1.0320433225769643,
+ "absorbed_so_far": 0.0,
+ "E0": 318.6106983197801,
+ "max_stretch_last_good": 0.9092397978927591,
+ "energy_rel_change_last_good": 6.3859996846105105e-06
+}
