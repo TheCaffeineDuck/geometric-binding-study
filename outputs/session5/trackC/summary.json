@@ -14595,7 +14595,7 @@
    "measured": "sbend w=2.1: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: False; alt reading (lowest mover lambda 0.1, frac at 100 1); break speed n/a | sbend w=2.3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | sbend w=3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | bump w=2.3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a",
    "threshold": "lowest push crosses 100 with frac >= 0.90; loss non-decreasing",
    "verdict": "miss",
-   "note": "literal reading applied; the 'alt reading' column gives the lowest push that does move the object",
+   "note": "literal reading applied; the 'alt reading' column gives the lowest push that does move the object. Added after review: S-bend 2.3 and bump 2.3 are not pinned: they move 5 to 20 sites and stop (max excursions 19.8 and 9.4); the speed column is a fit after the first 10% of a long run (diagnostics D1)",
    "sources": [
     "outputs/session5/trackC/runs/A6_sbend_w2.1_l0.05.json",
     "outputs/session5/trackC/runs/A6_sbend_w2.1_l0.1.json",
@@ -14942,5 +14942,159 @@
    "note": "",
    "sources": []
   }
- ]
+ ],
+ "added_after_review_1pct_smooth": [
+  {
+   "start": "exact C-smooth state S-bend",
+   "classification": "trapped, robust to 1%",
+   "trapped_triplet": [
+    true,
+    true,
+    true
+   ],
+   "cycles_reached": [
+    984.8797013149565,
+    1000.0260474646633,
+    1016.2554299632088
+   ],
+   "frac_ref": [
+    0.9999894732659983,
+    0.9999996322552572,
+    0.9999898512216111
+   ],
+   "sources": [
+    "outputs/session5/trackC/runs/B4_orbit_sbend_1pct_x0.99_h8.json",
+    "outputs/session5/trackC/runs/B4_orbit_sbend_s0.5_pk0.8_h8.json",
+    "outputs/session5/trackC/runs/B4_orbit_sbend_1pct_x1.01_h8.json"
+   ]
+  },
+  {
+   "start": "jump S-bend 1.5",
+   "classification": "trapped, robust to 1%",
+   "trapped_triplet": [
+    true,
+    true,
+    true
+   ],
+   "cycles_reached": [
+    957.4277853367691,
+    973.853312075227,
+    991.5757865301848
+   ],
+   "frac_ref": [
+    0.9999723391098353,
+    0.9999955923810284,
+    0.9999981458459736
+   ],
+   "sources": [
+    "outputs/session5/trackC/runs/B4_jump_sbend_w1.5_1pct_x0.99_h8.json",
+    "outputs/session5/trackC/runs/B3_jump_sbend_w1.5_h8.json",
+    "outputs/session5/trackC/runs/B4_jump_sbend_w1.5_1pct_x1.01_h8.json"
+   ]
+  }
+ ],
+ "added_after_review_cycles_reached": [
+  {
+   "start": "B3_jump_sbend_w1.2",
+   "h": "1/4",
+   "cycles": "970.5"
+  },
+  {
+   "start": "B3_jump_sbend_w1.2",
+   "h": "1/8",
+   "cycles": "938.2"
+  },
+  {
+   "start": "B3_jump_sbend_w1.2",
+   "h": "1/16",
+   "cycles": "949.1"
+  },
+  {
+   "start": "B3_jump_sbend_w1.5",
+   "h": "1/4",
+   "cycles": "970.4"
+  },
+  {
+   "start": "B3_jump_sbend_w1.5",
+   "h": "1/8",
+   "cycles": "973.9"
+  },
+  {
+   "start": "B3_jump_sbend_w1.5",
+   "h": "1/16",
+   "cycles": "974.7"
+  },
+  {
+   "start": "B3_jump_sbend_w2",
+   "h": "1/4",
+   "cycles": "919.8"
+  },
+  {
+   "start": "B3_jump_sbend_w2",
+   "h": "1/8",
+   "cycles": "922.8"
+  },
+  {
+   "start": "B3_jump_sbend_w2",
+   "h": "1/16",
+   "cycles": "923.6"
+  },
+  {
+   "start": "B3_jump_bump_w1.2",
+   "h": "1/4",
+   "cycles": "1072"
+  },
+  {
+   "start": "B3_jump_bump_w1.2",
+   "h": "1/8",
+   "cycles": "1184"
+  },
+  {
+   "start": "B3_jump_bump_w1.2",
+   "h": "1/16",
+   "cycles": "1073"
+  },
+  {
+   "start": "B3_jump_bump_w1.5",
+   "h": "1/4",
+   "cycles": "1157"
+  },
+  {
+   "start": "B3_jump_bump_w1.5",
+   "h": "1/8",
+   "cycles": "1261"
+  },
+  {
+   "start": "B3_jump_bump_w1.5",
+   "h": "1/16",
+   "cycles": "1066"
+  },
+  {
+   "start": "B4_orbit_sbend_s0.5_pk0.8",
+   "h": "1/4",
+   "cycles": "1000"
+  },
+  {
+   "start": "B4_orbit_sbend_s0.5_pk0.8",
+   "h": "1/8",
+   "cycles": "1000"
+  },
+  {
+   "start": "B4_orbit_sbend_s0.5_pk0.8",
+   "h": "1/16",
+   "cycles": "1000"
+  }
+ ],
+ "added_after_review_definition_changes": {
+  "C4_first_criterion": "5th harmonic 3.24x local floor (sponge, L = 60) would be a miss",
+  "C4_sponge_absorbed_over_E0": 1.5799003930733591e-15,
+  "O6_signed_worst_cells": 14,
+  "O6_distance_worst_cells": 6
+ },
+ "added_after_review_per_row": {
+  "O1_smooth_within_1.7pct": 16,
+  "O1_smooth_total": 18,
+  "O10_B4_energy_ratio": 3.994665571875663,
+  "O5_abs_frac_spread_median": 0.02689652839638148
+ }
 }

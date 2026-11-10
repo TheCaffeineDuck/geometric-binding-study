@@ -1,0 +1,38 @@
+[
+ {
+  "run": "fd h=1/8 (B9)",
+  "file": "outputs/session5/trackC/runs/B9_B3_jump_sbend_w1.5_h8.json",
+  "cycles_reached": 4975.4326061252,
+  "frac_end": 0.7241610442851798,
+  "h": 0.125,
+  "T_90_cycles": 3116.832604632397,
+  "onset_cycle_loss_0.0001": 2427.3595841269907,
+  "onset_cycle_loss_0.01": 2905.2438824676856,
+  "growth_per_cycle_ln_loss_between_1e-4_and_1e-2": 0.009636579820634657,
+  "loss_slope_per_cycle_linear_fit_last_half": 0.00011006865823621729,
+  "loss_at_500_cycles": 4.264242337348456e-06,
+  "loss_at_1000_cycles": 4.411265597137337e-06,
+  "loss_at_2000_cycles": 6.362350089328395e-06,
+  "loss_at_3000_cycles": 0.06174081097604556,
+  "loss_at_4000_cycles": 0.24128106934152782,
+  "loss_at_5000_cycles": null
+ },
+ {
+  "run": "fd h=1/4",
+  "file": "outputs/session5/trackC/diagnostics/runs/D6_jump1.5_fd_h4.json",
+  "cycles_reached": 5274.660983347644,
+  "frac_end": 0.862310471485753,
+  "h": 0.25,
+  "T_90_cycles": 4064.9273991779787,
+  "onset_cycle_loss_0.0001": 3254.2287526289824,
+  "onset_cycle_loss_0.01": 3895.5672176458615,
+  "growth_per_cycle_ln_loss_between_1e-4_and_1e-2": 0.007180561337244742,
+  "loss_slope_per_cycle_linear_fit_last_half": 5.65057145949584e-05,
+  "loss_at_500_cycles": 9.75949296322387e-06,
+  "loss_at_1000_cycles": 9.969683497978998e-06,
+  "loss_at_2000_cycles": 1.0092657113158765e-05,
+  "loss_at_3000_cycles": 2.4796032930707312e-05,
+  "loss_at_4000_cycles": 0.07106290945437799,
+  "loss_at_5000_cycles": 0.13546461702610524
+ }
+]

@@ -145,6 +145,8 @@ def main():
     # ---------------------------------------------------------------- tables
     import tables as TB
     txt = TB.tables_md(SUM, B9, B10, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, TF, B7, B8, O5, O6, verdicts, c3cases, c5cases)
+    import review_add as RA
+    txt += RA.section(SUM, brows, verdicts, c6)
     open(os.path.join(TC, "TABLES.md"), "w").write(txt)
     json.dump(SUM, open(os.path.join(TC, "summary.json"), "w"), indent=1, default=lambda o: float(o) if isinstance(o, (np.floating, np.integer)) else (bool(o) if isinstance(o, np.bool_) else str(o)))
     # ---------------------------------------------------------------- plots
