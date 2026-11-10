@@ -1,0 +1,6 @@
+--model R --obj bump --start amp:0.13887 --T 30000 --T-twin 3500 --stop-at-death --R-sponge 400 --R-box 800 --tag DF1_hw29_a0.13887
+--model R --obj bump --start amp:0.107627 --scale 1.01 --T 6600 --T-twin 6600 --R-sponge 400 --R-box 800 --tag DF2_hw37_x1.01
+--model O --obj pinch --start profile:0.94 --scale 0.99 --T 20000 --T-twin 2000 --tag DF4_O_pinch_w0.94_x0.99
+--model O --obj pinch --start profile:0.94 --scale 1.01 --T 20000 --T-twin 2000 --tag DF4_O_pinch_w0.94_x1.01
+--model R --obj bump --start amp:0.107627 --T 6600 --T-twin 6600 --R-sponge 800 --R-box 1600 --tag DF2_hw37_box1600
+--model R --obj pinch --start amp:0.008031 --T 6600 --T-twin 6600 --R-sponge 400 --R-box 800 --tag DF3_pinch_hw45_a0.008031

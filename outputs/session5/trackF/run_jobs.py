@@ -14,10 +14,10 @@ def run(line):
         cmd = [PY, "-m", mod] + [a for a in args]
     elif line.startswith("G "):
         args = shlex.split(line[2:]); eps = args[0]; args = args[1:]; tag = args[args.index("--tag") + 1]
-        cmd = [PY, OUT + "/run_evolve_guess.py", eps] + args + ["--out-dir", OUT + "/runs"]
+        cmd = [PY, OUT + "/run_evolve_guess.py", eps] + args + ["--out-dir", os.environ.get("RUNDIR", OUT + "/runs")]
     else:
         args = shlex.split(line); tag = args[args.index("--tag") + 1]
-        cmd = [PY, "-m", "swirl.radial5.run_evolve5"] + args + ["--out-dir", OUT + "/runs"]
+        cmd = [PY, "-m", "swirl.radial5.run_evolve5"] + args + ["--out-dir", os.environ.get("RUNDIR", OUT + "/runs")]
     with open(OUT + "/logs/progress.log", "a") as p: p.write(time.strftime("%T") + " start " + tag + "\n")
     with open(OUT + f"/logs/{tag}.log", "w") as f:
         rc = subprocess.call(cmd, cwd=ROOT, env=env, stdout=f, stderr=subprocess.STDOUT)
