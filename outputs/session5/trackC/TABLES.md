@@ -144,13 +144,13 @@ T_90 and T_death in time units and in cycles (cycles integrate the measured rate
 | C-smooth h=1/4 | B1_bump_pk0.8_s1 | 1.029 | 6283 (1028 cycles) | 26.7 | 4.231 | 80.2 | 12.82 | 775.7 | 0.02005 | 0.0177 | 0.02006 | 3.05e-14 | False | no |
 | C-smooth h=1/8 | B1_bump_pk0.8_s1 | 1.037 | 6283 (1033 cycles) | 26.4 | 4.19 | 79.3 | 12.64 | 767 | 0.01306 | 0.01684 | 0.01315 | 1.78e-13 | False | no |
 | C-smooth h=1/16 | B1_bump_pk0.8_s1 | 1.025 | 6283 (1022 cycles) | 26.35 | 4.185 | 79.15 | 12.64 | 765.6 | 0.01387 | 0.01726 | 0.014 | 6.53e-13 | False | no |
-| C-smooth h=1/4 | B1_bump_pk0.8_s2 | 0.9924 | 6283 (990.8 cycles) | 15.8 | 2.844 | 142.6 | 20.94 | 142.6 | 5.31e-04 | 5.31e-04 | (1,000 cycles not reached) | 1.68e-14 | False | no |
-| C-smooth h=1/8 | B1_bump_pk0.8_s2 | 0.9981 | 6283 (996.4 cycles) | 15.7 | 2.841 | 141.7 | 20.87 | 141.7 | 3.10e-04 | 3.10e-04 | (1,000 cycles not reached) | 9.35e-14 | False | no |
-| C-smooth h=1/16 | B1_bump_pk0.8_s2 | 0.9996 | 6283 (997.7 cycles) | 15.65 | 2.835 | 141.2 | 20.82 | 141.2 | 3.02e-04 | 3.02e-04 | (1,000 cycles not reached) | 3.46e-13 | False | no |
+| C-smooth h=1/4 | B1_bump_pk0.8_s2 | 0.9924 | 6283 (990.8 cycles) | 15.8 | 2.844 | 142.6 | 20.94 | 142.6 | 5.31e-04 | 5.31e-04 | (1,000 cycles not reached) | 1.68e-14 | False (judged at 990.8 cycles reached; added after review) | no |
+| C-smooth h=1/8 | B1_bump_pk0.8_s2 | 0.9981 | 6283 (996.4 cycles) | 15.7 | 2.841 | 141.7 | 20.87 | 141.7 | 3.10e-04 | 3.10e-04 | (1,000 cycles not reached) | 9.35e-14 | False (judged at 996.4 cycles reached; added after review) | no |
+| C-smooth h=1/16 | B1_bump_pk0.8_s2 | 0.9996 | 6283 (997.7 cycles) | 15.65 | 2.835 | 141.2 | 20.82 | 141.2 | 3.02e-04 | 3.02e-04 | (1,000 cycles not reached) | 3.46e-13 | False (judged at 997.7 cycles reached; added after review) | no |
 | C-smooth h=1/4 | B1_bump_pk0.5_s0.25 | 1.125 | 6283 (1100 cycles) | 442.2 | 70.61 | > cap (t=6283) | - | > cap | 0.5324 | 0.5323 | 0.5342 | 0.03679 | False | no |
 | C-smooth h=1/8 | B1_bump_pk0.5_s0.25 | 1.131 | 6283 (1079 cycles) | 499.9 | 80.69 | > cap (t=6283) | - | > cap | 0.5998 | 0.6001 | 0.6098 | 0.03332 | False | no |
 | C-smooth h=1/16 | B1_bump_pk0.5_s0.25 | 1.025 | 6283 (1020 cycles) | 442.2 | 70.28 | > cap (t=6283) | - | > cap | 0.7036 | 0.7038 | 0.705 | 0.03 | False | no |
-| C-smooth h=1/4 | B1_bump_pk0.5_s0.5 | 0.9991 | 6283 (999.6 cycles) | 48.55 | 7.639 | 307.8 | 48.92 | 275.3 | 0.04628 | 0.003312 | (1,000 cycles not reached) | 2.39e-07 | False | no |
+| C-smooth h=1/4 | B1_bump_pk0.5_s0.5 | 0.9991 | 6283 (999.6 cycles) | 48.55 | 7.639 | 307.8 | 48.92 | 275.3 | 0.04628 | 0.003312 | (1,000 cycles not reached) | 2.39e-07 | False (judged at 999.6 cycles reached; added after review) | no |
 | C-smooth h=1/8 | B1_bump_pk0.5_s0.5 | 1.004 | 6283 (1003 cycles) | 48.55 | 7.647 | 307.8 | 48.93 | 307.8 | 0.03124 | 0.009205 | 0.03124 | 9.05e-08 | False | no |
 | C-smooth h=1/16 | B1_bump_pk0.5_s0.5 | 1.005 | 6283 (1004 cycles) | 48.55 | 7.649 | 307.8 | 48.91 | 307.8 | 0.03065 | 0.01046 | 0.03066 | 8.73e-08 | False | no |
 | C-smooth h=1/4 | B2_sbend_pk0.8_s0.25 | 1.352 | 6283 (1352 cycles) | > cap (t=6283) | - | > cap (t=6283) | - | > cap | 0.961 | 0.9609 | 0.9621 | 0.1784 | True | no |
@@ -159,30 +159,30 @@ T_90 and T_death in time units and in cycles (cycles integrate the measured rate
 | C-smooth h=1/4 | B2_sbend_pk0.8_s0.5 | 1.177 | 6283 (1149 cycles) | 275.3 | 47.75 | > cap (t=6283) | - | > cap | 0.7658 | 0.7657 | 0.7694 | 9.10e-06 | False | no |
 | C-smooth h=1/8 | B2_sbend_pk0.8_s0.5 | 1.079 | 6283 (1056 cycles) | 1036 | 171.1 | > cap (t=6283) | - | > cap | 0.677 | 0.6768 | 0.6851 | 1.92e-06 | False | no |
 | C-smooth h=1/16 | B2_sbend_pk0.8_s0.5 | 1.004 | 6283 (1021 cycles) | 1258 | 205.7 | > cap (t=6283) | - | > cap | 0.7806 | 0.7803 | 0.7825 | 1.30e-06 | False | no |
-| C-smooth h=1/4 | B2_sbend_pk0.8_s1 | 0.9923 | 6283 (991 cycles) | 50.2 | 7.069 | 117.2 | 17.56 | 117.2 | 0.001862 | 0.02213 | (1,000 cycles not reached) | 5.44e-14 | False | no |
-| C-smooth h=1/8 | B2_sbend_pk0.8_s1 | 0.9977 | 6283 (996.1 cycles) | 50.35 | 7.255 | 117.5 | 17.81 | 151.1 | 0.001084 | 0.02074 | (1,000 cycles not reached) | 3.21e-13 | False | no |
-| C-smooth h=1/16 | B2_sbend_pk0.8_s1 | 0.9986 | 6283 (995.9 cycles) | 50.35 | 7.257 | 117.5 | 17.82 | 151.1 | 0.001039 | 0.0201 | (1,000 cycles not reached) | 1.18e-12 | False | no |
-| C-smooth h=1/4 | B2_sbend_pk0.8_s2 | 0.9921 | 6283 (988.5 cycles) | 31.6 | 4.447 | 94.9 | 13.65 | 158.2 | 2.90e-06 | 1.74e-04 | (1,000 cycles not reached) | 2.82e-14 | False | no |
-| C-smooth h=1/8 | B2_sbend_pk0.8_s2 | 0.9968 | 6283 (992.3 cycles) | 31.25 | 4.406 | 93.85 | 13.53 | 156.4 | 1.29e-06 | 1.69e-04 | (1,000 cycles not reached) | 1.62e-13 | False | no |
-| C-smooth h=1/16 | B2_sbend_pk0.8_s2 | 0.9975 | 6283 (992.9 cycles) | 19.05 | 2.598 | 57.25 | 8.023 | 171.8 | 1.19e-06 | 1.67e-04 | (1,000 cycles not reached) | 5.92e-13 | False | no |
-| C-smooth h=1/4 | B3_jump_sbend_w1.2 | 1.165 | 5236 (970.5 cycles) | > cap (t=5236) | - | > cap (t=5236) | - | > cap | 0.9947 | 0.9947 | (1,000 cycles not reached) | 0.1562 | True | no |
-| C-smooth h=1/8 | B3_jump_sbend_w1.2 | 1.188 | 5236 (938.2 cycles) | 2135 | 372.2 | > cap (t=5236) | - | > cap | 0.8089 | 0.8089 | (1,000 cycles not reached) | 0.2296 | False | no |
-| C-smooth h=1/16 | B3_jump_sbend_w1.2 | 1.01 | 5236 (949.1 cycles) | 2502 | 458.7 | > cap (t=5236) | - | > cap | 0.7887 | 0.7885 | (1,000 cycles not reached) | 0.2505 | False | no |
-| C-smooth h=1/4 | B3_jump_sbend_w1.5 | 1.456 | 4189 (970.4 cycles) | > cap (t=4189) | - | > cap (t=4189) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.1844 | True | no |
-| C-smooth h=1/8 | B3_jump_sbend_w1.5 | 1.461 | 4189 (973.9 cycles) | > cap (t=4189) | - | > cap (t=4189) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2416 | True | no |
-| C-smooth h=1/16 | B3_jump_sbend_w1.5 | 1.462 | 4189 (974.7 cycles) | > cap (t=4189) | - | > cap (t=4189) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.257 | True | no |
-| C-smooth h=1/4 | B3_jump_sbend_w2 | 1.839 | 3142 (919.8 cycles) | > cap (t=3142) | - | > cap (t=3142) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2337 | True | no |
-| C-smooth h=1/8 | B3_jump_sbend_w2 | 1.846 | 3142 (922.8 cycles) | > cap (t=3142) | - | > cap (t=3142) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2788 | True | no |
-| C-smooth h=1/16 | B3_jump_sbend_w2 | 1.847 | 3142 (923.6 cycles) | > cap (t=3142) | - | > cap (t=3142) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2908 | True | no |
+| C-smooth h=1/4 | B2_sbend_pk0.8_s1 | 0.9923 | 6283 (991 cycles) | 50.2 | 7.069 | 117.2 | 17.56 | 117.2 | 0.001862 | 0.02213 | (1,000 cycles not reached) | 5.44e-14 | False (judged at 991 cycles reached; added after review) | no |
+| C-smooth h=1/8 | B2_sbend_pk0.8_s1 | 0.9977 | 6283 (996.1 cycles) | 50.35 | 7.255 | 117.5 | 17.81 | 151.1 | 0.001084 | 0.02074 | (1,000 cycles not reached) | 3.21e-13 | False (judged at 996.1 cycles reached; added after review) | no |
+| C-smooth h=1/16 | B2_sbend_pk0.8_s1 | 0.9986 | 6283 (995.9 cycles) | 50.35 | 7.257 | 117.5 | 17.82 | 151.1 | 0.001039 | 0.0201 | (1,000 cycles not reached) | 1.18e-12 | False (judged at 995.9 cycles reached; added after review) | no |
+| C-smooth h=1/4 | B2_sbend_pk0.8_s2 | 0.9921 | 6283 (988.5 cycles) | 31.6 | 4.447 | 94.9 | 13.65 | 158.2 | 2.90e-06 | 1.74e-04 | (1,000 cycles not reached) | 2.82e-14 | False (judged at 988.5 cycles reached; added after review) | no |
+| C-smooth h=1/8 | B2_sbend_pk0.8_s2 | 0.9968 | 6283 (992.3 cycles) | 31.25 | 4.406 | 93.85 | 13.53 | 156.4 | 1.29e-06 | 1.69e-04 | (1,000 cycles not reached) | 1.62e-13 | False (judged at 992.3 cycles reached; added after review) | no |
+| C-smooth h=1/16 | B2_sbend_pk0.8_s2 | 0.9975 | 6283 (992.9 cycles) | 19.05 | 2.598 | 57.25 | 8.023 | 171.8 | 1.19e-06 | 1.67e-04 | (1,000 cycles not reached) | 5.92e-13 | False (judged at 992.9 cycles reached; added after review) | no |
+| C-smooth h=1/4 | B3_jump_sbend_w1.2 | 1.165 | 5236 (970.5 cycles) | > cap (t=5236) | - | > cap (t=5236) | - | > cap | 0.9947 | 0.9947 | (1,000 cycles not reached) | 0.1562 | True (judged at 970.5 cycles reached; added after review) | no |
+| C-smooth h=1/8 | B3_jump_sbend_w1.2 | 1.188 | 5236 (938.2 cycles) | 2135 | 372.2 | > cap (t=5236) | - | > cap | 0.8089 | 0.8089 | (1,000 cycles not reached) | 0.2296 | False (judged at 938.2 cycles reached; added after review) | no |
+| C-smooth h=1/16 | B3_jump_sbend_w1.2 | 1.01 | 5236 (949.1 cycles) | 2502 | 458.7 | > cap (t=5236) | - | > cap | 0.7887 | 0.7885 | (1,000 cycles not reached) | 0.2505 | False (judged at 949.1 cycles reached; added after review) | no |
+| C-smooth h=1/4 | B3_jump_sbend_w1.5 | 1.456 | 4189 (970.4 cycles) | > cap (t=4189) | - | > cap (t=4189) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.1844 | True (judged at 970.4 cycles reached; added after review) | no |
+| C-smooth h=1/8 | B3_jump_sbend_w1.5 | 1.461 | 4189 (973.9 cycles) | > cap (t=4189) | - | > cap (t=4189) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2416 | True (judged at 973.9 cycles reached; added after review) | no |
+| C-smooth h=1/16 | B3_jump_sbend_w1.5 | 1.462 | 4189 (974.7 cycles) | > cap (t=4189) | - | > cap (t=4189) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.257 | True (judged at 974.7 cycles reached; added after review) | no |
+| C-smooth h=1/4 | B3_jump_sbend_w2 | 1.839 | 3142 (919.8 cycles) | > cap (t=3142) | - | > cap (t=3142) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2337 | True (judged at 919.8 cycles reached; added after review) | no |
+| C-smooth h=1/8 | B3_jump_sbend_w2 | 1.846 | 3142 (922.8 cycles) | > cap (t=3142) | - | > cap (t=3142) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2788 | True (judged at 922.8 cycles reached; added after review) | no |
+| C-smooth h=1/16 | B3_jump_sbend_w2 | 1.847 | 3142 (923.6 cycles) | > cap (t=3142) | - | > cap (t=3142) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2908 | True (judged at 923.6 cycles reached; added after review) | no |
 | C-smooth h=1/4 | B3_jump_bump_w1.2 | 1.296 | 5236 (1072 cycles) | > cap (t=5236) | - | > cap (t=5236) | - | > cap | 0.9256 | 0.9256 | 0.9262 | 0.7355 | held, but not by stiffening | no |
 | C-smooth h=1/8 | B3_jump_bump_w1.2 | 1.456 | 5236 (1184 cycles) | 2816 | 625.9 | > cap (t=5236) | - | > cap | 0.859 | 0.859 | 0.868 | 0.773 | False | no |
 | C-smooth h=1/16 | B3_jump_bump_w1.2 | 1.4 | 5236 (1073 cycles) | 2581 | 515.5 | > cap (t=5236) | - | > cap | 0.8563 | 0.8564 | 0.8604 | 0.7586 | False | no |
 | C-smooth h=1/4 | B3_jump_bump_w1.5 | 1.768 | 4189 (1157 cycles) | > cap (t=4189) | - | > cap (t=4189) | - | > cap | 0.9514 | 0.9514 | 0.9521 | 0.788 | held, but not by stiffening | no |
 | C-smooth h=1/8 | B3_jump_bump_w1.5 | 2.063 | 4189 (1261 cycles) | 1850 | 507.6 | > cap (t=4189) | - | > cap | 0.8513 | 0.8513 | 0.863 | 0.8129 | False | no |
 | C-smooth h=1/16 | B3_jump_bump_w1.5 | 1.715 | 4189 (1066 cycles) | 4107 | 1045 | > cap (t=4189) | - | > cap | 0.8981 | 0.8981 | 0.9022 | 0.79 | held, but not by stiffening | no |
-| C-smooth h=1/4 | B4_orbit_sbend_s0.5_pk0.8 | 1.423 | 4415 (1000 cycles) | > cap (t=4415) | - | > cap (t=4415) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.1765 | True | no |
-| C-smooth h=1/8 | B4_orbit_sbend_s0.5_pk0.8 | 1.423 | 4415 (1000 cycles) | > cap (t=4415) | - | > cap (t=4415) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2365 | True | no |
-| C-smooth h=1/16 | B4_orbit_sbend_s0.5_pk0.8 | 1.423 | 4415 (1000 cycles) | > cap (t=4415) | - | > cap (t=4415) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2528 | True | no |
+| C-smooth h=1/4 | B4_orbit_sbend_s0.5_pk0.8 | 1.423 | 4415 (1000 cycles) | > cap (t=4415) | - | > cap (t=4415) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.1765 | True (judged at 1000 cycles reached; added after review) | no |
+| C-smooth h=1/8 | B4_orbit_sbend_s0.5_pk0.8 | 1.423 | 4415 (1000 cycles) | > cap (t=4415) | - | > cap (t=4415) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2365 | True (judged at 1000 cycles reached; added after review) | no |
+| C-smooth h=1/16 | B4_orbit_sbend_s0.5_pk0.8 | 1.423 | 4415 (1000 cycles) | > cap (t=4415) | - | > cap (t=4415) | - | > cap | 1 | 1 | (1,000 cycles not reached) | 0.2528 | True (judged at 1000 cycles reached; added after review) | no |
 
 ### C-smooth, the five longest-lived starts extended to 5,000 cycles (B9, h = 1/8)
 
@@ -212,7 +212,7 @@ Each row: the measured number beside the rule's threshold and the verdict the ru
 | C2 | C-grid, G2: S-bend stable and unchanged past 32,000 cycles; bump unstable and moves | 2.3 C2 | not run in WP-C (the production runs use G1 only, as the task states) | - | **not evaluated** | The WP-B1 build regression (not a production run) is in docs/WPB1_BUILD_NOTES.md section 10: S-bend multiplier 1 + 8e-15 and frac 0.99999988 at 31,995 cycles (hit); bump multiplier 2.062, centroid 0 -> -0.5 and stays (unstable: hit; moves by >= 1 site: miss). Those numbers are the build's, not re-measured here. |
 | C3 | same ordering with G1: S-bend stable, bump unstable and moves | 2.3 C2/C3: stable = largest Floquet multiplier within 1e-6 of the unit circle AND peak amplitude and centre within 1% (centre read as 0.01 unit) AND fixed-window frac >= 0.99 at 32,000 cycles; unstable-and-moves = multiplier > 1 + 1e-3 AND centroid leaves its site by >= 1 unit with co-moving frac >= 0.90; shift 0.5 to 1 that does not grow is a split (Block 5) | S-bend stable at 6 of 6 rates (rates 2.05, 2.2, 2.5, 3, 3.5, 4.2); bump: unstable and moves at 0, shifts half a site and stays at 2, other at 4 of 6 | see rule | **split** |  |
 | C4 | a trapped vibration emits nothing at its rate or overtones; fixed-window energy constant | 2.3 C4: drift <= 10 x closed-string conservation error, and no line at the rate or overtones above the leakage floor at a far probe | fixed-window drift over 10000 cycles: closed ring 6.01e-12, sponge 5.78e-12; closed-ring conservation error 2.78e-08; ratios 2.16e-04 (closed), 2.08e-04 (sponge). Far-probe lines with (omega A)^2 above 1e-5 E0: none; largest (omega A)^2 over the rate and odd overtones 5.13e-35 against the Block 6 floor 1e-5 E0 = 9.98e-06; line amplitude over the local spectral floor: rate and odd overtones 1.33 to 3.24, symmetry-forbidden even harmonics 1.51 to 2.04 (so the lines are not distinguishable from the floor); exp(-kappa L) = 7.5e-37 at 60 sites | ratio <= 10 (<= 30 pass with note); (omega A)^2 of every line <= 1e-5 E0 (Block 6 floor) | **hit** | drift ratio verdict hit; spectrum verdict hit |
-| C5 | a trapped vibration can be moved with small loss at low speed; loss grows with speed | 2.3 C5 (as written): at the lowest push strength the object crosses 100 units with co-moving frac >= 0.90, and loss per unit distance does not decrease from one speed to the next; break speed = lowest measured speed with co-moving frac < 0.5 within 100 units | sbend w=2.1: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: False; alt reading (lowest mover lambda 0.1, frac at 100 1); break speed n/a | sbend w=2.3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | sbend w=3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | bump w=2.3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | lowest push crosses 100 with frac >= 0.90; loss non-decreasing | **miss** | literal reading applied; the 'alt reading' column gives the lowest push that does move the object |
+| C5 | a trapped vibration can be moved with small loss at low speed; loss grows with speed | 2.3 C5 (as written): at the lowest push strength the object crosses 100 units with co-moving frac >= 0.90, and loss per unit distance does not decrease from one speed to the next; break speed = lowest measured speed with co-moving frac < 0.5 within 100 units | sbend w=2.1: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: False; alt reading (lowest mover lambda 0.1, frac at 100 1); break speed n/a | sbend w=2.3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | sbend w=3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | bump w=2.3: lowest lambda 0.05 does not cross 100 (frac at 100: n/a); loss non-decreasing with speed: None; alt reading (lowest mover lambda n/a, frac at 100 n/a); break speed n/a | lowest push crosses 100 with frac >= 0.90; loss non-decreasing | **miss** | literal reading applied; the 'alt reading' column gives the lowest push that does move the object. Added after review: S-bend 2.3 and bump 2.3 are not pinned: they move 5 to 20 sites and stop (max excursions 19.8 and 9.4); the speed column is a fit after the first 10% of a long run (diagnostics D1) |
 | C6 | C-smooth: no prediction on whether a grid-independent trap exists | 2.3 C6 classification per start at h = 1/4, 1/8, 1/16 | 16 starts classified: not trapped at any h: 9; artifact of the numerical spacing: 2; a jump in stretch, not resolved by any spacing: 3; held, but not by stiffening at some h: 2 | no prediction on record | **no prediction** | outcomes per start in table 5 |
 | O1 (C-grid) | tail of a trapped vibration falls by exp(-kappa) per site, 2 cosh(kappa/2) = rate | within 5% (family tail fits and the A2 runs' tail fit at the late rate) | worst bump w=4.2: 0.08138; best 4.68e-07; 12 fits | <= 5% (<= 15% pass with note) | **pass with note** |  |
 | O1 (C-smooth) | tail at the rate falls as exp(-kappa x), kappa = w/sqrt(w^2 - 1), no alternation | within 5% on the component at the rate (jump-profile and exact starts; tail fit at the late rate) | 18 fits; worst B3_jump_sbend_w1.2 h=0.0625: measured 0.1681 against O1 4.897 (rel. error 0.9657); best B3_jump_sbend_w2 h=0.0625: 2.27e-04 | <= 5% (<= 15% pass with note) | **miss** |  |
@@ -647,3 +647,70 @@ O4: early rate at the point of peak stretch, sigma = 0.25 bump, h = 1/8:
 - **O11**: a jump-profile start at rate 1.2 or 1.5 keeps frac >= 0.99 to 1,000 cycles at all three h, where a Gaussian start of sigma >= 1 disperses like its twin. Measured: B3_jump_sbend_w1.2: 0.9947, 0.8089, 0.7887 at h 1/4, 1/8, 1/16 [1,000 cycles not reached: frac at end] | B3_jump_sbend_w1.5: 1, 1, 1 at h 1/4, 1/8, 1/16 [1,000 cycles not reached: frac at end] | B3_jump_bump_w1.2: 0.9262, 0.868, 0.8604 at h 1/4, 1/8, 1/16 | B3_jump_bump_w1.5: 0.9521, 0.863, 0.9022 at h 1/4, 1/8, 1/16 || Gaussian: B1_bump_pk0.8_s1: nonlinear 0.02006/0.01315/0.014, twin 3.05e-14/1.78e-13/6.53e-13 | B1_bump_pk0.8_s2: nonlinear 5.31e-04/3.10e-04/3.02e-04, twin 1.68e-14/9.35e-14/3.46e-13 | B2_sbend_pk0.8_s1: nonlinear 0.001862/0.001084/0.001039, twin 5.44e-14/3.21e-13/1.18e-12 | B2_sbend_pk0.8_s2: nonlinear 2.90e-06/1.29e-06/1.19e-06, twin 2.82e-14/1.62e-13/5.92e-13. Threshold: frac >= 0.99 at all h. Files: outputs/session5/trackC/runs/B3_jump_sbend_w1.2_h4.json, outputs/session5/trackC/runs/B3_jump_sbend_w1.2_h8.json, outputs/session5/trackC/runs/B3_jump_sbend_w1.2_h16.json, outputs/session5/trackC/runs/B3_jump_sbend_w1.5_h4.json, outputs/session5/trackC/runs/B3_jump_sbend_w1.5_h8.json, outputs/session5/trackC/runs/B3_jump_sbend_w1.5_h16.json (and 18 more)
 
 Splits and contradicted expectations (not misses of a numerical rule, listed for completeness): C3 (split), E1 (2.5) (split), E3 (2.5) (split)
+
+## Added after review
+
+### 1. C-smooth 1% runs (added after review): scaled 0.99 and 1.01 starts at h = 1/8, beside the exact start (Block 6)
+
+| start | frac at ref (0.99 / exact / 1.01) | cycles reached | 1,000 cycles reached | rate late | twin frac | trapped (2.1) | Block 6 classification | files |
+|---|---|---|---|---|---|---|---|---|
+| exact C-smooth state S-bend | 1 / 1 / 1 | 984.9 / 1000 / 1016 | no / no / yes | 1.402 / 1.423 / 1.446 | 0.2365 / 0.2365 / 0.239 | True / True / True | trapped, robust to 1% | outputs/session5/trackC/runs/B4_orbit_sbend_1pct_x0.99_h8.json, outputs/session5/trackC/runs/B4_orbit_sbend_1pct_x1.01_h8.json |
+| jump S-bend 1.5 | 1 / 1 / 1 | 957.4 / 973.9 / 991.6 | no / no / no | 1.436 / 1.461 / 1.487 | 0.2414 / 0.2416 / 0.2414 | True / True / True | trapped, robust to 1% | outputs/session5/trackC/runs/B4_jump_sbend_w1.5_1pct_x0.99_h8.json, outputs/session5/trackC/runs/B4_jump_sbend_w1.5_1pct_x1.01_h8.json |
+
+### 2. Cycles reached by the jump and orbit rows (added after review)
+
+The C-smooth runs of the jump and exact starts end at a fixed time, which is 920 to 975 cycles of their measured rate, not 1,000. Their frac, twin and 'trapped' values in tables 1 to 5 are therefore taken at the end of the run, at:
+
+| start | h | cycles reached | 1,000 cycles reached | trapped (2.1) and the cycle count it is judged at |
+|---|---|---|---|---|
+| B3_jump_sbend_w1.2 | 1/4 | 970.5 | no (frac at end) | True (at 970.5 cycles) |
+| B3_jump_sbend_w1.2 | 1/8 | 938.2 | no (frac at end) | False (at 938.2 cycles) |
+| B3_jump_sbend_w1.2 | 1/16 | 949.1 | no (frac at end) | False (at 949.1 cycles) |
+| B3_jump_sbend_w1.5 | 1/4 | 970.4 | no (frac at end) | True (at 970.4 cycles) |
+| B3_jump_sbend_w1.5 | 1/8 | 973.9 | no (frac at end) | True (at 973.9 cycles) |
+| B3_jump_sbend_w1.5 | 1/16 | 974.7 | no (frac at end) | True (at 974.7 cycles) |
+| B3_jump_sbend_w2 | 1/4 | 919.8 | no (frac at end) | True (at 919.8 cycles) |
+| B3_jump_sbend_w2 | 1/8 | 922.8 | no (frac at end) | True (at 922.8 cycles) |
+| B3_jump_sbend_w2 | 1/16 | 923.6 | no (frac at end) | True (at 923.6 cycles) |
+| B3_jump_bump_w1.2 | 1/4 | 1072 | yes | held, but not by stiffening |
+| B3_jump_bump_w1.2 | 1/8 | 1184 | yes | False |
+| B3_jump_bump_w1.2 | 1/16 | 1073 | yes | False |
+| B3_jump_bump_w1.5 | 1/4 | 1157 | yes | held, but not by stiffening |
+| B3_jump_bump_w1.5 | 1/8 | 1261 | yes | False |
+| B3_jump_bump_w1.5 | 1/16 | 1066 | yes | held, but not by stiffening |
+| B4_orbit_sbend_s0.5_pk0.8 | 1/4 | 1000 | no (frac at end) | True (at 1000 cycles) |
+| B4_orbit_sbend_s0.5_pk0.8 | 1/8 | 1000 | no (frac at end) | True (at 1000 cycles) |
+| B4_orbit_sbend_s0.5_pk0.8 | 1/16 | 1000 | no (frac at end) | True (at 1000 cycles) |
+
+### 3. Definition changes made after the data were seen (added after review)
+
+- **C4 spectrum criterion.** The first criterion coded was 'a line at the rate or an odd overtone above 3 times its local spectral floor'. Under it the 5th-harmonic line at the 60-site probe of the sponge run (3.24 times its floor) would have made the spectrum part of C4 a miss, and C4 a miss overall. I replaced it by the Block 6 floor (the line's (omega A)^2 against 1e-5 E0) because the even harmonics, which symmetry forbids, sit at 1.5 to 2.0 times their floors: the floor is quantisation noise (the far-probe series are stored as float32, relative precision 6e-8, and the probe amplitudes are 1e-19 to 1e-21) and the 3x test fired on it. Leak bound added: the sponge absorbed 1.58e-15 of E0 over the 10,000 cycles (closed ring: 0; E conservation error 2.78e-08), so no more than that left the window in any form. Verdict under the first criterion: miss on the spectrum part; under the Block 6 floor: hit. Both are on record; the drift part is a hit under either (ratio 2.08e-04).
+- **O6 jump position.** Signed position of the largest jump gave a worst shift of 14 cells (the detector picks either of the two S-bend jumps at plus and minus 0.25); the distance from the centre gives 6 cells. The verdict is a miss under both definitions. All 9 held states (jump S-bend 1.5 and 2.0 and the exact S-bend, at h = 1/4, 1/8, 1/16) shift 0 cells (largest 0); the misses come from the starts that do not hold (jump S-bend 1.2 and the jump bumps).
+
+### 4. Push wording (added after review)
+
+Replaces 'pinned, no motion' for S-bend 2.3 and bump 2.3. The speed in tables A6 is a centroid fit after the first 10% of a long run (5,000 to 40,000 time units), which misses the early transit. The objects move and then stop. Maximum centroid excursions (sites):
+
+| case | maximum centroid excursion |
+|---|---|
+| sbend 2.1 | lambda 0.05: 99.07; lambda 0.1: 221.1; lambda 0.3: 279; lambda 1: 277.2; lambda 3: 292; lambda 10: 23.23; lambda 30: 0; lambda 100: 0 |
+| sbend 2.3 | lambda 0.05: 0.04721; lambda 0.1: 0.01792; lambda 0.3: 0.2086; lambda 1: 19.76; lambda 3: 5.604; lambda 10: 3.106; lambda 30: 0; lambda 100: 0 |
+| sbend 3 | lambda 0.05: 3.61e-04; lambda 0.1: 7.33e-04; lambda 0.3: 0.003482; lambda 1: 0.06739; lambda 3: 0.2358; lambda 10: 0; lambda 30: 0; lambda 100: 0 |
+| bump 2.3 | lambda 0.05: 0.05995; lambda 0.1: 0.295; lambda 0.3: 9.351; lambda 1: 8.508; lambda 3: 2.252; lambda 10: 0.08969; lambda 30: 0; lambda 100: 0 |
+
+The build's number is reproduced with the build's settings (diagnostics/DIAGNOSTICS.md, D1): S-bend 2.3 speed 0.0386 (lambda 0.5) and 0.0528 (lambda 1) over T = 300; 0.0026 and 0.0018 for T = 2000. The C5 row stays a miss: no push at 2.3 or 3.0 reaches 100 sites.
+
+### 5. Detail hidden by worst-case aggregation (added after review)
+
+- **O1 C-smooth.** 16 of 18 fits are within 1.7% of the linear tail law (worst of those 0.01692). The others: B3_jump_sbend_w1.2 h=1/8 measured 0.3367 against 2.753 (rel. error 0.8777); B3_jump_sbend_w1.2 h=1/16 measured 0.1681 against 4.897 (rel. error 0.9657).
+- **O10 clause by clause** (states trapped at all three h):
+
+| state | jump 0.04 to 0.3 from centre | one cell at every h | late rate h = 1/4, 1/8, 1/16 | first-order convergence of the rate |
+|---|---|---|---|---|
+| B3_jump_sbend_w1.5 | yes (0.25/0.25/0.25) | yes (1/1/1) | 1.456 / 1.461 / 1.462; ratio 3.866 | ratio outside [1.4, 3] |
+| B3_jump_sbend_w2 | yes (0.25/0.25/0.25) | yes (1/1/1) | 1.839 / 1.846 / 1.847; ratio 3.957 | ratio outside [1.4, 3] |
+| B4_orbit_sbend_s0.5_pk0.8 | yes (0.25/0.25/0.25) | yes (1/1/1) | 1.423 / 1.423 / 1.423; ratio 0.09858 | not a measurement (the rate is the Newton input 1.4231) |
+
+  For the exact state the convergence test is run on the orbit energy instead: E = 0.365 (h = 1/4), 0.3618 (1/8), 0.361 (1/16); differences ratio 3.995 (first order gives 2, second order 4).
+
+- **O5 absolute frac spread across h** (max minus min of frac at the reference time, per Gaussian start, 8 starts): median 0.0269, largest 0.1477; the relative spread used in the verdict (median 0.3025) is inflated by the starts with frac near zero.

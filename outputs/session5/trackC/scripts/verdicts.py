@@ -199,7 +199,7 @@ def v_C5(a6):
     return row("C5", "a trapped vibration can be moved with small loss at low speed; loss grows with speed",
                "2.3 C5 (as written): at the lowest push strength the object crosses 100 units with co-moving frac >= 0.90, and loss per unit distance does not decrease from one speed to the next; break speed = lowest measured speed with co-moving frac < 0.5 within 100 units",
                " | ".join(parts), "lowest push crosses 100 with frac >= 0.90; loss non-decreasing", v,
-               "literal reading applied; the 'alt reading' column gives the lowest push that does move the object", srcs), cases
+               "literal reading applied; the 'alt reading' column gives the lowest push that does move the object. Added after review: S-bend 2.3 and bump 2.3 are not pinned: they move 5 to 20 sites and stop (max excursions 19.8 and 9.4); the speed column is a fit after the first 10% of a long run (diagnostics D1)", srcs), cases
 
 
 def v_C6(c6):

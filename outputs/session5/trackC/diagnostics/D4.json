@@ -1,0 +1,32 @@
+{
+ "source": "outputs/session5/trackC/runs/A7_bump_w2.5.json",
+ "t_end": 502.6548245743669,
+ "centroid_final_shift": -0.5440389650873951,
+ "onset_centroid_5pct_of_max": 16.964600329384883,
+ "onset_centroid_t_shift_0.1": 28.723132832820966,
+ "cum_mean_u_centre": {
+  "onset_5pct_of_max": 0.0,
+  "max_abs": 0.4690343737602234,
+  "corr_with_centroid_shift": -0.31938375982779416,
+  "corr_after_first_10_cycles": -0.6499250120327884,
+  "onset_cycles": 0.0
+ },
+ "cum_mean_u_20": {
+  "onset_5pct_of_max": 68.39696005815492,
+  "max_abs": 9.184981127374147e-05,
+  "corr_with_centroid_shift": 0.16446360644150354,
+  "corr_after_first_10_cycles": 0.16102274710322903,
+  "onset_cycles": 27.214285714285715
+ },
+ "cum_mean_stretch_peak_bond": {
+  "onset_5pct_of_max": 0.0,
+  "max_abs": 0.7732969248292111,
+  "corr_with_centroid_shift": -0.31859779605365707,
+  "corr_after_first_10_cycles": -0.6456602017494716,
+  "onset_cycles": 0.0
+ },
+ "window_mean_u_20_onset": 68.84575900866776,
+ "corr_windowmean_u20_vs_centroid": 0.21045998311489486,
+ "cycles_centroid_0.25": 17.607142857142858,
+ "cycles_centroid_0.5": 24.42857142857143
+}

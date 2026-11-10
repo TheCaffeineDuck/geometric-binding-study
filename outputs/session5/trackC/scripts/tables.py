@@ -125,7 +125,7 @@ def tables_md(SUM, B9, B10, A1, A2, A3, A4, A5, A6, A7, brows, c6, sel, B5, B6, 
             c = lifetime_cells(r)
             rows.append(["C-smooth h=1/%d" % round(1 / r["h"]), tag, f(r["rate_late"]), "%s (%s cycles)" % (f(r["cap_t"]), f(r["cycles_at_end"])), c[0], c[1], c[2], c[3],
                          T(r["T_death_comoving"]), f(r["frac_end"]), f(r["frac_comoving_end"]), f(r["frac_fixed_1000cyc"]) if r["frac_ref_cycles_reached"] else "(1,000 cycles not reached)",
-                         f(r["twin_frac_ref"]), str(r["trapped_2_1"]), "yes" if r["guard"] else "no"])
+                         f(r["twin_frac_ref"]), str(r["trapped_2_1"]) + ("" if r["frac_ref_cycles_reached"] else " (judged at %s cycles reached; added after review)" % f(r["cycles_at_end"])), "yes" if r["guard"] else "no"])
     add(md(["medium", "start", "rate late", "cap", "T_90 (t)", "T_90 (cycles)", "T_death (t)", "T_death (cycles)", "T_death co-moving (t)", "frac fixed at cap", "frac co-moving at cap", "frac fixed at 1,000 cycles", "twin frac (same time)", "trapped (2.1)", "guard"], rows))
     add("")
     if B9:
