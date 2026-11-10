@@ -268,6 +268,8 @@ A 10^5 R run takes about 25 minutes. Two processes give about 50 R runs of 10^4 
 
 ## 10. Follow-up to the review (2026-11-10 evening)
 
+Sections 5 and 8 above are the first pass. Where they differ from this section, this section replaces them: family ends, energy minima, regime numbers, cost and defaults.
+
 The reviewer accepted the solver, the energies and the guard, and set six conditions for R. Old values are kept where something changed. The first-pass family tables are in `outputs/radial5/old/`.
 
 ### 10.1 Families through the folds (condition 1): done for O bump, O pinch and R bump; R pinch see 10.7
@@ -401,4 +403,18 @@ No Floquet rates were obtained.
 
 ### 10.7 R pinch through the fold
 
-FILLED BELOW
+The first continuation ran inside a multiprocessing Pool. Its worker died after about 2.5 h, and the Pool waited forever. The cause was not established: no traceback was logged, and memory is the likely suspect.
+
+One serial attempt: no Pool, a partial file after every point, `run_family5 --serial`. It reached 102 points in about 20 minutes, and I stopped it by hand. File: `outputs/radial5/family_R_pinch.json` (`partial: true`).
+
+| | Old (scan in omega) | New (continuation) |
+|---|---|---|
+| Rate range | 0.98651–0.99995; "ends" where the first non-undershoot reaches omega F = 1 | 0.986521–1 (104 rows) |
+| Fold in omega | not seen | at 0.986521 (F'(0) 0.284, E 494.7) |
+| Energy minimum | none, E fell to 524.0 at the end | interior, **E = 307.87 at omega 0.997247** (F'(0) 0.486) |
+| Signs of dE/domega, dN/domega | > 0 throughout | (+, +) lower branch, (−, −) from the fold to the minimum, (+, +) after it |
+
+- The upper branch does not reach the ansatz wall. As omega -> 1, the core tends to a fixed shape: F'(0) -> 0.5194, F_peak 0.985, hw 4.48, omega F_peak 0.985, X_max 0.970. E rises slowly (362.7 at omega 0.9999996) as the tail widens.
+- The end is "stopped by hand": each further point integrates to r ~ 60/eps.
+- Solver precision: median identity error 5.9e-7, max |Derrick| 1.3e-6.
+- **Open:** where the upper branch ends as eps -> 0, and whether a finite-amplitude object really persists as omega -> 1 in this ansatz.

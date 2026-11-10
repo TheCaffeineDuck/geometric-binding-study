@@ -62,6 +62,11 @@ def family(model, obj, max_points=300, wall_cap=None, partial_path=None):
     pts, reason = P.continue_family(mdl, max_points=max_points, wall_cap=wall_cap,
                                     on_point=save_partial, verbose=partial_path is not None)
     rows = [{k: p[k] for k in KEYS} | {"fixed": p.get("fixed", "omega")} for p in pts]
+    return analyse(model, obj, rows, reason, t0)
+
+
+def analyse(model, obj, rows, reason, t0):
+    """Folds, energy minima, sign runs, small-amplitude ratios for rows along the curve."""
     w = np.array([x["omega"] for x in rows])
     x = np.array([x["shoot_param"] for x in rows])
     E = np.array([x["E"] for x in rows])
@@ -150,7 +155,21 @@ def serial(combo, wall_cap=1200.0, max_points=150):
     print(combo, "done", len(out["rows"]), out["end"], path, flush=True)
 
 
+def finalize_partial(combo, reason):
+    """Analyse a partial family file (a run stopped by hand or by its caps)."""
+    import json
+    model, obj = combo.split("_")
+    with open(os.path.join(OUT, "family_%s.partial.json" % combo)) as fh:
+        d = json.load(fh)
+    out = analyse(model, obj, d["rows"], reason, time.time() - d["wall_s"])
+    out["partial"] = True
+    return write_json(os.path.join(OUT, "family_%s.json" % combo), out)
+
+
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "--finalize":
+        print(finalize_partial(sys.argv[2], sys.argv[3]))
+        sys.exit(0)
     if len(sys.argv) > 1 and sys.argv[1] == "--serial":
         serial(sys.argv[2], float(sys.argv[3]) if len(sys.argv) > 3 else 1200.0)
         sys.exit(0)
