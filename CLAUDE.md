@@ -26,7 +26,8 @@ A good delegation names the goal, the files to read first, the checks that defin
 
 These are guidelines with reasons, written so that nobody has to stop over a technicality.
 
-- **Hard stops, ask Aaron first:** pushing to any remote; cloud spend beyond the working budget below; changing the AWS plan, spend limit or advanced features; adding a dependency beyond numpy, scipy, numba, matplotlib and pytest; writing outside this folder; editing `legacy/`.
+- **Git and origin (github.com/TheCaffeineDuck/geometric-binding-study):** pull from origin at the start of every session. Push main and tags to origin at the end of every session once the tests pass. Never force-push. The repository is public, so never commit keys, tokens, passwords or private contact details. Never use `git add -A`, `git add .` or `git commit -a`, because `outputs/` is a symlink in the main working tree. Commit by explicit path.
+- **Hard stops, ask Aaron first:** pushing to any remote other than origin; cloud spend beyond the working budget below; changing the AWS plan, spend limit or advanced features; adding a dependency beyond numpy, scipy, numba, matplotlib and pytest; writing outside this folder; editing `legacy/`.
 - **Everything else is judgment.** If a guideline blocks sensible progress, take the reading that best serves the plan's question, note the deviation and the reason in the report, and continue.
 - **Tolerances are targets.** Report the measured value. Within about 3 times the target is a pass with a note. Beyond that is a miss.
 - **Scope guard.** Work should trace to a step in the plan. Other ideas go in the report's parking lot instead of becoming tasks.
