@@ -74,3 +74,17 @@ Source: `docs/SESSION_06_PLAN.md`.
 **2026-11-11. This repository becomes the public record.**
 The restart, which had never been pushed, was joined to the history of the first study in commit `2e67086` and pushed. From this date every session pulls at its start and pushes at its end.
 Source: `CLAUDE.md`, git history.
+
+## Which model orchestrated each session
+
+`CLAUDE.md` names Fable as the orchestrator. In practice:
+
+| Session | Orchestrator | Source |
+|---|---|---|
+| 1 | Opus 5.5 | `docs/SESSION_01_REPORT.md` |
+| 2 | Fable | `docs/SESSION_02_REPORT.md` |
+| 3 | Opus 5.5 | `docs/SESSION_03_REPORT.md` |
+| 4 | Opus 5.5 | Aaron, 2026-11-11. Not recorded in the report. |
+| 5 | Opus 5.5 | Aaron, 2026-11-11. Not recorded in the report. |
+
+The final text reviews of Sessions 4 and 5 required 20 and 44 corrections. Those sessions were also larger than the earlier ones, so this is not a clean comparison between models.
